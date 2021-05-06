@@ -9,6 +9,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Abschlussprojekt_EDDi">
+        <activity android:name=".Eintrag_Stuhl"></activity>
         <activity
             android:name=".MainActivity"
             android:label="@string/app_name"
