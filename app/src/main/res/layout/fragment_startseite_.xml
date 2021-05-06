@@ -6,11 +6,19 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".ui.main.Startseite_Fragment" >
 
+    <TableRow
+        android:id="@+id/row1"
+        android:layout_width="match_parent"
+        android:layout_height="3dp"
+        android:background="#9999cc"/>
+
     <LinearLayout
         android:id="@+id/linear1"
         android:layout_width="match_parent"
         android:layout_height="100dp"
-        android:baselineAligned="false">
+        android:baselineAligned="false"
+        android:layout_below="@+id/row1"
+        >
 
         <Space
             android:layout_width="wrap_content"
@@ -43,6 +51,14 @@
 
     </LinearLayout>
 
+    <TableRow
+        android:id="@+id/row2"
+        android:layout_width="match_parent"
+        android:layout_height="3dp"
+        android:layout_below="@id/linear1"
+        android:background="#9999cc"/>
+
+
     <TextView
         android:id="@+id/textViewFrage"
         android:layout_width="match_parent"
@@ -50,7 +66,7 @@
         android:text="@string/frage_schmerz"
         android:textSize="25sp"
         android:gravity="center"
-        android:layout_below="@id/linear1" />
+        android:layout_below="@id/row2" />
 
     <LinearLayout
         android:id="@+id/linear2"
@@ -69,14 +85,17 @@
             android:layout_height="match_parent"
             android:contentDescription="@string/sehr_gut"
             android:src="@drawable/vas_0"
-            android:clickable="true"/>
+            android:clickable="true"
+            android:focusable="true" />
 
         <ImageView
             android:id="@+id/VAS_1"
             android:layout_width="70dp"
             android:layout_height="match_parent"
             android:contentDescription="@string/gut"
-            android:src="@drawable/vas_1" />
+            android:src="@drawable/vas_1"
+            android:clickable="true"
+            android:focusable="true" />
 
         <ImageView
             android:id="@+id/VAS_2"
@@ -84,7 +103,8 @@
             android:layout_height="match_parent"
             android:contentDescription="@string/mittel"
             android:src="@drawable/vas_2"
-            android:clickable="true"/>
+            android:clickable="true"
+            android:focusable="true" />
 
         <ImageView
             android:id="@+id/VAS_3"
@@ -92,7 +112,8 @@
             android:layout_height="match_parent"
             android:contentDescription="@string/schlecht"
             android:src="@drawable/vas_3"
-            android:clickable="true"/>
+            android:clickable="true"
+            android:focusable="true" />
 
         <ImageView
             android:id="@+id/VAS_4"
@@ -100,7 +121,8 @@
             android:layout_height="match_parent"
             android:contentDescription="@string/sehr_schlecht"
             android:src="@drawable/vas_4"
-            android:clickable="true"/>
+            android:clickable="true"
+            android:focusable="true" />
 
         <Space
             android:layout_width="wrap_content"
@@ -108,47 +130,47 @@
             android:layout_weight="1" />
     </LinearLayout>
 
+    <TableRow
+        android:id="@+id/row3"
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:layout_below="@id/linear2"
+        android:background="#9999cc"/>
+
     <LinearLayout
         android:id="@+id/linear3"
         android:layout_width="match_parent"
         android:layout_height="48dp"
-        android:layout_below="@id/linear2"
-        android:orientation="horizontal">
-
-        <Space
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1" />
+        android:layout_below="@id/row3"
+        android:orientation="horizontal"
+        android:background="#9999cc">
 
         <TextView
             android:id="@+id/textviewStuhl"
-            android:layout_width="80dp"
+            android:layout_width="185dp"
             android:layout_height="match_parent"
+            android:layout_gravity="start"
             android:layout_weight="1"
+            android:background="@color/white"
             android:gravity="center"
-            android:layout_gravity="center"
-            android:text="@string/logbuch_stuhl"
-            android:background="@color/cardview_shadow_end_color"/>
+            android:text="@string/logbuch_stuhl" />
 
         <Space
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1" />
+            android:layout_width="3dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:layout_gravity="center"/>
 
         <TextView
             android:id="@+id/textViewEssen"
-            android:layout_width="80dp"
+            android:layout_width="185dp"
             android:layout_height="match_parent"
+            android:layout_gravity="end"
             android:layout_weight="1"
+            android:background="@color/white"
             android:gravity="center"
-            android:layout_gravity="center"
-            android:text="@string/logbuch_essen"
-            android:background="@color/cardview_shadow_end_color"/>
+            android:text="@string/logbuch_essen" />
 
-        <Space
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1" />
     </LinearLayout>
 
     <LinearLayout
@@ -157,34 +179,47 @@
         android:layout_height="369dp"
         android:layout_below="@id/linear3"
         android:orientation="horizontal"
-        android:baselineAligned="false">
+        android:baselineAligned="false"
+        android:background="#9999cc">
 
 
         <ScrollView
             android:id="@+id/scrollStuhl"
-            android:layout_width="219dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1">
+            android:layout_width="185dp"
+            android:layout_height="407dp"
+            android:layout_weight="1"
+            android:scrollbarStyle="outsideOverlay"
+            android:background="@color/white"
+            android:layout_gravity="start">
 
-                <TextView
-                    android:id="@+id/logbuchStuhl"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="@string/logbuch_stuhl_ansicht"
-                    />
+            <TextView
+                android:id="@+id/logbuchStuhl"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/logbuch_stuhl_ansicht"
+                android:verticalScrollbarPosition="right"/>
         </ScrollView>
+
+        <Space
+            android:layout_width="3dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:layout_gravity="center"/>
 
         <ScrollView
             android:id="@+id/scrollEssen"
-            android:layout_width="197dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1">
+            android:layout_width="185dp"
+            android:layout_height="418dp"
+            android:layout_weight="1"
+            android:verticalScrollbarPosition="right"
+            android:background="@color/white"
+            android:layout_gravity="end">
 
-                <TextView
-                    android:id="@+id/logbuchEssen"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="@string/logbuch_essen_ansicht" />
+            <TextView
+                android:id="@+id/logbuchEssen"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/logbuch_essen_ansicht" />
 
         </ScrollView>
     </LinearLayout>
