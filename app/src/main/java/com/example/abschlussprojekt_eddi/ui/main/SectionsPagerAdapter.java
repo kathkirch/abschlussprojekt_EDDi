@@ -8,10 +8,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 
-import com.example.abschlussprojekt_eddi.Kalender_Fragment;
 import com.example.abschlussprojekt_eddi.R;
-import com.example.abschlussprojekt_eddi.Startseite_Fragment;
-import com.example.abschlussprojekt_eddi.Statistik_Fragment;
 
 /**
  * A [FragmentPagerAdapter] that returns a fragment corresponding to
