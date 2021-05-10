@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -7,93 +8,138 @@
     android:orientation="vertical"
     tools:context=".Eintrag_Stuhl">
 
-    <TextView
-        android:id="@+id/textView_eintrag_stuhl"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Eintrag Stuhl" />
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:orientation="vertical">
 
         <TextView
-            android:layout_width="wrap_content"
+            android:id="@+id/textView_eintrag_stuhl"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Datum"/>
+            android:text="Eintrag Stuhl"
+            android:textSize="18sp"
+            android:layout_marginVertical="10dp"
+            android:layout_marginHorizontal="20dp"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="dd.mm.yyyy"
+                android:textSize="18sp"
+                android:layout_marginVertical="10dp"
+                android:layout_marginHorizontal="55dp"/>
+            <!-- Datum & Uhrzeit werden im Code generiert -->
+            <!-- Fragen: wie kann man die Werte dann noch ändern?-->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="hh:mm:ss"
+                android:textSize="18sp"
+                android:layout_marginVertical="10dp"
+                android:layout_marginHorizontal="55dp"/>
+
+        </LinearLayout>
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Uhrzeit" />
+            android:text="Bristol-Stuhl-Skala"
+            android:textSize="18sp"
+            android:layout_marginVertical="10dp"
+            android:layout_marginHorizontal="20dp"/>
+
+        <androidx.appcompat.widget.AppCompatSpinner
+            android:id="@+id/spinner_bristol"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="10dp"
+            android:layout_marginHorizontal="20dp"/>
+
+        <androidx.appcompat.widget.SwitchCompat
+            android:id="@+id/switch_blut"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Blut"
+            android:textSize="18sp"
+            android:layout_marginVertical="10dp"
+            android:layout_marginHorizontal="20dp"/>
+
+        <androidx.appcompat.widget.SwitchCompat
+            android:id="@+id/switch_schmerzen"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Schmerzen"
+            android:textSize="18sp"
+            android:layout_marginVertical="10dp"
+            android:layout_marginHorizontal="20dp"/>
+
+        <androidx.appcompat.widget.AppCompatSpinner
+            android:id="@+id/spinner_farben"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="10dp"
+            android:layout_marginHorizontal="20dp"/>
+
+        <androidx.appcompat.widget.SwitchCompat
+            android:id="@+id/switch_unverdaute_nahrung"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Unverdaute Nahrung"
+            android:textSize="18sp"
+            android:layout_marginVertical="10dp"
+            android:layout_marginHorizontal="20dp"/>
+
+        <androidx.appcompat.widget.AppCompatSpinner
+            android:id="@+id/spinner_schleim"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="10dp"
+            android:layout_marginHorizontal="20dp"/>
+
+        <androidx.appcompat.widget.AppCompatSpinner
+            android:id="@+id/spinner_menge"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Notizen"
+            android:textSize="18sp"
+            android:layout_marginTop="10dp"
+            android:layout_marginHorizontal="20dp"/>
+
+        <EditText
+            android:id="@+id/editText_notizen"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="18sp"
+            android:layout_marginBottom="10dp"
+            android:layout_marginHorizontal="20dp"/>
+
+        <ImageButton
+            android:id="@+id/imageButton_kamera"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="10dp"
+            android:layout_marginHorizontal="20dp"/>
+
+        <Button
+            android:id="@+id/button_stuhlgang_speichern"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Spülen"
+            android:textSize="18sp"
+            android:layout_marginVertical="10dp"
+            android:layout_marginHorizontal="60dp"/>
+
 
     </LinearLayout>
+</ScrollView>
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Bristol-Stuhl-Skala"/>
-
-    <androidx.appcompat.widget.AppCompatSpinner
-        android:id="@+id/spinner_bristol"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
-
-    <androidx.appcompat.widget.SwitchCompat
-        android:id="@+id/switch_blut"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Blut"/>
-
-    <androidx.appcompat.widget.SwitchCompat
-        android:id="@+id/switch_schmerzen"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Schmerzen"/>
-
-    <androidx.appcompat.widget.AppCompatSpinner
-        android:id="@+id/spinner_farben"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
-
-    <androidx.appcompat.widget.SwitchCompat
-        android:id="@+id/switch_unverdaute_nahrung"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Unverdaute Nahrung"/>
-
-    <androidx.appcompat.widget.AppCompatSpinner
-        android:id="@+id/spinner_schleim"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
-
-    <androidx.appcompat.widget.AppCompatSpinner
-        android:id="@+id/spinner_menge"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Notizen"/>
-
-    <EditText
-        android:id="@+id/editText_notizen"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
-
-    <ImageButton
-        android:id="@+id/imageButton_kamera"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-
-    <Button
-        android:id="@+id/button_stuhlgang_speichern"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Spülen"/>
-
-
-
-</LinearLayout>
