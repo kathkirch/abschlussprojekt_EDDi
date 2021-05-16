@@ -16,17 +16,21 @@
             android:id="@+id/textView_einstellungen"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Einstellungen"
-            android:textSize="18dp"
+            android:text="@string/einstellungen"
+            android:textSize="22sp"
+            android:textColor="@color/white"
             android:layout_marginVertical="10dp"
-            android:layout_marginHorizontal="20dp"/>
+            android:layout_marginHorizontal="20dp"
+            android:padding="4dp"
+            android:textAlignment="center"
+            android:background="@drawable/title_style"/>
 
         <TextView
             android:id="@+id/textView_Nutzerprofil"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Nutzerprofil"
-            android:textSize="18dp"
+            android:text="@string/nutzerprofil"
+            android:textSize="20sp"
             android:layout_marginVertical="10dp"
             android:layout_marginHorizontal="20dp"/>
 
@@ -39,8 +43,8 @@
                 android:id="@+id/textView_einstellungen_vname"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Vorname"
-                android:textSize="18dp"
+                android:text="@string/vorname"
+                android:textSize="18sp"
                 android:layout_marginVertical="10dp"
                 android:layout_marginHorizontal="20dp"/>
 
@@ -50,8 +54,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="20dp"
                 android:layout_marginVertical="10dp"
-                android:hint="vname"
-                android:textSize="18dp" />
+                android:hint="@string/vname"
+                android:textSize="18sp" />
 
         </LinearLayout>
 
@@ -64,8 +68,8 @@
                 android:id="@+id/textView_einstellungen_nname"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Nachname"
-                android:textSize="18dp"
+                android:text="@string/nachname"
+                android:textSize="18sp"
                 android:layout_marginVertical="10dp"
                 android:layout_marginHorizontal="20dp"/>
 
@@ -73,8 +77,8 @@
                 android:id="@+id/editText_einstellungen_nname"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:hint="nname"
-                android:textSize="18dp"
+                android:hint="@string/nname"
+                android:textSize="18sp"
                 android:layout_marginVertical="10dp"
                 android:layout_marginHorizontal="20dp"/>
 
@@ -89,8 +93,8 @@
                 android:id="@+id/textView_einstellungen_gebDat"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Geburtsdatum"
-                android:textSize="18dp"
+                android:text="@string/geburtsdatum"
+                android:textSize="18sp"
                 android:layout_marginVertical="10dp"
                 android:layout_marginHorizontal="20dp"/>
 
@@ -98,8 +102,8 @@
                 android:id="@+id/editText_einstellungen_gebDat"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:hint="gebDat"
-                android:textSize="18dp"
+                android:hint="@string/gebdat"
+                android:textSize="18sp"
                 android:layout_marginVertical="10dp"
                 android:layout_marginHorizontal="20dp"/>
 
@@ -114,8 +118,8 @@
                 android:id="@+id/textView_einstellungen_groesse"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Größe"
-                android:textSize="18dp"
+                android:text="@string/groesse"
+                android:textSize="18sp"
                 android:layout_marginVertical="10dp"
                 android:layout_marginHorizontal="20dp"/>
 
@@ -123,8 +127,8 @@
                 android:id="@+id/editText_einstellungen_groesse"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:hint="groesse"
-                android:textSize="18dp"
+                android:hint="@string/groesse_hint"
+                android:textSize="18sp"
                 android:layout_marginVertical="10dp"
                 android:layout_marginHorizontal="20dp"/>
 
@@ -139,8 +143,8 @@
                 android:id="@+id/textView_einstellungen_gewicht"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Gewicht"
-                android:textSize="18dp"
+                android:text="@string/gewicht"
+                android:textSize="18sp"
                 android:layout_marginVertical="10dp"
                 android:layout_marginHorizontal="20dp"/>
 
@@ -148,8 +152,8 @@
                 android:id="@+id/editText_einstellungen_gewicht"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:hint="gewicht"
-                android:textSize="18dp"
+                android:hint="@string/gewicht_hint"
+                android:textSize="18sp"
                 android:layout_marginVertical="10dp"
                 android:layout_marginHorizontal="20dp"/>
 
@@ -164,8 +168,8 @@
                 android:id="@+id/textView_einstellungen_nutzername"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Nutzername"
-                android:textSize="18dp"
+                android:text="@string/nutzername_einstellunge"
+                android:textSize="18sp"
                 android:layout_marginVertical="10dp"
                 android:layout_marginHorizontal="20dp"/>
 
@@ -173,8 +177,8 @@
                 android:id="@+id/TextView_einstellungen_nutzername_ausgewaehlt"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="nutzername"
-                android:textSize="18dp"
+                android:text="@string/nutzername_hint"
+                android:textSize="18sp"
                 android:layout_marginVertical="10dp"
                 android:layout_marginHorizontal="20dp"/>
 
@@ -189,8 +193,8 @@
                 android:id="@+id/textView_einstellungen_pw"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Passwort"
-                android:textSize="18dp"
+                android:text="@string/pin_einstellungen"
+                android:textSize="18sp"
                 android:layout_marginVertical="10dp"
                 android:layout_marginHorizontal="20dp"/>
 
@@ -198,26 +202,32 @@
                 android:id="@+id/TextView_einstellungen_pw_ausgewaehlt"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="****"
-                android:textSize="18dp"
+                android:text="@string/pin_hint"
+                android:textSize="18sp"
                 android:layout_marginVertical="10dp"
                 android:layout_marginHorizontal="20dp"/>
 
         </LinearLayout>
 
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/divider_color"
+            android:layout_marginTop="30dp"/>
+
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Informationen"
-            android:textSize="18dp"
-            android:layout_marginTop="30dp"
+            android:text="@string/informationen"
+            android:textSize="20sp"
+            android:layout_marginTop="10dp"
             android:layout_marginHorizontal="20dp"/>
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Verantwortliche: Kathi und Lisa :)"
-            android:textSize="18dp"
+            android:text="@string/verantwortliche"
+            android:textSize="18sp"
             android:layout_marginVertical="10dp"
             android:layout_marginHorizontal="20dp"/>
 

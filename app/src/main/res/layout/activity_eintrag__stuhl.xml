@@ -17,10 +17,19 @@
             android:id="@+id/textView_eintrag_stuhl"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Eintrag Stuhl"
-            android:textSize="18sp"
+            android:text="@string/eintrag_stuhl"
+            android:textSize="22sp"
+            android:textColor="@color/white"
             android:layout_marginVertical="10dp"
-            android:layout_marginHorizontal="20dp"/>
+            android:layout_marginHorizontal="20dp"
+            android:padding="4dp"
+            android:textAlignment="center"
+            android:background="@drawable/title_style"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/divider_color" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -30,26 +39,31 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="dd.mm.yyyy"
-                android:textSize="18sp"
+                android:layout_marginHorizontal="55dp"
                 android:layout_marginVertical="10dp"
-                android:layout_marginHorizontal="55dp"/>
+                android:text="dd.mm.yyyy"
+                android:textSize="18sp" />
             <!-- Datum & Uhrzeit werden im Code generiert -->
             <!-- Fragen: wie kann man die Werte dann noch ändern?-->
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="hh:mm:ss"
-                android:textSize="18sp"
+                android:layout_marginHorizontal="55dp"
                 android:layout_marginVertical="10dp"
-                android:layout_marginHorizontal="55dp"/>
+                android:text="hh:mm:ss"
+                android:textSize="18sp" />
 
         </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/divider_color" />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Bristol-Stuhl-Skala"
+            android:text="@string/bristol_stuhlformen_skala"
             android:textSize="18sp"
             android:layout_marginVertical="10dp"
             android:layout_marginHorizontal="20dp"/>
@@ -65,7 +79,7 @@
             android:id="@+id/switch_blut"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Blut"
+            android:text="@string/blut"
             android:textSize="18sp"
             android:layout_marginVertical="10dp"
             android:layout_marginHorizontal="20dp"/>
@@ -74,7 +88,7 @@
             android:id="@+id/switch_schmerzen"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Schmerzen"
+            android:text="@string/schmerzen"
             android:textSize="18sp"
             android:layout_marginVertical="10dp"
             android:layout_marginHorizontal="20dp"/>
@@ -90,7 +104,7 @@
             android:id="@+id/switch_unverdaute_nahrung"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Unverdaute Nahrung"
+            android:text="@string/unverdaute_nahrung"
             android:textSize="18sp"
             android:layout_marginVertical="10dp"
             android:layout_marginHorizontal="20dp"/>
@@ -105,12 +119,14 @@
         <androidx.appcompat.widget.AppCompatSpinner
             android:id="@+id/spinner_menge"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="10dp"
+            android:layout_marginHorizontal="20dp"/>
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Notizen"
+            android:text="@string/notizen"
             android:textSize="18sp"
             android:layout_marginTop="10dp"
             android:layout_marginHorizontal="20dp"/>
@@ -128,16 +144,20 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginVertical="10dp"
-            android:layout_marginHorizontal="20dp"/>
+            android:layout_marginHorizontal="150dp"
+            android:src="@drawable/camera"
+            android:background="@android:color/transparent"/>
 
         <Button
             android:id="@+id/button_stuhlgang_speichern"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Spülen"
+            android:text="@string/spuelen"
             android:textSize="18sp"
+            android:textColor="@color/white"
             android:layout_marginVertical="10dp"
-            android:layout_marginHorizontal="60dp"/>
+            android:layout_marginHorizontal="60dp"
+            android:background="@drawable/button_style"/>
 
 
     </LinearLayout>
