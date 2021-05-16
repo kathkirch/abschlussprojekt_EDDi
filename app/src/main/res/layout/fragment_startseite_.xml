@@ -140,14 +140,14 @@
     <LinearLayout
         android:id="@+id/linear3"
         android:layout_width="match_parent"
-        android:layout_height="48dp"
+        android:layout_height="47dp"
         android:layout_below="@id/row3"
-        android:orientation="horizontal"
-        android:background="#9999cc">
+        android:background="#9999cc"
+        android:orientation="horizontal">
 
         <TextView
             android:id="@+id/textviewStuhl"
-            android:layout_width="185dp"
+            android:layout_width="180dp"
             android:layout_height="match_parent"
             android:layout_gravity="start"
             android:layout_weight="1"
@@ -158,12 +158,12 @@
         <Space
             android:layout_width="3dp"
             android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:layout_gravity="center"/>
+            android:layout_gravity="center"
+            android:layout_weight="1" />
 
         <TextView
             android:id="@+id/textViewEssen"
-            android:layout_width="185dp"
+            android:layout_width="180dp"
             android:layout_height="match_parent"
             android:layout_gravity="end"
             android:layout_weight="1"
@@ -176,51 +176,50 @@
     <LinearLayout
         android:id="@+id/linear4"
         android:layout_width="match_parent"
-        android:layout_height="369dp"
+        android:layout_height="421dp"
         android:layout_below="@id/linear3"
-        android:orientation="horizontal"
+        android:background="#9999cc"
         android:baselineAligned="false"
-        android:background="#9999cc">
+        android:orientation="horizontal">
 
 
         <ScrollView
             android:id="@+id/scrollStuhl"
-            android:layout_width="185dp"
-            android:layout_height="407dp"
+            android:layout_width="180dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="start"
             android:layout_weight="1"
-            android:scrollbarStyle="outsideOverlay"
-            android:background="@color/white"
-            android:layout_gravity="start">
+            android:background="@color/white">
 
             <TextView
                 android:id="@+id/logbuchStuhl"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_width="175dp"
+                android:layout_height="match_parent"
                 android:hint="@string/logbuch_stuhl_ansicht"
-                android:verticalScrollbarPosition="right"/>
+                android:text="@string/large_text"/>
         </ScrollView>
 
         <Space
             android:layout_width="3dp"
             android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:layout_gravity="center"/>
+            android:layout_gravity="center"
+            android:layout_weight="1" />
 
         <ScrollView
             android:id="@+id/scrollEssen"
-            android:layout_width="185dp"
-            android:layout_height="418dp"
+            android:layout_width="180dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="end"
             android:layout_weight="1"
-            android:verticalScrollbarPosition="right"
             android:background="@color/white"
-            android:layout_gravity="end">
+            android:scrollbarAlwaysDrawHorizontalTrack="false"
+            android:verticalScrollbarPosition="right">
 
             <TextView
                 android:id="@+id/logbuchEssen"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_width="175dp"
+                android:layout_height="match_parent"
                 android:hint="@string/logbuch_essen_ansicht" />
-
         </ScrollView>
     </LinearLayout>
 </RelativeLayout>

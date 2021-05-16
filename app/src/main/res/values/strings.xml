@@ -108,4 +108,26 @@
     <string name="mittel">mittel</string>
     <string name="schlecht">schlecht</string>
     <string name="sehr_schlecht">sehr_schlecht</string>
+    <string name="eintraege_des_tages">Einträge des Tages:</string>
+    <string name="eintraege_vom_tag">Einträge vom Tag</string>
+    <string name="title_activity_anmeldung">Anmeldung</string>
+    <!-- Strings used for fragments for navigation -->
+    <string name="first_fragment_label">First Fragment</string>
+    <string name="second_fragment_label">Second Fragment</string>
+    <string name="next">Next</string>
+    <string name="previous">Previous</string>
+
+    <string name="hello_first_fragment">Hello first fragment</string>
+    <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
+    <string name="nutzerprofil">Nutzerprofil</string>
+    <string name="_01_01_2000">01.01.2000</string>
+    <string name="musterfrau">Musterfrau</string>
+    <string name="maxima">Maxima</string>
+    <string name="nachname">Nachname:</string>
+    <string name="geburtsdatum">Geburtsdatum:</string>
+    <string name="groesse_cm">Größe (cm)</string>
+    <string name="gewicht_kg">Gewicht (kg)</string>
+    <string name="nutzername">Nutzername:</string>
+    <string name="pin_4_stellig">PIN (4-stellig)</string>
+    <string name="speichern">SPEICHERN</string>
 </resources>
