@@ -10,7 +10,7 @@
         android:id="@+id/row1"
         android:layout_width="match_parent"
         android:layout_height="3dp"
-        android:background="#9999cc"/>
+        android:background="@color/divider_color"/>
 
     <LinearLayout
         android:id="@+id/linear1"
@@ -31,7 +31,8 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:text="@string/stuhl"
-            android:background="@drawable/button_style"/>
+            android:textColor="@color/white"
+            android:background="@drawable/entry_button_style"/>
 
         <Space
             android:layout_width="wrap_content"
@@ -43,7 +44,9 @@
             android:layout_width="116dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="@string/essen" />
+            android:background="@drawable/entry_button_style"
+            android:text="@string/essen"
+            android:textColor="@color/white"/>
 
         <Space
             android:layout_width="wrap_content"
@@ -57,7 +60,7 @@
         android:layout_width="match_parent"
         android:layout_height="3dp"
         android:layout_below="@id/linear1"
-        android:background="#9999cc"/>
+        android:background="@color/divider_color"/>
 
 
     <TextView
@@ -137,14 +140,14 @@
         android:layout_width="match_parent"
         android:layout_height="2dp"
         android:layout_below="@id/linear2"
-        android:background="#9999cc"/>
+        android:background="@color/divider_color"/>
 
     <LinearLayout
         android:id="@+id/linear3"
         android:layout_width="match_parent"
         android:layout_height="47dp"
         android:layout_below="@id/row3"
-        android:background="#9999cc"
+        android:background="@color/divider_color"
         android:orientation="horizontal">
 
         <TextView
@@ -180,7 +183,7 @@
         android:layout_width="match_parent"
         android:layout_height="421dp"
         android:layout_below="@id/linear3"
-        android:background="#9999cc"
+        android:background="@color/divider_color"
         android:baselineAligned="false"
         android:orientation="horizontal">
 
