@@ -6,6 +6,8 @@
     tools:context=".Anmeldung">
 
 
+
+
     <LinearLayout
         android:id="@+id/lin1"
         android:layout_width="match_parent"
@@ -26,7 +28,6 @@
             android:layout_height="match_parent"
             android:hint="@string/maxima">
         </EditText>
-
     </LinearLayout>
 
     <LinearLayout
@@ -49,7 +50,8 @@
             android:id="@+id/editNachname"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:hint="@string/musterfrau"></EditText>
+            android:hint="@string/musterfrau">
+        </EditText>
 
     </LinearLayout>
 

@@ -19,26 +19,18 @@
         app:selectionColor="@color/dark_goldenrod"
         />
 
-    <TableRow
-        android:layout_width="match_parent"
-        android:layout_height="5dp"
-        android:background="#9999cc">
-    </TableRow>
 
     <TextView
         android:layout_width="match_parent"
-        android:layout_height="20dp"
+        android:layout_height="wrap_content"
         android:text="@string/eintraege_des_tages"
         android:gravity="center"
         android:textColor="@color/white"
-        android:background="#9999cc">
+        android:background="@drawable/title_style"
+        android:textSize="20sp"
+        android:padding="4dp">
     </TextView>
 
-    <TableRow
-        android:layout_width="match_parent"
-        android:layout_height="5dp"
-        android:background="#9999cc">
-    </TableRow>
 
     <EditText
         android:layout_width="match_parent"
