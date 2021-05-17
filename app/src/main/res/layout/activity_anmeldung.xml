@@ -18,7 +18,7 @@
             android:layout_height="match_parent"
             android:gravity="center"
             android:textSize="20dp"
-            android:text="Vorname:" />
+            android:text="@string/vorname_anmeldung" />
 
         <EditText
             android:id="@+id/editVorname"
