@@ -1,14 +1,52 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.main.Kalender_Fragment">
+    tools:context=".ui.main.Kalender_Fragment"
+    android:orientation="vertical"
+    >
 
     <!-- TODO: Update blank fragment layout -->
+
+    <com.applandeo.materialcalendarview.CalendarView
+        android:id="@+id/calendarView"
+        android:layout_width="match_parent"
+        android:layout_height="333dp"
+        app:datePicker="true"
+        app:headerColor="@color/rosy_brown"
+        app:selectionColor="@color/dark_goldenrod"
+        />
+
+    <TableRow
+        android:layout_width="match_parent"
+        android:layout_height="5dp"
+        android:background="#9999cc">
+    </TableRow>
+
     <TextView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_height="20dp"
+        android:text="@string/eintraege_des_tages"
+        android:gravity="center"
+        android:textColor="@color/white"
+        android:background="#9999cc">
+    </TextView>
 
-</FrameLayout>
+    <TableRow
+        android:layout_width="match_parent"
+        android:layout_height="5dp"
+        android:background="#9999cc">
+    </TableRow>
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="347dp"
+        android:text="@string/eintraege_vom_tag"
+        android:gravity="start"
+        android:keyboardNavigationCluster="true">
+    </EditText>
+
+
+</LinearLayout>

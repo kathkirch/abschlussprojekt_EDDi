@@ -1,80 +1,225 @@
 <?xml version="1.0" encoding="utf-8"?>
-<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".ui.main.Startseite_Fragment"
-    android:collapseColumns="2"> <!-- collapse the first column of the table row-->
-
+    tools:context=".ui.main.Startseite_Fragment" >
 
     <TableRow
-        android:layout_width="288dp"
-        android:layout_height="34dp"
+        android:id="@+id/row1"
+        android:layout_width="match_parent"
+        android:layout_height="3dp"
+        android:background="#9999cc"/>
+
+    <LinearLayout
+        android:id="@+id/linear1"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:baselineAligned="false"
+        android:layout_below="@+id/row1"
         >
 
-        <Button
-            android:id="@+id/button"
-            android:layout_width="154dp"
+        <Space
+            android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:text="Button" />
+            android:layout_weight="1" />
 
         <Button
-            android:id="@+id/button2"
-            android:layout_width="181dp"
-            android:layout_height="61dp"
-            android:text="Button" />
+            android:id="@+id/stuhl_button"
+            android:layout_width="116dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="@string/stuhl" />
 
-    </TableRow>
+        <Space
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1" />
+
+        <Button
+            android:id="@+id/essen_button"
+            android:layout_width="116dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="@string/essen" />
+
+        <Space
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1" />
+
+    </LinearLayout>
 
     <TableRow
-        android:layout_height="wrap_content"
-        android:layout_width="wrap_content"
-        >
+        android:id="@+id/row2"
+        android:layout_width="match_parent"
+        android:layout_height="3dp"
+        android:layout_below="@id/linear1"
+        android:background="#9999cc"/>
+
+
+    <TextView
+        android:id="@+id/textViewFrage"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:text="@string/frage_schmerz"
+        android:textSize="25sp"
+        android:gravity="center"
+        android:layout_below="@id/row2" />
+
+    <LinearLayout
+        android:id="@+id/linear2"
+        android:layout_width="match_parent"
+        android:layout_height="84dp"
+        android:layout_below="@id/textViewFrage">
+
+        <Space
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" />
+
+        <ImageView
+            android:id="@+id/VAS_0"
+            android:layout_width="70dp"
+            android:layout_height="match_parent"
+            android:contentDescription="@string/sehr_gut"
+            android:src="@drawable/vas_0"
+            android:clickable="true"
+            android:focusable="true" />
+
+        <ImageView
+            android:id="@+id/VAS_1"
+            android:layout_width="70dp"
+            android:layout_height="match_parent"
+            android:contentDescription="@string/gut"
+            android:src="@drawable/vas_1"
+            android:clickable="true"
+            android:focusable="true" />
+
+        <ImageView
+            android:id="@+id/VAS_2"
+            android:layout_width="70dp"
+            android:layout_height="match_parent"
+            android:contentDescription="@string/mittel"
+            android:src="@drawable/vas_2"
+            android:clickable="true"
+            android:focusable="true" />
+
+        <ImageView
+            android:id="@+id/VAS_3"
+            android:layout_width="70dp"
+            android:layout_height="match_parent"
+            android:contentDescription="@string/schlecht"
+            android:src="@drawable/vas_3"
+            android:clickable="true"
+            android:focusable="true" />
+
+        <ImageView
+            android:id="@+id/VAS_4"
+            android:layout_width="70dp"
+            android:layout_height="match_parent"
+            android:contentDescription="@string/sehr_schlecht"
+            android:src="@drawable/vas_4"
+            android:clickable="true"
+            android:focusable="true" />
+
+        <Space
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" />
+    </LinearLayout>
+
+    <TableRow
+        android:id="@+id/row3"
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:layout_below="@id/linear2"
+        android:background="#9999cc"/>
+
+    <LinearLayout
+        android:id="@+id/linear3"
+        android:layout_width="match_parent"
+        android:layout_height="47dp"
+        android:layout_below="@id/row3"
+        android:background="#9999cc"
+        android:orientation="horizontal">
 
         <TextView
-            android:id="@+id/textView3"
-            android:layout_width="wrap_content"
-            android:layout_height="49dp"
-            android:text="Wie geht es dir heute?" />
+            android:id="@+id/textviewStuhl"
+            android:layout_width="180dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="start"
+            android:layout_weight="1"
+            android:background="@color/white"
+            android:gravity="center"
+            android:text="@string/logbuch_stuhl" />
 
-    </TableRow>
+        <Space
+            android:layout_width="3dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:layout_weight="1" />
 
-    <TableRow
-        android:layout_height="wrap_content"
-        android:layout_width="wrap_content"
-        >
+        <TextView
+            android:id="@+id/textViewEssen"
+            android:layout_width="180dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="end"
+            android:layout_weight="1"
+            android:background="@color/white"
+            android:gravity="center"
+            android:text="@string/logbuch_essen" />
 
-        <ImageView
-            android:id="@+id/imageView"
-            android:layout_width="82dp"
-            android:layout_height="95dp"
-            tools:src="@tools:sample/avatars" />
+    </LinearLayout>
 
-        <ImageView
-            android:id="@+id/imageView2"
-            android:layout_width="65dp"
-            android:layout_height="94dp"
-            tools:src="@tools:sample/avatars" />
-
-        <ImageView
-            android:id="@+id/imageView3"
-            android:layout_width="70dp"
-            android:layout_height="92dp"
-            tools:src="@tools:sample/avatars" />
-
-        <ImageView
-            android:id="@+id/imageView4"
-            android:layout_width="65dp"
-            android:layout_height="82dp"
-            tools:src="@tools:sample/avatars" />
-
-        <ImageView
-            android:id="@+id/imageView5"
-            android:layout_width="65"
-            android:layout_height="wrap_content"
-            tools:src="@tools:sample/avatars" />
-
-    </TableRow>
+    <LinearLayout
+        android:id="@+id/linear4"
+        android:layout_width="match_parent"
+        android:layout_height="421dp"
+        android:layout_below="@id/linear3"
+        android:background="#9999cc"
+        android:baselineAligned="false"
+        android:orientation="horizontal">
 
 
-</TableLayout>
+        <ScrollView
+            android:id="@+id/scrollStuhl"
+            android:layout_width="180dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="start"
+            android:layout_weight="1"
+            android:background="@color/white">
+
+            <TextView
+                android:id="@+id/logbuchStuhl"
+                android:layout_width="175dp"
+                android:layout_height="match_parent"
+                android:hint="@string/logbuch_stuhl_ansicht"
+                android:text="@string/large_text"/>
+        </ScrollView>
+
+        <Space
+            android:layout_width="3dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:layout_weight="1" />
+
+        <ScrollView
+            android:id="@+id/scrollEssen"
+            android:layout_width="180dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="end"
+            android:layout_weight="1"
+            android:background="@color/white"
+            android:scrollbarAlwaysDrawHorizontalTrack="false"
+            android:verticalScrollbarPosition="right">
+
+            <TextView
+                android:id="@+id/logbuchEssen"
+                android:layout_width="175dp"
+                android:layout_height="match_parent"
+                android:hint="@string/logbuch_essen_ansicht" />
+        </ScrollView>
+    </LinearLayout>
+</RelativeLayout>

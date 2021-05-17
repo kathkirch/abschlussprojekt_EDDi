@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Anmeldung">
+
+
+    <LinearLayout
+        android:id="@+id/lin1"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/textVorname"
+            android:layout_width="170dp"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:textSize="20dp"
+            android:text="Vorname:" />
+
+        <EditText
+            android:id="@+id/editVorname"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:hint="@string/maxima">
+        </EditText>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/lin2"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_below="@id/lin1"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/textNachname"
+            android:layout_width="170dp"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:textSize="20dp"
+            android:text="@string/nachname">
+        </TextView>
+
+        <EditText
+            android:id="@+id/editNachname"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:hint="@string/musterfrau"></EditText>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/lin3"
+        android:layout_below="@id/lin2"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/textGeburtstag"
+            android:layout_width="170dp"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:textSize="20dp"
+            android:text="@string/geburtsdatum">
+        </TextView>
+
+        <EditText
+            android:id="@+id/editGeburtsdatum"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:ems="10"
+            android:inputType="date"
+            android:hint="@string/_01_01_2000"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/lin4"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:orientation="horizontal"
+        android:layout_below="@id/lin3">
+
+        <TextView
+            android:id="@+id/textGroesse"
+            android:layout_width="170dp"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:textSize="20dp"
+            android:text="@string/groesse_cm">
+        </TextView>
+
+        <EditText
+            android:id="@+id/editGroesse"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:ems="10"
+            android:inputType="numberSigned"
+            android:hint="165"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/lin5"
+        android:layout_below="@id/lin4"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/textGewicht"
+            android:layout_width="170dp"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:textSize="20dp"
+            android:text="@string/gewicht_kg">
+        </TextView>
+
+        <EditText
+            android:id="@+id/editGewicht"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:ems="10"
+            android:inputType="numberDecimal"
+            android:hint="60,5"/>
+
+    </LinearLayout>
+
+    <TableRow
+        android:id="@+id/row1"
+        android:layout_below="@id/lin5"
+        android:layout_width="match_parent"
+        android:layout_height="20dp">
+    </TableRow>
+
+    <TextView
+        android:id="@+id/textNutzerdaten"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:layout_below="@id/row1"
+        android:text="@string/nutzerprofil" />
+
+    <LinearLayout
+        android:id="@+id/lin6"
+        android:layout_below="@id/textNutzerdaten"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/textBenutzer"
+            android:layout_width="170dp"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:textSize="20dp"
+            android:text="@string/nutzername">
+        </TextView>
+
+        <EditText
+            android:id="@+id/editBenutzername"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+        </EditText>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/lin7"
+        android:layout_below="@id/lin6"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/textPasswort"
+            android:layout_width="170dp"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:textSize="20dp"
+            android:text="@string/pin_4_stellig">
+        </TextView>
+
+        <EditText
+            android:id="@+id/editTextNumberPassword"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:ems="10"
+            android:inputType="numberPassword" />
+
+    </LinearLayout>
+
+    <Space
+        android:id="@+id/space1"
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:layout_below="@id/lin7"/>
+
+    <Button
+        android:id="@+id/speichernButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/space1"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_gravity="center"
+        android:layout_marginTop="0dp"
+        android:layout_marginEnd="145dp"
+        android:layout_marginRight="145dp"
+        android:text="@string/speichern">
+    </Button>
+
+
+</RelativeLayout>
