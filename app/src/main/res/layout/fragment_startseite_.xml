@@ -30,7 +30,8 @@
             android:layout_width="116dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="@string/stuhl" />
+            android:text="@string/stuhl"
+            android:background="@drawable/button_style"/>
 
         <Space
             android:layout_width="wrap_content"
