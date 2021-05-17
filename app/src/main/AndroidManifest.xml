@@ -10,7 +10,7 @@
         android:largeHeap="true"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.Abschlussprojekt_EDDi.NoActionBar">
+        android:theme="@style/EDDi_layout">
         <activity android:name=".Anmeldung"/>
         <activity android:name=".Login" />
         <activity android:name=".Einstellungen" />
@@ -19,7 +19,7 @@
         <activity
             android:name=".MainActivity"
             android:label="@string/app_name"
-            android:theme="@style/Theme.Abschlussprojekt_EDDi.NoActionBar"
+            android:theme="@style/EDDi_layout"
             android:windowSoftInputMode="adjustPan">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
