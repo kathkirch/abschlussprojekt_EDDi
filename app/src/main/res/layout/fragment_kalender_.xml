@@ -41,13 +41,13 @@
     </TextView>
 
 
-    <EditText
+    <TextView
         android:layout_width="match_parent"
         android:layout_height="347dp"
         android:text="@string/eintraege_vom_tag"
         android:gravity="start"
         android:keyboardNavigationCluster="true">
-    </EditText>
+    </TextView>
 
 
 </LinearLayout>
