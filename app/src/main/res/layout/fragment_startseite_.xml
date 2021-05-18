@@ -17,21 +17,37 @@
         android:layout_width="match_parent"
         android:layout_height="100dp"
         android:baselineAligned="false"
-        android:layout_below="@+id/row1"
-        >
-
-        <Space
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_weight="1" />
+        android:layout_below="@+id/row1">
 
         <Button
-            android:id="@+id/stuhl_button"
+            android:id="@+id/button_einstellungen"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_gravity="top|left"
+            android:background="@drawable/button_style"
+            android:padding="4dp"
+            android:text="Einstellungen"
+            android:textColor="@color/white"
+            android:textSize="5sp"
+            tools:ignore="SmallSp"
+            android:onClick="enterEinstellungen"/>
+
+        <Space
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.5" />
+
+        <Button
+            android:id="@+id/button_stuhl"
             android:layout_width="116dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:text="@string/stuhl"
-            android:background="@drawable/button_style"/>
+            android:textSize="18sp"
+            android:textColor="@color/white"
+            android:padding="4dp"
+            android:background="@drawable/button_style"
+            android:onClick="enterEintragStuhl"/>
 
         <Space
             android:layout_width="wrap_content"
@@ -39,11 +55,16 @@
             android:layout_weight="1" />
 
         <Button
-            android:id="@+id/essen_button"
+            android:id="@+id/button_essen"
             android:layout_width="116dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="@string/essen" />
+            android:text="@string/essen"
+            android:textSize="18sp"
+            android:textColor="@color/white"
+            android:padding="4dp"
+            android:background="@drawable/button_style"
+            android:onClick="enterEintragEssen"/>
 
         <Space
             android:layout_width="wrap_content"

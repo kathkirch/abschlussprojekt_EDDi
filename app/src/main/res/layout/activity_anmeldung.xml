@@ -1,12 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Anmeldung">
+    tools:context=".Anmeldung"
+    android:orientation="vertical">
 
 
-
+    <TextView
+        android:id="@+id/textView_anmeldung"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="20dp"
+        android:layout_marginVertical="10dp"
+        android:padding="4dp"
+        android:text="Anmeldung"
+        android:textColor="@color/white"
+        android:textSize="20sp"
+        android:textAlignment="center"
+        android:background="@drawable/title_style"
+         />
 
     <LinearLayout
         android:id="@+id/lin1"
@@ -19,7 +32,7 @@
             android:layout_width="170dp"
             android:layout_height="match_parent"
             android:gravity="center"
-            android:textSize="20dp"
+            android:textSize="18sp"
             android:text="@string/vorname_anmeldung" />
 
         <EditText
@@ -42,7 +55,7 @@
             android:layout_width="170dp"
             android:layout_height="match_parent"
             android:gravity="center"
-            android:textSize="20dp"
+            android:textSize="18sp"
             android:text="@string/nachname">
         </TextView>
 
@@ -67,7 +80,7 @@
             android:layout_width="170dp"
             android:layout_height="match_parent"
             android:gravity="center"
-            android:textSize="20dp"
+            android:textSize="18sp"
             android:text="@string/geburtsdatum">
         </TextView>
 
@@ -93,7 +106,7 @@
             android:layout_width="170dp"
             android:layout_height="match_parent"
             android:gravity="center"
-            android:textSize="20dp"
+            android:textSize="18sp"
             android:text="@string/groesse_cm">
         </TextView>
 
@@ -119,7 +132,7 @@
             android:layout_width="170dp"
             android:layout_height="match_parent"
             android:gravity="center"
-            android:textSize="20dp"
+            android:textSize="18sp"
             android:text="@string/gewicht_kg">
         </TextView>
 
@@ -143,9 +156,16 @@
     <TextView
         android:id="@+id/textNutzerdaten"
         android:layout_width="match_parent"
-        android:layout_height="100dp"
+        android:layout_height="wrap_content"
         android:layout_below="@id/row1"
-        android:text="@string/nutzerprofil" />
+        android:text="@string/nutzerprofil"
+        android:textSize="20sp"
+        android:textColor="@color/white"
+        android:layout_marginVertical="10dp"
+        android:layout_marginHorizontal="20dp"
+        android:padding="4dp"
+        android:textAlignment="center"
+        android:background="@drawable/title_style"/>
 
     <LinearLayout
         android:id="@+id/lin6"
@@ -159,7 +179,7 @@
             android:layout_width="170dp"
             android:layout_height="match_parent"
             android:gravity="center"
-            android:textSize="20dp"
+            android:textSize="18sp"
             android:text="@string/nutzername">
         </TextView>
 
@@ -183,7 +203,7 @@
             android:layout_width="170dp"
             android:layout_height="match_parent"
             android:gravity="center"
-            android:textSize="20dp"
+            android:textSize="18sp"
             android:text="@string/pin_4_stellig">
         </TextView>
 
@@ -196,26 +216,18 @@
 
     </LinearLayout>
 
-    <Space
-        android:id="@+id/space1"
-        android:layout_width="wrap_content"
-        android:layout_height="50dp"
-        android:layout_below="@id/lin7"/>
-
     <Button
         android:id="@+id/speichernButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/space1"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
         android:layout_gravity="center"
-        android:layout_marginTop="0dp"
-        android:layout_marginEnd="145dp"
-        android:layout_marginRight="145dp"
+        android:layout_marginVertical="30dp"
+        android:layout_marginHorizontal="20dp"
+        android:padding="4dp"
+        android:background="@drawable/button_style"
         android:text="@string/speichern"
-        android:background="@drawable/button_style">
-    </Button>
+        android:textColor="@color/white"
+        android:textSize="20sp"/>
 
 
-</RelativeLayout>
+</LinearLayout>

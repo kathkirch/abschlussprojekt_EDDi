@@ -173,4 +173,7 @@
     <string name="informationen">Informationen</string>
     <string name="verantwortliche">Verantwortliche: Kathi und Lisa :)</string>
     <string name="vorname_anmeldung">Vorname:</string>
+    <string name="farbe">Farbe</string>
+    <string name="schleim">Schleim</string>
+    <string name="menge">Menge</string>
 </resources>

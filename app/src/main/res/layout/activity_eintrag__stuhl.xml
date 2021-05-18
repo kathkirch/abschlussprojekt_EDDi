@@ -65,14 +65,14 @@
             android:layout_height="wrap_content"
             android:text="@string/bristol_stuhlformen_skala"
             android:textSize="18sp"
-            android:layout_marginVertical="10dp"
+            android:layout_marginTop="10dp"
             android:layout_marginHorizontal="20dp"/>
 
         <androidx.appcompat.widget.AppCompatSpinner
             android:id="@+id/spinner_bristol"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginVertical="10dp"
+            android:layout_marginBottom="10dp"
             android:layout_marginHorizontal="20dp"/>
 
         <androidx.appcompat.widget.SwitchCompat
@@ -93,11 +93,19 @@
             android:layout_marginVertical="10dp"
             android:layout_marginHorizontal="20dp"/>
 
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/farbe"
+            android:textSize="18sp"
+            android:layout_marginTop="10dp"
+            android:layout_marginHorizontal="20dp"/>
+
         <androidx.appcompat.widget.AppCompatSpinner
             android:id="@+id/spinner_farben"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginVertical="10dp"
+            android:layout_marginBottom="10dp"
             android:layout_marginHorizontal="20dp"/>
 
         <androidx.appcompat.widget.SwitchCompat
@@ -109,18 +117,34 @@
             android:layout_marginVertical="10dp"
             android:layout_marginHorizontal="20dp"/>
 
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/schleim"
+            android:textSize="18sp"
+            android:layout_marginTop="10dp"
+            android:layout_marginHorizontal="20dp"/>
+
         <androidx.appcompat.widget.AppCompatSpinner
             android:id="@+id/spinner_schleim"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginVertical="10dp"
+            android:layout_marginBottom="10dp"
+            android:layout_marginHorizontal="20dp"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/menge"
+            android:textSize="18sp"
+            android:layout_marginTop="10dp"
             android:layout_marginHorizontal="20dp"/>
 
         <androidx.appcompat.widget.AppCompatSpinner
             android:id="@+id/spinner_menge"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginVertical="10dp"
+            android:layout_marginBottom="10dp"
             android:layout_marginHorizontal="20dp"/>
 
         <TextView
