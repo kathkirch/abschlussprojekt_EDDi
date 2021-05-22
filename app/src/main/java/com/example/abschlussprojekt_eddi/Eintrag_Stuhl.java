@@ -8,19 +8,31 @@ import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 
 import java.io.StringBufferInputStream;
+import java.util.Arrays;
+import java.util.List;
 
 public class Eintrag_Stuhl extends AppCompatActivity {
 
     Intent intent;
 
     Spinner spinner_bristol;
+    List<String> array_bristol = Arrays.asList(
+            "einzelne, fest Kügelchen, schwer auszuscheiden",
+            "wurstartig, klumpig",
+            "wurstartig mit rissiger Oberfläche",
+            "wurstartig mit glatter, durchgehender Oberfläche",
+            "einzelne weiche Klümpchen mit unregelmäßigem Rand",
+            "flüssig, ohne feste Bestandteile");
+    SpinnerAdapterBristol aA_bristol;
 
     Spinner spinner_farbe;
     String [] array_farbe = new String [] {"braun", "grün", "grau-lehmfarben", "gelb", "rot", "schwarz"};
     ArrayAdapter <String> aA_farbe;
+
     Spinner spinner_schleim;
     String [] array_schleim = new String [] {"wenig", "mittel", "viel", "nur Schleim"};
     ArrayAdapter <String> aA_schleim;
+
     Spinner spinner_menge;
     String [] array_menge = new String [] {"wenig", "normal", "viel"};
     ArrayAdapter <String> aA_menge;
@@ -31,6 +43,12 @@ public class Eintrag_Stuhl extends AppCompatActivity {
         setContentView(R.layout.activity_eintrag__stuhl);
 
         intent = getIntent();
+
+        spinner_bristol = findViewById(R.id.spinner_bristol);
+        aA_bristol = new SpinnerAdapterBristol(this, array_bristol);
+        //eigenes Layout erstellt für die Darstellung der Bristol-Skala + Text
+        aA_bristol.setDropDownViewResource(R.layout.dropdown_item_bristol);
+        spinner_bristol.setAdapter(aA_bristol);
 
         spinner_farbe = findViewById(R.id.spinner_farben);
         aA_farbe = new ArrayAdapter<String>(this, R.layout.support_simple_spinner_dropdown_item, array_farbe);
