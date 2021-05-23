@@ -177,4 +177,7 @@
     <string name="hint_60_5">60,5</string>
     <string name="hint_165">165</string>
     <string name="benutzername">Benutzername</string>
+    <string name="farbe">Farbe</string>
+    <string name="schleim">Schleim</string>
+    <string name="menge">Menge</string>
 </resources>

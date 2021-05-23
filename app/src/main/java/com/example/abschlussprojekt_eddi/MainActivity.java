@@ -22,6 +22,11 @@ import com.example.abschlussprojekt_eddi.ui.main.SectionsPagerAdapter;
 
 public class MainActivity extends AppCompatActivity {
 
+    Intent intentStuhl;
+    Intent intentEssen;
+    Intent intentEinstellungen;
+    public static final String INPUT_STRING = "InputString";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,5 +44,29 @@ public class MainActivity extends AppCompatActivity {
         tabs.setupWithViewPager(viewPager);
 
 
+
+
+
     }
+
+
+    //beim Klicken auf den "Stuhl" Button gelangt man zur Activity "Eintrag_Stuhl"
+    public void enterEintragStuhl(View view) {
+        intentStuhl = new Intent(MainActivity.this, Eintrag_Stuhl.class);
+        startActivity(intentStuhl);
+    }
+
+
+    public void enterEintragEssen(View view) {
+        intentEssen = new Intent(MainActivity.this, Eintrag_Essen.class);
+        startActivity(intentEssen);
+    }
+
+    public void enterEinstellungen(View view) {
+        intentEinstellungen = new Intent(MainActivity.this, Einstellungen.class);
+        startActivity(intentEinstellungen);
+    }
+
+
+
 }
