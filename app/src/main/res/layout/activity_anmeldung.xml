@@ -188,6 +188,7 @@
             android:layout_width="170dp"
             android:layout_height="match_parent"
             android:gravity="center"
+            android:drawableStart="@drawable/user_icon"
             android:textSize="20sp"
             android:text="@string/nutzername">
         </TextView>
@@ -214,6 +215,7 @@
             android:id="@+id/textPasswort"
             android:layout_width="170dp"
             android:layout_height="match_parent"
+            android:drawableStart="@drawable/lock_icon"
             android:gravity="center"
             android:textSize="20sp"
             android:text="@string/pin_4_stellig">
