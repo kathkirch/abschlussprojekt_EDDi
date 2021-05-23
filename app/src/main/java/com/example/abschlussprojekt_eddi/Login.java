@@ -12,6 +12,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
@@ -22,7 +23,11 @@ public class Login extends AppCompatActivity {
     Context context = this;
     ImageButton button_fingerprint;
     Button button_login;
+    Button button_registrieren;
     Intent intent_main;
+    Intent intent_registrieren;
+    BenutzerdatenSpeicher bdSp;
+    EditText nutzername;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,7 +81,6 @@ public class Login extends AppCompatActivity {
                 .setNegativeButtonText("Abbrechen")
                 .build();
 
-
         //Fingerprint Authentifizierung beim Klicken auf den Button
         //soll später automatisch aufscheinen
         button_fingerprint = findViewById(R.id.button_login_fingerprint);
@@ -88,15 +92,35 @@ public class Login extends AppCompatActivity {
         });
 
         button_login = findViewById(R.id.button_login_anmelden);
-        button_login.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                intent_main = new Intent(Login.this, MainActivity.class);
-                startActivity(intent_main);
-            }
-        });
+        button_registrieren = findViewById(R.id.button_registrieren);
+
+        button_login.setOnClickListener(this::onClick);
+        button_registrieren.setOnClickListener(this::onClick);
+
     }
 
+    public void onClick(View view){
+        switch (view.getId()){
+            case R.id.button_login_anmelden:
+                intent_main = new Intent(Login.this, MainActivity.class);
+                startActivity(intent_main);
+                break;
+            case R.id.button_registrieren:
+                intent_registrieren = new Intent(Login.this, Anmeldung.class);
+                startActivity(intent_registrieren);
+                break;
+        }
+    }
+
+    /*
+        button_login.setOnClickListener(new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            intent_main = new Intent(Login.this, MainActivity.class);
+            startActivity(intent_main);
+        }
+    });
+    */
 
 
 }

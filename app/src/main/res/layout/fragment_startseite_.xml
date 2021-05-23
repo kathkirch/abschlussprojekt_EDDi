@@ -20,6 +20,14 @@
         android:layout_below="@+id/row1"
         >
 
+        <Button
+            android:id="@+id/einstellungenButton"
+            android:layout_width="57dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/einstellungen_icon"
+            android:gravity="start"
+            android:onClick="enterEinstellungen"/>
+
         <Space
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
@@ -30,9 +38,10 @@
             android:layout_width="116dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:background="@drawable/entry_button_style"
             android:text="@string/stuhl"
             android:textColor="@color/white"
-            android:background="@drawable/entry_button_style"/>
+            android:onClick="enterEintragStuhl"/>
 
         <Space
             android:layout_width="wrap_content"
@@ -46,10 +55,11 @@
             android:layout_gravity="center"
             android:background="@drawable/entry_button_style"
             android:text="@string/essen"
-            android:textColor="@color/white"/>
+            android:textColor="@color/white"
+            android:onClick="enterEintragEssen"/>
 
         <Space
-            android:layout_width="wrap_content"
+            android:layout_width="25dp"
             android:layout_height="match_parent"
             android:layout_weight="1" />
 

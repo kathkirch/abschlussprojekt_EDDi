@@ -28,6 +28,7 @@
         android:id="@+id/lin1"
         android:layout_width="match_parent"
         android:layout_height="60dp"
+        android:layout_below="@id/textAnmeldung"
         android:orientation="horizontal">
 
         <TextView
@@ -165,15 +166,14 @@
         android:id="@+id/textNutzerdaten"
         android:layout_width="380dp"
         android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
+        android:layout_below="@id/space2"
         android:layout_centerHorizontal="true"
-        android:textColor="@color/white"
-        android:textSize="20sp"
-        android:padding="4dp"
         android:background="@drawable/title_style"
         android:gravity="center"
-        android:layout_below="@id/space2"
-        android:text="@string/nutzerprofil" />
+        android:padding="4dp"
+        android:text="@string/nutzerprofil"
+        android:textColor="@color/white"
+        android:textSize="20sp" />
 
     <LinearLayout
         android:id="@+id/lin6"
@@ -228,28 +228,51 @@
             android:inputType="numberPassword"
             android:hint="@string/pin_hint"
             android:importantForAutofill="no" />
+    </LinearLayout>
 
+    <LinearLayout
+        android:id="@+id/lin8"
+        android:layout_below="@id/lin7"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/fingerprint_anlegen"
+            android:layout_width="170dp"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:textSize="20sp"
+            android:text="Fingerprint anlegen"/>
+
+        <ImageButton
+            android:id="@+id/button_registrieren_fingerprint"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@id/lin7"
+            android:background="@android:color/transparent"
+            android:src="@drawable/fingerprint" />
     </LinearLayout>
 
     <Space
         android:id="@+id/space1"
-        android:layout_width="wrap_content"
-        android:layout_height="50dp"
-        android:layout_below="@id/lin7"/>
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:layout_below="@id/lin8"/>
+
 
     <Button
         android:id="@+id/speichernButton"
-        android:layout_width="136dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:background="@drawable/button_style"
         android:layout_below="@id/space1"
         android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
-        android:layout_gravity="center"
-        android:background="@drawable/button_style"
+        android:padding="4dp"
         android:text="@string/speichern"
+        android:textColor="@color/white"
         android:textSize="18sp"
-        android:textColor="@color/white">
+        android:onClick="registrieren">
     </Button>
-
 
 </RelativeLayout>

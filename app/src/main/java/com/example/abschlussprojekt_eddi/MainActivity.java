@@ -25,16 +25,17 @@ public class MainActivity extends AppCompatActivity {
     Intent intentStuhl;
     Intent intentEssen;
     Intent intentEinstellungen;
+    Button stuhlButton;
+    Button essenButton;
+    Button einstellungenButton;
+    BenutzerdatenSpeicher bdSp;
     public static final String INPUT_STRING = "InputString";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        /*
-        Intent intent = new Intent(this, Anmeldung.class);
-        startActivity(intent);*/
 
         SectionsPagerAdapter sectionsPagerAdapter = new
                 SectionsPagerAdapter(this, getSupportFragmentManager());
@@ -43,11 +44,8 @@ public class MainActivity extends AppCompatActivity {
         TabLayout tabs = findViewById(R.id.tabs);
         tabs.setupWithViewPager(viewPager);
 
-
-
-
-
     }
+
 
 
     //beim Klicken auf den "Stuhl" Button gelangt man zur Activity "Eintrag_Stuhl"
@@ -67,6 +65,24 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intentEinstellungen);
     }
 
+
+     /*
+    public void onClick(View view){
+        switch (view.getId()){
+            case R.id.stuhl_button:
+                intentStuhl = new Intent(MainActivity.this, Eintrag_Stuhl.class);
+                startActivity(intentStuhl);
+                break;
+            case R.id.button_registrieren:
+                intentEssen = new Intent(MainActivity.this, Eintrag_Essen.class);
+                startActivity(intentEssen);
+                break;
+            case R.id.einstellungenButton:
+                intentEinstellungen = new Intent(MainActivity.this, Einstellungen.class);
+                startActivity(intentEinstellungen);
+        }
+    }
+*/
 
 
 }

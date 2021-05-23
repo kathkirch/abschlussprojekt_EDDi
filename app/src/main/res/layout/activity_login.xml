@@ -74,6 +74,18 @@
         android:layout_marginHorizontal="60dp"
         android:background="@drawable/button_style"/>
 
+    <Button
+        android:id="@+id/button_registrieren"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="60dp"
+        android:background="@drawable/button_style"
+        android:text="@string/registrieren"
+        android:textColor="@color/white"
+        android:textSize="20sp" />
+
+
+
 
 
 </LinearLayout>
