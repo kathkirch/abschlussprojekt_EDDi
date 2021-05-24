@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -36,7 +37,7 @@
             android:layout_width="170dp"
             android:layout_height="match_parent"
             android:gravity="center"
-            android:textSize="20dp"
+            android:textSize="20sp"
             android:text="@string/vorname_anmeldung" />
 
         <EditText
@@ -187,9 +188,9 @@
             android:layout_width="170dp"
             android:layout_height="match_parent"
             android:gravity="center"
-            android:drawableStart="@drawable/user_icon"
             android:textSize="20sp"
-            android:text="@string/nutzername">
+            android:text="@string/nutzername"
+            app:drawableStartCompat="@drawable/user_icon">
         </TextView>
 
         <EditText
@@ -214,14 +215,14 @@
             android:id="@+id/textPasswort"
             android:layout_width="170dp"
             android:layout_height="match_parent"
-            android:drawableStart="@drawable/lock_icon"
             android:gravity="center"
             android:textSize="20sp"
-            android:text="@string/pin_4_stellig">
+            android:text="@string/pin_4_stellig"
+            app:drawableStartCompat="@drawable/lock_icon">
         </TextView>
 
         <EditText
-            android:id="@+id/editTextNumberPassword"
+            android:id="@+id/editTextNumberPassword1"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:ems="10"
@@ -238,20 +239,24 @@
         android:orientation="horizontal">
 
         <TextView
-            android:id="@+id/fingerprint_anlegen"
+            android:id="@+id/textPasswort2"
             android:layout_width="170dp"
             android:layout_height="match_parent"
             android:gravity="center"
             android:textSize="20sp"
-            android:text="Fingerprint anlegen"/>
+            android:text="@string/pin_wiederholen"
+            app:drawableStartCompat="@drawable/lock_icon">
+        </TextView>
 
-        <ImageButton
-            android:id="@+id/button_registrieren_fingerprint"
+        <EditText
+            android:id="@+id/editTextNumberPassword2"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_below="@id/lin7"
-            android:background="@android:color/transparent"
-            android:src="@drawable/fingerprint" />
+            android:ems="10"
+            android:inputType="numberPassword"
+            android:hint="@string/pin_hint"
+            android:importantForAutofill="no" />
+
     </LinearLayout>
 
     <Space

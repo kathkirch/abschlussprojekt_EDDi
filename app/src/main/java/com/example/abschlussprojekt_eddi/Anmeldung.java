@@ -1,9 +1,6 @@
 package com.example.abschlussprojekt_eddi;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
@@ -12,8 +9,10 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import java.lang.CharSequence;
 
+import androidx.appcompat.app.AppCompatActivity;
+
+import com.applandeo.materialcalendarview.exceptions.ErrorsMessages;
 
 
 public class Anmeldung extends AppCompatActivity {
@@ -25,7 +24,9 @@ public class Anmeldung extends AppCompatActivity {
     private EditText groesse;
     private EditText gewicht;
     protected EditText nutzername;
-    protected EditText pin;
+    protected EditText pin1;
+    protected EditText pin2;
+    protected String checkedPin;
     BenutzerdatenSpeicher bdSp;
     Benutzer benutzer;
 
@@ -36,61 +37,71 @@ public class Anmeldung extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_anmeldung);
 
-        vorname = (EditText) findViewById(R.id.editVorname);
-        nachname = (EditText) findViewById(R.id.editNachname);
-        geburtsdatum = (EditText) findViewById(R.id.editGeburtsdatum);
-        groesse = (EditText) findViewById(R.id.editGroesse);
-        gewicht = (EditText) (findViewById(R.id.editGewicht));
-        nutzername = (EditText) findViewById(R.id.editBenutzername);
-        pin = (EditText) findViewById(R.id.editTextNumberPassword);
-        bSpeichern = (Button) findViewById(R.id.speichernButton);
+        vorname = findViewById(R.id.editVorname);
+        nachname = findViewById(R.id.editNachname);
+        geburtsdatum = findViewById(R.id.editGeburtsdatum);
+        groesse =  findViewById(R.id.editGroesse);
+        gewicht = findViewById(R.id.editGewicht);
+        nutzername =  findViewById(R.id.editBenutzername);
+        pin1 = findViewById(R.id.editTextNumberPassword1);
+        pin2 =  findViewById(R.id.editTextNumberPassword2);
+        bSpeichern =  findViewById(R.id.speichernButton);
 
         bdSp = new BenutzerdatenSpeicher(this);
 
     }
 
     public void registrieren (View view) {
-        checkDataEntered();
-        benutzerAnlegen();
-        bdSp.setUserLoggedIn(true);
-        Intent mainIntent = new Intent(Anmeldung.this, MainActivity.class);
-        startActivity(mainIntent);
+        if (checkDataEntered()){
+            benutzerAnlegen();
+            bdSp.setUserLoggedIn(true);
+            Intent mainIntent = new Intent(Anmeldung.this, MainActivity.class);
+            startActivity(mainIntent);
+        }
     }
 
 
-    public void checkDataEntered(){
-
+    public boolean checkDataEntered(){
+        boolean dataValid = true;
         if (isEmpty(vorname)){
             Toast t = Toast.makeText(this, "Vorname muss angegeben werden!",
                     Toast.LENGTH_SHORT);
             t.show();
+            dataValid = false;
         }
         if (isEmpty(nachname)){
             Toast t = Toast.makeText(this, "Nachname muss angegeben werden!",
                     Toast.LENGTH_SHORT);
             t.show();
+            dataValid = false;
         }
         if (isEmpty(geburtsdatum)){
             Toast t = Toast.makeText(this, "Geburtsdatum muss angegeben werden!",
                     Toast.LENGTH_SHORT);
             t.show();
+            dataValid = false;
         }
         if (isEmpty(groesse)){
             Toast t = Toast.makeText(this, "Bitte Größe angeben!",
                     Toast.LENGTH_SHORT);
             t.show();
+            dataValid = false;
         }
         if (isEmpty(gewicht)){
             Toast t = Toast.makeText(this, "Bitte Gewicht angeben!",
                     Toast.LENGTH_SHORT);
             t.show();
+            dataValid = false;
         }
         if (isEmpty(nutzername)){
             nutzername.setError("Nutzername erfoderlich!");
+            dataValid = false;
         }
-        if (isPin(pin) == false){
-            pin.setError("PIN ungültig! Nur Zahlen!");
+        if (!checkPin(pin1, pin2)){
+            pin2.setError("stimmt nich überein!");
+            dataValid = false;
         }
+        return dataValid;
     }
 
     boolean isEmpty(EditText text){
@@ -98,11 +109,24 @@ public class Anmeldung extends AppCompatActivity {
         return TextUtils.isEmpty(string);
     }
 
-    boolean isPin(EditText text){
+    boolean checkPin(EditText pin1, EditText pin2){
+        boolean pinOK = false;
+        if ( (isPinValid(pin1) && isPinValid(pin2))){
+            if (pin1.getText().toString().equals(pin2.getText().toString())){
+                pinOK = true;
+                checkedPin = pin1.getText().toString();
+            }
+        }
+        return pinOK;
+    }
+
+    boolean isPinValid(EditText pin){
         boolean validPin = false;
-        CharSequence string = text.getText().toString();
+        CharSequence string = pin.getText().toString();
         if ((string.length() == 4) && TextUtils.isDigitsOnly(string)){
             validPin = true;
+        } else {
+            pin.setError("4 Zahlen eingeben!");
         }
         return validPin;
     }
@@ -111,10 +135,10 @@ public class Anmeldung extends AppCompatActivity {
         String vName = vorname.getText().toString();
         String nName = nachname.getText().toString();
         String gebdat = geburtsdatum.getText().toString();
-        int gr = Integer.parseInt(groesse.getText().toString());
-        int gew = Integer.parseInt(gewicht.getText().toString());
+        String gr = groesse.getText().toString();
+        String gew = gewicht.getText().toString();
         String nutzName = nutzername.getText().toString();
-        int pinCode = Integer.parseInt(pin.getText().toString());
+        String pinCode = checkedPin;
 
         Benutzer registrierterBenutzer = new Benutzer(vName, nName, gebdat, gr, gew,
                 nutzName, pinCode);
@@ -125,6 +149,4 @@ public class Anmeldung extends AppCompatActivity {
         }
 
     }
-
-
 }
