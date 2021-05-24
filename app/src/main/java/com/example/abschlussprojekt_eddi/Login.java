@@ -54,7 +54,6 @@ public class Login extends AppCompatActivity {
             public void onAuthenticationError(int errorCode, @NonNull CharSequence errString) {
                 super.onAuthenticationError(errorCode, errString);
             }
-
             @Override //wenn die Authentifizierung erfolgreich ist, wird die Startseite geöffnet
             public void onAuthenticationSucceeded(@NonNull BiometricPrompt.AuthenticationResult result) {
                 super.onAuthenticationSucceeded(result);
@@ -62,7 +61,6 @@ public class Login extends AppCompatActivity {
                 intent_main = new Intent(Login.this, MainActivity.class);
                 startActivity(intent_main);
             }
-
             @Override
             public void onAuthenticationFailed() {
                 super.onAuthenticationFailed();
@@ -75,7 +73,6 @@ public class Login extends AppCompatActivity {
                 .setDescription("Finger auf den Sensor legen")
                 .setNegativeButtonText("Abbrechen")
                 .build();
-
 
         //Fingerprint Authentifizierung beim Klicken auf den Button
         //soll später automatisch aufscheinen
@@ -96,7 +93,5 @@ public class Login extends AppCompatActivity {
             }
         });
     }
-
-
 
 }
