@@ -173,7 +173,12 @@
     <string name="informationen">Informationen</string>
     <string name="verantwortliche">Verantwortliche: Kathi und Lisa :)</string>
     <string name="vorname_anmeldung">Vorname:</string>
+    <string name="profil_anlegen">Profil anlegen:</string>
+    <string name="hint_60_5">60,5</string>
+    <string name="hint_165">165</string>
+    <string name="benutzername">Benutzername</string>
     <string name="farbe">Farbe</string>
     <string name="schleim">Schleim</string>
     <string name="menge">Menge</string>
+    <string name="registrieren">Registrieren</string>
 </resources>

@@ -1,30 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Anmeldung"
-    android:orientation="vertical">
+    tools:context=".Anmeldung">
+
+    <Space
+        android:id="@+id/space3"
+        android:layout_width="match_parent"
+        android:layout_height="10dp"/>
 
 
     <TextView
-        android:id="@+id/textView_anmeldung"
-        android:layout_width="match_parent"
+        android:id="@+id/textAnmeldung"
+        android:layout_width="380dp"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="20dp"
-        android:layout_marginVertical="10dp"
-        android:padding="4dp"
-        android:text="Anmeldung"
-        android:textColor="@color/white"
-        android:textSize="20sp"
-        android:textAlignment="center"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/space3"
         android:background="@drawable/title_style"
-         />
+        android:gravity="center"
+        android:padding="4dp"
+        android:text="@string/profil_anlegen"
+        android:textColor="@color/white"
+        android:textSize="22sp"/>
 
     <LinearLayout
         android:id="@+id/lin1"
         android:layout_width="match_parent"
         android:layout_height="60dp"
+        android:layout_below="@id/textAnmeldung"
         android:orientation="horizontal">
 
         <TextView
@@ -32,15 +36,16 @@
             android:layout_width="170dp"
             android:layout_height="match_parent"
             android:gravity="center"
-            android:textSize="18sp"
+            android:textSize="20dp"
             android:text="@string/vorname_anmeldung" />
 
         <EditText
             android:id="@+id/editVorname"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:hint="@string/maxima">
-        </EditText>
+            android:hint="@string/maxima"
+            android:inputType="text"
+            android:importantForAutofill="no" />
     </LinearLayout>
 
     <LinearLayout
@@ -55,7 +60,7 @@
             android:layout_width="170dp"
             android:layout_height="match_parent"
             android:gravity="center"
-            android:textSize="18sp"
+            android:textSize="20sp"
             android:text="@string/nachname">
         </TextView>
 
@@ -63,7 +68,9 @@
             android:id="@+id/editNachname"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:hint="@string/musterfrau">
+            android:hint="@string/musterfrau"
+            android:importantForAutofill="no"
+            android:inputType="text">
         </EditText>
 
     </LinearLayout>
@@ -80,7 +87,7 @@
             android:layout_width="170dp"
             android:layout_height="match_parent"
             android:gravity="center"
-            android:textSize="18sp"
+            android:textSize="20sp"
             android:text="@string/geburtsdatum">
         </TextView>
 
@@ -90,7 +97,8 @@
             android:layout_height="match_parent"
             android:ems="10"
             android:inputType="date"
-            android:hint="@string/_01_01_2000"/>
+            android:hint="@string/_01_01_2000"
+            android:importantForAutofill="no" />
 
     </LinearLayout>
 
@@ -106,7 +114,7 @@
             android:layout_width="170dp"
             android:layout_height="match_parent"
             android:gravity="center"
-            android:textSize="18sp"
+            android:textSize="20sp"
             android:text="@string/groesse_cm">
         </TextView>
 
@@ -116,7 +124,8 @@
             android:layout_height="match_parent"
             android:ems="10"
             android:inputType="numberSigned"
-            android:hint="165"/>
+            android:hint="@string/hint_165"
+            android:importantForAutofill="no" />
 
     </LinearLayout>
 
@@ -132,7 +141,7 @@
             android:layout_width="170dp"
             android:layout_height="match_parent"
             android:gravity="center"
-            android:textSize="18sp"
+            android:textSize="20sp"
             android:text="@string/gewicht_kg">
         </TextView>
 
@@ -142,30 +151,29 @@
             android:layout_height="match_parent"
             android:ems="10"
             android:inputType="numberDecimal"
-            android:hint="60,5"/>
+            android:hint="@string/hint_60_5"
+            android:importantForAutofill="no" />
 
     </LinearLayout>
 
-    <TableRow
-        android:id="@+id/row1"
-        android:layout_below="@id/lin5"
+    <Space
+        android:id="@+id/space2"
         android:layout_width="match_parent"
-        android:layout_height="20dp">
-    </TableRow>
+        android:layout_height="30dp"
+        android:layout_below="@id/lin5"/>
 
     <TextView
         android:id="@+id/textNutzerdaten"
-        android:layout_width="match_parent"
+        android:layout_width="380dp"
         android:layout_height="wrap_content"
-        android:layout_below="@id/row1"
-        android:text="@string/nutzerprofil"
-        android:textSize="20sp"
-        android:textColor="@color/white"
-        android:layout_marginVertical="10dp"
-        android:layout_marginHorizontal="20dp"
+        android:layout_below="@id/space2"
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/title_style"
+        android:gravity="center"
         android:padding="4dp"
-        android:textAlignment="center"
-        android:background="@drawable/title_style"/>
+        android:text="@string/nutzerprofil"
+        android:textColor="@color/white"
+        android:textSize="20sp" />
 
     <LinearLayout
         android:id="@+id/lin6"
@@ -179,14 +187,18 @@
             android:layout_width="170dp"
             android:layout_height="match_parent"
             android:gravity="center"
-            android:textSize="18sp"
+            android:drawableStart="@drawable/user_icon"
+            android:textSize="20sp"
             android:text="@string/nutzername">
         </TextView>
 
         <EditText
             android:id="@+id/editBenutzername"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:inputType="text"
+            android:hint="@string/benutzername"
+            android:importantForAutofill="no">
         </EditText>
 
     </LinearLayout>
@@ -202,8 +214,9 @@
             android:id="@+id/textPasswort"
             android:layout_width="170dp"
             android:layout_height="match_parent"
+            android:drawableStart="@drawable/lock_icon"
             android:gravity="center"
-            android:textSize="18sp"
+            android:textSize="20sp"
             android:text="@string/pin_4_stellig">
         </TextView>
 
@@ -212,22 +225,54 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:ems="10"
-            android:inputType="numberPassword" />
-
+            android:inputType="numberPassword"
+            android:hint="@string/pin_hint"
+            android:importantForAutofill="no" />
     </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/lin8"
+        android:layout_below="@id/lin7"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/fingerprint_anlegen"
+            android:layout_width="170dp"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:textSize="20sp"
+            android:text="Fingerprint anlegen"/>
+
+        <ImageButton
+            android:id="@+id/button_registrieren_fingerprint"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@id/lin7"
+            android:background="@android:color/transparent"
+            android:src="@drawable/fingerprint" />
+    </LinearLayout>
+
+    <Space
+        android:id="@+id/space1"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:layout_below="@id/lin8"/>
+
 
     <Button
         android:id="@+id/speichernButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginVertical="30dp"
-        android:layout_marginHorizontal="20dp"
-        android:padding="4dp"
         android:background="@drawable/button_style"
+        android:layout_below="@id/space1"
+        android:layout_centerHorizontal="true"
+        android:padding="4dp"
         android:text="@string/speichern"
         android:textColor="@color/white"
-        android:textSize="20sp"/>
+        android:textSize="18sp"
+        android:onClick="registrieren">
+    </Button>
 
-
-</LinearLayout>
+</RelativeLayout>

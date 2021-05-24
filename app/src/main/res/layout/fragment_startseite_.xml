@@ -10,43 +10,37 @@
         android:id="@+id/row1"
         android:layout_width="match_parent"
         android:layout_height="3dp"
-        android:background="#9999cc"/>
+        android:background="@color/divider_color"/>
 
     <LinearLayout
         android:id="@+id/linear1"
         android:layout_width="match_parent"
         android:layout_height="100dp"
         android:baselineAligned="false"
-        android:layout_below="@+id/row1">
+        android:layout_below="@+id/row1"
+        >
 
         <Button
-            android:id="@+id/button_einstellungen"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_gravity="top|left"
-            android:background="@drawable/button_style"
-            android:padding="4dp"
-            android:text="Einstellungen"
-            android:textColor="@color/white"
-            android:textSize="5sp"
-            tools:ignore="SmallSp"
+            android:id="@+id/einstellungenButton"
+            android:layout_width="57dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/einstellungen_icon"
+            android:gravity="start"
             android:onClick="enterEinstellungen"/>
 
         <Space
-            android:layout_width="1dp"
+            android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_weight="0.5" />
+            android:layout_weight="1" />
 
         <Button
-            android:id="@+id/button_stuhl"
+            android:id="@+id/stuhl_button"
             android:layout_width="116dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:background="@drawable/entry_button_style"
             android:text="@string/stuhl"
-            android:textSize="18sp"
             android:textColor="@color/white"
-            android:padding="4dp"
-            android:background="@drawable/button_style"
             android:onClick="enterEintragStuhl"/>
 
         <Space
@@ -55,19 +49,17 @@
             android:layout_weight="1" />
 
         <Button
-            android:id="@+id/button_essen"
+            android:id="@+id/essen_button"
             android:layout_width="116dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:background="@drawable/entry_button_style"
             android:text="@string/essen"
-            android:textSize="18sp"
             android:textColor="@color/white"
-            android:padding="4dp"
-            android:background="@drawable/button_style"
             android:onClick="enterEintragEssen"/>
 
         <Space
-            android:layout_width="wrap_content"
+            android:layout_width="25dp"
             android:layout_height="match_parent"
             android:layout_weight="1" />
 
@@ -78,7 +70,7 @@
         android:layout_width="match_parent"
         android:layout_height="3dp"
         android:layout_below="@id/linear1"
-        android:background="#9999cc"/>
+        android:background="@color/divider_color"/>
 
 
     <TextView
@@ -158,14 +150,14 @@
         android:layout_width="match_parent"
         android:layout_height="2dp"
         android:layout_below="@id/linear2"
-        android:background="#9999cc"/>
+        android:background="@color/divider_color"/>
 
     <LinearLayout
         android:id="@+id/linear3"
         android:layout_width="match_parent"
         android:layout_height="47dp"
         android:layout_below="@id/row3"
-        android:background="#9999cc"
+        android:background="@color/divider_color"
         android:orientation="horizontal">
 
         <TextView
@@ -201,7 +193,7 @@
         android:layout_width="match_parent"
         android:layout_height="421dp"
         android:layout_below="@id/linear3"
-        android:background="#9999cc"
+        android:background="@color/divider_color"
         android:baselineAligned="false"
         android:orientation="horizontal">
 

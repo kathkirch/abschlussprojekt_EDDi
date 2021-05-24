@@ -1,5 +1,6 @@
 package com.example.abschlussprojekt_eddi.ui.main;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -9,6 +10,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
+import com.example.abschlussprojekt_eddi.Einstellungen;
+import com.example.abschlussprojekt_eddi.Eintrag_Essen;
+import com.example.abschlussprojekt_eddi.Eintrag_Stuhl;
+import com.example.abschlussprojekt_eddi.MainActivity;
 import com.example.abschlussprojekt_eddi.R;
 
 /**
@@ -17,6 +22,11 @@ import com.example.abschlussprojekt_eddi.R;
  * create an instance of this fragment.
  */
 public class Startseite_Fragment extends Fragment {
+
+    /*
+    Intent intentStuhl;
+    Intent intentEssen;
+    Intent intentEinstellungen;*/
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -56,18 +66,35 @@ public class Startseite_Fragment extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
-
-
-
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
+
         return inflater.inflate(R.layout.fragment_startseite_, container, false);
-
-
-
     }
+
+
+    /*
+    //beim Klicken auf den "Stuhl" Button gelangt man zur Activity "Eintrag_Stuhl"
+    public void enterEintragStuhl(View view) {
+        intentStuhl = new Intent(getActivity(), Eintrag_Stuhl.class);
+        startActivity(intentStuhl);
+    }
+
+    //beim Klicken auf den "Essen" Button gelangt man zur Activity "Eintrag_Stuhl"
+    public void enterEintragEssen(View view) {
+        intentEssen = new Intent(getActivity(), Eintrag_Essen.class);
+        startActivity(intentEssen);
+    }
+
+    //beim Klicken auf den Zahnrad(Einstellungen) Button gelangt man zur Activity "Eintrag_Stuhl"
+    public void enterEinstellungen(View view) {
+        intentEinstellungen = new Intent(getActivity(), Einstellungen.class);
+        startActivity(intentEinstellungen);
+    }
+    */
+
 }
