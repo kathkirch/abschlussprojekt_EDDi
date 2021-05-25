@@ -26,13 +26,20 @@ public class Login extends AppCompatActivity {
     Button button_registrieren;
     Intent intent_main;
     Intent intent_registrieren;
+
+    EditText etNutzername;
+    EditText etPin;
     BenutzerdatenSpeicher bdSp;
-    EditText nutzername;
+    Benutzer ben;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
+        etNutzername = findViewById(R.id.editText_nutzername);
+        etPin = findViewById(R.id.editText_pw);
+        bdSp = new BenutzerdatenSpeicher(this);
 
         BiometricManager biometricManager = BiometricManager.from(context);
         switch(biometricManager.canAuthenticate(BiometricManager.Authenticators.BIOMETRIC_STRONG)) { //BIOMETRIC_STRONG; BIOMETRIC_WEAK; DEVICE_CREDENTIAL achtung auf API
@@ -102,9 +109,13 @@ public class Login extends AppCompatActivity {
     public void onClick(View view){
         switch (view.getId()){
             case R.id.button_login_anmelden:
-                intent_main = new Intent(Login.this, MainActivity.class);
-                startActivity(intent_main);
-                break;
+                if (verifyLogin(etNutzername, etPin)){
+                    intent_main = new Intent(Login.this, MainActivity.class);
+                    startActivity(intent_main);
+                    Toast t = Toast.makeText(this, "Login erfolgreich", Toast.LENGTH_SHORT);
+                    t.show();
+                    break;
+                }
             case R.id.button_registrieren:
                 intent_registrieren = new Intent(Login.this, Anmeldung.class);
                 startActivity(intent_registrieren);
@@ -112,15 +123,18 @@ public class Login extends AppCompatActivity {
         }
     }
 
-    /*
-        button_login.setOnClickListener(new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            intent_main = new Intent(Login.this, MainActivity.class);
-            startActivity(intent_main);
+
+    // holt sich Pin aus shared preferences und verleicht die Eingabe damit,
+    // Problem - bei jedem neuen "Registrieren" mit Device werden shared pref überschrieben.
+    // Frage? pro Handy mehrere User anlegen können? ja nein?
+    public boolean verifyLogin (EditText name, EditText pin) {
+        boolean login = false;
+        ben = bdSp.getLoggedInUser();
+        String benName = ben.getNutzername();
+        String benPin = ben.getPin();
+        if( (name.getText().toString().equals(benName)) && (pin.getText().toString().equals(benPin)) ){
+            login = true;
         }
-    });
-    */
-
-
+        return login;
+    }
 }
