@@ -181,4 +181,8 @@
     <string name="schleim">Schleim</string>
     <string name="menge">Menge</string>
     <string name="registrieren">Registrieren</string>
+    <string name="aenderungen_speichern">Änderungen speichern</string>
+    <string name="pin_wiederholen">PIN wiederholen</string>
+    <string name="pin_alt">PIN alt</string>
+    <string name="pin_neu">PIN neu</string>
 </resources>

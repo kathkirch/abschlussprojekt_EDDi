@@ -43,10 +43,7 @@ public class MainActivity extends AppCompatActivity {
         viewPager.setAdapter(sectionsPagerAdapter);
         TabLayout tabs = findViewById(R.id.tabs);
         tabs.setupWithViewPager(viewPager);
-
     }
-
-
 
     //beim Klicken auf den "Stuhl" Button gelangt man zur Activity "Eintrag_Stuhl"
     public void enterEintragStuhl(View view) {
