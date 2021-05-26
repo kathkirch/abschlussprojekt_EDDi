@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:tools="http://schemas.android.com/tools"
@@ -22,11 +21,12 @@
 
         <Button
             android:id="@+id/einstellungenButton"
-            android:layout_width="57dp"
+            android:layout_width="53dp"
             android:layout_height="wrap_content"
             android:background="@drawable/einstellungen_icon"
             android:gravity="start"
-            android:onClick="enterEinstellungen"/>
+            android:onClick="enterEinstellungen"
+            tools:ignore="OnClick" />
 
         <Space
             android:layout_width="wrap_content"
@@ -40,8 +40,10 @@
             android:layout_gravity="center"
             android:background="@drawable/entry_button_style"
             android:text="@string/stuhl"
+            android:textSize="18sp"
             android:textColor="@color/white"
-            android:onClick="enterEintragStuhl"/>
+            android:onClick="enterEintragStuhl"
+            tools:ignore="OnClick" />
 
         <Space
             android:layout_width="wrap_content"
@@ -56,7 +58,9 @@
             android:background="@drawable/entry_button_style"
             android:text="@string/essen"
             android:textColor="@color/white"
-            android:onClick="enterEintragEssen"/>
+            android:textSize="18sp"
+            android:onClick="enterEintragEssen"
+            tools:ignore="OnClick" />
 
         <Space
             android:layout_width="25dp"
@@ -93,7 +97,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1" />
 
-        <ImageView
+        <ImageButton
             android:id="@+id/VAS_0"
             android:layout_width="70dp"
             android:layout_height="match_parent"
@@ -103,39 +107,43 @@
             android:clickable="true"
             android:focusable="true" />
 
-        <ImageView
+        <ImageButton
             android:id="@+id/VAS_1"
             android:layout_width="70dp"
             android:layout_height="match_parent"
             android:contentDescription="@string/gut"
             android:src="@drawable/vas2"
+            android:background="@drawable/background_transparent"
             android:clickable="true"
             android:focusable="true" />
 
-        <ImageView
+        <ImageButton
             android:id="@+id/VAS_2"
             android:layout_width="70dp"
             android:layout_height="match_parent"
             android:contentDescription="@string/mittel"
             android:src="@drawable/vas3"
+            android:background="@drawable/background_transparent"
             android:clickable="true"
             android:focusable="true" />
 
-        <ImageView
+        <ImageButton
             android:id="@+id/VAS_3"
             android:layout_width="70dp"
             android:layout_height="match_parent"
             android:contentDescription="@string/schlecht"
             android:src="@drawable/vas4"
+            android:background="@drawable/background_transparent"
             android:clickable="true"
             android:focusable="true" />
 
-        <ImageView
+        <ImageButton
             android:id="@+id/VAS_4"
             android:layout_width="70dp"
             android:layout_height="match_parent"
             android:contentDescription="@string/sehr_schlecht"
             android:src="@drawable/vas5"
+            android:background="@drawable/background_transparent"
             android:clickable="true"
             android:focusable="true" />
 
@@ -154,86 +162,95 @@
 
     <LinearLayout
         android:id="@+id/linear3"
-        android:layout_width="match_parent"
+        android:layout_width="fill_parent"
         android:layout_height="47dp"
         android:layout_below="@id/row3"
-        android:background="@color/divider_color"
         android:orientation="horizontal">
 
         <TextView
             android:id="@+id/textviewStuhl"
-            android:layout_width="180dp"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_gravity="start"
-            android:layout_weight="1"
-            android:background="@color/white"
             android:gravity="center"
-            android:text="@string/logbuch_stuhl" />
+            android:layout_weight="1"
+            android:layout_gravity="center"
+            android:layout_marginVertical="5dp"
+            android:layout_marginStart="2dp"
+            android:textColor="@color/white"
+            android:textSize="18sp"
+            android:padding="4dp"
+            android:background="@drawable/title_style"
+            android:text="@string/logbuch_stuhl"/>
 
-        <Space
+        <View
             android:layout_width="3dp"
             android:layout_height="match_parent"
             android:layout_gravity="center"
-            android:layout_weight="1" />
+            android:layout_weight="0"
+            android:background="@color/divider_color"/>
 
         <TextView
             android:id="@+id/textViewEssen"
-            android:layout_width="180dp"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_gravity="end"
-            android:layout_weight="1"
-            android:background="@color/white"
             android:gravity="center"
+            android:layout_weight="1"
+            android:layout_gravity="center"
+            android:layout_marginVertical="5dp"
+            android:layout_marginEnd="2dp"
+            android:textColor="@color/white"
+            android:textSize="18sp"
+            android:padding="4dp"
+            android:background="@drawable/title_style"
             android:text="@string/logbuch_essen" />
 
     </LinearLayout>
 
     <LinearLayout
         android:id="@+id/linear4"
-        android:layout_width="match_parent"
+        android:layout_width="fill_parent"
         android:layout_height="421dp"
         android:layout_below="@id/linear3"
-        android:background="@color/divider_color"
+
         android:baselineAligned="false"
         android:orientation="horizontal">
 
-
         <ScrollView
             android:id="@+id/scrollStuhl"
-            android:layout_width="180dp"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_gravity="start"
-            android:layout_weight="1"
-            android:background="@color/white">
+            android:layout_weight="1">
 
             <TextView
                 android:id="@+id/logbuchStuhl"
-                android:layout_width="175dp"
-                android:layout_height="match_parent"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:hint="@string/logbuch_stuhl_ansicht"
                 android:text="@string/large_text" />
         </ScrollView>
 
-        <Space
+        <View
             android:layout_width="3dp"
             android:layout_height="match_parent"
             android:layout_gravity="center"
-            android:layout_weight="1" />
+            android:layout_weight="0"
+            android:background="@color/divider_color" />
+
 
         <ScrollView
             android:id="@+id/scrollEssen"
-            android:layout_width="180dp"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_gravity="end"
             android:layout_weight="1"
-            android:background="@color/white"
             android:scrollbarAlwaysDrawHorizontalTrack="false"
             android:verticalScrollbarPosition="right">
 
             <TextView
                 android:id="@+id/logbuchEssen"
-                android:layout_width="175dp"
-                android:layout_height="match_parent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:hint="@string/logbuch_essen_ansicht" />
         </ScrollView>
     </LinearLayout>
