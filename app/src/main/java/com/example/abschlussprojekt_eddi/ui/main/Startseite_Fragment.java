@@ -5,14 +5,18 @@ import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.TextView;
 
 import com.example.abschlussprojekt_eddi.Einstellungen;
 import com.example.abschlussprojekt_eddi.Eintrag_Essen;
 import com.example.abschlussprojekt_eddi.Eintrag_Stuhl;
+import com.example.abschlussprojekt_eddi.Logbuch_Stuhl;
 import com.example.abschlussprojekt_eddi.MainActivity;
 import com.example.abschlussprojekt_eddi.R;
 
@@ -27,6 +31,13 @@ public class Startseite_Fragment extends Fragment {
     Intent intentStuhl;
     Intent intentEssen;
     Intent intentEinstellungen;*/
+
+    TextView tvStuhl;
+    ImageButton bV1;
+    ImageButton bV2;
+    ImageButton bV3;
+    ImageButton bV4;
+    ImageButton bV5;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -73,7 +84,55 @@ public class Startseite_Fragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
 
-        return inflater.inflate(R.layout.fragment_startseite_, container, false);
+        View view = inflater.inflate(R.layout.fragment_startseite_, container, false);
+
+        tvStuhl = view.findViewById(R.id.logbuchStuhl);
+        bV1 = view.findViewById(R.id.VAS_0);
+        bV2 = view.findViewById(R.id.VAS_1);
+        bV3 = view.findViewById(R.id.VAS_2);
+        bV4 = view.findViewById(R.id.VAS_3);
+        bV5 = view.findViewById(R.id.VAS_4);
+
+
+        bV1.setOnClickListener(this::stimmung);
+        bV2.setOnClickListener(this::stimmung);
+        bV3.setOnClickListener(this::stimmung);
+        bV4.setOnClickListener(this::stimmung);
+        bV5.setOnClickListener(this::stimmung);
+
+        return view;
+    }
+
+
+    // entgültige Ansicht noch anpassen, schaut noch komisch aus
+    public void stimmung(View view){
+        Log.d("INFO", "Can you do this?");
+         switch (view.getId()){
+            case R.id.VAS_0:
+                tvStuhl.setText("Stimmung heute:");
+                tvStuhl.setCompoundDrawablesWithIntrinsicBounds(0,0, R.drawable.vas1klein, 0);
+                break;
+            case R.id.VAS_1:
+                tvStuhl.setText("Stimmung heute:");
+                tvStuhl.setCompoundDrawablesWithIntrinsicBounds(0
+                        , 0, R.drawable.vas2klein, 0);
+                break;
+            case R.id.VAS_2:
+                tvStuhl.setText("Stimmung heute:");
+                tvStuhl.setCompoundDrawablesWithIntrinsicBounds(
+                        R.drawable.vas3klein, 0, 0, 0);
+                break;
+            case R.id.VAS_3:
+                tvStuhl.setText("Stimmung heute:");
+                tvStuhl.setCompoundDrawablesWithIntrinsicBounds(
+                        R.drawable.vas4klein, 0, 0, 0);
+                break;
+            case R.id.VAS_4:
+                tvStuhl.setText("Stimmung heute:");
+                tvStuhl.setCompoundDrawablesWithIntrinsicBounds(
+                        R.drawable.vas5klein, 0, 0, 0);
+                break;
+        }
     }
 
 

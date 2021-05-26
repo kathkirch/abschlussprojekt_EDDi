@@ -127,7 +127,6 @@
             android:inputType="numberSigned"
             android:hint="@string/hint_165"
             android:importantForAutofill="no" />
-
     </LinearLayout>
 
     <LinearLayout
@@ -250,12 +249,11 @@
 
         <EditText
             android:id="@+id/editTextNumberPassword2"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:ems="10"
-            android:inputType="numberPassword"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:hint="@string/pin_hint"
-            android:importantForAutofill="no" />
+            android:importantForAutofill="no"
+            android:inputType="numberPassword" />
 
     </LinearLayout>
 
