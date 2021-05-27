@@ -7,6 +7,13 @@ import android.content.SharedPreferences;
 public class BenutzerdatenSpeicher {
 
     public static final String SP_NAME = "benutzerDaten";
+    public static final String V_NAME = "Vorname";
+    public static final String N_NAME = "Nachname";
+    public static final String G_DATUM = "Geburtsdatum";
+    public static final String GEWICHT = "Gewicht";
+    public static final String GROESSE = "Größe";
+    public static final String NZ_NAME = "Nutzername";
+    public static final String PIN = "PIN";
     SharedPreferences userLocalDatabase;
 
     public BenutzerdatenSpeicher(Context context) {
@@ -15,13 +22,13 @@ public class BenutzerdatenSpeicher {
 
     public void storeUserData (Benutzer benutzer){
         SharedPreferences.Editor spEditor = userLocalDatabase.edit();
-        spEditor.putString("vorname", benutzer.vorname);
-        spEditor.putString("nachname", benutzer.nachname);
-        spEditor.putString("geburtsdatum", benutzer.geburtsdatum);
-        spEditor.putInt("groesse", benutzer.groesse);
-        spEditor.putInt("gewicht", (int) benutzer.gewicht);
-        spEditor.putString("nutzername", benutzer.nutzername);
-        spEditor.putInt("pin", benutzer.pin);
+        spEditor.putString(V_NAME, benutzer.getVorname());
+        spEditor.putString(N_NAME, benutzer.getNachname());
+        spEditor.putString(G_DATUM, benutzer.getGeburtsdatum());
+        spEditor.putString(GROESSE, benutzer.getGroesse());
+        spEditor.putString(GEWICHT,  benutzer.getGewicht());
+        spEditor.putString(NZ_NAME, benutzer.getNutzername());
+        spEditor.putString(PIN, benutzer.getPin());
         spEditor.apply();
     }
 
@@ -29,21 +36,19 @@ public class BenutzerdatenSpeicher {
         String vorname = userLocalDatabase.getString("vorname", "");
         String nachname = userLocalDatabase.getString("nachname", "");
         String geburtsdatum = userLocalDatabase.getString("geburtsdatum", "");
-        int groesse = userLocalDatabase.getInt("groesse", Integer.parseInt(""));
-        int gewicht = userLocalDatabase.getInt("gewicht", Integer.parseInt(""));
+        String groesse = userLocalDatabase.getString("groesse", "");
+        String gewicht = userLocalDatabase.getString("gewicht", "");
         String nutzername = userLocalDatabase.getString("nutzername", "");
-        int pin = userLocalDatabase.getInt("pin", Integer.parseInt(""));
+        String pin = userLocalDatabase.getString("pin", "");
 
-        Benutzer angelegterBenutzer = new Benutzer(vorname, nachname, geburtsdatum,
+        return new Benutzer(vorname, nachname, geburtsdatum,
                 groesse, gewicht, nutzername, pin);
-
-        return angelegterBenutzer;
     }
 
     public void setUserLoggedIn(boolean loggedIn){
         SharedPreferences.Editor spEditor = userLocalDatabase.edit();
         spEditor.putBoolean("loggedIn", loggedIn);
-        spEditor.commit();
+        spEditor.apply();
     }
 
     public boolean getUserLoggedIn(){
@@ -57,7 +62,7 @@ public class BenutzerdatenSpeicher {
     public void clearUserData(){
         SharedPreferences.Editor spEditor = userLocalDatabase.edit();
         spEditor.clear();
-        spEditor.commit();
+        spEditor.apply();
     }
 
 }
