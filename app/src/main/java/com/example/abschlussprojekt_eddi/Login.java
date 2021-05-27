@@ -81,7 +81,6 @@ public class Login extends AppCompatActivity {
                 .setNegativeButtonText("Abbrechen")
                 .build();
 
-
         //Fingerprint Authentifizierung beim Klicken auf den Button
         //soll später automatisch aufscheinen
         button_fingerprint = findViewById(R.id.button_login_fingerprint);
@@ -97,7 +96,6 @@ public class Login extends AppCompatActivity {
 
         button_login.setOnClickListener(this::onClick);
         button_registrieren.setOnClickListener(this::onClick);
-
     }
 
     public void onClick(View view){
@@ -112,16 +110,5 @@ public class Login extends AppCompatActivity {
                 break;
         }
     }
-
-    /*
-        button_login.setOnClickListener(new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            intent_main = new Intent(Login.this, MainActivity.class);
-            startActivity(intent_main);
-        }
-    });
-    */
-
 
 }

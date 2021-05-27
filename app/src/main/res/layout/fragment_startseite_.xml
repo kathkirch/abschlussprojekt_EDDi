@@ -22,7 +22,7 @@
 
         <Button
             android:id="@+id/einstellungenButton"
-            android:layout_width="57dp"
+            android:layout_width="50dp"
             android:layout_height="wrap_content"
             android:background="@drawable/einstellungen_icon"
             android:gravity="start"
@@ -38,7 +38,7 @@
             android:layout_width="116dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:background="@drawable/entry_button_style"
+            android:background="@drawable/button_style"
             android:text="@string/stuhl"
             android:textColor="@color/white"
             android:onClick="enterEintragStuhl"/>
@@ -53,7 +53,7 @@
             android:layout_width="116dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:background="@drawable/entry_button_style"
+            android:background="@drawable/button_style"
             android:text="@string/essen"
             android:textColor="@color/white"
             android:onClick="enterEintragEssen"/>
