@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">abschlussprojekt_EDDi</string>
+    <string name="app_name">EDDi</string>
     <string name="tab_text_1">Tab 1</string>
     <string name="tab_text_2">Tab 2</string>
     <string name="Startseite">startseite</string>
@@ -152,7 +152,7 @@
     <string name="speichern">Speichern</string>
     <string name="login">Login</string>
     <string name="nutzername_login">Nutzername</string>
-    <string name="pin">PIN_login</string>
+    <string name="pin">PIN</string>
     <string name="anmelden">Anmelden</string>
     <string name="einstellungen">Einstellungen</string>
     <string name="nutzerprofil">Nutzerprofil</string>
@@ -173,4 +173,16 @@
     <string name="informationen">Informationen</string>
     <string name="verantwortliche">Verantwortliche: Kathi und Lisa :)</string>
     <string name="vorname_anmeldung">Vorname:</string>
+    <string name="profil_anlegen">Profil anlegen:</string>
+    <string name="hint_60_5">60,5</string>
+    <string name="hint_165">165</string>
+    <string name="benutzername">Benutzername</string>
+    <string name="farbe">Farbe</string>
+    <string name="schleim">Schleim</string>
+    <string name="menge">Menge</string>
+    <string name="registrieren">Registrieren</string>
+    <string name="aenderungen_speichern">Änderungen speichern</string>
+    <string name="pin_wiederholen">PIN wiederholen</string>
+    <string name="pin_alt">PIN alt</string>
+    <string name="pin_neu">PIN neu</string>
 </resources>

@@ -51,8 +51,18 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textSize="18sp"
+        android:inputType="numberPassword"
         android:layout_marginBottom="40dp"
         android:layout_marginHorizontal="60dp" />
+
+    <ImageButton
+        android:id="@+id/button_login_fingerprint"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_marginHorizontal="150dp"
+        android:layout_marginVertical="10dp"
+        android:background="@android:color/transparent"
+        android:src="@drawable/fingerprint" />
 
     <Button
         android:id="@+id/button_login_anmelden"
@@ -64,5 +74,15 @@
         android:layout_marginVertical="40dp"
         android:layout_marginHorizontal="60dp"
         android:background="@drawable/button_style"/>
+
+    <Button
+        android:id="@+id/button_registrieren"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="60dp"
+        android:background="@drawable/button_style"
+        android:text="@string/registrieren"
+        android:textColor="@color/white"
+        android:textSize="20sp" />
 
 </LinearLayout>
