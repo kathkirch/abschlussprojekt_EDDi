@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">abschlussprojekt_EDDi</string>
+    <string name="app_name">EDDi</string>
     <string name="tab_text_1">Tab 1</string>
     <string name="tab_text_2">Tab 2</string>
     <string name="Startseite">startseite</string>
@@ -152,7 +152,7 @@
     <string name="speichern">Speichern</string>
     <string name="login">Login</string>
     <string name="nutzername_login">Nutzername</string>
-    <string name="pin">PIN_login</string>
+    <string name="pin">PIN</string>
     <string name="anmelden">Anmelden</string>
     <string name="einstellungen">Einstellungen</string>
     <string name="nutzerprofil">Nutzerprofil</string>

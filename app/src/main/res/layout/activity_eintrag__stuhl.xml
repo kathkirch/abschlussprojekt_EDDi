@@ -36,21 +36,23 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal">
 
-            <TextView
+            <EditText
+                android:id="@+id/editText_currentDate"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="50dp"
                 android:layout_marginVertical="10dp"
-                android:text="dd.mm.yyyy"
+                android:hint="dd.mm.yyyy"
                 android:textSize="18sp" />
             <!-- Datum & Uhrzeit werden im Code generiert -->
             <!-- Fragen: wie kann man die Werte dann noch ändern?-->
-            <TextView
+            <EditText
+                android:id="@+id/editText_currentTime"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="20dp"
                 android:layout_marginVertical="10dp"
-                android:text="hh:mm:ss"
+                android:hint="hh:mm:ss"
                 android:textSize="18sp" />
 
         </LinearLayout>
@@ -172,6 +174,11 @@
             android:src="@drawable/camera"
             android:background="@android:color/transparent"/>
 
+        <androidx.camera.view.PreviewView
+            android:id="@+id/prevView_stuhl"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+
         <Button
             android:id="@+id/button_stuhlgang_speichern"
             android:layout_width="match_parent"
@@ -182,7 +189,6 @@
             android:layout_marginVertical="10dp"
             android:layout_marginHorizontal="60dp"
             android:background="@drawable/button_style"/>
-
 
     </LinearLayout>
 </ScrollView>

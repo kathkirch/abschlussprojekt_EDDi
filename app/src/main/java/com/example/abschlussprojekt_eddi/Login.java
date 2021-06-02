@@ -103,7 +103,6 @@ public class Login extends AppCompatActivity {
 
         button_login.setOnClickListener(this::onClick);
         button_registrieren.setOnClickListener(this::onClick);
-
     }
 
     public void onClick(View view){
@@ -122,7 +121,6 @@ public class Login extends AppCompatActivity {
                 break;
         }
     }
-
 
     // holt sich Pin aus shared preferences und verleicht die Eingabe damit,
     // Problem - bei jedem neuen "Registrieren" mit Device werden shared pref überschrieben.
