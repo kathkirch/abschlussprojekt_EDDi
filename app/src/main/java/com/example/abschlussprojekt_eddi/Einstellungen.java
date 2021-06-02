@@ -73,9 +73,6 @@ public class Einstellungen extends AppCompatActivity {
 
     // Benutzerdaten überschreiben
     // Besseres Exception Handling einbauen - NullPointer usw
-    // Toast ändern? --> wenn Pin versucht wurde zu verändern steht zwar PIN konnte nicht verändert werden
-    // aber dann "Daten aktualisiert"
-    // Frage? eigene Methode Pin aktualisieren?
     public void benutzerDatenAendern (View view) {
         try {
             ben.setVorname(etvorname.getText().toString());
