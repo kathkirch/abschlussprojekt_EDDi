@@ -74,6 +74,7 @@ public class Eintrag_Stuhl extends AppCompatActivity {
 
         /*
         //Momentane Zeit anzeigen (Werte als int gespeichert)
+        //brauche wir sekunden? Userbility?
         Calendar calendar = Calendar.getInstance();
         int currentHour = calendar.get(Calendar.HOUR_OF_DAY);
         int currentMinute = calendar.get(Calendar.MINUTE);
@@ -88,10 +89,21 @@ public class Eintrag_Stuhl extends AppCompatActivity {
         editText_currentTime = findViewById(R.id.editText_currentTime);
         editText_currentTime.setText(currentTime);
 
-        //Momentanes Datum anzeigen
+        //Momentanes Datum anzeigen (Werte als int gespeichert)
+        /*
+        Calendar calendar = Calendar.getInstance();
+        int currentDay = calendar.get(Calendar.DAY_OF_MONTH);
+        int currentMonth = calendar.get(Calendar.MONTH);
+        int currentYear = calendar.get(Calendar.YEAR);
+        editText_currentDate = findViewById(R.id.editText_currentDate);
+        editText_currentDate.setText(currentDay + "." + currentMonth + "." + currentYear);
+         */
+
+        //Momentanes Datum anzeigen (Werte als SimpleDateFormat gespeichert)
         SimpleDateFormat sdfDate = new SimpleDateFormat("dd MMM yyyy");
         editText_currentDate = findViewById(R.id.editText_currentDate);
         editText_currentDate.setText(sdfDate.format(new Date()));
+
 
         //Kamera
         imageButton_camera = findViewById(R.id.imageButton_kamera);
@@ -155,7 +167,6 @@ public class Eintrag_Stuhl extends AppCompatActivity {
     }
 
 
-
     //Methode wird automatisch aufgerufen von startActivityForResult()
     //Bild wird gemacht und in der PreviewView gespeichert und angezeigt
     @Override
@@ -189,7 +200,7 @@ public class Eintrag_Stuhl extends AppCompatActivity {
                 (LifecycleOwner)this,
                 cameraSelector,
                 preview);
-
+        //cameraProvider.unbind(preview);
     }
 
 }
