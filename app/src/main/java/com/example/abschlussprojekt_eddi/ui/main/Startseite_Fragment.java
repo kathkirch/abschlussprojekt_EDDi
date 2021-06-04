@@ -95,12 +95,8 @@ public class Startseite_Fragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_startseite_, container, false);
 
         btStuhl = view.findViewById(R.id.stuhl_button);
-        btEinstellungen = view.findViewById(R.id.essen_button);
+        btEssen = view.findViewById(R.id.essen_button);
         btEinstellungen = view.findViewById(R.id.einstellungenButton);
-
-        btStuhl.setOnClickListener(this::onClick);
-        btEssen.setOnClickListener(this::onClick);
-        btEinstellungen.setOnClickListener(this::onClick);
 
         tvStuhl = view.findViewById(R.id.logbuchStuhl);
         bV1 = view.findViewById(R.id.VAS_0);
@@ -114,6 +110,10 @@ public class Startseite_Fragment extends Fragment {
         bV3.setOnClickListener(this::stimmung);
         bV4.setOnClickListener(this::stimmung);
         bV5.setOnClickListener(this::stimmung);
+
+        btStuhl.setOnClickListener(this::onClick);
+        btEssen.setOnClickListener(this::onClick);
+        btEinstellungen.setOnClickListener(this::onClick);
 
         bdsp = new BenutzerdatenSpeicher(getContext());
         ben = bdsp.getLoggedInUser();
@@ -159,13 +159,14 @@ public class Startseite_Fragment extends Fragment {
                 intentStuhl = new Intent(getActivity(), Eintrag_Stuhl.class);
                 startActivity(intentStuhl);
                 break;
-            case R.id.button_registrieren:
+            case R.id.essen_button:
                 intentEssen = new Intent(getActivity(), Eintrag_Essen.class);
                 startActivity(intentEssen);
                 break;
             case R.id.einstellungenButton:
                 intentEinstellungen = new Intent(getActivity(), Einstellungen.class);
                 startActivity(intentEinstellungen);
+                break;
         }
     }
 }
