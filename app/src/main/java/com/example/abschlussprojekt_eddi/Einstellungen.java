@@ -41,9 +41,8 @@ public class Einstellungen extends AppCompatActivity {
         etpinAlt = findViewById(R.id.editText_einstellungen_pw_ausgewaehlt);
         etpinNeu = findViewById(R.id.editText_einstellungen_pw_ausgewaehlt2);
 
-        //etpinAlt.setText(etpinAlt.getText());
+
         Log.d("INFO", etpinAlt.getText().toString());
-        //etpinNeu.setText(etpinNeu.getText());
 
         //Zugriff auf shared preferences
         bdSp = new BenutzerdatenSpeicher(this);
@@ -73,9 +72,6 @@ public class Einstellungen extends AppCompatActivity {
 
     // Benutzerdaten überschreiben
     // Besseres Exception Handling einbauen - NullPointer usw
-    // Toast ändern? --> wenn Pin versucht wurde zu verändern steht zwar PIN konnte nicht verändert werden
-    // aber dann "Daten aktualisiert"
-    // Frage? eigene Methode Pin aktualisieren?
     public void benutzerDatenAendern (View view) {
         try {
             ben.setVorname(etvorname.getText().toString());

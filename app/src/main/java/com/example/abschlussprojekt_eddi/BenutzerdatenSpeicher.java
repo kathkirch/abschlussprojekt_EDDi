@@ -33,13 +33,13 @@ public class BenutzerdatenSpeicher {
     }
 
     public Benutzer getLoggedInUser(){
-        String vorname = userLocalDatabase.getString("vorname", "");
-        String nachname = userLocalDatabase.getString("nachname", "");
-        String geburtsdatum = userLocalDatabase.getString("geburtsdatum", "");
-        String groesse = userLocalDatabase.getString("groesse", "");
-        String gewicht = userLocalDatabase.getString("gewicht", "");
-        String nutzername = userLocalDatabase.getString("nutzername", "");
-        String pin = userLocalDatabase.getString("pin", "");
+        String vorname = userLocalDatabase.getString(V_NAME, "");
+        String nachname = userLocalDatabase.getString(N_NAME, "");
+        String geburtsdatum = userLocalDatabase.getString(G_DATUM, "");
+        String groesse = userLocalDatabase.getString(GROESSE, "");
+        String gewicht = userLocalDatabase.getString(GEWICHT, "");
+        String nutzername = userLocalDatabase.getString(NZ_NAME, "");
+        String pin = userLocalDatabase.getString(PIN, "");
 
         return new Benutzer(vorname, nachname, geburtsdatum,
                 groesse, gewicht, nutzername, pin);
