@@ -13,6 +13,8 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
+import com.example.abschlussprojekt_eddi.Benutzer;
+import com.example.abschlussprojekt_eddi.BenutzerdatenSpeicher;
 import com.example.abschlussprojekt_eddi.Einstellungen;
 import com.example.abschlussprojekt_eddi.Eintrag_Essen;
 import com.example.abschlussprojekt_eddi.Eintrag_Stuhl;
@@ -27,10 +29,14 @@ import com.example.abschlussprojekt_eddi.R;
  */
 public class Startseite_Fragment extends Fragment {
 
-    /*
+
     Intent intentStuhl;
     Intent intentEssen;
-    Intent intentEinstellungen;*/
+    Intent intentEinstellungen;
+
+    Button btStuhl;
+    Button btEssen;
+    Button btEinstellungen;
 
     TextView tvStuhl;
     ImageButton bV1;
@@ -38,6 +44,8 @@ public class Startseite_Fragment extends Fragment {
     ImageButton bV3;
     ImageButton bV4;
     ImageButton bV5;
+    Benutzer ben;
+    BenutzerdatenSpeicher bdsp;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -86,6 +94,14 @@ public class Startseite_Fragment extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_startseite_, container, false);
 
+        btStuhl = view.findViewById(R.id.stuhl_button);
+        btEinstellungen = view.findViewById(R.id.essen_button);
+        btEinstellungen = view.findViewById(R.id.einstellungenButton);
+
+        btStuhl.setOnClickListener(this::onClick);
+        btEssen.setOnClickListener(this::onClick);
+        btEinstellungen.setOnClickListener(this::onClick);
+
         tvStuhl = view.findViewById(R.id.logbuchStuhl);
         bV1 = view.findViewById(R.id.VAS_0);
         bV2 = view.findViewById(R.id.VAS_1);
@@ -93,24 +109,26 @@ public class Startseite_Fragment extends Fragment {
         bV4 = view.findViewById(R.id.VAS_3);
         bV5 = view.findViewById(R.id.VAS_4);
 
-
         bV1.setOnClickListener(this::stimmung);
         bV2.setOnClickListener(this::stimmung);
         bV3.setOnClickListener(this::stimmung);
         bV4.setOnClickListener(this::stimmung);
         bV5.setOnClickListener(this::stimmung);
 
+        bdsp = new BenutzerdatenSpeicher(getContext());
+        ben = bdsp.getLoggedInUser();
+
         return view;
     }
 
 
     // entgültige Ansicht noch anpassen, schaut noch komisch aus
-    public void stimmung(View view){
+    public void stimmung(View view) {
         Log.d("INFO", "Can you do this?");
-         switch (view.getId()){
+        switch (view.getId()) {
             case R.id.VAS_0:
                 tvStuhl.setText("Stimmung heute:");
-                tvStuhl.setCompoundDrawablesWithIntrinsicBounds(0,0, R.drawable.vas1klein, 0);
+                tvStuhl.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.vas1klein, 0);
                 break;
             case R.id.VAS_1:
                 tvStuhl.setText("Stimmung heute:");
@@ -135,25 +153,20 @@ public class Startseite_Fragment extends Fragment {
         }
     }
 
-
-    /*
-    //beim Klicken auf den "Stuhl" Button gelangt man zur Activity "Eintrag_Stuhl"
-    public void enterEintragStuhl(View view) {
-        intentStuhl = new Intent(getActivity(), Eintrag_Stuhl.class);
-        startActivity(intentStuhl);
+    public void onClick(View view){
+        switch (view.getId()){
+            case R.id.stuhl_button:
+                intentStuhl = new Intent(getActivity(), Eintrag_Stuhl.class);
+                startActivity(intentStuhl);
+                break;
+            case R.id.button_registrieren:
+                intentEssen = new Intent(getActivity(), Eintrag_Essen.class);
+                startActivity(intentEssen);
+                break;
+            case R.id.einstellungenButton:
+                intentEinstellungen = new Intent(getActivity(), Einstellungen.class);
+                startActivity(intentEinstellungen);
+        }
     }
-
-    //beim Klicken auf den "Essen" Button gelangt man zur Activity "Eintrag_Stuhl"
-    public void enterEintragEssen(View view) {
-        intentEssen = new Intent(getActivity(), Eintrag_Essen.class);
-        startActivity(intentEssen);
-    }
-
-    //beim Klicken auf den Zahnrad(Einstellungen) Button gelangt man zur Activity "Eintrag_Stuhl"
-    public void enterEinstellungen(View view) {
-        intentEinstellungen = new Intent(getActivity(), Einstellungen.class);
-        startActivity(intentEinstellungen);
-    }
-    */
-
 }
+

@@ -41,9 +41,8 @@ public class Einstellungen extends AppCompatActivity {
         etpinAlt = findViewById(R.id.editText_einstellungen_pw_ausgewaehlt);
         etpinNeu = findViewById(R.id.editText_einstellungen_pw_ausgewaehlt2);
 
-        //etpinAlt.setText(etpinAlt.getText());
+
         Log.d("INFO", etpinAlt.getText().toString());
-        //etpinNeu.setText(etpinNeu.getText());
 
         //Zugriff auf shared preferences
         bdSp = new BenutzerdatenSpeicher(this);

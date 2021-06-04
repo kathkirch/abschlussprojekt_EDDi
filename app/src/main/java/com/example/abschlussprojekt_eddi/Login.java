@@ -122,7 +122,7 @@ public class Login extends AppCompatActivity {
         }
     }
 
-    // holt sich Pin aus shared preferences und verleicht die Eingabe damit,
+    // holt sich Pin aus shared preferences und vergleicht die Eingabe damit,
     // Problem - bei jedem neuen "Registrieren" mit Device werden shared pref überschrieben.
     // Frage? pro Handy mehrere User anlegen können? ja nein?
     public boolean verifyLogin (EditText name, EditText pin) {
