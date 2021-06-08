@@ -44,15 +44,14 @@
                 android:layout_marginVertical="10dp"
                 android:hint="dd.mm.yyyy"
                 android:textSize="18sp" />
-            <!-- Datum & Uhrzeit werden im Code generiert -->
-            <!-- Fragen: wie kann man die Werte dann noch ändern?-->
+
             <EditText
                 android:id="@+id/editText_currentTime"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="20dp"
                 android:layout_marginVertical="10dp"
-                android:hint="hh:mm:ss"
+                android:hint="hh:mm"
                 android:textSize="18sp" />
 
         </LinearLayout>
@@ -165,6 +164,13 @@
             android:layout_marginBottom="10dp"
             android:layout_marginHorizontal="20dp"/>
 
+        <ImageView
+            android:id="@+id/imageView_stuhl"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:scaleType="fitCenter"
+            android:visibility="gone"/>
+
         <ImageButton
             android:id="@+id/imageButton_kamera"
             android:layout_width="match_parent"
@@ -173,11 +179,6 @@
             android:layout_marginHorizontal="150dp"
             android:src="@drawable/camera"
             android:background="@android:color/transparent"/>
-
-        <androidx.camera.view.PreviewView
-            android:id="@+id/prevView_stuhl"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
 
         <Button
             android:id="@+id/button_stuhlgang_speichern"

@@ -39,8 +39,8 @@ public class ViewModel_Stuhl extends AndroidViewModel {
         return allStuhl;
     }
 
-    public LiveData<List<Entity_Stuhl>> getStuhlByDate(SimpleDateFormat date){
-        return repository.getStuhlByDate(date);
+    public LiveData<List<Entity_Stuhl>> getStuhlByDate(int jahr, int monat, int tag){
+        return repository.getStuhlByDate(jahr, monat, tag);
     }
 
     public Entity_Stuhl getStuhlById(int id){
