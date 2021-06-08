@@ -12,7 +12,7 @@ public class Benutzer {
     private String nutzername;
     private String pin;
 
-    public Benutzer(String nachname, String vorname, String geburtsdatum, String groesse, String gewicht,
+    public Benutzer( String vorname, String nachname, String geburtsdatum, String groesse, String gewicht,
                     String nutzername, String pin) {
         this.nachname = nachname;
         this.vorname = vorname;
