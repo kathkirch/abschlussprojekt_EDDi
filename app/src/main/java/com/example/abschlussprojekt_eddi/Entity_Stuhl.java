@@ -16,9 +16,15 @@ public class Entity_Stuhl {
     @PrimaryKey(autoGenerate = true)
     private int id;
 
-    private SimpleDateFormat datum;
+    private int jahr;
 
-    private SimpleDateFormat uhrzeit;
+    private int monat;
+
+    private int tag;
+
+    private int stunde;
+
+    private int minute;
 
     private int bristol;
 
@@ -40,9 +46,13 @@ public class Entity_Stuhl {
     private String fotoReferenz;
 
     //Konstruktor
-    public Entity_Stuhl(SimpleDateFormat datum, SimpleDateFormat uhrzeit, int bristol, int schmerzen, int blut, String farbe, int unverdauteNahrung, int schleim, String menge, String notizen, String fotoReferenz) {
-        this.datum = datum;
-        this.uhrzeit = uhrzeit;
+    public Entity_Stuhl(int jahr, int monat, int tag, int stunde, int minute, int bristol, int schmerzen, int blut,
+                        String farbe, int unverdauteNahrung, int schleim, String menge, String notizen, String fotoReferenz) {
+        this.jahr = jahr;
+        this.monat = monat;
+        this.tag = tag;
+        this.stunde = stunde;
+        this.minute = minute;
         this.bristol = bristol;
         this.schmerzen = schmerzen;
         this.blut = blut;
@@ -61,12 +71,24 @@ public class Entity_Stuhl {
         return id;
     }
 
-    public SimpleDateFormat getDatum() {
-        return datum;
+    public int getJahr() {
+        return jahr;
     }
 
-    public SimpleDateFormat getUhrzeit() {
-        return uhrzeit;
+    public int getMonat() {
+        return monat;
+    }
+
+    public int getTag() {
+        return tag;
+    }
+
+    public int getStunde() {
+        return stunde;
+    }
+
+    public int getMinute() {
+        return minute;
     }
 
     public int getBristol() {

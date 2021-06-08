@@ -26,6 +26,7 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.Spinner;
 
 import com.google.common.util.concurrent.ListenableFuture;
@@ -46,6 +47,7 @@ public class Eintrag_Stuhl extends AppCompatActivity {
     Intent intent;
     ImageButton imageButton_camera;
     PreviewView previewView_stuhl;
+    ImageView imageView_stuhl;
     EditText editText_currentDate;
     EditText editText_currentTime;
 
@@ -109,6 +111,7 @@ public class Eintrag_Stuhl extends AppCompatActivity {
         //Kamera
         imageButton_camera = findViewById(R.id.imageButton_kamera);
         previewView_stuhl = findViewById(R.id.prevView_stuhl);
+        imageView_stuhl = findViewById(R.id.imageView_stuhl);
 
         //Bristol Spinner ArrayList befüllen
         initListBristol();
@@ -163,6 +166,10 @@ public class Eintrag_Stuhl extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if(resultCode == Activity.RESULT_OK && requestCode == CAMERA_REQUEST_CODE){
             startCamera();
+            //get Capture Image
+            Bitmap captureImage = (Bitmap) data.getExtras().get("data");
+            //Set Capture IMage to ImageView
+            imageView_stuhl.setImageBitmap(captureImage);
         }
     }
 

@@ -53,10 +53,9 @@ public abstract class LogbuchDatabase extends androidx.room.RoomDatabase {
         @Override
         protected Void doInBackground(Void... voids) {
             //wie gibt man ein SimpleDateFormat an???
-            /*dao_stuhl.insertStuhl(new Entity_Stuhl('03 06 2021', 14:14:00,
+            dao_stuhl.insertStuhl(new Entity_Stuhl(2021, 6, 8, 14, 20,
                     2, 0, 0, "dunkelbraun", 1, 0, "normal",
-                    "keine Notizen", "Hier könnte dein Foto zu sehen sein" );
-             */
+                    "keine Notizen", "Hier könnte dein Foto zu sehen sein"));
             return null;
         }
     }

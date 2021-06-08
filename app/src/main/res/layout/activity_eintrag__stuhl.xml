@@ -179,6 +179,11 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>
 
+        <ImageView
+            android:id="@+id/imageView_stuhl"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
         <Button
             android:id="@+id/button_stuhlgang_speichern"
             android:layout_width="match_parent"
