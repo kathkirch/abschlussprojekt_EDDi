@@ -88,7 +88,7 @@ public class Startseite_Fragment extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
-
+/*
         //VM wird zerstört, wenn die Aktivity (this) geschlossen wird
         //anstatt "this" kann man auch einfach ein fragement aufrufen
         viewModel_stuhl = new ViewModelProvider(this).get(ViewModel_Stuhl.class);
@@ -101,6 +101,8 @@ public class Startseite_Fragment extends Fragment {
                 Toast.makeText(context, "onChanged", Toast.LENGTH_SHORT).show();
             }
         });
+
+ */
 
 
 

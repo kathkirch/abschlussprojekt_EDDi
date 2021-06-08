@@ -46,7 +46,6 @@ public class Eintrag_Stuhl extends AppCompatActivity {
 
     Intent intent;
     ImageButton imageButton_camera;
-    PreviewView previewView_stuhl;
     ImageView imageView_stuhl;
     EditText editText_currentDate;
     EditText editText_currentTime;
@@ -75,42 +74,23 @@ public class Eintrag_Stuhl extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_eintrag__stuhl);
 
-        /*
-        //Momentane Zeit anzeigen (Werte als int gespeichert)
-        //brauche wir sekunden? Userbility?
-        Calendar calendar = Calendar.getInstance();
-        int currentHour = calendar.get(Calendar.HOUR_OF_DAY);
-        int currentMinute = calendar.get(Calendar.MINUTE);
-        int currentSec = calendar.get(Calendar.SECOND);
-        editText_currentTime = findViewById(R.id.editText_currentTime);
-        editText_currentTime.setText(currentHour + ":" + currentMinute + ":" + currentSec);
-        */
-
-        //Momentane Zeit anzeigen (Werte als SimpleDateFormat gespeichert)
-        SimpleDateFormat sdfTime = new SimpleDateFormat("HH:mm:ss");
-        String currentTime = sdfTime.format(new Date());
-        editText_currentTime = findViewById(R.id.editText_currentTime);
-        editText_currentTime.setText(currentTime);
-
         //Momentanes Datum anzeigen (Werte als int gespeichert)
-        /*
         Calendar calendar = Calendar.getInstance();
         int currentDay = calendar.get(Calendar.DAY_OF_MONTH);
         int currentMonth = calendar.get(Calendar.MONTH);
         int currentYear = calendar.get(Calendar.YEAR);
         editText_currentDate = findViewById(R.id.editText_currentDate);
         editText_currentDate.setText(currentDay + "." + currentMonth + "." + currentYear);
-         */
 
-        //Momentanes Datum anzeigen (Werte als SimpleDateFormat gespeichert)
-        SimpleDateFormat sdfDate = new SimpleDateFormat("dd MM yyyy");
-        editText_currentDate = findViewById(R.id.editText_currentDate);
-        editText_currentDate.setText(sdfDate.format(new Date()));
-
+        //Momentane Zeit anzeigen (Werte als int gespeichert)
+        //brauche wir sekunden? Userbility?
+        int currentHour = calendar.get(Calendar.HOUR_OF_DAY);
+        int currentMinute = calendar.get(Calendar.MINUTE);
+        editText_currentTime = findViewById(R.id.editText_currentTime);
+        editText_currentTime.setText(currentHour + ":" + currentMinute);
 
         //Kamera
         imageButton_camera = findViewById(R.id.imageButton_kamera);
-        previewView_stuhl = findViewById(R.id.prevView_stuhl);
         imageView_stuhl = findViewById(R.id.imageView_stuhl);
 
         //Bristol Spinner ArrayList befüllen
@@ -137,7 +117,7 @@ public class Eintrag_Stuhl extends AppCompatActivity {
         spinner_menge.setAdapter(aA_menge);
 
         //wenn Button gedrückt wird, wird überprüft, ob die Camera Permission gegeben ist
-        //keine Permission gegeben ist, wird eine Angefragt
+        //wenn keine Permission gegeben ist, wird eine Angefragt
         //danch wird die Methode startActivityForResult aufgerufen und es kann ein Foto gemacht und gespeichert werde
         imageButton_camera.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -160,7 +140,7 @@ public class Eintrag_Stuhl extends AppCompatActivity {
     }
 
     //Methode wird automatisch aufgerufen von startActivityForResult()
-    //Bild wird gemacht und in der PreviewView gespeichert und angezeigt
+    //Bild wird gemacht und in ImageView gespeichert und angezeigt
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -168,8 +148,10 @@ public class Eintrag_Stuhl extends AppCompatActivity {
             startCamera();
             //get Capture Image
             Bitmap captureImage = (Bitmap) data.getExtras().get("data");
-            //Set Capture IMage to ImageView
+            //Set Capture Image to ImageView
             imageView_stuhl.setImageBitmap(captureImage);
+            //um ImageView anzuzeigen, weil dieser davor GONE ist
+            imageView_stuhl.setVisibility(View.VISIBLE);
         }
     }
 
@@ -179,26 +161,13 @@ public class Eintrag_Stuhl extends AppCompatActivity {
         cameraProviderFuture.addListener(() -> {
             try {
                 ProcessCameraProvider cameraProvider = cameraProviderFuture.get();
-                bindPreview(cameraProvider);
             } catch (ExecutionException | InterruptedException e){
                 e.printStackTrace();
             }
         }, ContextCompat.getMainExecutor(this));
     }
 
-    private void bindPreview (@NotNull ProcessCameraProvider cameraProvider){
-        CameraSelector cameraSelector = new CameraSelector.Builder()
-                .requireLensFacing(CameraSelector.LENS_FACING_BACK)
-                .build();
-        Preview preview = new Preview.Builder().build();
-        preview.setSurfaceProvider(previewView_stuhl.getSurfaceProvider());
-        Camera camera = cameraProvider.bindToLifecycle(
-                (LifecycleOwner)this,
-                cameraSelector,
-                preview);
-        //cameraProvider.unbind(preview);
-    }
-
+    //Bristol-Spinner wird mit Text und Bild befüllt
     private void initListBristol(){
         arrayList_bristol = new ArrayList<>();
         arrayList_bristol.add(new BristolItem("einzelne, fest Kügelchen, schwer auszuscheiden", R.drawable.type01));
