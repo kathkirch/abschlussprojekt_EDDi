@@ -185,4 +185,7 @@
     <string name="pin_wiederholen">PIN wiederholen</string>
     <string name="pin_alt">PIN alt</string>
     <string name="pin_neu">PIN neu</string>
+    <string name="title">Title</string>
+    <string name="bristolimg">bristolImg</string>
+    <string name="hh_mm">HH:MM</string>
 </resources>

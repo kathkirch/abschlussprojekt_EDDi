@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginEnd="8dp"
+    android:layout_marginStart="8dp"
+    android:layout_marginTop="8dp">
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="8dp">
+
+        <TextView
+            android:id="@+id/bristol_symbol"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:textAppearance="@style/TextAppearance.AppCompat.Large"
+            android:text="@string/bristolimg"
+            />
+
+        <TextView
+            android:id="@+id/textview_uhrzeit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/hh_mm"
+            android:layout_toStartOf="@id/bristol_symbol"
+            android:layout_alignParentStart="true"
+            android:textAppearance="@style/TextAppearance.AppCompat.Large"
+            android:ellipsize="end"
+            android:maxLines="1">
+        </TextView>
+
+        <TextView
+            android:id="@+id/stuhl_schmerz"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/textview_uhrzeit"
+            android:layout_toEndOf="@id/stuhl_farbe"
+            android:text="@string/schmerzen"/>
+
+        <TextView
+            android:id="@+id/stuhl_farbe"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/textview_uhrzeit"
+            android:text="@string/farbe"/>
+    </RelativeLayout>
+
+</androidx.cardview.widget.CardView>

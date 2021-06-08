@@ -3,11 +3,6 @@ package com.example.abschlussprojekt_eddi.ui.main;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProvider;
-
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,14 +12,16 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
+
 import com.example.abschlussprojekt_eddi.Benutzer;
 import com.example.abschlussprojekt_eddi.BenutzerdatenSpeicher;
 import com.example.abschlussprojekt_eddi.Einstellungen;
 import com.example.abschlussprojekt_eddi.Eintrag_Essen;
 import com.example.abschlussprojekt_eddi.Eintrag_Stuhl;
 import com.example.abschlussprojekt_eddi.Entity_Stuhl;
-import com.example.abschlussprojekt_eddi.Logbuch_Stuhl;
-import com.example.abschlussprojekt_eddi.MainActivity;
 import com.example.abschlussprojekt_eddi.R;
 import com.example.abschlussprojekt_eddi.ViewModel_Stuhl;
 
@@ -40,7 +37,7 @@ public class Startseite_Fragment extends Fragment {
     Context context = getActivity();
     private ViewModel_Stuhl viewModel_stuhl;
 
-    /*
+
     Intent intentStuhl;
     Intent intentEssen;
     Intent intentEinstellungen;
