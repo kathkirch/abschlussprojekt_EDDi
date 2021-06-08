@@ -14,6 +14,7 @@ import androidx.core.content.ContextCompat;
 import androidx.lifecycle.LifecycleOwner;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -100,7 +101,7 @@ public class Eintrag_Stuhl extends AppCompatActivity {
          */
 
         //Momentanes Datum anzeigen (Werte als SimpleDateFormat gespeichert)
-        SimpleDateFormat sdfDate = new SimpleDateFormat("dd MMM yyyy");
+        SimpleDateFormat sdfDate = new SimpleDateFormat("dd MM yyyy");
         editText_currentDate = findViewById(R.id.editText_currentDate);
         editText_currentDate.setText(sdfDate.format(new Date()));
 
@@ -155,18 +156,6 @@ public class Eintrag_Stuhl extends AppCompatActivity {
         });
     }
 
-    private void initListBristol(){
-        arrayList_bristol = new ArrayList<>();
-        arrayList_bristol.add(new BristolItem("einzelne, fest Kügelchen, schwer auszuscheiden", R.drawable.type01));
-        arrayList_bristol.add(new BristolItem("wurstartig, klumpig", R.drawable.type02));
-        arrayList_bristol.add(new BristolItem("wurstartig mit rissiger Oberfläche", R.drawable.type03));
-        arrayList_bristol.add(new BristolItem("wurstartig mit glatter, durchgehender Oberfläche", R.drawable.type04));
-        arrayList_bristol.add(new BristolItem("einzelne weiche glattrandige Klümpchen, leicht auszuscheiden", R.drawable.type05));
-        arrayList_bristol.add(new BristolItem("einzelne weiche Klümpchen mit unregelmäßigem Rand", R.drawable.type06));
-        arrayList_bristol.add(new BristolItem("flüssig, ohne feste Bestandteile", R.drawable.type07));
-    }
-
-
     //Methode wird automatisch aufgerufen von startActivityForResult()
     //Bild wird gemacht und in der PreviewView gespeichert und angezeigt
     @Override
@@ -201,6 +190,17 @@ public class Eintrag_Stuhl extends AppCompatActivity {
                 cameraSelector,
                 preview);
         //cameraProvider.unbind(preview);
+    }
+
+    private void initListBristol(){
+        arrayList_bristol = new ArrayList<>();
+        arrayList_bristol.add(new BristolItem("einzelne, fest Kügelchen, schwer auszuscheiden", R.drawable.type01));
+        arrayList_bristol.add(new BristolItem("wurstartig, klumpig", R.drawable.type02));
+        arrayList_bristol.add(new BristolItem("wurstartig mit rissiger Oberfläche", R.drawable.type03));
+        arrayList_bristol.add(new BristolItem("wurstartig mit glatter, durchgehender Oberfläche", R.drawable.type04));
+        arrayList_bristol.add(new BristolItem("einzelne weiche glattrandige Klümpchen, leicht auszuscheiden", R.drawable.type05));
+        arrayList_bristol.add(new BristolItem("einzelne weiche Klümpchen mit unregelmäßigem Rand", R.drawable.type06));
+        arrayList_bristol.add(new BristolItem("flüssig, ohne feste Bestandteile", R.drawable.type07));
     }
 
 }
