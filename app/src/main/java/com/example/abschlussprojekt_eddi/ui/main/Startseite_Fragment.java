@@ -17,6 +17,8 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.abschlussprojekt_eddi.Benutzer;
+import com.example.abschlussprojekt_eddi.BenutzerdatenSpeicher;
 import com.example.abschlussprojekt_eddi.Einstellungen;
 import com.example.abschlussprojekt_eddi.Eintrag_Essen;
 import com.example.abschlussprojekt_eddi.Eintrag_Stuhl;

@@ -20,20 +20,32 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.graphics.Matrix;
+import android.graphics.drawable.BitmapDrawable;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.provider.MediaStore;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import com.google.common.util.concurrent.ListenableFuture;
 
 import org.jetbrains.annotations.NotNull;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.StringBufferInputStream;
+import java.security.Timestamp;
+import java.sql.SQLOutput;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -49,9 +61,12 @@ public class Eintrag_Stuhl extends AppCompatActivity {
     ImageView imageView_stuhl;
     EditText editText_currentDate;
     EditText editText_currentTime;
+    Button button_speichern;
+    FileOutputStream outputStream;
 
-    final static int CAMERA_PERMISSION_CODE = 1;
-    final static int CAMERA_REQUEST_CODE = 2;
+    final static int PERMISSION_CODE = 1;
+    final static int REQUEST_CODE = 2;
+    final static int GALLERY_REQUEST_CODE = 3;
 
     Spinner spinner_bristol;
     ArrayList<BristolItem> arrayList_bristol;
@@ -89,10 +104,6 @@ public class Eintrag_Stuhl extends AppCompatActivity {
         editText_currentTime = findViewById(R.id.editText_currentTime);
         editText_currentTime.setText(currentHour + ":" + currentMinute);
 
-        //Kamera
-        imageButton_camera = findViewById(R.id.imageButton_kamera);
-        imageView_stuhl = findViewById(R.id.imageView_stuhl);
-
         //Bristol Spinner ArrayList befüllen
         initListBristol();
 
@@ -116,9 +127,12 @@ public class Eintrag_Stuhl extends AppCompatActivity {
         aA_menge = new ArrayAdapter<String>(this, R.layout.support_simple_spinner_dropdown_item, array_menge);
         spinner_menge.setAdapter(aA_menge);
 
+        //Kamera
+        imageButton_camera = findViewById(R.id.imageButton_kamera);
+        imageView_stuhl = findViewById(R.id.imageView_stuhl);
         //wenn Button gedrückt wird, wird überprüft, ob die Camera Permission gegeben ist
         //wenn keine Permission gegeben ist, wird eine Angefragt
-        //danch wird die Methode startActivityForResult aufgerufen und es kann ein Foto gemacht und gespeichert werde
+        //danch wird die Methode startActivityForResult aufgerufen und es kann ein Foto gemacht und gespeichert werden
         imageButton_camera.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -127,24 +141,60 @@ public class Eintrag_Stuhl extends AppCompatActivity {
                         Manifest.permission.CAMERA)
                         == PackageManager.PERMISSION_GRANTED){
                     Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                    startActivityForResult(intent, CAMERA_REQUEST_CODE); //dies Methode ruft die onActivityResult() Methode auf
+                    startActivityForResult(intent, REQUEST_CODE); //dies Methode ruft die onActivityResult() Methode auf
                 }
                 else {
                     ActivityCompat.requestPermissions(
                             Eintrag_Stuhl.this,
                             new String[]{Manifest.permission.CAMERA},
-                            CAMERA_PERMISSION_CODE);
+                            PERMISSION_CODE);
                 }
             }
         });
+
+
+
+        //Button Spuelen/Speichern
+        button_speichern = findViewById(R.id.button_stuhlgang_speichern);
+        button_speichern.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //Permission wird angefragt
+                if(ContextCompat.checkSelfPermission(
+                        Eintrag_Stuhl.this,
+                        Manifest.permission.READ_EXTERNAL_STORAGE)
+                        == PackageManager.PERMISSION_GRANTED){
+                    if(ContextCompat.checkSelfPermission(
+                            Eintrag_Stuhl.this,
+                            Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                            == PackageManager.PERMISSION_GRANTED){
+                        savePicture(); //diese Methode speichert das Bild in der Gallerie
+                    }
+                }
+                else {
+                    ActivityCompat.requestPermissions(
+                            Eintrag_Stuhl.this,
+                            new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
+                            GALLERY_REQUEST_CODE);
+                    ActivityCompat.requestPermissions(
+                            Eintrag_Stuhl.this,
+                            new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
+                            GALLERY_REQUEST_CODE);
+                }
+            }
+        });
+
+
     }
+
+
 
     //Methode wird automatisch aufgerufen von startActivityForResult()
     //Bild wird gemacht und in ImageView gespeichert und angezeigt
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if(resultCode == Activity.RESULT_OK && requestCode == CAMERA_REQUEST_CODE){
+        if(resultCode == Activity.RESULT_OK && requestCode == REQUEST_CODE){
             startCamera();
             //get Capture Image
             Bitmap captureImage = (Bitmap) data.getExtras().get("data");
@@ -178,7 +228,55 @@ public class Eintrag_Stuhl extends AppCompatActivity {
         arrayList_bristol.add(new BristolItem("einzelne weiche Klümpchen mit unregelmäßigem Rand", R.drawable.type06));
         arrayList_bristol.add(new BristolItem("flüssig, ohne feste Bestandteile", R.drawable.type07));
     }
+/*
+    private void savePicture(){
+        //BitmapDrawable mit dem ImageView des Bildes wird erstellt
+        BitmapDrawable bitmapDrawable = (BitmapDrawable) imageView_stuhl.getDrawable();
+        //BitmapDrawable wird in Bitmap gespeichert
+        Bitmap bitmap = bitmapDrawable.getBitmap();
 
+        //FileOutputStream outputStream = null;
+        File filepath = Environment.getExternalStorageDirectory();
+        File dir = new File(filepath.getAbsolutePath() + "/EDDi");
+        if(!dir.exists()){
+            //Directory wird erstellt
+            dir.mkdirs();
+        }
+
+        String filename = String.format("%d.jpg", System.currentTimeMillis());
+        File outFile = new File(dir, filename);
+
+        try {
+            outputStream = new FileOutputStream(outFile); //FileNotFoundException!!!
+            System.out.println("outputStream");
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, outputStream);
+            System.out.println("bitmap.compress");
+            Toast.makeText(this, "Bild gespeichert", Toast.LENGTH_SHORT).show();
+            outputStream.flush();
+            outputStream.close();
+
+        }catch (FileNotFoundException e){
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+ */
+
+    private void savePicture(){
+        imageView_stuhl.buildDrawingCache();
+        Bitmap bitmap = imageView_stuhl.getDrawingCache();
+
+        //Bild wird um 90 Grad gedreht
+        Matrix matrix = new Matrix();
+        matrix.postRotate(90);
+        bitmap = Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(), bitmap.getHeight(), matrix, true);
+
+        Calendar c = Calendar.getInstance();
+        String imageFileName = c.get(Calendar.DATE) + ".jpg";
+        MediaStore.Images.Media.insertImage(getContentResolver(), bitmap, imageFileName, String.valueOf(1));
+    }
 }
 
 
