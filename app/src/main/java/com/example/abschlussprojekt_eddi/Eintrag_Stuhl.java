@@ -16,13 +16,18 @@ import androidx.lifecycle.LifecycleOwner;
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.content.ContentResolver;
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.Matrix;
 import android.graphics.drawable.BitmapDrawable;
+import android.media.MediaScannerConnection;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
@@ -43,6 +48,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.OutputStream;
 import java.io.StringBufferInputStream;
 import java.security.Timestamp;
 import java.sql.SQLOutput;
@@ -52,6 +58,7 @@ import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 import java.util.concurrent.ExecutionException;
 
 public class Eintrag_Stuhl extends AppCompatActivity {
@@ -228,6 +235,7 @@ public class Eintrag_Stuhl extends AppCompatActivity {
         arrayList_bristol.add(new BristolItem("einzelne weiche Klümpchen mit unregelmäßigem Rand", R.drawable.type06));
         arrayList_bristol.add(new BristolItem("flüssig, ohne feste Bestandteile", R.drawable.type07));
     }
+
 /*
     private void savePicture(){
         //BitmapDrawable mit dem ImageView des Bildes wird erstellt
@@ -235,18 +243,36 @@ public class Eintrag_Stuhl extends AppCompatActivity {
         //BitmapDrawable wird in Bitmap gespeichert
         Bitmap bitmap = bitmapDrawable.getBitmap();
 
-        //FileOutputStream outputStream = null;
-        File filepath = Environment.getExternalStorageDirectory();
-        File dir = new File(filepath.getAbsolutePath() + "/EDDi");
+       FileOutputStream outputStream;
+        String filepath = Environment.getExternalStorageDirectory().toString();
+        File dir = new File(filepath + "/EDDi");
         if(!dir.exists()){
             //Directory wird erstellt
-            dir.mkdirs();
+            boolean mkdir = dir.mkdirs();
+            if(!mkdir){
+                System.out.println("dir.mkdirs failed");
+            }
         }
 
-        String filename = String.format("%d.jpg", System.currentTimeMillis());
+        //String filename = String.format("%d.jpg", System.currentTimeMillis());
+        String filename = "eddi01";
         File outFile = new File(dir, filename);
+        System.out.println("File outFile");
 
         try {
+            boolean createNewFile = outFile.createNewFile(); //No such file or directory! Kann File nicht erzeugen?!
+            System.out.println("outfile.createNewFile");
+            if(!createNewFile){
+                System.out.println("createNewFile failed");
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+
+        try {
+            scanFile(this, outFile, "image/jpeg");
+            System.out.println("scanFile");
             outputStream = new FileOutputStream(outFile); //FileNotFoundException!!!
             System.out.println("outputStream");
             bitmap.compress(Bitmap.CompressFormat.JPEG, 100, outputStream);
@@ -254,7 +280,6 @@ public class Eintrag_Stuhl extends AppCompatActivity {
             Toast.makeText(this, "Bild gespeichert", Toast.LENGTH_SHORT).show();
             outputStream.flush();
             outputStream.close();
-
         }catch (FileNotFoundException e){
             e.printStackTrace();
         } catch (IOException e) {
@@ -262,8 +287,44 @@ public class Eintrag_Stuhl extends AppCompatActivity {
         }
     }
 
+    public void scanFile(Context c, File f, String mimeType){
+        MediaScannerConnection
+                .scanFile(c, new String[]{f.getAbsolutePath()},
+                        new String[]{mimeType}, null);
+    }
+
  */
 
+    private void savePicture(){
+        //BitmapDrawable mit dem ImageView des Bildes wird erstellt
+        BitmapDrawable bitmapDrawable = (BitmapDrawable) imageView_stuhl.getDrawable();
+        //BitmapDrawable wird in Bitmap gespeichert
+        Bitmap bitmap = bitmapDrawable.getBitmap();
+
+        OutputStream outputStream;
+
+        try {
+            if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q){
+                ContentResolver contentResolver = getContentResolver();
+                ContentValues contentValues = new ContentValues();
+                contentValues.put(MediaStore.MediaColumns.DISPLAY_NAME, "EDDi_"+System.currentTimeMillis()+".jpg");
+                contentValues.put(MediaStore.MediaColumns.MIME_TYPE, "image/jpeg");
+                contentValues.put(MediaStore.MediaColumns.RELATIVE_PATH, Environment.DIRECTORY_PICTURES + File.separator + "EDDi");
+                Uri imageUri = contentResolver.insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, contentValues);
+                outputStream = (FileOutputStream) contentResolver.openOutputStream(Objects.requireNonNull(imageUri));
+                Toast.makeText(this, "Bild gespeichert", Toast.LENGTH_SHORT).show();
+                bitmap.compress(Bitmap.CompressFormat.JPEG, 100, outputStream);
+                Objects.requireNonNull(outputStream);
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+            Toast.makeText(this, "Bild konnte nicht gespeichert werden", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+
+
+/*
     private void savePicture(){
         imageView_stuhl.buildDrawingCache();
         Bitmap bitmap = imageView_stuhl.getDrawingCache();
@@ -273,10 +334,13 @@ public class Eintrag_Stuhl extends AppCompatActivity {
         matrix.postRotate(90);
         bitmap = Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(), bitmap.getHeight(), matrix, true);
 
-        Calendar c = Calendar.getInstance();
-        String imageFileName = c.get(Calendar.DATE) + ".jpg";
+        String imageFileName = System.currentTimeMillis() + ".jpg";
         MediaStore.Images.Media.insertImage(getContentResolver(), bitmap, imageFileName, String.valueOf(1));
     }
+
+ */
+
+
 }
 
 
