@@ -5,8 +5,6 @@ import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
-import java.text.SimpleDateFormat;
-
 @Entity(tableName = "stuhl")
 public class Entity_Stuhl {
 
@@ -25,17 +23,17 @@ public class Entity_Stuhl {
 
     private int minute;
 
-    private int bristol;
+    private String bristol;
 
-    private int schmerzen;
+    private boolean schmerzen;
 
-    private int blut;
+    private boolean blut;
 
     private String farbe;
 
-    private int unverdauteNahrung;
+    private boolean unverdauteNahrung;
 
-    private int schleim;
+    String schleim;
 
     private String menge;
 
@@ -45,8 +43,8 @@ public class Entity_Stuhl {
     private String fotoReferenz;
 
     //Konstruktor
-    public Entity_Stuhl(int jahr, int monat, int tag, int stunde, int minute, int bristol, int schmerzen, int blut,
-                        String farbe, int unverdauteNahrung, int schleim, String menge, String notizen, String fotoReferenz) {
+    public Entity_Stuhl(int jahr, int monat, int tag, int stunde, int minute, String bristol, boolean schmerzen, boolean blut,
+                        String farbe, boolean unverdauteNahrung, String schleim, String menge, String notizen, String fotoReferenz) {
         this.jahr = jahr;
         this.monat = monat;
         this.tag = tag;
@@ -62,7 +60,6 @@ public class Entity_Stuhl {
         this.notizen = notizen;
         this.fotoReferenz = fotoReferenz;
     }
-
 
     //Getter:
 
@@ -90,15 +87,14 @@ public class Entity_Stuhl {
         return minute;
     }
 
-    public int getBristol() {
+    public String getBristol() {
         return bristol;
     }
-
-    public int getSchmerzen() {
+    public boolean getSchmerzen() {
         return schmerzen;
     }
 
-    public int getBlut() {
+    public boolean getBlut() {
         return blut;
     }
 
@@ -106,11 +102,11 @@ public class Entity_Stuhl {
         return farbe;
     }
 
-    public int getUnverdauteNahrung() {
+    public boolean getUnverdauteNahrung() {
         return unverdauteNahrung;
     }
 
-    public int getSchleim() {
+    public String getSchleim() {
         return schleim;
     }
 

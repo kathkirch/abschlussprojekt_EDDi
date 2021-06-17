@@ -1,23 +1,18 @@
 package com.example.abschlussprojekt_eddi;
 
-import android.app.Application;
-
-import androidx.annotation.NonNull;
-import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
+import androidx.lifecycle.ViewModel;
 
-import java.text.SimpleDateFormat;
 import java.util.List;
 
-public class ViewModel_Stuhl extends AndroidViewModel {
+public class ViewModel_Stuhl extends ViewModel {
 
     private LogbuchRepository repository;
     private LiveData<List<Entity_Stuhl>> allStuhl;
 
-    public ViewModel_Stuhl(@NonNull Application application) {
-        super(application);
-        allStuhl = repository.getAll();
+    public ViewModel_Stuhl() {
     }
+
 
     public void insertAll(Entity_Stuhl stuhl){
         repository.insertAll(stuhl);

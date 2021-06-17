@@ -12,7 +12,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class StuhlAdapter extends RecyclerView.Adapter <StuhlAdapter.NoteHolder>{
-    private List<Entity_Stuhl> stuhlNotes = new ArrayList();
+
+    private List<Entity_Stuhl> stuhlNotes = new ArrayList<>();
 
 
     @NonNull
@@ -26,11 +27,11 @@ public class StuhlAdapter extends RecyclerView.Adapter <StuhlAdapter.NoteHolder>
     @Override
     public void onBindViewHolder(@NonNull NoteHolder holder, int position) {
         Entity_Stuhl currentNote = stuhlNotes.get(position);
-        //holder.tvUhrzeit.setText(currentNote.getUhrzeit());
+        holder.tvUhrzeit.setText(String.valueOf(currentNote.getStunde() +":"
+                                + currentNote.getMinute()));
         holder.tvBristol.setText(currentNote.getBristol());
         holder.tvFarbe.setText(currentNote.getFarbe());
-        holder.tvSchmerz.setText(currentNote.getSchmerzen());
-
+        holder.tvSchmerz.setText(Boolean.valueOf(currentNote.getSchmerzen()).toString());
     }
 
     @Override

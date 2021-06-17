@@ -4,13 +4,9 @@ import android.content.Context;
 import android.os.AsyncTask;
 
 import androidx.annotation.NonNull;
-import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
 import androidx.sqlite.db.SupportSQLiteDatabase;
-
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
 
 @androidx.room.Database(entities = {Entity_Stuhl.class}, version=1)
 public abstract class LogbuchDatabase extends androidx.room.RoomDatabase {
@@ -54,7 +50,7 @@ public abstract class LogbuchDatabase extends androidx.room.RoomDatabase {
         protected Void doInBackground(Void... voids) {
             //wie gibt man ein SimpleDateFormat an???
             dao_stuhl.insertStuhl(new Entity_Stuhl(2021, 6, 8, 14, 20,
-                    2, 0, 0, "dunkelbraun", 1, 0, "normal",
+                    "2", false, false, "dunkelbraun", false, "0", "normal",
                     "keine Notizen", "Hier könnte dein Foto zu sehen sein"));
             return null;
         }
