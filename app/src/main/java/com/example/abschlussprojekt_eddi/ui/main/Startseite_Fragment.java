@@ -1,9 +1,12 @@
 package com.example.abschlussprojekt_eddi.ui.main;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -12,15 +15,20 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.abschlussprojekt_eddi.Benutzer;
 import com.example.abschlussprojekt_eddi.BenutzerdatenSpeicher;
 import com.example.abschlussprojekt_eddi.Einstellungen;
 import com.example.abschlussprojekt_eddi.Eintrag_Essen;
 import com.example.abschlussprojekt_eddi.Eintrag_Stuhl;
+import com.example.abschlussprojekt_eddi.Entity_Stuhl;
 import com.example.abschlussprojekt_eddi.Logbuch_Stuhl;
 import com.example.abschlussprojekt_eddi.MainActivity;
 import com.example.abschlussprojekt_eddi.R;
+import com.example.abschlussprojekt_eddi.ViewModel_Stuhl;
+
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -28,6 +36,9 @@ import com.example.abschlussprojekt_eddi.R;
  * create an instance of this fragment.
  */
 public class Startseite_Fragment extends Fragment {
+
+    Context context = getActivity();
+    private ViewModel_Stuhl viewModel_stuhl;
 
 
     Intent intentStuhl;
@@ -85,6 +96,24 @@ public class Startseite_Fragment extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+/*
+        //VM wird zerstört, wenn die Aktivity (this) geschlossen wird
+        //anstatt "this" kann man auch einfach ein fragement aufrufen
+        viewModel_stuhl = new ViewModelProvider(this).get(ViewModel_Stuhl.class);
+        //observe ist eine LiveData Methode und wird nur aktiviert, wenn die Aktivity im Vordergrund ist
+        //anstatt "this" kann man auch ein Fragement übergeben
+        viewModel_stuhl.getAll().observe(this, new Observer<List<Entity_Stuhl>>() {
+            @Override
+            public void onChanged(List<Entity_Stuhl> entity_stuhls) {
+                //update RecyclerView
+                Toast.makeText(context, "onChanged", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+ */
+
+
+
     }
 
     @Override
@@ -104,6 +133,7 @@ public class Startseite_Fragment extends Fragment {
         bV3 = view.findViewById(R.id.VAS_2);
         bV4 = view.findViewById(R.id.VAS_3);
         bV5 = view.findViewById(R.id.VAS_4);
+
 
         bV1.setOnClickListener(this::stimmung);
         bV2.setOnClickListener(this::stimmung);
@@ -169,5 +199,7 @@ public class Startseite_Fragment extends Fragment {
                 break;
         }
     }
+
+
 }
 

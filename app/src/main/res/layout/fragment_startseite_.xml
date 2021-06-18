@@ -3,7 +3,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".ui.main.Startseite_Fragment" >
+    tools:context=".ui.main.Startseite_Fragment"
+    android:id="@+id/fragment_startseite">
 
     <TableRow
         android:id="@+id/row1"
@@ -38,7 +39,7 @@
             android:layout_width="116dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:background="@drawable/entry_button_style"
+            android:background="@drawable/button_style"
             android:text="@string/stuhl"
             android:textSize="18sp"
             android:textColor="@color/white"
@@ -55,7 +56,7 @@
             android:layout_width="116dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:background="@drawable/entry_button_style"
+            android:background="@drawable/button_style"
             android:text="@string/essen"
             android:textColor="@color/white"
             android:textSize="18sp"
