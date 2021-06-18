@@ -206,7 +206,7 @@ public class Eintrag_Stuhl extends AppCompatActivity {
                         .beginTransaction()
                         .replace(R.id.fragment_statistik, new Startseite_Fragment())
                         .commit();
-                 */
+
 
                 //Auf Folie 13 bei "Fragments"
                 FragmentManager fm = getSupportFragmentManager();
@@ -215,6 +215,7 @@ public class Eintrag_Stuhl extends AppCompatActivity {
                         Startseite_Fragment.class,
                         null);
                 ft.commit();
+                */
             }
         });
     }
