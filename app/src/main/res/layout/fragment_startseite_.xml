@@ -223,12 +223,11 @@
             android:layout_gravity="start"
             android:layout_weight="1">
 
-            <TextView
-                android:id="@+id/logbuchStuhl"
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recycler_view"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/logbuch_stuhl_ansicht"
-                android:text="@string/large_text" />
+                tools:listitem="@layout/note_stuhl_tag" />
         </ScrollView>
 
         <View
@@ -248,11 +247,10 @@
             android:scrollbarAlwaysDrawHorizontalTrack="false"
             android:verticalScrollbarPosition="right">
 
-            <TextView
-                android:id="@+id/logbuchEssen"
-                android:layout_width="wrap_content"
+            <androidx.recyclerview.widget.RecyclerView
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/logbuch_essen_ansicht" />
+                tools:listitem="@layout/note_essen_tag"/>
         </ScrollView>
     </LinearLayout>
 </RelativeLayout>

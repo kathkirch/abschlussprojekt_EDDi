@@ -16,7 +16,6 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.LifecycleOwner;
 
 import android.Manifest;
-import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.ContentResolver;
 import android.content.ContentValues;
@@ -42,6 +41,13 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.Toast;
+
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SwitchCompat;
+import androidx.camera.lifecycle.ProcessCameraProvider;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
 import com.example.abschlussprojekt_eddi.ui.main.Startseite_Fragment;
 import com.google.common.util.concurrent.ListenableFuture;
@@ -75,6 +81,34 @@ public class Eintrag_Stuhl extends AppCompatActivity {
     ImageView imageView_stuhl;
     EditText editText_currentDate;
     EditText editText_currentTime;
+    Button spuelen_Button;
+    SwitchCompat switch_blut;
+    SwitchCompat switch_schmerz;
+    SwitchCompat switch_unverdauteNahrung;
+    EditText edit_Notizen;
+
+    public static final int ADD_NOTE_REQUEST = 1;
+
+    public static final String EXTRA_DATUM =
+            "com.example.abschlussprojekt_eddi.EXTRA_DATUM";
+    public static final String EXTRA_UHRZEIT =
+            "com.example.abschlussprojekt_eddi.EXTRA_UHRZEIT";
+    public static final String EXTRA_BRISTOL =
+            "com.example.abschlussprojekt_eddi.EXTRA_BRISTOL";
+    public static final String EXTRA_BLUT =
+            "com.example.abschlussprojekt_eddi.EXTRA_BLUT";
+    public static final String EXTRA_SCHMERZ =
+            "com.example.abschlussprojekt_eddi.EXTRA_SCHMERZ";
+    public static final String EXTRA_FARBE =
+            "com.example.abschlussprojekt_eddi.EXTRA_FARBE";
+    public static final String EXTRA_UNVERDAUTENAHRUNG =
+            "com.example.abschlussprojekt_eddi.EXTRA_UNVERDAUTENAHRUNG";
+    public static final String EXTRA_SCHLEIM =
+            "com.example.abschlussprojekt_eddi.EXTRA_SCHLEIM";
+    public static final String EXTRA_MENGE =
+            "com.example.abschlussprojekt_eddi.EXTRA_MENGE";
+    public static final String EXTRA_NOTIZ =
+            "com.example.abschlussprojekt_eddi.EXTRA_NOTIZ";
     Button button_speichern;
     FileOutputStream outputStream;
 
@@ -218,6 +252,72 @@ public class Eintrag_Stuhl extends AppCompatActivity {
                 */
             }
         });
+
+        //switch instanzieren:
+        switch_blut = findViewById(R.id.switch_blut);
+        switch_schmerz = findViewById(R.id.switch_schmerzen);
+        switch_unverdauteNahrung = findViewById(R.id.switch_unverdaute_nahrung);
+
+        //editText notizen:
+        edit_Notizen = findViewById(R.id.editText_notizen);
+
+        //spuelen Button:
+        spuelen_Button = findViewById(R.id.button_stuhlgang_speichern);
+        spuelen_Button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                stuhlSpeichern();
+            }
+        });
+    }
+
+    private void stuhlSpeichern() {
+
+        boolean blut;
+        boolean schmerz;
+        boolean unverdauteNahrung;
+
+        String datum = editText_currentDate.getText().toString();
+        String uhrzeit = editText_currentTime.getText().toString();
+        String bristol = spinner_bristol.getSelectedItem().toString();
+
+        if (switch_blut.isChecked()){
+            blut = true;
+        } else {
+            blut = false;
+        }
+        if (switch_schmerz.isChecked()){
+            schmerz = true;
+        } else {
+            schmerz = false;
+        }
+        String farbe = spinner_farbe.getSelectedItem().toString();
+        if (switch_unverdauteNahrung.isChecked()){
+            unverdauteNahrung = true;
+        } else {
+            unverdauteNahrung = false;
+        }
+
+        String schleim = spinner_schleim.getSelectedItem().toString();
+        String menge = spinner_menge.getSelectedItem().toString();
+        String notizen = edit_Notizen.getText().toString();
+
+        //empty abfragen? notwendig?
+
+        Intent stuhl_data = new Intent();
+        stuhl_data.putExtra(EXTRA_DATUM, datum);
+        stuhl_data.putExtra(EXTRA_UHRZEIT, uhrzeit);
+        stuhl_data.putExtra(EXTRA_BRISTOL, bristol);
+        stuhl_data.putExtra(EXTRA_BLUT, blut);
+        stuhl_data.putExtra(EXTRA_SCHMERZ, schmerz);
+        stuhl_data.putExtra(EXTRA_FARBE, farbe);
+        stuhl_data.putExtra(EXTRA_UNVERDAUTENAHRUNG, unverdauteNahrung);
+        stuhl_data.putExtra(EXTRA_SCHLEIM, schleim);
+        stuhl_data.putExtra(EXTRA_MENGE, menge);
+        stuhl_data.putExtra(EXTRA_NOTIZ, notizen);
+
+        setResult(RESULT_OK, stuhl_data);
+        finish();
     }
 
     //Methode wird automatisch aufgerufen von startActivityForResult()
@@ -226,6 +326,8 @@ public class Eintrag_Stuhl extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if(resultCode == Activity.RESULT_OK && requestCode == REQUEST_CODE){
+
+        if(resultCode == Activity.RESULT_OK && requestCode == CAMERA_REQUEST_CODE){
             startCamera();
             //get Capture Image
             Bitmap captureImage = (Bitmap) data.getExtras().get("data");

@@ -5,7 +5,7 @@ import android.os.AsyncTask;
 
 import androidx.lifecycle.LiveData;
 
-import java.text.SimpleDateFormat;
+
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
