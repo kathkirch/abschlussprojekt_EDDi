@@ -22,7 +22,7 @@
         android:supportsRtl="true"
         android:theme="@style/EDDi_layout">
         <activity android:name=".Anmeldung" />
-        <activity android:name=".MainActivity" />
+        <activity android:name=".MainActivity"  />
         <activity android:name=".Einstellungen" />
         <activity android:name=".Eintrag_Essen" />
         <activity android:name=".Eintrag_Stuhl" />

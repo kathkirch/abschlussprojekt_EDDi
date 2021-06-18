@@ -11,6 +11,8 @@ import androidx.camera.lifecycle.ProcessCameraProvider;
 import androidx.camera.view.PreviewView;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.LifecycleOwner;
 
 import android.Manifest;
@@ -31,6 +33,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -40,10 +43,12 @@ import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.example.abschlussprojekt_eddi.ui.main.Startseite_Fragment;
 import com.google.common.util.concurrent.ListenableFuture;
 
 import org.jetbrains.annotations.NotNull;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -64,6 +69,8 @@ import java.util.concurrent.ExecutionException;
 public class Eintrag_Stuhl extends AppCompatActivity {
 
     Intent intent;
+    Intent intentStartseite;
+    Context context = this;
     ImageButton imageButton_camera;
     ImageView imageView_stuhl;
     EditText editText_currentDate;
@@ -159,8 +166,6 @@ public class Eintrag_Stuhl extends AppCompatActivity {
             }
         });
 
-
-
         //Button Spuelen/Speichern
         button_speichern = findViewById(R.id.button_stuhlgang_speichern);
         button_speichern.setOnClickListener(new View.OnClickListener() {
@@ -188,13 +193,31 @@ public class Eintrag_Stuhl extends AppCompatActivity {
                             new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
                             GALLERY_REQUEST_CODE);
                 }
+                Toast.makeText(Eintrag_Stuhl.this, "Eintrag gespeichert", Toast.LENGTH_SHORT).show();
+
+                /*
+                intentStartseite = new Intent(context, Startseite_Fragment.class);
+                startActivity(intentStartseite); //Startseite ist ein Fragment und keine Activity!
+
+
+                //um ein Fragment aufzurufen
+                //Problem: unser Fragment hat kein FrameLayout, kann die container ID nicht finden
+                getSupportFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.fragment_statistik, new Startseite_Fragment())
+                        .commit();
+                 */
+
+                //Auf Folie 13 bei "Fragments"
+                FragmentManager fm = getSupportFragmentManager();
+                FragmentTransaction ft = fm.beginTransaction();
+                ft.add(R.id.view_pager,
+                        Startseite_Fragment.class,
+                        null);
+                ft.commit();
             }
         });
-
-
     }
-
-
 
     //Methode wird automatisch aufgerufen von startActivityForResult()
     //Bild wird gemacht und in ImageView gespeichert und angezeigt
@@ -253,12 +276,10 @@ public class Eintrag_Stuhl extends AppCompatActivity {
                 System.out.println("dir.mkdirs failed");
             }
         }
-
         //String filename = String.format("%d.jpg", System.currentTimeMillis());
         String filename = "eddi01";
         File outFile = new File(dir, filename);
         System.out.println("File outFile");
-
         try {
             boolean createNewFile = outFile.createNewFile(); //No such file or directory! Kann File nicht erzeugen?!
             System.out.println("outfile.createNewFile");
@@ -268,8 +289,6 @@ public class Eintrag_Stuhl extends AppCompatActivity {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-
         try {
             scanFile(this, outFile, "image/jpeg");
             System.out.println("scanFile");
@@ -292,7 +311,6 @@ public class Eintrag_Stuhl extends AppCompatActivity {
                 .scanFile(c, new String[]{f.getAbsolutePath()},
                         new String[]{mimeType}, null);
     }
-
  */
 
     private void savePicture(){
@@ -300,9 +318,9 @@ public class Eintrag_Stuhl extends AppCompatActivity {
         BitmapDrawable bitmapDrawable = (BitmapDrawable) imageView_stuhl.getDrawable();
         //BitmapDrawable wird in Bitmap gespeichert
         Bitmap bitmap = bitmapDrawable.getBitmap();
-
+        Log.d("Dimensions", bitmap.getWidth() + " " + bitmap.getHeight());
+        //OutputStream
         OutputStream outputStream;
-
         try {
             if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q){
                 ContentResolver contentResolver = getContentResolver();
@@ -312,9 +330,12 @@ public class Eintrag_Stuhl extends AppCompatActivity {
                 contentValues.put(MediaStore.MediaColumns.RELATIVE_PATH, Environment.DIRECTORY_PICTURES + File.separator + "EDDi");
                 Uri imageUri = contentResolver.insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, contentValues);
                 outputStream = (FileOutputStream) contentResolver.openOutputStream(Objects.requireNonNull(imageUri));
+
                 Toast.makeText(this, "Bild gespeichert", Toast.LENGTH_SHORT).show();
                 bitmap.compress(Bitmap.CompressFormat.JPEG, 100, outputStream);
                 Objects.requireNonNull(outputStream);
+            }else {
+                savePictureLowerVersionCodeQ();
             }
         }catch (Exception e){
             e.printStackTrace();
@@ -322,10 +343,7 @@ public class Eintrag_Stuhl extends AppCompatActivity {
         }
     }
 
-
-
-/*
-    private void savePicture(){
+    private void savePictureLowerVersionCodeQ(){
         imageView_stuhl.buildDrawingCache();
         Bitmap bitmap = imageView_stuhl.getDrawingCache();
 
@@ -337,9 +355,6 @@ public class Eintrag_Stuhl extends AppCompatActivity {
         String imageFileName = System.currentTimeMillis() + ".jpg";
         MediaStore.Images.Media.insertImage(getContentResolver(), bitmap, imageFileName, String.valueOf(1));
     }
-
- */
-
 
 }
 
