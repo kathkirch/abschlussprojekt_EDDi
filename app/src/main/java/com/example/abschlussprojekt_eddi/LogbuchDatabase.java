@@ -8,7 +8,7 @@ import androidx.room.Room;
 import androidx.room.RoomDatabase;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 
-@androidx.room.Database(entities = {Entity_Stuhl.class}, version=1)
+@androidx.room.Database(entities = {Entity_Stuhl.class}, version=2)
 public abstract class LogbuchDatabase extends androidx.room.RoomDatabase {
 
     private static LogbuchDatabase instance;
@@ -48,10 +48,23 @@ public abstract class LogbuchDatabase extends androidx.room.RoomDatabase {
 
         @Override
         protected Void doInBackground(Void... voids) {
-            //wie gibt man ein SimpleDateFormat an???
-            dao_stuhl.insertStuhl(new Entity_Stuhl(2021, 6, 8, 14, 20,
-                    "2", false, false, "dunkelbraun", false, "0", "normal",
-                    "keine Notizen", "Hier könnte dein Foto zu sehen sein"));
+            Entity_Stuhl entity_stuhl = new Entity_Stuhl();
+
+            entity_stuhl.setJahr(2021);
+            entity_stuhl.setMonat(07);
+            entity_stuhl.setTag(19);
+            entity_stuhl.setStunde(18);
+            entity_stuhl.setMinute(03);
+            entity_stuhl.setBristol("bristol");
+            entity_stuhl.setBlut(false);
+            entity_stuhl.setSchmerzen(false);
+            entity_stuhl.setFarbe("lehmfarben");
+            entity_stuhl.setUnverdauteNahrung(true);
+            entity_stuhl.setSchleim("wenig");
+            entity_stuhl.setMenge("viel");
+            entity_stuhl.setNotizen("notizen");
+            entity_stuhl.setFotoReferenz("fotoreferenzen");
+
             return null;
         }
     }

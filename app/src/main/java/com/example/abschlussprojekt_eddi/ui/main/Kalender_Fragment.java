@@ -17,8 +17,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.abschlussprojekt_eddi.Entity_Stuhl;
 import com.example.abschlussprojekt_eddi.R;
-import com.example.abschlussprojekt_eddi.StuhlAdapter;
-import com.example.abschlussprojekt_eddi.ViewModel_Stuhl;
 
 import java.util.List;
 
@@ -30,10 +28,7 @@ import java.util.List;
  */
 public class Kalender_Fragment extends Fragment {
 
-
-    StuhlAdapter adapterStuhl;
     Context context = getActivity();
-    public ViewModel_Stuhl viewModel_stuhl;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -79,49 +74,8 @@ public class Kalender_Fragment extends Fragment {
                              Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.fragment_kalender_, container, false);
-
-        try {
-            // create recycler
-            RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.recycler_view);
-            recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-            recyclerView.setHasFixedSize(true);
-
-            // define adapter
-            adapterStuhl = new StuhlAdapter();
-            System.out.println(adapterStuhl);
-            if (adapterStuhl != null){
-
-                System.out.println("hell yeah!");
-            }
-            recyclerView.setAdapter(adapterStuhl);
-        }catch (Exception ex){
-            System.out.println(ex + " this is in kalender");
-        }
-
-        viewModel_stuhl = new ViewModelProvider(this).get(ViewModel_Stuhl.class);
-        try {
-            viewModel_stuhl.getAll().observe((LifecycleOwner) context, new Observer<List<Entity_Stuhl>>() {
-                @Override
-                public void onChanged(List<Entity_Stuhl> entity_stuhls) {
-                    //update RecyclerView
-                    adapterStuhl.setStuhlNotes(entity_stuhls);
-                    Toast.makeText(context, "onChanged", Toast.LENGTH_SHORT).show();
-                }
-            });
-
-        }catch (NullPointerException npx){
-            System.out.println(npx + "kalender fragment");
-        }
         return view;
-    }
-
-    /*
-    @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-
 
     }
 
-     */
 }

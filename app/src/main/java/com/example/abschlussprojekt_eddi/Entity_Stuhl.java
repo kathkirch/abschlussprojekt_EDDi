@@ -31,9 +31,10 @@ public class Entity_Stuhl {
 
     private String farbe;
 
+    @ColumnInfo (name = "Unverdaute Nahrung")
     private boolean unverdauteNahrung;
 
-    String schleim;
+    private String schleim;
 
     private String menge;
 
@@ -42,27 +43,9 @@ public class Entity_Stuhl {
     @ColumnInfo (name = "Foto-Referenz")
     private String fotoReferenz;
 
-    //Konstruktor
-    public Entity_Stuhl(int jahr, int monat, int tag, int stunde, int minute, String bristol, boolean schmerzen, boolean blut,
-                        String farbe, boolean unverdauteNahrung, String schleim, String menge, String notizen, String fotoReferenz) {
-        this.jahr = jahr;
-        this.monat = monat;
-        this.tag = tag;
-        this.stunde = stunde;
-        this.minute = minute;
-        this.bristol = bristol;
-        this.schmerzen = schmerzen;
-        this.blut = blut;
-        this.farbe = farbe;
-        this.unverdauteNahrung = unverdauteNahrung;
-        this.schleim = schleim;
-        this.menge = menge;
-        this.notizen = notizen;
-        this.fotoReferenz = fotoReferenz;
-    }
+    //Konstruktor ist leer, weil es dafür die Setter gibt
 
     //Getter:
-
     public int getId() {
         return id;
     }
@@ -124,8 +107,63 @@ public class Entity_Stuhl {
 
     //Setter:
 
-    //weil die ID nicht im Konstruktor vorkommt, braucht es einen setter dafür
     public void setId(int id) {
         this.id = id;
+    }
+
+    public void setJahr(int jahr) {
+        this.jahr = jahr;
+    }
+
+    public void setMonat(int monat) {
+        this.monat = monat;
+    }
+
+    public void setTag(int tag) {
+        this.tag = tag;
+    }
+
+    public void setStunde(int stunde) {
+        this.stunde = stunde;
+    }
+
+    public void setMinute(int minute) {
+        this.minute = minute;
+    }
+
+    public void setBristol(String bristol) {
+        this.bristol = bristol;
+    }
+
+    public void setSchmerzen(boolean schmerzen) {
+        this.schmerzen = schmerzen;
+    }
+
+    public void setBlut(boolean blut) {
+        this.blut = blut;
+    }
+
+    public void setFarbe(String farbe) {
+        this.farbe = farbe;
+    }
+
+    public void setUnverdauteNahrung(boolean unverdauteNahrung) {
+        this.unverdauteNahrung = unverdauteNahrung;
+    }
+
+    public void setSchleim(String schleim) {
+        this.schleim = schleim;
+    }
+
+    public void setMenge(String menge) {
+        this.menge = menge;
+    }
+
+    public void setNotizen(String notizen) {
+        this.notizen = notizen;
+    }
+
+    public void setFotoReferenz(String fotoReferenz) {
+        this.fotoReferenz = fotoReferenz;
     }
 }

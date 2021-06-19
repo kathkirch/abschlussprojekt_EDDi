@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -27,10 +28,8 @@ import com.example.abschlussprojekt_eddi.Einstellungen;
 import com.example.abschlussprojekt_eddi.Eintrag_Essen;
 import com.example.abschlussprojekt_eddi.Eintrag_Stuhl;
 import com.example.abschlussprojekt_eddi.Entity_Stuhl;
-import com.example.abschlussprojekt_eddi.Logbuch_Stuhl;
-import com.example.abschlussprojekt_eddi.MainActivity;
+import com.example.abschlussprojekt_eddi.LogbuchDatabase;
 import com.example.abschlussprojekt_eddi.R;
-import com.example.abschlussprojekt_eddi.ViewModel_Stuhl;
 
 import java.util.List;
 
@@ -41,9 +40,6 @@ import java.util.List;
  */
 public class Startseite_Fragment extends Fragment {
 
-
-    StuhlAdapter adapterStuhl;
-    public ViewModel_Stuhl viewModel_stuhl;
     Context context = getActivity();
     public static final int ADD_NOTE_REQUEST = 1;
 
@@ -103,22 +99,6 @@ public class Startseite_Fragment extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
-/*
-        //VM wird zerstört, wenn die Aktivity (this) geschlossen wird
-        //anstatt "this" kann man auch einfach ein fragement aufrufen
-        viewModel_stuhl = new ViewModelProvider(this).get(ViewModel_Stuhl.class);
-        //observe ist eine LiveData Methode und wird nur aktiviert, wenn die Aktivity im Vordergrund ist
-        //anstatt "this" kann man auch ein Fragement übergeben
-        viewModel_stuhl.getAll().observe(this, new Observer<List<Entity_Stuhl>>() {
-            @Override
-            public void onChanged(List<Entity_Stuhl> entity_stuhls) {
-                //update RecyclerView
-                Toast.makeText(context, "onChanged", Toast.LENGTH_SHORT).show();
-            }
-        });
-
- */
-
 
 
     }
@@ -126,7 +106,6 @@ public class Startseite_Fragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
 
         View view = inflater.inflate(R.layout.fragment_startseite_, container, false);
 
@@ -161,33 +140,6 @@ public class Startseite_Fragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
-        // create recycler
-        RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.recycler_view);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        recyclerView.setHasFixedSize(true);
-
-        // define adapter
-        adapterStuhl = new StuhlAdapter();
-        recyclerView.setAdapter(adapterStuhl);
-
-        //VM wird zerstört, wenn die Aktivity (this) geschlossen wird
-        //anstatt "this" kann man auch einfach ein fragement aufrufen
-        viewModel_stuhl = new ViewModelProvider(this).get(ViewModel_Stuhl.class);
-        //observe ist eine LiveData Methode und wird nur aktiviert, wenn die Aktivity im Vordergrund ist
-        //anstatt "this" kann man auch ein Fragement übergeben
-        try {
-            viewModel_stuhl.getAll().observe((LifecycleOwner) context, new Observer<List<Entity_Stuhl>>() {
-                @Override
-                public void onChanged(List<Entity_Stuhl> entity_stuhls) {
-                    //update RecyclerView
-                    Toast.makeText(context, "onChanged", Toast.LENGTH_SHORT).show();
-                }
-            });
-
-        }catch(NullPointerException npx){
-            System.out.println(npx + " bububu");
-        }
     }
 
     // entgültige Ansicht noch anpassen, schaut noch komisch aus
@@ -227,55 +179,6 @@ public class Startseite_Fragment extends Fragment {
                 intentEinstellungen = new Intent(getActivity(), Einstellungen.class);
                 startActivity(intentEinstellungen);
                 break;
-        }
-    }
-
-    //muss das in main?
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-
-        System.out.println("dududu" + (requestCode == ADD_NOTE_REQUEST && (resultCode == Activity.RESULT_OK)));
-        System.out.println(requestCode + "requestcode");
-        System.out.println(ADD_NOTE_REQUEST + "ADD NOTE");
-        System.out.println(resultCode + "resultCode");
-        System.out.println(Activity.RESULT_OK+ " result ok");
-
-        if (requestCode == ADD_NOTE_REQUEST && (resultCode == Activity.RESULT_OK)){
-
-            // Datum welches als ganzer String gespeichert ist wieder in einzelne Int zerteilen
-            String datum = data.getStringExtra(Eintrag_Stuhl.EXTRA_DATUM);
-            String [] dateValues = datum.split(".");
-            int jahr = Integer.parseInt(dateValues[0]);
-            int monat = Integer.parseInt(dateValues[1]);
-            int tag = Integer.parseInt(dateValues[2]);
-
-            // Uhrzeit in Stunde und Minute trennen
-            String uhrzeit = data.getStringExtra(Eintrag_Stuhl.EXTRA_UHRZEIT);
-            String [] timeValues = uhrzeit.split(":");
-            int stunde = Integer.parseInt(timeValues[0]);
-            int minute = Integer.parseInt(timeValues[1]);
-
-            String bristol = data.getStringExtra(Eintrag_Stuhl.EXTRA_BRISTOL);
-            Boolean blut = intentStuhl.getExtras().getBoolean(Eintrag_Stuhl.EXTRA_BLUT);
-            Boolean schmerz = intentStuhl.getExtras().getBoolean(Eintrag_Stuhl.EXTRA_SCHMERZ);
-            String farbe = data.getStringExtra(Eintrag_Stuhl.EXTRA_FARBE);
-            Boolean unverdauteNahrung = intentStuhl.getExtras().getBoolean
-                    (Eintrag_Stuhl.EXTRA_UNVERDAUTENAHRUNG);
-            String schleim = data.getStringExtra(Eintrag_Stuhl.EXTRA_SCHLEIM);
-            String menge = data.getStringExtra(Eintrag_Stuhl.EXTRA_MENGE);
-            String notiz = data.getStringExtra(Eintrag_Stuhl.EXTRA_NOTIZ);
-
-            // woher FotoReferenz?
-            Entity_Stuhl entity_stuhl = new Entity_Stuhl(jahr, monat, tag, stunde, minute, bristol,
-                    blut, schmerz, farbe, unverdauteNahrung, schleim, menge, notiz, "1");
-
-
-            viewModel_stuhl.insertAll(entity_stuhl);
-            Toast.makeText(getContext(), "Stuhleintrag gespeichert", Toast.LENGTH_SHORT).show();
-
-        } else {
-            Toast.makeText(getContext(), "Speichern ergab Probleme", Toast.LENGTH_SHORT).show();
         }
     }
 }

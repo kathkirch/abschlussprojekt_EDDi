@@ -13,6 +13,7 @@ import java.util.List;
 @Dao
 public interface DAO_Stuhl {
 
+
     @Insert
     void insertAll(Entity_Stuhl...stuhl);
 
@@ -30,6 +31,7 @@ public interface DAO_Stuhl {
 
     //um die Stuhl-Einträge im Logbuch für den jeweiligen Tag anzuzeigen
     //LiveData wird automatisch Änderungen übernehmen, ohne dass man extra aktualisieren muss
+    //verwenden wir LiveData???
     @Query("SELECT * FROM stuhl WHERE (jahr IN (:eintragJahr) AND monat IN (:eintragMonat) AND tag IN(:eintragTag) )ORDER BY stunde, minute DESC")
     LiveData<List<Entity_Stuhl>>getStuhlByDate(int eintragJahr, int eintragMonat, int eintragTag);
 
