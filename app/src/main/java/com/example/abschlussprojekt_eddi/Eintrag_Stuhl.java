@@ -237,10 +237,10 @@ public class Eintrag_Stuhl extends AppCompatActivity {
                             new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
                             GALLERY_REQUEST_CODE);
                 }
-                Toast.makeText(Eintrag_Stuhl.this, "Eintrag gespeichert", Toast.LENGTH_SHORT).show();
 
                 StuhlSpeichern stuhlSpeichern = new StuhlSpeichern();
                 stuhlSpeichern.start();
+                Toast.makeText(Eintrag_Stuhl.this, "Eintrag gespeichert", Toast.LENGTH_SHORT).show();
 
                 //nach dem spuelen, kommt man wieder zurueck auf die Startseite
                 intentStartseite = new Intent(context, MainActivity.class);
@@ -303,8 +303,6 @@ public class Eintrag_Stuhl extends AppCompatActivity {
                 entity_stuhl.setFotoReferenz("Fotoreferenzen");
 
                 LogbuchDatabase.getInstance(getApplicationContext()).dao_stuhl().insertStuhl(entity_stuhl);
-                Toast.makeText(context, "Data successfully saved", Toast.LENGTH_SHORT).show();
-
         }
     }
 
