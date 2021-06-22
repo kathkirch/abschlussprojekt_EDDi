@@ -9,11 +9,10 @@
     tools:context=".ui.main.Statistik_Fragment"
     android:id="@+id/fragment_statistik">
 
-    <TextView
-        android:id="@+id/textView"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler_view_startseite_essen_test"
         android:layout_width="match_parent"
-        android:layout_height="69dp"
-        android:text="Deine Statistik"
-        app:autoSizeTextType="uniform"
-        android:gravity="center" />
+        android:layout_height="match_parent"
+        tools:listitem="@layout/note_essen_tag"/>
+
 </FrameLayout>

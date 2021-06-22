@@ -128,4 +128,60 @@ public class Entity_Stuhl {
     public void setId(int id) {
         this.id = id;
     }
+
+    public void setJahr(int jahr) {
+        this.jahr = jahr;
+    }
+
+    public void setMonat(int monat) {
+        this.monat = monat;
+    }
+
+    public void setTag(int tag) {
+        this.tag = tag;
+    }
+
+    public void setStunde(int stunde) {
+        this.stunde = stunde;
+    }
+
+    public void setMinute(int minute) {
+        this.minute = minute;
+    }
+
+    public void setBristol(String bristol) {
+        this.bristol = bristol;
+    }
+
+    public void setSchmerzen(boolean schmerzen) {
+        this.schmerzen = schmerzen;
+    }
+
+    public void setBlut(boolean blut) {
+        this.blut = blut;
+    }
+
+    public void setFarbe(String farbe) {
+        this.farbe = farbe;
+    }
+
+    public void setUnverdauteNahrung(boolean unverdauteNahrung) {
+        this.unverdauteNahrung = unverdauteNahrung;
+    }
+
+    public void setSchleim(String schleim) {
+        this.schleim = schleim;
+    }
+
+    public void setMenge(String menge) {
+        this.menge = menge;
+    }
+
+    public void setNotizen(String notizen) {
+        this.notizen = notizen;
+    }
+
+    public void setFotoReferenz(String fotoReferenz) {
+        this.fotoReferenz = fotoReferenz;
+    }
 }

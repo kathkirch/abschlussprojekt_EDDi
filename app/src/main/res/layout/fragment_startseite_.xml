@@ -4,7 +4,8 @@
     android:layout_height="match_parent"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".ui.main.Startseite_Fragment"
-    android:id="@+id/fragment_startseite">
+    android:id="@+id/fragment_startseite"
+    >
 
     <TableRow
         android:id="@+id/row1"
@@ -207,30 +208,25 @@
 
     </LinearLayout>
 
-    <LinearLayout
+   <!-- <LinearLayout
         android:id="@+id/linear4"
         android:layout_width="fill_parent"
         android:layout_height="421dp"
         android:layout_below="@id/linear3"
 
         android:baselineAligned="false"
-        android:orientation="horizontal">
+        android:orientation="horizontal"> -->
 
-        <ScrollView
-            android:id="@+id/scrollStuhl"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_gravity="start"
-            android:layout_weight="1">
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/recycler_view_startseite_stuhl"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                tools:listitem="@layout/note_stuhl_tag" />
-        </ScrollView>
 
-        <View
+   <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler_view_startseite_stuhl"
+        android:layout_width="206dp"
+        android:layout_height="407dp"
+        android:layout_below="@id/linear3"
+        tools:listitem="@layout/note_stuhl_tag" />
+
+    <View
             android:layout_width="3dp"
             android:layout_height="match_parent"
             android:layout_gravity="center"
@@ -238,20 +234,14 @@
             android:background="@color/divider_color" />
 
 
-        <ScrollView
-            android:id="@+id/scrollEssen"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_gravity="end"
-            android:layout_weight="1"
-            android:scrollbarAlwaysDrawHorizontalTrack="false"
-            android:verticalScrollbarPosition="right">
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler_view_startseite_essen"
+            android:layout_alignParentEnd="true"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/linear3"
+            tools:listitem="@layout/note_essen_tag"
+            android:layout_toEndOf="@id/recycler_view_startseite_stuhl"/>
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/recycler_view_startseite_essen"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                tools:listitem="@layout/note_essen_tag"/>
-        </ScrollView>
-    </LinearLayout>
+   <!-- </LinearLayout> -->
 </RelativeLayout>

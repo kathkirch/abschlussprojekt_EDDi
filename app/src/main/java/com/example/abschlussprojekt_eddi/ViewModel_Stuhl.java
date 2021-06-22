@@ -10,35 +10,30 @@ import java.util.List;
 
 public class ViewModel_Stuhl extends AndroidViewModel {
 
-    private LogbuchRepository repository = new LogbuchRepository(getApplication());
+    private StuhlRepository stuhlRepository;
     private LiveData<List<Entity_Stuhl>> allStuhl;
 
     public ViewModel_Stuhl(@NonNull Application application) {
         super(application);
+        stuhlRepository = new StuhlRepository(application);
+        allStuhl = stuhlRepository.getAllStuhl();
     }
 
-
-    /*
-    public void insertAll(Entity_Stuhl stuhl){
-        repository.insertAll(stuhl);
+    public LiveData<List<Entity_Stuhl>> getAllStuhl(){
+        return allStuhl;
     }
-
-     */
 
     public void insertStuhl(Entity_Stuhl stuhl){
-        repository.insertStuhl(stuhl);
+        stuhlRepository.insertStuhl(stuhl);
     }
 
+    /*
     public void update (Entity_Stuhl stuhl){
         repository.update(stuhl);
     }
 
     public void delete (Entity_Stuhl stuhl){
         repository.delete(stuhl);
-    }
-
-    public LiveData<List<Entity_Stuhl>> getAll(){
-        return repository.getAll();
     }
 
     public LiveData<List<Entity_Stuhl>> getStuhlByDate(int jahr, int monat, int tag){
@@ -49,5 +44,6 @@ public class ViewModel_Stuhl extends AndroidViewModel {
         return repository.getStuhlByID(id);
     }
 
+     */
 
 }

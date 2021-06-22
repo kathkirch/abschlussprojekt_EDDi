@@ -1,38 +1,35 @@
 package com.example.abschlussprojekt_eddi;
 
-import android.content.Context;
-import android.os.AsyncTask;
+import android.app.Application;
 
 import androidx.lifecycle.LiveData;
 
 import java.util.List;
-import java.util.concurrent.ExecutionException;
 
-public class LogbuchRepository {
+public class StuhlRepository {
     private DAO_Stuhl dao_stuhl;
     private LiveData<List<Entity_Stuhl>> allStuhl;
-    private Entity_Stuhl stuhl;
 
+    public StuhlRepository(Application application){
+        StuhlRoomDatabase srdb = StuhlRoomDatabase.getDatabaseStuhl(application);
+        dao_stuhl = srdb.dao_stuhl();
+        allStuhl = dao_stuhl.getStuhlOrderbyTime();
+    }
 
-    //mit context funktioniert nicht application ? ist aber weg seit konsturktor umgeändert in viewmodel
-    public LogbuchRepository(Context context){
-        LogbuchDatabase database = LogbuchDatabase.getInstance(context);
-        //Methode in LogbuchDatabase erstellt
-        dao_stuhl = database.dao_stuhl();
-        allStuhl = dao_stuhl.getAll();
+    LiveData<List<Entity_Stuhl>> getAllStuhl(){
+        return allStuhl;
     }
 
     //das ViewModel muss später nurmehr diese Methoden aufrufen
     //das Repository kümmert sich darum, woher die Daten kommen
 
-    public void insertAll(Entity_Stuhl...stuhl){
-        new InsertStuhlAsyncTask(dao_stuhl).execute(stuhl);
-    }
-
     public void insertStuhl(Entity_Stuhl stuhl){
-        new InsertStuhlAsyncTask(dao_stuhl).execute(stuhl);
+        StuhlRoomDatabase.databaseWriteExecuter.execute(() -> {
+            dao_stuhl.insertStuhl(stuhl);
+        });
     }
 
+    /*
     public void update(Entity_Stuhl stuhl){
         new UpdateStuhlAsyncTask(dao_stuhl).execute(stuhl);
     }
@@ -58,8 +55,9 @@ public class LogbuchRepository {
         return stuhlByDate;
     }
 
+    /*
     public Entity_Stuhl getStuhlByID(Integer id){
-        Entity_Stuhl stuhlByID = stuhl; //macht diese Zweisung Sinn? Eher nicht...aber sonst gäbe es probleme mit dem return wert
+        //Entity_Stuhl stuhlByID = stuhl; //macht diese Zweisung Sinn? Eher nicht...aber sonst gäbe es probleme mit dem return wert
         GetStuhlByIdAsyncTask task = new GetStuhlByIdAsyncTask(dao_stuhl);
         task.execute(id);
         try{
@@ -68,9 +66,10 @@ public class LogbuchRepository {
             e.printStackTrace();
         }
         return stuhlByID;
-    }
+    }*/
 
 
+    /*
     //Query-Logik wird in eine Async-Task Subklasse ausgelagert
     //AsyncTask <input für execute(), Fortschritt, Output von get()
     private static class InsertStuhlAsyncTask extends AsyncTask<Entity_Stuhl, Void, Void>{
@@ -118,6 +117,8 @@ public class LogbuchRepository {
         }
     }
 
+    /*
+
     //Input sollten drei Integer sein (jahr, monat, tag)
     //wie kann man drei Inputs angeben?
     private static class GetStuhlByDateAsyncTask extends AsyncTask<Integer, Void, LiveData<List<Entity_Stuhl>>>{
@@ -129,6 +130,8 @@ public class LogbuchRepository {
             this.dao_stuhl = dao_stuhl;
         }
          */
+
+    /*
 
         int jahr;
         int monat;
@@ -161,4 +164,5 @@ public class LogbuchRepository {
             return null;
         }
     }
+    */
 }

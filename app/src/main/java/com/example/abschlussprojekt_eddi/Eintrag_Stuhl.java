@@ -1,33 +1,15 @@
 package com.example.abschlussprojekt_eddi;
 
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.camera.core.Camera;
-import androidx.camera.core.CameraProvider;
-import androidx.camera.core.CameraSelector;
-import androidx.camera.core.CameraX;
-import androidx.camera.core.Preview;
-import androidx.camera.lifecycle.ProcessCameraProvider;
-import androidx.camera.view.PreviewView;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
-import androidx.lifecycle.LifecycleOwner;
-
 import android.Manifest;
-import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.Matrix;
 import android.graphics.drawable.BitmapDrawable;
-import android.media.MediaScannerConnection;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -43,7 +25,6 @@ import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-import com.example.abschlussprojekt_eddi.ui.main.Startseite_Fragment;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SwitchCompat;
@@ -53,23 +34,11 @@ import androidx.core.content.ContextCompat;
 
 import com.google.common.util.concurrent.ListenableFuture;
 
-import org.jetbrains.annotations.NotNull;
-
-import java.io.ByteArrayOutputStream;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-import java.io.IOException;
 import java.io.OutputStream;
-import java.io.StringBufferInputStream;
-import java.security.Timestamp;
-import java.sql.SQLOutput;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
 import java.util.Objects;
 import java.util.concurrent.ExecutionException;
 
@@ -87,6 +56,8 @@ public class Eintrag_Stuhl extends AppCompatActivity {
     SwitchCompat switch_schmerz;
     SwitchCompat switch_unverdauteNahrung;
     EditText edit_Notizen;
+
+    private ViewModel_Stuhl viewModel_stuhl;
 
     public static final String EXTRA_DATUM =
             "com.example.abschlussprojekt_eddi.EXTRA_DATUM";
@@ -108,12 +79,14 @@ public class Eintrag_Stuhl extends AppCompatActivity {
             "com.example.abschlussprojekt_eddi.EXTRA_MENGE";
     public static final String EXTRA_NOTIZ =
             "com.example.abschlussprojekt_eddi.EXTRA_NOTIZ";
-    Button button_speichern;
+
+
+
     FileOutputStream outputStream;
 
     final static int PERMISSION_CODE = 1;
-    final static int REQUEST_CODE = 2;
     final static int GALLERY_REQUEST_CODE = 3;
+    final static int REQUEST_CODE = 2;
 
     Spinner spinner_bristol;
     ArrayList<BristolItem> arrayList_bristol;
@@ -199,59 +172,6 @@ public class Eintrag_Stuhl extends AppCompatActivity {
             }
         });
 
-        //Button Spuelen/Speichern
-        button_speichern = findViewById(R.id.button_stuhlgang_speichern);
-        button_speichern.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //Permission wird angefragt
-                if(ContextCompat.checkSelfPermission(
-                        Eintrag_Stuhl.this,
-                        Manifest.permission.READ_EXTERNAL_STORAGE)
-                        == PackageManager.PERMISSION_GRANTED){
-                    if(ContextCompat.checkSelfPermission(
-                            Eintrag_Stuhl.this,
-                            Manifest.permission.WRITE_EXTERNAL_STORAGE)
-                            == PackageManager.PERMISSION_GRANTED){
-                        savePicture(); //diese Methode speichert das Bild in der Gallerie
-                    }
-                }
-                else {
-                    ActivityCompat.requestPermissions(
-                            Eintrag_Stuhl.this,
-                            new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
-                            GALLERY_REQUEST_CODE);
-                    ActivityCompat.requestPermissions(
-                            Eintrag_Stuhl.this,
-                            new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
-                            GALLERY_REQUEST_CODE);
-                }
-                Toast.makeText(Eintrag_Stuhl.this, "Eintrag gespeichert", Toast.LENGTH_SHORT).show();
-
-                /*
-                intentStartseite = new Intent(context, Startseite_Fragment.class);
-                startActivity(intentStartseite); //Startseite ist ein Fragment und keine Activity!
-
-
-                //um ein Fragment aufzurufen
-                //Problem: unser Fragment hat kein FrameLayout, kann die container ID nicht finden
-                getSupportFragmentManager()
-                        .beginTransaction()
-                        .replace(R.id.fragment_statistik, new Startseite_Fragment())
-                        .commit();
-
-
-                //Auf Folie 13 bei "Fragments"
-                FragmentManager fm = getSupportFragmentManager();
-                FragmentTransaction ft = fm.beginTransaction();
-                ft.add(R.id.view_pager,
-                        Startseite_Fragment.class,
-                        null);
-                ft.commit();
-                */
-            }
-        });
-
         //switch instanzieren:
         switch_blut = findViewById(R.id.switch_blut);
         switch_schmerz = findViewById(R.id.switch_schmerzen);
@@ -265,12 +185,39 @@ public class Eintrag_Stuhl extends AppCompatActivity {
         spuelen_Button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //Permission wird angefragt
+                if (ContextCompat.checkSelfPermission(
+                        Eintrag_Stuhl.this,
+                        Manifest.permission.READ_EXTERNAL_STORAGE)
+                        == PackageManager.PERMISSION_GRANTED) {
+                    if (ContextCompat.checkSelfPermission(
+                            Eintrag_Stuhl.this,
+                            Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                            == PackageManager.PERMISSION_GRANTED) {
+                        savePicture(); //diese Methode speichert das Bild in der Gallerie
+                    }
+                } else {
+                    ActivityCompat.requestPermissions(
+                            Eintrag_Stuhl.this,
+                            new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
+                            GALLERY_REQUEST_CODE);
+                    ActivityCompat.requestPermissions(
+                            Eintrag_Stuhl.this,
+                            new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
+                            GALLERY_REQUEST_CODE);
+                }
+
                 stuhlSpeichern();
+                Toast.makeText(Eintrag_Stuhl.this, "Eintrag gespeichert", Toast.LENGTH_SHORT).show();
+
+                //nach dem spuelen, kommt man wieder zurueck auf die Startseite
+                intentStartseite = new Intent(context, MainActivity.class);
+                startActivity(intentStartseite);
             }
         });
     }
 
-    private void stuhlSpeichern() {
+     public void stuhlSpeichern () {
 
         boolean blut;
         boolean schmerz;
@@ -280,18 +227,18 @@ public class Eintrag_Stuhl extends AppCompatActivity {
         String uhrzeit = editText_currentTime.getText().toString();
         String bristol = spinner_bristol.getSelectedItem().toString();
 
-        if (switch_blut.isChecked()){
+        if (switch_blut.isChecked()) {
             blut = true;
         } else {
             blut = false;
         }
-        if (switch_schmerz.isChecked()){
+        if (switch_schmerz.isChecked()) {
             schmerz = true;
         } else {
             schmerz = false;
         }
         String farbe = spinner_farbe.getSelectedItem().toString();
-        if (switch_unverdauteNahrung.isChecked()){
+        if (switch_unverdauteNahrung.isChecked()) {
             unverdauteNahrung = true;
         } else {
             unverdauteNahrung = false;
@@ -324,9 +271,8 @@ public class Eintrag_Stuhl extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if(resultCode == Activity.RESULT_OK && requestCode == REQUEST_CODE){
 
-        if(resultCode == Activity.RESULT_OK && requestCode == CAMERA_REQUEST_CODE){
+        if(resultCode == Activity.RESULT_OK && requestCode == REQUEST_CODE){
             startCamera();
             //get Capture Image
             Bitmap captureImage = (Bitmap) data.getExtras().get("data");
@@ -360,60 +306,6 @@ public class Eintrag_Stuhl extends AppCompatActivity {
         arrayList_bristol.add(new BristolItem("einzelne weiche Klümpchen mit unregelmäßigem Rand", R.drawable.type06));
         arrayList_bristol.add(new BristolItem("flüssig, ohne feste Bestandteile", R.drawable.type07));
     }
-
-/*
-    private void savePicture(){
-        //BitmapDrawable mit dem ImageView des Bildes wird erstellt
-        BitmapDrawable bitmapDrawable = (BitmapDrawable) imageView_stuhl.getDrawable();
-        //BitmapDrawable wird in Bitmap gespeichert
-        Bitmap bitmap = bitmapDrawable.getBitmap();
-
-       FileOutputStream outputStream;
-        String filepath = Environment.getExternalStorageDirectory().toString();
-        File dir = new File(filepath + "/EDDi");
-        if(!dir.exists()){
-            //Directory wird erstellt
-            boolean mkdir = dir.mkdirs();
-            if(!mkdir){
-                System.out.println("dir.mkdirs failed");
-            }
-        }
-        //String filename = String.format("%d.jpg", System.currentTimeMillis());
-        String filename = "eddi01";
-        File outFile = new File(dir, filename);
-        System.out.println("File outFile");
-        try {
-            boolean createNewFile = outFile.createNewFile(); //No such file or directory! Kann File nicht erzeugen?!
-            System.out.println("outfile.createNewFile");
-            if(!createNewFile){
-                System.out.println("createNewFile failed");
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        try {
-            scanFile(this, outFile, "image/jpeg");
-            System.out.println("scanFile");
-            outputStream = new FileOutputStream(outFile); //FileNotFoundException!!!
-            System.out.println("outputStream");
-            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, outputStream);
-            System.out.println("bitmap.compress");
-            Toast.makeText(this, "Bild gespeichert", Toast.LENGTH_SHORT).show();
-            outputStream.flush();
-            outputStream.close();
-        }catch (FileNotFoundException e){
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public void scanFile(Context c, File f, String mimeType){
-        MediaScannerConnection
-                .scanFile(c, new String[]{f.getAbsolutePath()},
-                        new String[]{mimeType}, null);
-    }
- */
 
     private void savePicture(){
         //BitmapDrawable mit dem ImageView des Bildes wird erstellt
@@ -457,7 +349,6 @@ public class Eintrag_Stuhl extends AppCompatActivity {
         String imageFileName = System.currentTimeMillis() + ".jpg";
         MediaStore.Images.Media.insertImage(getContentResolver(), bitmap, imageFileName, String.valueOf(1));
     }
-
 }
 
 

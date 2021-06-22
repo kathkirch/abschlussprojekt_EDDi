@@ -1,20 +1,56 @@
 package com.example.abschlussprojekt_eddi;
 
 import android.content.Context;
-import android.os.AsyncTask;
 
 import androidx.annotation.NonNull;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 
-@androidx.room.Database(entities = {Entity_Stuhl.class}, version=1)
-public abstract class LogbuchDatabase extends androidx.room.RoomDatabase {
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
-    private static LogbuchDatabase instance;
+@androidx.room.Database(entities = {Entity_Stuhl.class}, version=1)
+public abstract class StuhlRoomDatabase extends RoomDatabase {
 
     public abstract DAO_Stuhl dao_stuhl();
 
+    private static volatile StuhlRoomDatabase INSTANCE;
+    private static final int NUMBER_OF_THREADS = 4;
+    static final ExecutorService databaseWriteExecuter =
+            Executors.newFixedThreadPool(NUMBER_OF_THREADS);
+
+    // gibt dann eine Instanz von DAO_Essen zurück, wenn schon eine besteht wird diese
+    // zurückgeliefert.
+    static StuhlRoomDatabase getDatabaseStuhl(final Context context){
+       if(INSTANCE == null) {
+           synchronized (StuhlRoomDatabase.class){
+               if (INSTANCE == null){
+                   INSTANCE = Room.databaseBuilder(context.getApplicationContext(),
+                           StuhlRoomDatabase.class, "stuhl_database").
+                           addCallback(stuhlRoomDatabaseCallback).build();
+               }
+           }
+       }
+       return INSTANCE;
+
+   }
+
+    private static RoomDatabase.Callback stuhlRoomDatabaseCallback = new RoomDatabase.Callback() {
+        @Override
+        public void onCreate(@NonNull SupportSQLiteDatabase db) {
+            super.onCreate(db);
+            databaseWriteExecuter.execute(() -> {
+                DAO_Stuhl daoStuhl = INSTANCE.dao_stuhl();
+                Entity_Stuhl stuhl = new Entity_Stuhl(2021, 6, 8, 14, 20,
+                        "2", false, false, "dunkelbraun", false, "0", "normal",
+                        "keine Notizen", "Hier könnte dein Foto zu sehen sein");
+                daoStuhl.insertStuhl(stuhl);
+            });
+        }
+    };
+
+    /*
     public static synchronized LogbuchDatabase getInstance(Context context){
         //Instanz soll nur erzeugt werden, wenn es noch keine gibt
         if(instance == null){
@@ -54,4 +90,6 @@ public abstract class LogbuchDatabase extends androidx.room.RoomDatabase {
             return null;
         }
     }
+
+     */
 }

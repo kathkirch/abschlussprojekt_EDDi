@@ -6,23 +6,20 @@ import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProvider;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
 
 import com.example.abschlussprojekt_eddi.ui.main.SectionsPagerAdapter;
+import com.example.abschlussprojekt_eddi.ui.main.Startseite_Fragment;
 import com.google.android.material.tabs.TabLayout;
-
-import java.util.List;
 
 
 public class MainActivity extends AppCompatActivity {
 
     public ViewModel_Stuhl viewModel_stuhl;
-    public static final int ADD_NOTE_REQUEST = 1;
     RecyclerView recyclerView;
+    private ViewModel_Essen viewModel_essen;
+
 
 
     @Override
@@ -30,60 +27,28 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+
         SectionsPagerAdapter sectionsPagerAdapter = new
                 SectionsPagerAdapter(this, getSupportFragmentManager());
         ViewPager viewPager = findViewById(R.id.view_pager);
         viewPager.setAdapter(sectionsPagerAdapter);
         TabLayout tabs = findViewById(R.id.tabs);
         tabs.setupWithViewPager(viewPager);
-
-        // create recycler
-        recyclerView = (RecyclerView) findViewById(R.id.recycler_view_kalender_essen);
-        //System.out.println(recyclerView+ " recdk");
-        LinearLayoutManager llm = new LinearLayoutManager(this);
-        recyclerView.setLayoutManager(llm);
-        recyclerView.setHasFixedSize(true);
-
-        // define adapter
-        final StuhlAdapter adapterStuhl = new StuhlAdapter();
-        recyclerView.setAdapter(adapterStuhl);
-
-        //VM wird zerstört, wenn die Aktivity (this) geschlossen wird
-        //anstatt "this" kann man auch einfach ein fragement aufrufen
-        viewModel_stuhl = new ViewModelProvider(this).get(ViewModel_Stuhl.class);
-        //observe ist eine LiveData Methode und wird nur aktiviert, wenn die Aktivity im Vordergrund ist
-        //anstatt "this" kann man auch ein Fragement übergeben
-        try {
-            viewModel_stuhl.getAll().observe(this, new Observer<List<Entity_Stuhl>>() {
-                @Override
-                public void onChanged(List<Entity_Stuhl> entity_stuhls) {
-                    //update RecyclerView
-                    adapterStuhl.setStuhlNotes(entity_stuhls);
-                    Toast.makeText(getApplicationContext(), "onChanged", Toast.LENGTH_SHORT).show();
-                }
-            });
-
-        }catch(NullPointerException npx){
-            System.out.println(npx + " bububu");
-        }
     }
 
-    /*
-    @Nullable
     @Override
-    public View onCreateView(@NonNull String name, @NonNull Context context, @NonNull AttributeSet attrs) {
-        return super.onCreateView(name, context, attrs);
-    }
-
-     */
-
-
-
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if (requestCode == ADD_NOTE_REQUEST && (resultCode == Eintrag_Stuhl.RESULT_OK)){
+        System.out.println((requestCode == Startseite_Fragment.NEW_STUHL_ACTIVITY_REQUEST_CODE) + "request stuhl");
+        System.out.println(requestCode + " das ist requestcode");
+        System.out.println((resultCode == Eintrag_Stuhl.RESULT_OK) + " result stuhl?");
+
+        System.out.println((requestCode == Startseite_Fragment.NEW_ESSEN_ACTIVITY_REQUEST_CODE ) + " request essen");
+        System.out.println((resultCode == Eintrag_Essen.RESULT_OK) + " result essen");
+        System.out.println(requestCode + " request code essen");
+
+        if (requestCode == Startseite_Fragment.NEW_STUHL_ACTIVITY_REQUEST_CODE && (resultCode == Eintrag_Stuhl.RESULT_OK)){
 
             // Uhrzeit in Stunde und Minute trennen
             String uhrzeit = data.getStringExtra(Eintrag_Stuhl.EXTRA_UHRZEIT);
@@ -112,12 +77,20 @@ public class MainActivity extends AppCompatActivity {
             Entity_Stuhl entity_stuhl = new Entity_Stuhl(jahr, monat, tag, stunde, minute, bristol,
                     blut, schmerz, farbe, unverdauteNahrung, schleim, menge, notiz, "1");
 
-            //da is fehler context irgendwas, hier abbruch...
             viewModel_stuhl.insertStuhl(entity_stuhl);
             Toast.makeText(this, "Stuhleintrag gespeichert", Toast.LENGTH_SHORT).show();
 
         } else {
             Toast.makeText(this, "Speichern ergab Probleme", Toast.LENGTH_SHORT).show();
+        }
+
+        if(requestCode == Startseite_Fragment.NEW_ESSEN_ACTIVITY_REQUEST_CODE && resultCode == Eintrag_Essen.RESULT_OK){
+            Entity_Essen essen = new Entity_Essen(data.getStringExtra(Eintrag_Essen.EXTRA_ESSEN));
+            viewModel_essen.insertEssen(essen);
+
+        } else {
+            Toast.makeText(getApplicationContext(), "Konnte nichts gespeichert werden",
+                    Toast.LENGTH_SHORT).show();
         }
     }
 }

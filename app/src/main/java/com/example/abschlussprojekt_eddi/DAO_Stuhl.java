@@ -7,7 +7,6 @@ import androidx.room.Insert;
 import androidx.room.Query;
 import androidx.room.Update;
 
-import java.text.SimpleDateFormat;
 import java.util.List;
 
 @Dao
@@ -26,7 +25,7 @@ public interface DAO_Stuhl {
     void delete(Entity_Stuhl stuhl);
 
     @Query("SELECT * FROM stuhl ORDER BY jahr, monat, tag DESC")
-    LiveData<List<Entity_Stuhl>> getAll();
+    LiveData<List<Entity_Stuhl>> getStuhlOrderbyTime();
 
     //um die Stuhl-Einträge im Logbuch für den jeweiligen Tag anzuzeigen
     //LiveData wird automatisch Änderungen übernehmen, ohne dass man extra aktualisieren muss
