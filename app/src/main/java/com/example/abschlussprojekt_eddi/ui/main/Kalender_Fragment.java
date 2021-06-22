@@ -10,17 +10,13 @@ import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.LifecycleOwner;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.abschlussprojekt_eddi.Entity_Stuhl;
 import com.example.abschlussprojekt_eddi.R;
 import com.example.abschlussprojekt_eddi.StuhlAdapter;
 import com.example.abschlussprojekt_eddi.ViewModel_Stuhl;
-
-import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -82,7 +78,7 @@ public class Kalender_Fragment extends Fragment {
 
         try {
             // create recycler
-            RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.recycler_view);
+            RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.recycler_view_kalender_essen);
             recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
             recyclerView.setHasFixedSize(true);
 
@@ -90,7 +86,6 @@ public class Kalender_Fragment extends Fragment {
             adapterStuhl = new StuhlAdapter();
             System.out.println(adapterStuhl);
             if (adapterStuhl != null){
-
                 System.out.println("hell yeah!");
             }
             recyclerView.setAdapter(adapterStuhl);
@@ -100,13 +95,10 @@ public class Kalender_Fragment extends Fragment {
 
         viewModel_stuhl = new ViewModelProvider(this).get(ViewModel_Stuhl.class);
         try {
-            viewModel_stuhl.getAll().observe((LifecycleOwner) context, new Observer<List<Entity_Stuhl>>() {
-                @Override
-                public void onChanged(List<Entity_Stuhl> entity_stuhls) {
-                    //update RecyclerView
-                    adapterStuhl.setStuhlNotes(entity_stuhls);
-                    Toast.makeText(context, "onChanged", Toast.LENGTH_SHORT).show();
-                }
+            viewModel_stuhl.getAll().observe((LifecycleOwner) context, entity_stuhls -> {
+                //update RecyclerView
+                adapterStuhl.setStuhlNotes(entity_stuhls);
+                Toast.makeText(context, "onChanged", Toast.LENGTH_SHORT).show();
             });
 
         }catch (NullPointerException npx){
@@ -114,14 +106,4 @@ public class Kalender_Fragment extends Fragment {
         }
         return view;
     }
-
-    /*
-    @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-
-
-    }
-
-     */
 }

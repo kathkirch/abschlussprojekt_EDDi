@@ -223,7 +223,7 @@
             android:layout_weight="1">
 
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/recycler_view"
+                android:id="@+id/recycler_view_startseite_stuhl"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 tools:listitem="@layout/note_stuhl_tag" />
@@ -247,6 +247,7 @@
             android:verticalScrollbarPosition="right">
 
             <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recycler_view_startseite_essen"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 tools:listitem="@layout/note_essen_tag"/>

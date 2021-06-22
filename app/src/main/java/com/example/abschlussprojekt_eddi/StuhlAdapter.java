@@ -15,7 +15,6 @@ public class StuhlAdapter extends RecyclerView.Adapter <StuhlAdapter.NoteHolder>
 
     private List<Entity_Stuhl> stuhlNotes = new ArrayList<>();
 
-
     @NonNull
     @Override
     public NoteHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {

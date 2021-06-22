@@ -30,8 +30,6 @@
             android:textAppearance="@style/TextAppearance.AppCompat.Large"
             android:text="1"/>
 
-
-
     </RelativeLayout>
 
 

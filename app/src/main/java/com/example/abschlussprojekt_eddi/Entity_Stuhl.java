@@ -33,7 +33,7 @@ public class Entity_Stuhl {
 
     private boolean unverdauteNahrung;
 
-    String schleim;
+    private String schleim;
 
     private String menge;
 

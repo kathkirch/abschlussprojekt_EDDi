@@ -41,8 +41,6 @@ public class Eintrag_Stuhl extends AppCompatActivity {
     SwitchCompat switch_unverdauteNahrung;
     EditText edit_Notizen;
 
-    public static final int ADD_NOTE_REQUEST = 1;
-
     public static final String EXTRA_DATUM =
             "com.example.abschlussprojekt_eddi.EXTRA_DATUM";
     public static final String EXTRA_UHRZEIT =
@@ -76,7 +74,7 @@ public class Eintrag_Stuhl extends AppCompatActivity {
     ArrayAdapter <String> aA_farbe;
 
     Spinner spinner_schleim;
-    String [] array_schleim = new String [] {"wenig", "mittel", "viel", "nur Schleim"};
+    String [] array_schleim = new String [] {"kein", "wenig", "mittel", "viel", "nur Schleim"};
     ArrayAdapter <String> aA_schleim;
 
     Spinner spinner_menge;
@@ -259,7 +257,6 @@ public class Eintrag_Stuhl extends AppCompatActivity {
         arrayList_bristol.add(new BristolItem("einzelne weiche Klümpchen mit unregelmäßigem Rand", R.drawable.type06));
         arrayList_bristol.add(new BristolItem("flüssig, ohne feste Bestandteile", R.drawable.type07));
     }
-
 }
 
 

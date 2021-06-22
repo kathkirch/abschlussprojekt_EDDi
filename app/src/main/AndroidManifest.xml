@@ -23,7 +23,7 @@
         <activity android:name=".Eintrag_Essen" />
         <activity
             android:name=".Eintrag_Stuhl"
-            android:parentActivityName=".MainActivity" />
+            />
         <activity
             android:name=".Login"
             android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize"

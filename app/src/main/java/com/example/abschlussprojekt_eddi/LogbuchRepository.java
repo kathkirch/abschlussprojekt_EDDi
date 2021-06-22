@@ -1,10 +1,9 @@
 package com.example.abschlussprojekt_eddi;
 
-import android.app.Application;
+import android.content.Context;
 import android.os.AsyncTask;
 
 import androidx.lifecycle.LiveData;
-
 
 import java.util.List;
 import java.util.concurrent.ExecutionException;
@@ -14,8 +13,10 @@ public class LogbuchRepository {
     private LiveData<List<Entity_Stuhl>> allStuhl;
     private Entity_Stuhl stuhl;
 
-    public LogbuchRepository(Application application){
-        LogbuchDatabase database = LogbuchDatabase.getInstance(application);
+
+    //mit context funktioniert nicht application ? ist aber weg seit konsturktor umgeändert in viewmodel
+    public LogbuchRepository(Context context){
+        LogbuchDatabase database = LogbuchDatabase.getInstance(context);
         //Methode in LogbuchDatabase erstellt
         dao_stuhl = database.dao_stuhl();
         allStuhl = dao_stuhl.getAll();
@@ -41,6 +42,7 @@ public class LogbuchRepository {
     }
 
     public LiveData<List<Entity_Stuhl>> getAll(){
+        allStuhl = dao_stuhl.getAll();
         return allStuhl;
     }
 
@@ -159,5 +161,4 @@ public class LogbuchRepository {
             return null;
         }
     }
-
 }
