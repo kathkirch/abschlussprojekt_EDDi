@@ -34,6 +34,7 @@ public class Startseite_Fragment extends Fragment {
     Context context = getActivity();
     public static final int ADD_NOTE_REQUEST = 1;
 
+
     Intent intentStuhl;
     Intent intentEssen;
     Intent intentEinstellungen;
@@ -137,6 +138,7 @@ public class Startseite_Fragment extends Fragment {
         bV4 = view.findViewById(R.id.VAS_3);
         bV5 = view.findViewById(R.id.VAS_4);
 
+
         bV1.setOnClickListener(this::stimmung);
         bV2.setOnClickListener(this::stimmung);
         bV3.setOnClickListener(this::stimmung);
@@ -197,6 +199,8 @@ public class Startseite_Fragment extends Fragment {
                 break;
         }
     }
+
+
 
     /*
     //muss das in main?
