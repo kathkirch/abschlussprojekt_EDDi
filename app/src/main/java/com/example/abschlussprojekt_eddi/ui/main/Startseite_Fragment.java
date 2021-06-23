@@ -71,6 +71,7 @@ public class Startseite_Fragment extends Fragment {
         RecyclerView recyclerView2 = (RecyclerView) view.findViewById(R.id.recycler_view_startseite_stuhl);
 
         final EssenListAdapter adapter = new EssenListAdapter(new EssenListAdapter.EssenDiff());
+        recyclerView1.setHasFixedSize(true);
         recyclerView1.setAdapter(adapter);
         recyclerView1.setLayoutManager(new LinearLayoutManager(getContext()));
 
@@ -81,6 +82,7 @@ public class Startseite_Fragment extends Fragment {
 
         //recyclerView2.setHasFixedSize(true);
         final StuhlListAdapter stuhlAdapter = new StuhlListAdapter(new StuhlListAdapter.StuhlDiff());
+        recyclerView2.setHasFixedSize(true);
         recyclerView2.setAdapter(stuhlAdapter);
         recyclerView2.setLayoutManager(new LinearLayoutManager(getContext()));
 

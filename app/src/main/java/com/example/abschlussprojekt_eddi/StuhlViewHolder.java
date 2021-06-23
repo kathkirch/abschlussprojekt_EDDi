@@ -3,6 +3,7 @@ package com.example.abschlussprojekt_eddi;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
@@ -10,14 +11,14 @@ import androidx.recyclerview.widget.RecyclerView;
 public class StuhlViewHolder extends RecyclerView.ViewHolder {
 
     private final TextView tvUhrzeit;
-    private final TextView tvBristol;
+    private final ImageView ivBristol;
     private final TextView tvFarbe;
     private final TextView tvSchmerz;
 
     private StuhlViewHolder (View itemview){
         super(itemview);
         tvUhrzeit = itemview.findViewById(R.id.textview_uhrzeit);
-        tvBristol = itemview.findViewById(R.id.bristol_symbol);
+        ivBristol = itemview.findViewById(R.id.bristol_symbol);
         tvFarbe = itemview.findViewById(R.id.stuhl_farbe);
         tvSchmerz = itemview.findViewById(R.id.stuhl_schmerz);
     }
@@ -41,43 +42,26 @@ public class StuhlViewHolder extends RecyclerView.ViewHolder {
         switch (bristolStufe) {
 
             case 1:
-                tvBristol.setCompoundDrawablesWithIntrinsicBounds(R.drawable.type01, 0, 0, 0);
+                ivBristol.setImageResource(R.drawable.type01);
                 break;
             case 2:
-                tvBristol.setCompoundDrawablesWithIntrinsicBounds(R.drawable.type02, 0, 0, 0);
+                ivBristol.setImageResource(R.drawable.type02);;
                 break;
             case 3:
-                tvBristol.setCompoundDrawablesWithIntrinsicBounds(R.drawable.type03, 0, 0, 0);
+                ivBristol.setImageResource(R.drawable.type03);;
                 break;
             case 4:
-                tvBristol.setCompoundDrawablesWithIntrinsicBounds(R.drawable.type04, 0, 0, 0);
+                ivBristol.setImageResource(R.drawable.type04);;
                 break;
             case 5:
-                tvBristol.setCompoundDrawablesWithIntrinsicBounds(R.drawable.type05, 0, 0, 0);
+                ivBristol.setImageResource(R.drawable.type05);;
                 break;
             case 6:
-                tvBristol.setCompoundDrawablesWithIntrinsicBounds(R.drawable.type06, 0, 0, 0);
+                ivBristol.setImageResource(R.drawable.type06);;
                 break;
             case 7:
-                tvBristol.setCompoundDrawablesWithIntrinsicBounds(R.drawable.type07, 0, 0, 0);
+                ivBristol.setImageResource(R.drawable.type07);
                 break;
-            default:
-                tvBristol.setText(tvBristol.getText() + "nichts selektiert!");
         }
     }
-
-    /*
-    public void adaptSizeOfDrawable(int imageResource){
-        Drawable drawable = ContextCompat.getDrawable(context, imageResource);
-        int pixelDrawableSize = (int)Math.round(tv.getLineHeight() * 0.7); // Or the percentage you like (0.8, 0.9, etc.)
-        drawable.setBounds(0, 0, pixelDrawableSize, pixelDrawableSize); // setBounds(int left, int top, int right, int bottom), in this case, drawable is a square image
-        tvBristol.setCompoundDrawables(
-                drawable, //left
-                null, //top
-                null, //right
-                null //bottom
-        );
-    }
-
-     */
 }

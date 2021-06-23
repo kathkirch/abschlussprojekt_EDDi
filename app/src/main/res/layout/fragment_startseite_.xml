@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:tools="http://schemas.android.com/tools"
     tools:context=".ui.main.Startseite_Fragment"
+    android:orientation="vertical"
     android:id="@+id/fragment_startseite"
     >
 
@@ -12,6 +14,10 @@
         android:layout_width="match_parent"
         android:layout_height="3dp"
         android:background="@color/divider_color"/>
+
+
+
+
 
     <LinearLayout
         android:id="@+id/linear1"
@@ -208,40 +214,33 @@
 
     </LinearLayout>
 
-   <!-- <LinearLayout
-        android:id="@+id/linear4"
+
+    <!-- Problem - mit ScrollView so wie bei fragment_kalender werden
+    die Recycler unsichtbar. Ursache unbekannt - selbst wenn Code ident zu
+    fragment_kalender ist -->
+
+    <LinearLayout
+        android:id="@+id/linearlay2"
         android:layout_width="fill_parent"
-        android:layout_height="421dp"
+        android:layout_height="match_parent"
         android:layout_below="@id/linear3"
-
-        android:baselineAligned="false"
-        android:orientation="horizontal"> -->
-
-
-
-   <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recycler_view_startseite_stuhl"
-        android:layout_width="206dp"
-        android:layout_height="407dp"
-        android:layout_below="@id/linear3"
-        tools:listitem="@layout/note_stuhl_tag" />
-
-    <View
-            android:layout_width="3dp"
-            android:layout_height="match_parent"
-            android:layout_gravity="center"
-            android:layout_weight="0"
-            android:background="@color/divider_color" />
+        android:orientation="horizontal">
 
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recycler_view_startseite_essen"
-            android:layout_alignParentEnd="true"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/linear3"
-            tools:listitem="@layout/note_essen_tag"
-            android:layout_toEndOf="@id/recycler_view_startseite_stuhl"/>
+                android:id="@+id/recycler_view_startseite_stuhl"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                tools:listitem="@layout/note_stuhl_tag" />
 
-   <!-- </LinearLayout> -->
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recycler_view_startseite_essen"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                tools:listitem="@layout/note_essen_tag" />
+
+    </LinearLayout>
+
 </RelativeLayout>
