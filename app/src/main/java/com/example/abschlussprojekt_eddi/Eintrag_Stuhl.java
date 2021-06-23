@@ -349,6 +349,8 @@ public class Eintrag_Stuhl extends AppCompatActivity {
         String imageFileName = System.currentTimeMillis() + ".jpg";
         MediaStore.Images.Media.insertImage(getContentResolver(), bitmap, imageFileName, String.valueOf(1));
     }
+
+
 }
 
 

@@ -24,9 +24,10 @@ public class StuhlListAdapter extends ListAdapter <Entity_Stuhl, StuhlViewHolder
     public void onBindViewHolder(@NonNull StuhlViewHolder holder, int position) {
         Entity_Stuhl current = getItem(position);
         String uhrzeit = (current.getStunde() +":"+ current.getMinute());
-        String bristol = ("Bristol-Stufe: " + current.getBristol());
+        String bristol = current.getBristol();
         String farbe = current.getFarbe();
-        String schmerz = ("Schmerz: " + String.valueOf(current.getSchmerzen()));
+        String schmerz = String.valueOf(current.getSchmerzen());
+
         holder.bind(uhrzeit, bristol, farbe, schmerz);
     }
 

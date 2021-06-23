@@ -33,7 +33,6 @@ public abstract class StuhlRoomDatabase extends RoomDatabase {
            }
        }
        return INSTANCE;
-
    }
 
     private static RoomDatabase.Callback stuhlRoomDatabaseCallback = new RoomDatabase.Callback() {

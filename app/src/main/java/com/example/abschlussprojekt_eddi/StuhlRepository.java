@@ -38,6 +38,8 @@ public class StuhlRepository {
         new DeleteStuhlAsyncTask(dao_stuhl).execute(stuhl);
     }
 
+    /*
+
     public LiveData<List<Entity_Stuhl>> getAll(){
         allStuhl = dao_stuhl.getAll();
         return allStuhl;
@@ -55,9 +57,9 @@ public class StuhlRepository {
         return stuhlByDate;
     }
 
-    /*
+
     public Entity_Stuhl getStuhlByID(Integer id){
-        //Entity_Stuhl stuhlByID = stuhl; //macht diese Zweisung Sinn? Eher nicht...aber sonst gäbe es probleme mit dem return wert
+        Entity_Stuhl stuhlByID = stuhl; //macht diese Zweisung Sinn? Eher nicht...aber sonst gäbe es probleme mit dem return wert
         GetStuhlByIdAsyncTask task = new GetStuhlByIdAsyncTask(dao_stuhl);
         task.execute(id);
         try{
@@ -66,10 +68,10 @@ public class StuhlRepository {
             e.printStackTrace();
         }
         return stuhlByID;
-    }*/
+    }
 
 
-    /*
+
     //Query-Logik wird in eine Async-Task Subklasse ausgelagert
     //AsyncTask <input für execute(), Fortschritt, Output von get()
     private static class InsertStuhlAsyncTask extends AsyncTask<Entity_Stuhl, Void, Void>{
@@ -117,7 +119,7 @@ public class StuhlRepository {
         }
     }
 
-    /*
+
 
     //Input sollten drei Integer sein (jahr, monat, tag)
     //wie kann man drei Inputs angeben?
@@ -125,13 +127,13 @@ public class StuhlRepository {
 
         private DAO_Stuhl dao_stuhl;
 
-        /*
+
         private GetStuhlByDateAsyncTask(DAO_Stuhl dao_stuhl){
             this.dao_stuhl = dao_stuhl;
         }
-         */
 
-    /*
+
+
 
         int jahr;
         int monat;
@@ -150,7 +152,7 @@ public class StuhlRepository {
         }
     }
 
-    private static class GetStuhlByIdAsyncTask extends AsyncTask<Integer, Void, Entity_Stuhl>{
+    private static class GetStuhlByIdAsyncTask extends AsyncTask<Integer, Void, Entity_Stuhl> {
 
         private DAO_Stuhl dao_stuhl;
 
@@ -164,5 +166,7 @@ public class StuhlRepository {
             return null;
         }
     }
-    */
+
+     */
+
 }

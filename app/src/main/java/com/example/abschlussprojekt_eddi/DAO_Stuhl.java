@@ -13,9 +13,6 @@ import java.util.List;
 public interface DAO_Stuhl {
 
     @Insert
-    void insertAll(Entity_Stuhl...stuhl);
-
-    @Insert
     void insertStuhl(Entity_Stuhl stuhl);
 
     @Update

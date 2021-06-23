@@ -64,10 +64,10 @@ public class MainActivity extends AppCompatActivity {
             int jahr = Integer.parseInt(dateValues[2]);
 
             String bristol = data.getStringExtra(Eintrag_Stuhl.EXTRA_BRISTOL);
-            Boolean blut = data.getExtras().getBoolean(Eintrag_Stuhl.EXTRA_BLUT);
-            Boolean schmerz = data.getExtras().getBoolean(Eintrag_Stuhl.EXTRA_SCHMERZ);
+            boolean blut = data.getExtras().getBoolean(Eintrag_Stuhl.EXTRA_BLUT);
+            boolean schmerz = data.getExtras().getBoolean(Eintrag_Stuhl.EXTRA_SCHMERZ);
             String farbe = data.getStringExtra(Eintrag_Stuhl.EXTRA_FARBE);
-            Boolean unverdauteNahrung = data.getExtras().getBoolean
+            boolean unverdauteNahrung = data.getExtras().getBoolean
                     (Eintrag_Stuhl.EXTRA_UNVERDAUTENAHRUNG);
             String schleim = data.getStringExtra(Eintrag_Stuhl.EXTRA_SCHLEIM);
             String menge = data.getStringExtra(Eintrag_Stuhl.EXTRA_MENGE);

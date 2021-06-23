@@ -90,6 +90,7 @@ public class Entity_Stuhl {
     public String getBristol() {
         return bristol;
     }
+
     public boolean getSchmerzen() {
         return schmerzen;
     }

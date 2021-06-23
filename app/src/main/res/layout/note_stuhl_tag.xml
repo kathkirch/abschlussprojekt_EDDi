@@ -18,6 +18,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
+            android:scaleX="0.2"
+            android:scaleY="0.2"
             android:textAppearance="@style/TextAppearance.AppCompat.Small"
             android:text="@string/bristolimg"
             />
@@ -40,6 +42,8 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/textview_uhrzeit"
             android:layout_toEndOf="@id/stuhl_farbe"
+            android:layout_marginStart="4dp"
+            android:layout_marginTop="3dp"
             android:text="@string/schmerzen"/>
 
         <TextView
@@ -48,6 +52,8 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/textview_uhrzeit"
             android:text="@string/farbe"
+            android:layout_marginTop="3dp"
+            android:textAppearance="@style/TextAppearance.AppCompat.Small"
             android:textColor="@color/black"/>
     </RelativeLayout>
 

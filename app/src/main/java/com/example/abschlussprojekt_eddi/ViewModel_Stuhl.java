@@ -29,21 +29,19 @@ public class ViewModel_Stuhl extends AndroidViewModel {
 
     /*
     public void update (Entity_Stuhl stuhl){
-        repository.update(stuhl);
+        stuhlRepository.update(stuhl);
     }
 
     public void delete (Entity_Stuhl stuhl){
-        repository.delete(stuhl);
+        stuhlRepository.delete(stuhl);
     }
 
     public LiveData<List<Entity_Stuhl>> getStuhlByDate(int jahr, int monat, int tag){
-        return repository.getStuhlByDate(jahr, monat, tag);
+        return stuhlRepository.getStuhlByDate(jahr, monat, tag);
     }
 
     public Entity_Stuhl getStuhlById(int id){
-        return repository.getStuhlByID(id);
+        return stuhlRepository.getStuhlByID(id);
     }
-
      */
-
 }
