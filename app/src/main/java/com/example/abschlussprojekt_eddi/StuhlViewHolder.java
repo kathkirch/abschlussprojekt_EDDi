@@ -63,6 +63,8 @@ public class StuhlViewHolder extends RecyclerView.ViewHolder {
             case "7":
                 ivBristol.setImageResource(R.drawable.type07);
                 break;
+            default :
+                ivBristol.setImageResource(R.drawable.not_selected);
         }
     }
 }

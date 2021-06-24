@@ -41,8 +41,8 @@ public class StuhlRepository {
     }
 
     public LiveData<List<Entity_Stuhl>> getStuhlByDate(int jahr, int monat, int tag){
-        LiveData<List<Entity_Stuhl>> stuhlByDate = allStuhl; //macht diese Zweisung Sinn? Eher nicht...aber sonst gäbe es probleme mit dem return wert
-        GetStuhlByDateAsyncTask task = new GetStuhlByDateAsyncTask(jahr, monat, tag);
+        LiveData<List<Entity_Stuhl>> stuhlByDate = null; //macht diese Zweisung Sinn? Eher nicht...aber sonst gäbe es probleme mit dem return wert
+        GetStuhlByDateAsyncTask task = new GetStuhlByDateAsyncTask(dao_stuhl);
         task.execute(jahr, monat, tag);
         try{
             stuhlByDate = task.get();
@@ -119,20 +119,21 @@ public class StuhlRepository {
     private static class GetStuhlByDateAsyncTask extends AsyncTask<Integer, Void, LiveData<List<Entity_Stuhl>>>{
 
         private DAO_Stuhl dao_stuhl;
+        int jahr;
+        int monat;
+        int tag;
 
         private GetStuhlByDateAsyncTask(DAO_Stuhl dao_stuhl){
             this.dao_stuhl = dao_stuhl;
         }
 
-        int jahr;
-        int monat;
-        int tag;
-
+        /*
         private GetStuhlByDateAsyncTask(int jahr, int monat, int tag){
             this.jahr = jahr;
             this.monat = monat;
             this.tag = tag;
         }
+         */
 
         @Override
         protected LiveData<List<Entity_Stuhl>> doInBackground(Integer...params) {

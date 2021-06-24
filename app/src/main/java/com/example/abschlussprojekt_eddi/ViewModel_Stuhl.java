@@ -36,11 +36,12 @@ public class ViewModel_Stuhl extends AndroidViewModel {
         stuhlRepository.delete(stuhl);
     }
 
-/*
+
     public LiveData<List<Entity_Stuhl>> getStuhlByDate(int jahr, int monat, int tag){
         return stuhlRepository.getStuhlByDate(jahr, monat, tag);
     }
 
+    /*
     public Entity_Stuhl getStuhlById(int id){
         return stuhlRepository.getStuhlByID(id);
     }

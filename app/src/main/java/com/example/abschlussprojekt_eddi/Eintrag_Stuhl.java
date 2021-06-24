@@ -214,7 +214,6 @@ public class Eintrag_Stuhl extends AppCompatActivity {
                 //nach dem spuelen, kommt man wieder zurueck auf die Startseite
                 intentStartseite = new Intent(context, MainActivity.class);
                 startActivity(intentStartseite);
-
             }
         });
     }
@@ -223,9 +222,7 @@ public class Eintrag_Stuhl extends AppCompatActivity {
 
         String datum = editText_currentDate.getText().toString();
         String uhrzeit = editText_currentTime.getText().toString();
-        String bristol = String.valueOf(spinner_bristol.getSelectedItemPosition()+1);
-         System.out.println(bristol + "das ist bristol");
-
+        String bristol = String.valueOf(spinner_bristol.getSelectedItemPosition()+1); //plus eins weil erstes Symbol hat Position 0
         boolean blut = switch_blut.isChecked();
         boolean schmerz = switch_schmerz.isChecked();
         String farbe = spinner_farbe.getSelectedItem().toString();
