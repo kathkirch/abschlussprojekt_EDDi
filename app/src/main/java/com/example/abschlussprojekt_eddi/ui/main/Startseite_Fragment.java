@@ -1,5 +1,6 @@
 package com.example.abschlussprojekt_eddi.ui.main;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -8,7 +9,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.Toast;
 
+import androidx.activity.result.ActivityResult;
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -19,6 +25,8 @@ import com.example.abschlussprojekt_eddi.BenutzerdatenSpeicher;
 import com.example.abschlussprojekt_eddi.Einstellungen;
 import com.example.abschlussprojekt_eddi.Eintrag_Essen;
 import com.example.abschlussprojekt_eddi.Eintrag_Stuhl;
+import com.example.abschlussprojekt_eddi.Entity_Essen;
+import com.example.abschlussprojekt_eddi.Entity_Stuhl;
 import com.example.abschlussprojekt_eddi.EssenListAdapter;
 import com.example.abschlussprojekt_eddi.R;
 import com.example.abschlussprojekt_eddi.StuhlListAdapter;
@@ -66,7 +74,6 @@ public class Startseite_Fragment extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_startseite_, container, false);
 
-
         RecyclerView recyclerView1 = (RecyclerView) view.findViewById(R.id.recycler_view_startseite_essen);
         RecyclerView recyclerView2 = (RecyclerView) view.findViewById(R.id.recycler_view_startseite_stuhl);
 
@@ -80,7 +87,6 @@ public class Startseite_Fragment extends Fragment {
             adapter.submitList(entity_essens);
         });
 
-        //recyclerView2.setHasFixedSize(true);
         final StuhlListAdapter stuhlAdapter = new StuhlListAdapter(new StuhlListAdapter.StuhlDiff());
         recyclerView2.setHasFixedSize(true);
         recyclerView2.setAdapter(stuhlAdapter);
@@ -90,7 +96,6 @@ public class Startseite_Fragment extends Fragment {
         viewModel_stuhl.getAllStuhl().observe(getViewLifecycleOwner(), entity_stuhls -> {
             stuhlAdapter.submitList(entity_stuhls);
         });
-
 
         btStuhl = view.findViewById(R.id.stuhl_button);
         btEssen = view.findViewById(R.id.essen_button);
@@ -141,16 +146,74 @@ public class Startseite_Fragment extends Fragment {
         }
     }
 
+    ActivityResultLauncher<Intent> mStartForResult = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
+            new ActivityResultCallback<ActivityResult>() {
+                @Override
+                public void onActivityResult(ActivityResult result) {
+
+                    System.out.println(result.getResultCode() == Activity.RESULT_OK);
+
+                    if (result.getResultCode() == Activity.RESULT_OK) {
+
+                        System.out.println("r u doing this?");
+
+                        //getData returnt den Intent
+                        Intent data = result.getData();
+
+                        // Uhrzeit in Stunde und Minute trennen
+                        String uhrzeit = data.getStringExtra(Eintrag_Stuhl.EXTRA_UHRZEIT);
+                        String[] timeValues = uhrzeit.split(":", 2);
+                        int stunde = Integer.parseInt(timeValues[0]);
+                        int minute = Integer.parseInt(timeValues[1]);
+
+                        // Datum welches als ganzer String gespeichert ist wieder in einzelne Int zerteilen
+                        String datum = data.getStringExtra(Eintrag_Stuhl.EXTRA_DATUM);
+                        String[] dateValues = datum.split("\\.", 3);
+                        int tag = Integer.parseInt(dateValues[0]);
+                        int monat = Integer.parseInt(dateValues[1]);
+                        int jahr = Integer.parseInt(dateValues[2]);
+
+                        String bristol = data.getStringExtra(Eintrag_Stuhl.EXTRA_BRISTOL);
+                        boolean blut = data.getExtras().getBoolean(Eintrag_Stuhl.EXTRA_BLUT);
+                        boolean schmerz = data.getExtras().getBoolean(Eintrag_Stuhl.EXTRA_SCHMERZ);
+                        String farbe = data.getStringExtra(Eintrag_Stuhl.EXTRA_FARBE);
+                        boolean unverdauteNahrung = data.getExtras().getBoolean
+                                (Eintrag_Stuhl.EXTRA_UNVERDAUTENAHRUNG);
+                        String schleim = data.getStringExtra(Eintrag_Stuhl.EXTRA_SCHLEIM);
+                        String menge = data.getStringExtra(Eintrag_Stuhl.EXTRA_MENGE);
+                        String notiz = data.getStringExtra(Eintrag_Stuhl.EXTRA_NOTIZ);
+
+                        // woher FotoReferenz?
+                        Entity_Stuhl entity_stuhl = new Entity_Stuhl(jahr, monat, tag, stunde, minute, bristol,
+                                blut, schmerz, farbe, unverdauteNahrung, schleim, menge, notiz, "1");
+
+                        viewModel_stuhl.insertStuhl(entity_stuhl);
+                        Toast.makeText(getContext(), "Stuhleintrag gespeichert", Toast.LENGTH_SHORT).show();
+
+                    } else {
+                        Toast.makeText(getContext(), "Speichern ergab Probleme", Toast.LENGTH_SHORT).show();
+                    }
+
+                    if (result.getResultCode() == Activity.RESULT_OK) {
+                        Intent data = result.getData();
+                        Entity_Essen essen = new Entity_Essen(data.getStringExtra(Eintrag_Essen.EXTRA_ESSEN));
+                        viewModel_essen.insertEssen(essen);
+                        Toast.makeText(getContext(), "Essen gespeichert", Toast.LENGTH_SHORT).show();
+                    } else {
+                        Toast.makeText(getContext(), "Konnte nichts gespeichert werden",
+                                Toast.LENGTH_SHORT).show();
+                    }
+                }
+    });
 
     public void onClick(View view){
         switch (view.getId()){
             case R.id.stuhl_button:
                 intentStuhl = new Intent(getActivity(), Eintrag_Stuhl.class);
-                startActivityForResult(intentStuhl, NEW_STUHL_ACTIVITY_REQUEST_CODE);
-                break;
+                mStartForResult.launch(intentStuhl);
             case R.id.essen_button:
                 intentEssen = new Intent(getActivity(), Eintrag_Essen.class);
-                startActivityForResult(intentEssen, NEW_ESSEN_ACTIVITY_REQUEST_CODE);
+                mStartForResult.launch(intentEssen);
                 break;
             case R.id.einstellungenButton:
                 intentEinstellungen = new Intent(getActivity(), Einstellungen.class);

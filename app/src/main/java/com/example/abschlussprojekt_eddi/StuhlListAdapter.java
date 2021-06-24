@@ -23,12 +23,13 @@ public class StuhlListAdapter extends ListAdapter <Entity_Stuhl, StuhlViewHolder
     @Override
     public void onBindViewHolder(@NonNull StuhlViewHolder holder, int position) {
         Entity_Stuhl current = getItem(position);
+        String datum = (current.getTag() + "." + current.getMonat() + "." + current.getJahr());
         String uhrzeit = (current.getStunde() +":"+ current.getMinute());
         String bristol = current.getBristol();
         String farbe = current.getFarbe();
         String schmerz = String.valueOf(current.getSchmerzen());
 
-        holder.bind(uhrzeit, bristol, farbe, schmerz);
+        holder.bind(datum, uhrzeit, bristol, farbe, schmerz);
     }
 
     public static class StuhlDiff extends DiffUtil.ItemCallback<Entity_Stuhl> {

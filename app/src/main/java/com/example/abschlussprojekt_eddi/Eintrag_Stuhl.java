@@ -1,7 +1,6 @@
 package com.example.abschlussprojekt_eddi;
 
 import android.Manifest;
-import android.app.Activity;
 import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.content.Context;
@@ -25,7 +24,6 @@ import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SwitchCompat;
 import androidx.camera.lifecycle.ProcessCameraProvider;
@@ -149,6 +147,7 @@ public class Eintrag_Stuhl extends AppCompatActivity {
 
         //Kamera
         imageButton_camera = findViewById(R.id.imageButton_kamera);
+
         imageView_stuhl = findViewById(R.id.imageView_stuhl);
         //wenn Button gedrückt wird, wird überprüft, ob die Camera Permission gegeben ist
         //wenn keine Permission gegeben ist, wird eine Angefragt
@@ -210,9 +209,11 @@ public class Eintrag_Stuhl extends AppCompatActivity {
                 stuhlSpeichern();
                 Toast.makeText(Eintrag_Stuhl.this, "Eintrag gespeichert", Toast.LENGTH_SHORT).show();
 
+                /*
                 //nach dem spuelen, kommt man wieder zurueck auf die Startseite
                 intentStartseite = new Intent(context, MainActivity.class);
                 startActivity(intentStartseite);
+                */
             }
         });
     }
@@ -227,22 +228,10 @@ public class Eintrag_Stuhl extends AppCompatActivity {
         String uhrzeit = editText_currentTime.getText().toString();
         String bristol = spinner_bristol.getSelectedItem().toString();
 
-        if (switch_blut.isChecked()) {
-            blut = true;
-        } else {
-            blut = false;
-        }
-        if (switch_schmerz.isChecked()) {
-            schmerz = true;
-        } else {
-            schmerz = false;
-        }
+        blut = switch_blut.isChecked();
+        schmerz = switch_schmerz.isChecked();
         String farbe = spinner_farbe.getSelectedItem().toString();
-        if (switch_unverdauteNahrung.isChecked()) {
-            unverdauteNahrung = true;
-        } else {
-            unverdauteNahrung = false;
-        }
+        unverdauteNahrung = switch_unverdauteNahrung.isChecked();
 
         String schleim = spinner_schleim.getSelectedItem().toString();
         String menge = spinner_menge.getSelectedItem().toString();
@@ -266,6 +255,7 @@ public class Eintrag_Stuhl extends AppCompatActivity {
         finish();
     }
 
+    /*
     //Methode wird automatisch aufgerufen von startActivityForResult()
     //Bild wird gemacht und in ImageView gespeichert und angezeigt
     @Override
@@ -281,7 +271,7 @@ public class Eintrag_Stuhl extends AppCompatActivity {
             //um ImageView anzuzeigen, weil dieser davor GONE ist
             imageView_stuhl.setVisibility(View.VISIBLE);
         }
-    }
+    }*/
 
     private void startCamera(){
         ListenableFuture<ProcessCameraProvider> cameraProviderFuture =
@@ -311,29 +301,31 @@ public class Eintrag_Stuhl extends AppCompatActivity {
         //BitmapDrawable mit dem ImageView des Bildes wird erstellt
         BitmapDrawable bitmapDrawable = (BitmapDrawable) imageView_stuhl.getDrawable();
         //BitmapDrawable wird in Bitmap gespeichert
-        Bitmap bitmap = bitmapDrawable.getBitmap();
-        Log.d("Dimensions", bitmap.getWidth() + " " + bitmap.getHeight());
-        //OutputStream
-        OutputStream outputStream;
-        try {
-            if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q){
-                ContentResolver contentResolver = getContentResolver();
-                ContentValues contentValues = new ContentValues();
-                contentValues.put(MediaStore.MediaColumns.DISPLAY_NAME, "EDDi_"+System.currentTimeMillis()+".jpg");
-                contentValues.put(MediaStore.MediaColumns.MIME_TYPE, "image/jpeg");
-                contentValues.put(MediaStore.MediaColumns.RELATIVE_PATH, Environment.DIRECTORY_PICTURES + File.separator + "EDDi");
-                Uri imageUri = contentResolver.insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, contentValues);
-                outputStream = (FileOutputStream) contentResolver.openOutputStream(Objects.requireNonNull(imageUri));
+        if(bitmapDrawable != null){
+            Bitmap bitmap = bitmapDrawable.getBitmap();
+            Log.d("Dimensions", bitmap.getWidth() + " " + bitmap.getHeight());
+            //OutputStream
+            OutputStream outputStream;
+            try {
+                if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q){
+                    ContentResolver contentResolver = getContentResolver();
+                    ContentValues contentValues = new ContentValues();
+                    contentValues.put(MediaStore.MediaColumns.DISPLAY_NAME, "EDDi_"+System.currentTimeMillis()+".jpg");
+                    contentValues.put(MediaStore.MediaColumns.MIME_TYPE, "image/jpeg");
+                    contentValues.put(MediaStore.MediaColumns.RELATIVE_PATH, Environment.DIRECTORY_PICTURES + File.separator + "EDDi");
+                    Uri imageUri = contentResolver.insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, contentValues);
+                    outputStream = (FileOutputStream) contentResolver.openOutputStream(Objects.requireNonNull(imageUri));
 
-                Toast.makeText(this, "Bild gespeichert", Toast.LENGTH_SHORT).show();
-                bitmap.compress(Bitmap.CompressFormat.JPEG, 100, outputStream);
-                Objects.requireNonNull(outputStream);
-            }else {
-                savePictureLowerVersionCodeQ();
+                    Toast.makeText(this, "Bild gespeichert", Toast.LENGTH_SHORT).show();
+                    bitmap.compress(Bitmap.CompressFormat.JPEG, 100, outputStream);
+                    Objects.requireNonNull(outputStream);
+                }else {
+                    savePictureLowerVersionCodeQ();
+                }
+            }catch (Exception e){
+                e.printStackTrace();
+                Toast.makeText(this, "Bild konnte nicht gespeichert werden", Toast.LENGTH_SHORT).show();
             }
-        }catch (Exception e){
-            e.printStackTrace();
-            Toast.makeText(this, "Bild konnte nicht gespeichert werden", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -349,8 +341,6 @@ public class Eintrag_Stuhl extends AppCompatActivity {
         String imageFileName = System.currentTimeMillis() + ".jpg";
         MediaStore.Images.Media.insertImage(getContentResolver(), bitmap, imageFileName, String.valueOf(1));
     }
-
-
 }
 
 

@@ -22,10 +22,23 @@
             android:text="@string/bristolimg" />
 
         <TextView
-            android:id="@+id/textview_uhrzeit"
+            android:id="@+id/textview_datum"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
+            android:maxLines="1"
+            android:text="@string/_01_01_2001"
+            android:textSize="12sp"
+            android:textColor="@color/black">
+        </TextView>
+
+
+        <TextView
+            android:id="@+id/textview_uhrzeit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toEndOf="@id/textview_datum"
+            android:layout_marginStart="2dp"
             android:maxLines="1"
             android:text="@string/hh_mm"
             android:textSize="12sp"
