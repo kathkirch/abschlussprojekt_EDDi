@@ -13,8 +13,6 @@ public class Eintrag_Essen extends AppCompatActivity {
 
     EditText etEssen;
     Button btSpeicher;
-    private ViewModel_Essen viewModel_essen;
-
 
     public static final String EXTRA_ESSEN =
             "com.example.abschlussprojekt_eddi.EXTRA_ESSEN";

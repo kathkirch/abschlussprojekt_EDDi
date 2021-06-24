@@ -22,7 +22,7 @@ public abstract class StuhlRoomDatabase extends RoomDatabase {
 
     // gibt dann eine Instanz von DAO_Essen zurück, wenn schon eine besteht wird diese
     // zurückgeliefert.
-    static StuhlRoomDatabase getDatabaseStuhl(final Context context){
+    public static synchronized StuhlRoomDatabase getDatabaseStuhl(final Context context){
        if(INSTANCE == null) {
            synchronized (StuhlRoomDatabase.class){
                if (INSTANCE == null){
@@ -45,11 +45,44 @@ public abstract class StuhlRoomDatabase extends RoomDatabase {
                         "2", false, false, "dunkelbraun", false, "0", "normal",
                         "keine Notizen", "Hier könnte dein Foto zu sehen sein");
                 daoStuhl.insertStuhl(stuhl);
+                Entity_Stuhl stuhl2 = new Entity_Stuhl(2021, 6, 24, 14, 21,
+                        "5", false, false, "grün",
+                        false, "kein", "normal",
+                        "testeintrag", "refTest" );
+                daoStuhl.insertStuhl(stuhl2);
             });
         }
     };
 
+
     /*
+    private static RoomDatabase.Callback roomCallback = new RoomDatabase.Callback(){
+        //Strg+O um super() Methoden anzuzeigen
+
+        @Override
+        public void onCreate(@NonNull SupportSQLiteDatabase db) {
+            super.onCreate(db);
+            new PopulateDbAsyncTask(INSTANCE).execute();
+        }
+    };
+
+    private static class PopulateDbAsyncTask extends AsyncTask<Void, Void, Void> {
+        private DAO_Stuhl dao_stuhl;
+
+        private PopulateDbAsyncTask(StuhlRoomDatabase db){
+            dao_stuhl = db.dao_stuhl();
+        }
+
+        @Override
+        protected Void doInBackground(Void... voids) {
+            dao_stuhl.insertStuhl(new Entity_Stuhl(2021, 6, 8, 14, 20,
+                    "2", false, false, "dunkelbraun", false, "0", "normal",
+                    "keine Notizen", "Hier könnte dein Foto zu sehen sein"));
+            return null;
+        }
+    }
+
+     /*
     public static synchronized LogbuchDatabase getInstance(Context context){
         //Instanz soll nur erzeugt werden, wenn es noch keine gibt
         if(instance == null){
@@ -63,32 +96,5 @@ public abstract class StuhlRoomDatabase extends RoomDatabase {
         //wenn eine Instanz bereits exisitiert, wirde diese ausgegeben
         return instance;
     }
-
-    private static RoomDatabase.Callback roomCallback = new RoomDatabase.Callback(){
-        //Strg+O um super() Methoden anzuzeigen
-
-        @Override
-        public void onCreate(@NonNull SupportSQLiteDatabase db) {
-            super.onCreate(db);
-            new PopulateDbAsyncTask(instance).execute();
-        }
-    };
-
-    private static class PopulateDbAsyncTask extends AsyncTask<Void, Void, Void>{
-        private DAO_Stuhl dao_stuhl;
-
-        private PopulateDbAsyncTask(LogbuchDatabase db){
-            dao_stuhl = db.dao_stuhl();
-        }
-
-        @Override
-        protected Void doInBackground(Void... voids) {
-            dao_stuhl.insertStuhl(new Entity_Stuhl(2021, 6, 8, 14, 20,
-                    "2", false, false, "dunkelbraun", false, "0", "normal",
-                    "keine Notizen", "Hier könnte dein Foto zu sehen sein"));
-            return null;
-        }
-    }
-
-     */
+   */
 }

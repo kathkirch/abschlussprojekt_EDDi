@@ -24,6 +24,7 @@ import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SwitchCompat;
 import androidx.camera.lifecycle.ProcessCameraProvider;
@@ -205,33 +206,30 @@ public class Eintrag_Stuhl extends AppCompatActivity {
                             new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
                             GALLERY_REQUEST_CODE);
                 }
-
+                //Stuhl speichern methode
                 stuhlSpeichern();
-                Toast.makeText(Eintrag_Stuhl.this, "Eintrag gespeichert", Toast.LENGTH_SHORT).show();
 
-                /*
+                //Toast.makeText(Eintrag_Stuhl.this, "Eintrag gespeichert", Toast.LENGTH_SHORT).show();
+
                 //nach dem spuelen, kommt man wieder zurueck auf die Startseite
                 intentStartseite = new Intent(context, MainActivity.class);
                 startActivity(intentStartseite);
-                */
+
             }
         });
     }
 
      public void stuhlSpeichern () {
 
-        boolean blut;
-        boolean schmerz;
-        boolean unverdauteNahrung;
-
         String datum = editText_currentDate.getText().toString();
         String uhrzeit = editText_currentTime.getText().toString();
-        String bristol = spinner_bristol.getSelectedItem().toString();
+        String bristol = String.valueOf(spinner_bristol.getSelectedItemPosition()+1);
+         System.out.println(bristol + "das ist bristol");
 
-        blut = switch_blut.isChecked();
-        schmerz = switch_schmerz.isChecked();
+        boolean blut = switch_blut.isChecked();
+        boolean schmerz = switch_schmerz.isChecked();
         String farbe = spinner_farbe.getSelectedItem().toString();
-        unverdauteNahrung = switch_unverdauteNahrung.isChecked();
+        boolean unverdauteNahrung = switch_unverdauteNahrung.isChecked();
 
         String schleim = spinner_schleim.getSelectedItem().toString();
         String menge = spinner_menge.getSelectedItem().toString();
@@ -255,14 +253,14 @@ public class Eintrag_Stuhl extends AppCompatActivity {
         finish();
     }
 
-    /*
+
     //Methode wird automatisch aufgerufen von startActivityForResult()
     //Bild wird gemacht und in ImageView gespeichert und angezeigt
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if(resultCode == Activity.RESULT_OK && requestCode == REQUEST_CODE){
+        if(resultCode == RESULT_OK && requestCode == REQUEST_CODE){
             startCamera();
             //get Capture Image
             Bitmap captureImage = (Bitmap) data.getExtras().get("data");
@@ -271,7 +269,7 @@ public class Eintrag_Stuhl extends AppCompatActivity {
             //um ImageView anzuzeigen, weil dieser davor GONE ist
             imageView_stuhl.setVisibility(View.VISIBLE);
         }
-    }*/
+    }
 
     private void startCamera(){
         ListenableFuture<ProcessCameraProvider> cameraProviderFuture =

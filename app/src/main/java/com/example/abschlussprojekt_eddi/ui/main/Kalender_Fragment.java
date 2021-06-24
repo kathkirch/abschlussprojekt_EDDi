@@ -42,6 +42,7 @@ public class Kalender_Fragment extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_kalender_, container, false);
 
+
         RecyclerView recyclerView1 = (RecyclerView) view.findViewById(R.id.recycler_view_kalender_essen);
         RecyclerView recyclerView2 = (RecyclerView) view.findViewById(R.id.recycler_view_kalender_stuhl);
 
