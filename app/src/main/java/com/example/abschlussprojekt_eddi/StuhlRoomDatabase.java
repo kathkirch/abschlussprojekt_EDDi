@@ -1,7 +1,6 @@
 package com.example.abschlussprojekt_eddi;
 
 import android.content.Context;
-import android.os.AsyncTask;
 
 import androidx.annotation.NonNull;
 import androidx.room.Room;
@@ -11,7 +10,7 @@ import androidx.sqlite.db.SupportSQLiteDatabase;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-@androidx.room.Database(entities = {Entity_Stuhl.class}, version=1)
+@androidx.room.Database(entities = {Entity_Stuhl.class}, version=2, exportSchema = false)
 public abstract class StuhlRoomDatabase extends RoomDatabase {
 
     public abstract DAO_Stuhl dao_stuhl();
@@ -28,8 +27,9 @@ public abstract class StuhlRoomDatabase extends RoomDatabase {
            synchronized (StuhlRoomDatabase.class){
                if (INSTANCE == null){
                    INSTANCE = Room.databaseBuilder(context.getApplicationContext(),
-                           StuhlRoomDatabase.class, "stuhl_database").
-                           addCallback(stuhlRoomDatabaseCallback).build();
+                           StuhlRoomDatabase.class, "stuhl_database")
+                           //.fallbackToDestructiveMigration()
+                           .addCallback(stuhlRoomDatabaseCallback).build();
                }
            }
        }
@@ -69,6 +69,7 @@ public abstract class StuhlRoomDatabase extends RoomDatabase {
     */
 
 
+    /*
     private static class PopulateDbAsyncTask extends AsyncTask<Void, Void, Void> {
         private DAO_Stuhl dao_stuhl;
 
@@ -91,8 +92,9 @@ public abstract class StuhlRoomDatabase extends RoomDatabase {
             return null;
         }
 
-         */
-    }
+
+    }*/
+
 
      /*
     public static synchronized LogbuchDatabase getInstance(Context context){

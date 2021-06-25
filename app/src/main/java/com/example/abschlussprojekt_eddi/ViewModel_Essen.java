@@ -23,6 +23,6 @@ public class ViewModel_Essen extends AndroidViewModel {
     }
 
     public void insertEssen(Entity_Essen essen) {
-        essenRepository.insert(essen);
+        essenRepository.insertEssen(essen);
     }
 }

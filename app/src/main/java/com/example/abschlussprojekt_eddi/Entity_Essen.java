@@ -7,8 +7,7 @@ import androidx.room.PrimaryKey;
 @Entity(tableName = "essen")
 public class Entity_Essen {
 
-    @PrimaryKey
-    @NonNull
+    @PrimaryKey (autoGenerate = true)
     private int essenID;
 
     private int jahr;
@@ -25,11 +24,13 @@ public class Entity_Essen {
 
     public Entity_Essen(@NonNull String essen){
         this.essen = essen;
+        /*
         this.jahr = jahr;
         this.monat = monat;
         this.tag = tag;
         this.stunde = stunde;
         this.minute = minute;
+         */
     }
 
     public int getEssenID() {

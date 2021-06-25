@@ -30,7 +30,7 @@
             android:background="@drawable/einstellungen_icon"
             android:gravity="start"
             android:onClick="enterEinstellungen"
-            tools:ignore="OnClick" />
+             />
 
         <Space
             android:layout_width="wrap_content"
@@ -47,7 +47,7 @@
             android:textSize="18sp"
             android:textColor="@color/white"
             android:onClick="enterEintragStuhl"
-            tools:ignore="OnClick" />
+             />
 
         <Space
             android:layout_width="wrap_content"
@@ -64,7 +64,7 @@
             android:textColor="@color/white"
             android:textSize="18sp"
             android:onClick="enterEintragEssen"
-            tools:ignore="OnClick" />
+             />
 
         <Space
             android:layout_width="25dp"

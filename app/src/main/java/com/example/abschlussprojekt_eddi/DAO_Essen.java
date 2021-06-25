@@ -25,10 +25,15 @@ public interface DAO_Essen {
     @Query("SELECT * FROM essen ORDER BY jahr, monat, tag DESC")
     LiveData<List<Entity_Essen>> getEssenOrderByTime();
 
+    /*
     @Query("SELECT * FROM essen WHERE (jahr IN (:eintragJahr) AND monat IN (:eintragMonat) AND " +
             "tag IN(:eintragTag) )ORDER BY stunde, minute DESC")
     LiveData<List<Entity_Essen>>getEssenByDate(int eintragJahr, int eintragMonat, int eintragTag);
+     */
 
+    /*
     @Query("SELECT * FROM essen WHERE essenID in (:eintragID)")
     Entity_Essen getEssenByID(int eintragID);
+
+     */
 }

@@ -3,7 +3,6 @@ package com.example.abschlussprojekt_eddi;
 import android.content.Context;
 
 import androidx.annotation.NonNull;
-import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
 import androidx.sqlite.db.SupportSQLiteDatabase;
@@ -11,7 +10,7 @@ import androidx.sqlite.db.SupportSQLiteDatabase;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-@Database(entities = {Entity_Essen.class}, version = 1, exportSchema = false)
+@androidx.room.Database(entities = {Entity_Essen.class}, version = 2, exportSchema = false)
 public abstract class EssenRoomDatabase extends RoomDatabase {
 
     public abstract DAO_Essen dao_essen();
@@ -28,8 +27,10 @@ public abstract class EssenRoomDatabase extends RoomDatabase {
             synchronized (EssenRoomDatabase.class){
                 if (INSTANCE == null){
                     INSTANCE = Room.databaseBuilder(context.getApplicationContext(),
-                            EssenRoomDatabase.class, "essen_database").
-                            addCallback(essenRoomDatabaseCallback).build();
+                            EssenRoomDatabase.class, "essen_database")
+                            .addCallback(essenRoomDatabaseCallback)
+                            .fallbackToDestructiveMigration()
+                            .build();
                 }
             }
         }
@@ -47,4 +48,21 @@ public abstract class EssenRoomDatabase extends RoomDatabase {
             });
         }
     };
+
+    /*
+
+    private static class PopulateDbAsyncTask extends AsyncTask<Void, Void, Void> {
+        private DAO_Essen dao_essen;
+
+        private PopulateDbAsyncTask(EssenRoomDatabase db) {
+            dao_essen = db.dao_essen();
+        }
+
+        @Override
+        protected Void doInBackground(Void... voids) {
+            return null;
+        }
+    }
+
+     */
 }

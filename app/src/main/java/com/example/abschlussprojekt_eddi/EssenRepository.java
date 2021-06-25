@@ -20,11 +20,11 @@ public class EssenRepository {
 
     // Room gibt alle queries an einen separaten Thread
     // Observed LiveData gibt Observer bescheid wenn sich Daten geändert haben
-    LiveData<List<Entity_Essen>> getAllEssen() {
+    public LiveData<List<Entity_Essen>> getAllEssen() {
         return allEssen;
     }
 
-    void insert (Entity_Essen essen){
+    public void insertEssen (Entity_Essen essen){
         EssenRoomDatabase.databaseWriteExecuter.execute(() -> {
             m_dao_essen.insertEssen(essen);
         });
