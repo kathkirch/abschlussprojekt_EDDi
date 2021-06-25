@@ -38,7 +38,9 @@ public class ViewModel_Stuhl extends AndroidViewModel {
 
 
     public LiveData<List<Entity_Stuhl>> getStuhlByDate(int jahr, int monat, int tag){
-        return stuhlRepository.getStuhlByDate(jahr, monat, tag);
+        stuhlRepository = new StuhlRepository(getApplication());
+        LiveData<List<Entity_Stuhl>> stuhlByDate = stuhlRepository.getStuhlByDate(jahr, monat, tag);
+        return stuhlByDate;
     }
 
     /*

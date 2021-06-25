@@ -1,6 +1,7 @@
 package com.example.abschlussprojekt_eddi;
 
 import android.content.Context;
+import android.os.AsyncTask;
 
 import androidx.annotation.NonNull;
 import androidx.room.Room;
@@ -65,6 +66,8 @@ public abstract class StuhlRoomDatabase extends RoomDatabase {
             new PopulateDbAsyncTask(INSTANCE).execute();
         }
     };
+    */
+
 
     private static class PopulateDbAsyncTask extends AsyncTask<Void, Void, Void> {
         private DAO_Stuhl dao_stuhl;
@@ -75,11 +78,20 @@ public abstract class StuhlRoomDatabase extends RoomDatabase {
 
         @Override
         protected Void doInBackground(Void... voids) {
+            return null;
+        }
+
+        /*
+
+        @Override
+        protected Void doInBackground(Void... voids) {
             dao_stuhl.insertStuhl(new Entity_Stuhl(2021, 6, 8, 14, 20,
                     "2", false, false, "dunkelbraun", false, "0", "normal",
                     "keine Notizen", "Hier könnte dein Foto zu sehen sein"));
             return null;
         }
+
+         */
     }
 
      /*

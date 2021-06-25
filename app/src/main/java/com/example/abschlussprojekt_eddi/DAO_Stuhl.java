@@ -27,10 +27,10 @@ public interface DAO_Stuhl {
     //um die Stuhl-Einträge im Logbuch für den jeweiligen Tag anzuzeigen
     //LiveData wird automatisch Änderungen übernehmen, ohne dass man extra aktualisieren muss
     @Query("SELECT * FROM stuhl WHERE (jahr IN (:eintragJahr) AND monat IN (:eintragMonat) AND tag IN(:eintragTag) )ORDER BY stunde, minute DESC")
-    LiveData<List<Entity_Stuhl>>getStuhlByDate(int eintragJahr, int eintragMonat, int eintragTag);
+    public LiveData<List<Entity_Stuhl>>getStuhlByDate(int eintragJahr, int eintragMonat, int eintragTag);
 
     @Query("SELECT * FROM stuhl WHERE id in (:eintragID)")
-    Entity_Stuhl getStuhlByID(int eintragID);
+    public Entity_Stuhl getStuhlByID(int eintragID);
 
 
 }

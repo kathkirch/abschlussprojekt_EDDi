@@ -6,7 +6,6 @@ import android.os.AsyncTask;
 import androidx.lifecycle.LiveData;
 
 import java.util.List;
-import java.util.concurrent.ExecutionException;
 
 public class StuhlRepository {
     private DAO_Stuhl dao_stuhl;
@@ -18,7 +17,7 @@ public class StuhlRepository {
         allStuhl = dao_stuhl.getStuhlOrderbyTime();
     }
 
-    LiveData<List<Entity_Stuhl>> getAllStuhl(){
+    public LiveData<List<Entity_Stuhl>> getAllStuhl(){
         return allStuhl;
     }
 
@@ -31,7 +30,6 @@ public class StuhlRepository {
         });
     }
 
-
     public void update(Entity_Stuhl stuhl){
         new UpdateStuhlAsyncTask(dao_stuhl).execute(stuhl);
     }
@@ -40,6 +38,12 @@ public class StuhlRepository {
         new DeleteStuhlAsyncTask(dao_stuhl).execute(stuhl);
     }
 
+    public LiveData<List<Entity_Stuhl>> getStuhlByDate (int jahr, int monat, int tag){
+        allStuhl = dao_stuhl.getStuhlByDate(jahr, monat, tag);
+        return allStuhl;
+    }
+
+    /*
     public LiveData<List<Entity_Stuhl>> getStuhlByDate(int jahr, int monat, int tag){
         LiveData<List<Entity_Stuhl>> stuhlByDate = null; //macht diese Zweisung Sinn? Eher nicht...aber sonst gäbe es probleme mit dem return wert
         GetStuhlByDateAsyncTask task = new GetStuhlByDateAsyncTask(dao_stuhl);
@@ -52,7 +56,10 @@ public class StuhlRepository {
         return stuhlByDate;
     }
 
+     */
 
+
+    /*
     public Entity_Stuhl getStuhlByID(Integer id){
         Entity_Stuhl stuhlByID = null;
         GetStuhlByIdAsyncTask task = new GetStuhlByIdAsyncTask(dao_stuhl);
@@ -64,6 +71,8 @@ public class StuhlRepository {
         }
         return stuhlByID;
     }
+
+     */
 
     //Query-Logik wird in eine Async-Task Subklasse ausgelagert
     //AsyncTask <input für execute(), Fortschritt, Output von get()
@@ -114,11 +123,13 @@ public class StuhlRepository {
     }
 
 
+    /*
     //Input sollten drei Integer sein (jahr, monat, tag)
     //wie kann man drei Inputs angeben?
     private static class GetStuhlByDateAsyncTask extends AsyncTask<Integer, Void, LiveData<List<Entity_Stuhl>>>{
 
         private DAO_Stuhl dao_stuhl;
+
         int jahr;
         int monat;
         int tag;
@@ -135,12 +146,17 @@ public class StuhlRepository {
         }
          */
 
+    /*
         @Override
         protected LiveData<List<Entity_Stuhl>> doInBackground(Integer...params) {
             dao_stuhl.getStuhlByDate(jahr, monat, tag);
             return null;
         }
     }
+
+     */
+
+
 
     private static class GetStuhlByIdAsyncTask extends AsyncTask<Integer, Void, Entity_Stuhl> {
 
