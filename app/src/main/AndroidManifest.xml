@@ -25,9 +25,12 @@
         <activity android:name=".Anmeldung" />
         <activity android:name=".MainActivity"  />
         <activity android:name=".Einstellungen" />
-        <activity android:name=".Eintrag_Essen" />
+        <activity android:name=".Eintrag_Essen"
+            android:launchMode="singleInstance"
+            android:parentActivityName=".MainActivity"/>
         <activity
             android:name=".Eintrag_Stuhl"
+            android:launchMode="singleInstance"
             android:parentActivityName=".MainActivity"
             />
         <activity

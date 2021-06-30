@@ -105,7 +105,6 @@ public class Eintrag_Stuhl extends AppCompatActivity {
     String [] array_menge = new String [] {"wenig", "normal", "viel"};
     ArrayAdapter <String> aA_menge;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -194,7 +193,7 @@ public class Eintrag_Stuhl extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 //Permission wird angefragt
-                if (ContextCompat.checkSelfPermission(
+               if (ContextCompat.checkSelfPermission(
                         Eintrag_Stuhl.this,
                         Manifest.permission.READ_EXTERNAL_STORAGE)
                         == PackageManager.PERMISSION_GRANTED) {
@@ -216,17 +215,13 @@ public class Eintrag_Stuhl extends AppCompatActivity {
                 }
                 //Stuhl speichern methode
                 stuhlSpeichern();
-
-                //Toast.makeText(Eintrag_Stuhl.this, "Eintrag gespeichert", Toast.LENGTH_SHORT).show();
-
-                //nach dem spuelen, kommt man wieder zurueck auf die Startseite
-                //intentStartseite = new Intent(context, MainActivity.class);
-                //startActivity(intentStartseite);
             }
         });
     }
 
      public void stuhlSpeichern () {
+
+        Intent stuhl_data = new Intent();
 
         String datum = editText_currentDate.getText().toString();
         String uhrzeit = editText_currentTime.getText().toString();
@@ -240,22 +235,22 @@ public class Eintrag_Stuhl extends AppCompatActivity {
         String menge = spinner_menge.getSelectedItem().toString();
         String notizen = edit_Notizen.getText().toString();
 
-        //empty abfragen? notwendig?
-
-        Intent stuhl_data = new Intent();
-        stuhl_data.putExtra(EXTRA_DATUM, datum);
-        stuhl_data.putExtra(EXTRA_UHRZEIT, uhrzeit);
-        stuhl_data.putExtra(EXTRA_BRISTOL, bristol);
-        stuhl_data.putExtra(EXTRA_BLUT, blut);
-        stuhl_data.putExtra(EXTRA_SCHMERZ, schmerz);
-        stuhl_data.putExtra(EXTRA_FARBE, farbe);
-        stuhl_data.putExtra(EXTRA_UNVERDAUTENAHRUNG, unverdauteNahrung);
-        stuhl_data.putExtra(EXTRA_SCHLEIM, schleim);
-        stuhl_data.putExtra(EXTRA_MENGE, menge);
-        stuhl_data.putExtra(EXTRA_NOTIZ, notizen);
-
-        setResult(RESULT_OK, stuhl_data);
-        finish();
+         if (datum == null || uhrzeit == null){
+             setResult(RESULT_CANCELED, stuhl_data);
+         } else {
+             stuhl_data.putExtra(EXTRA_DATUM, datum);
+             stuhl_data.putExtra(EXTRA_UHRZEIT, uhrzeit);
+             stuhl_data.putExtra(EXTRA_BRISTOL, bristol);
+             stuhl_data.putExtra(EXTRA_BLUT, blut);
+             stuhl_data.putExtra(EXTRA_SCHMERZ, schmerz);
+             stuhl_data.putExtra(EXTRA_FARBE, farbe);
+             stuhl_data.putExtra(EXTRA_UNVERDAUTENAHRUNG, unverdauteNahrung);
+             stuhl_data.putExtra(EXTRA_SCHLEIM, schleim);
+             stuhl_data.putExtra(EXTRA_MENGE, menge);
+             stuhl_data.putExtra(EXTRA_NOTIZ, notizen);
+             setResult(RESULT_OK, stuhl_data);
+         }
+         finish();
     }
 
 
