@@ -1,7 +1,10 @@
 package com.example.abschlussprojekt_eddi;
 
+import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.DiffUtil;
@@ -11,26 +14,39 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 import java.util.List;
 
-public class EssenListAdapter extends ListAdapter <Entity_Essen, EssenViewHolder> {
+public class EssenListAdapter extends RecyclerView.Adapter <EssenListAdapter.EssenViewHolder> {
     private OnItemClickListener listener;
-    private ArrayList<Entity_Essen> essenList = new ArrayList<>();
-
+    private List<Entity_Essen> essenList = new ArrayList<>();
+/*
     public EssenListAdapter (@NonNull DiffUtil.ItemCallback<Entity_Essen> diffCallback) {
         super(diffCallback);
     }
 
+ */
+
     @NonNull
     @Override
     public EssenViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-
         System.out.println("EssenViewHolder create");
-        return EssenViewHolder.create(parent);
+        View view = LayoutInflater.from(parent.getContext())
+                .inflate(R.layout.note_essen_tag, parent, false);
+        return new EssenViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull EssenViewHolder holder, int position) {
-        Entity_Essen current = getItem(position);
-        holder.bind(current.getEssen());
+        Entity_Essen current = essenList.get(position);
+        holder.essenEntryItemView.setText(current.getEssen());
+    }
+
+    @Override
+    public int getItemCount() {
+        return essenList.size();
+    }
+
+    public void setEssen(List<Entity_Essen> essenList){
+        this.essenList = essenList;
+        notifyDataSetChanged();
     }
 
     //um die Position fürs Löschen zu bekommen
@@ -38,6 +54,19 @@ public class EssenListAdapter extends ListAdapter <Entity_Essen, EssenViewHolder
         return essenList.get(position);
     }
 
+    class EssenViewHolder extends RecyclerView.ViewHolder{
+
+        private final TextView essenItemView;
+        private final TextView essenEntryItemView;
+
+        public EssenViewHolder (View itemView){
+            super(itemView);
+            essenItemView = itemView.findViewById(R.id.mahlzeit);
+            essenEntryItemView = itemView.findViewById(R.id.entry_number);
+        }
+
+    }
+/*
     public static class EssenDiff extends DiffUtil.ItemCallback<Entity_Essen> {
 
         @Override
@@ -50,6 +79,8 @@ public class EssenListAdapter extends ListAdapter <Entity_Essen, EssenViewHolder
             return false;
         }
     }
+
+ */
 
     //Interface wird später in der MainActivity implementiert
     public interface OnItemClickListener{

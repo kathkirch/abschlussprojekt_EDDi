@@ -82,9 +82,6 @@ public class Eintrag_Stuhl extends AppCompatActivity {
             "com.example.abschlussprojekt_eddi.EXTRA_NOTIZ";
 
 
-
-    FileOutputStream outputStream;
-
     final static int PERMISSION_CODE = 1;
     final static int GALLERY_REQUEST_CODE = 3;
     final static int REQUEST_CODE = 2;
