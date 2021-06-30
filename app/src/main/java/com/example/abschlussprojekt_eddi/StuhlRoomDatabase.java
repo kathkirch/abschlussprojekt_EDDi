@@ -10,7 +10,7 @@ import androidx.sqlite.db.SupportSQLiteDatabase;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-@androidx.room.Database(entities = {Entity_Stuhl.class}, version=2, exportSchema = false)
+@androidx.room.Database(entities = {Entity_Stuhl.class}, version=1, exportSchema = false)
 public abstract class StuhlRoomDatabase extends RoomDatabase {
 
     public abstract DAO_Stuhl dao_stuhl();
@@ -28,8 +28,9 @@ public abstract class StuhlRoomDatabase extends RoomDatabase {
                if (INSTANCE == null){
                    INSTANCE = Room.databaseBuilder(context.getApplicationContext(),
                            StuhlRoomDatabase.class, "stuhl_database")
-                           //.fallbackToDestructiveMigration()
-                           .addCallback(stuhlRoomDatabaseCallback).build();
+                           .fallbackToDestructiveMigration()
+                           .addCallback(stuhlRoomDatabaseCallback)
+                           .build();
                }
            }
        }

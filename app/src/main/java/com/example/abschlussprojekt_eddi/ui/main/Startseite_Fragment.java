@@ -7,15 +7,19 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.abschlussprojekt_eddi.Benutzer;
 import com.example.abschlussprojekt_eddi.BenutzerdatenSpeicher;
 import com.example.abschlussprojekt_eddi.EssenListAdapter;
+import com.example.abschlussprojekt_eddi.EssenViewHolder;
 import com.example.abschlussprojekt_eddi.StuhlListAdapter;
 import com.example.abschlussprojekt_eddi.ViewModel_Essen;
 import com.example.abschlussprojekt_eddi.ViewModel_Stuhl;
@@ -57,7 +61,6 @@ public class Startseite_Fragment extends Fragment { //implements View.OnClickLis
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-
         View view = inflater.inflate(layout.fragment_startseite_, container, false);
 
         RecyclerView recyclerView1 = (RecyclerView) view.findViewById(id.recycler_view_startseite_essen);
@@ -68,10 +71,31 @@ public class Startseite_Fragment extends Fragment { //implements View.OnClickLis
         recyclerView1.setAdapter(adapter);
         recyclerView1.setLayoutManager(new LinearLayoutManager(getContext()));
 
-        viewModel_essen = new ViewModelProvider(this).get(ViewModel_Essen.class);
+        viewModel_essen = new ViewModelProvider(getActivity()).get(ViewModel_Essen.class);
         viewModel_essen.getAllEssen().observe(getViewLifecycleOwner(), entity_essens -> {
             adapter.submitList(entity_essens);
         });
+
+        //macht den RecyclerView wischbar
+        new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0,
+                //Löschen bei Rechts-Wischen
+                ItemTouchHelper.RIGHT){
+            @Override
+            public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
+                return false;
+            }
+
+            @Override
+            public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
+                //Eintrag wird nicht gelöscht???
+                try {
+                    viewModel_essen.deleteEssen(adapter.getEssenAt(viewHolder.getAdapterPosition()));
+                    Toast.makeText(getActivity(), "Essen Eintrag gelöscht", Toast.LENGTH_SHORT).show();
+                }catch (IndexOutOfBoundsException e){
+                    e.printStackTrace();
+                }
+            }
+        }).attachToRecyclerView(recyclerView1);
 
         final StuhlListAdapter stuhlAdapter = new StuhlListAdapter(new StuhlListAdapter.StuhlDiff());
         recyclerView2.setHasFixedSize(true);

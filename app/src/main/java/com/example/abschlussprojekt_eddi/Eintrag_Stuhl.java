@@ -25,6 +25,7 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SwitchCompat;
 import androidx.camera.lifecycle.ProcessCameraProvider;
@@ -36,6 +37,7 @@ import com.google.common.util.concurrent.ListenableFuture;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.OutputStream;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Objects;
@@ -103,6 +105,7 @@ public class Eintrag_Stuhl extends AppCompatActivity {
     String [] array_menge = new String [] {"wenig", "normal", "viel"};
     ArrayAdapter <String> aA_menge;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -111,7 +114,12 @@ public class Eintrag_Stuhl extends AppCompatActivity {
         //Momentanes Datum anzeigen (Werte als int gespeichert)
         Calendar calendar = Calendar.getInstance();
         int currentDay = calendar.get(Calendar.DAY_OF_MONTH);
-        int currentMonth = calendar.get(Calendar.MONTH);
+        int currentMonth;
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){ //für LocalDate braucht es min API 26
+            currentMonth = LocalDate.now().getMonthValue();
+        }else {
+            currentMonth = Calendar.MONTH + 1;
+        }
         int currentYear = calendar.get(Calendar.YEAR);
         editText_currentDate = findViewById(R.id.editText_currentDate);
         editText_currentDate.setText(currentDay + "." + currentMonth + "." + currentYear);
@@ -212,8 +220,8 @@ public class Eintrag_Stuhl extends AppCompatActivity {
                 //Toast.makeText(Eintrag_Stuhl.this, "Eintrag gespeichert", Toast.LENGTH_SHORT).show();
 
                 //nach dem spuelen, kommt man wieder zurueck auf die Startseite
-                intentStartseite = new Intent(context, MainActivity.class);
-                startActivity(intentStartseite);
+                //intentStartseite = new Intent(context, MainActivity.class);
+                //startActivity(intentStartseite);
             }
         });
     }

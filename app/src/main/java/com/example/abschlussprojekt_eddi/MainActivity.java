@@ -39,8 +39,9 @@ public class MainActivity extends AppCompatActivity {
         tabs.setupWithViewPager(viewPager);
 
         viewModel_stuhl = new ViewModelProvider(this).get(ViewModel_Stuhl.class);
-
         viewModel_essen = new ViewModelProvider(this).get(ViewModel_Essen.class);
+
+
 
         /*
         Button btStuhl = this.findViewById(R.id.stuhl_button);
@@ -90,7 +91,7 @@ public class MainActivity extends AppCompatActivity {
         System.out.println(resultCode + " " + Eintrag_Essen.RESULT_OK);
         System.out.println(requestCode + " " + NEW_ESSEN_ACTIVITY_REQUEST_CODE);
 
-        if ((resultCode == Eintrag_Stuhl.RESULT_OK) && requestCode == NEW_STUHL_ACTIVITY_REQUEST_CODE){
+        if (resultCode == Eintrag_Stuhl.RESULT_OK && requestCode == NEW_STUHL_ACTIVITY_REQUEST_CODE){
 
             // Uhrzeit in Stunde und Minute trennen
             String uhrzeit = data.getStringExtra(Eintrag_Stuhl.EXTRA_UHRZEIT);
@@ -132,19 +133,21 @@ public class MainActivity extends AppCompatActivity {
             viewModel_essen.insertEssen(essen);
             Toast.makeText(this, "Essen gespeichert", Toast.LENGTH_SHORT).show();
         } else {
-            Toast.makeText(this, "Konnte nichts gespeichert werden",
+            Toast.makeText(this, "Essen konnte nicht gespeichert werden",
                     Toast.LENGTH_SHORT).show();
         }
     }
 
     public void enterEintragStuhl(View view) {
         intentStuhl = new Intent(getApplicationContext(), Eintrag_Stuhl.class);
+        System.out.println("enterEintragStuhl");
         startActivityForResult(intentStuhl, NEW_STUHL_ACTIVITY_REQUEST_CODE);
     }
 
 
     public void enterEintragEssen(View view) {
         intentEssen = new Intent(getApplicationContext(), Eintrag_Essen.class);
+        System.out.println("enterEintragEssen");
         startActivityForResult(intentEssen, NEW_ESSEN_ACTIVITY_REQUEST_CODE);
     }
 

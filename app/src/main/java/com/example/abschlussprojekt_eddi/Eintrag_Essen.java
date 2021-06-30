@@ -6,6 +6,7 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -32,6 +33,7 @@ public class Eintrag_Essen extends AppCompatActivity {
                 Intent replyIntent = new Intent();
                 if (TextUtils.isEmpty(etEssen.getText())){
                     setResult(RESULT_CANCELED, replyIntent);
+                    Toast.makeText(Eintrag_Essen.this, "Bitte Essen eintragen.", Toast.LENGTH_SHORT).show();
                 } else {
                     String essen = etEssen.getText().toString();
                     replyIntent.putExtra(EXTRA_ESSEN, essen);

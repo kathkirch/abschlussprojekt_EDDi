@@ -28,8 +28,7 @@ public class StuhlViewHolder extends RecyclerView.ViewHolder {
     public void bind(String datum, String uhrzeit, String bristol, String farbe, String schmerz){
         tvDatum.setText(datum);
         tvUhrzeit.setText(uhrzeit);
-
-        getBirstolSymbol(bristol);
+        getBristolSymbol(bristol);
         tvFarbe.setText(tvFarbe.getText().toString() + farbe);
         tvSchmerz.setText(tvSchmerz.getText().toString() + schmerz);
     }
@@ -40,7 +39,7 @@ public class StuhlViewHolder extends RecyclerView.ViewHolder {
         return new StuhlViewHolder(view);
     }
 
-    public void getBirstolSymbol(String bristolString){
+    public void getBristolSymbol(String bristolString){
         switch (bristolString) {
             case "1":
                 ivBristol.setImageResource(R.drawable.type01);

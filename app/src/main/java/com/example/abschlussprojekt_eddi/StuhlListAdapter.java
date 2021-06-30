@@ -17,6 +17,7 @@ public class StuhlListAdapter extends ListAdapter <Entity_Stuhl, StuhlViewHolder
     @NonNull
     @Override
     public StuhlViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        System.out.println("StuhlViewHolder create parent");
         return StuhlViewHolder.create(parent);
     }
 
