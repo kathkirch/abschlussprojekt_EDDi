@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageButton;
 
 import androidx.fragment.app.Fragment;
@@ -15,6 +16,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.abschlussprojekt_eddi.Benutzer;
 import com.example.abschlussprojekt_eddi.BenutzerdatenSpeicher;
+import com.example.abschlussprojekt_eddi.Einstellungen;
+import com.example.abschlussprojekt_eddi.Eintrag_Essen;
+import com.example.abschlussprojekt_eddi.Eintrag_Stuhl;
 import com.example.abschlussprojekt_eddi.EssenListAdapter;
 import com.example.abschlussprojekt_eddi.StuhlListAdapter;
 import com.example.abschlussprojekt_eddi.ViewModel_Essen;
@@ -23,7 +27,7 @@ import com.example.abschlussprojekt_eddi.ViewModel_Stuhl;
 import static com.example.abschlussprojekt_eddi.R.id;
 import static com.example.abschlussprojekt_eddi.R.layout;
 
-public class Startseite_Fragment extends Fragment { //implements View.OnClickListener {
+public class Startseite_Fragment extends Fragment implements View.OnClickListener {
 
     public ViewModel_Stuhl viewModel_stuhl;
     public ViewModel_Essen viewModel_essen;
@@ -40,8 +44,8 @@ public class Startseite_Fragment extends Fragment { //implements View.OnClickLis
     Benutzer ben;
     BenutzerdatenSpeicher bdsp;
 
-    //public static final int NEW_STUHL_ACTIVITY_REQUEST_CODE = 1;
-    //public static final int NEW_ESSEN_ACTIVITY_REQUEST_CODE = 2;
+    public static final int NEW_STUHL_ACTIVITY_REQUEST_CODE = 1;
+    public static final int NEW_ESSEN_ACTIVITY_REQUEST_CODE = 2;
 
     public Startseite_Fragment() {
         // Required empty public constructor
@@ -83,13 +87,11 @@ public class Startseite_Fragment extends Fragment { //implements View.OnClickLis
             stuhlAdapter.submitList(entity_stuhls);
         });
 
-        /*
+
         Button btStuhl = view.findViewById(id.stuhl_button);
         Button btEssen = view.findViewById(id.essen_button);
         Button btEinstellungen = view.findViewById(id.einstellungenButton);
 
-
-         */
         bV1 = view.findViewById(id.VAS_0);
         bV2 = view.findViewById(id.VAS_1);
         bV3 = view.findViewById(id.VAS_2);
@@ -102,13 +104,11 @@ public class Startseite_Fragment extends Fragment { //implements View.OnClickLis
         bV4.setOnClickListener(this::stimmung);
         bV5.setOnClickListener(this::stimmung);
 
-        /*
+
         btStuhl.setOnClickListener(this::onClick);
         btEssen.setOnClickListener(this::onClick);
         btEinstellungen.setOnClickListener(this::onClick);
 
-
-         */
         bdsp = new BenutzerdatenSpeicher(getContext());
         ben = bdsp.getLoggedInUser();
 
@@ -138,8 +138,8 @@ public class Startseite_Fragment extends Fragment { //implements View.OnClickLis
         }
     }
 
-    /*
-    @SuppressLint("NonConstantResourceId")
+
+    //@SuppressLint("NonConstantResourceId")
     public void onClick(View view){
         switch (view.getId()){
             case id.stuhl_button:
@@ -156,7 +156,5 @@ public class Startseite_Fragment extends Fragment { //implements View.OnClickLis
                 break;
         }
     }
-
-     */
 }
 

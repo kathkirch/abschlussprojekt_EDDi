@@ -28,7 +28,6 @@ public class StuhlListAdapter extends ListAdapter <Entity_Stuhl, StuhlViewHolder
         String bristol = current.getBristol();
         String farbe = current.getFarbe();
         String schmerz = String.valueOf(current.getSchmerzen());
-
         holder.bind(datum, uhrzeit, bristol, farbe, schmerz);
     }
 

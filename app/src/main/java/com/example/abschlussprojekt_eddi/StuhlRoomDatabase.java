@@ -22,14 +22,15 @@ public abstract class StuhlRoomDatabase extends RoomDatabase {
 
     // gibt dann eine Instanz von DAO_Essen zurück, wenn schon eine besteht wird diese
     // zurückgeliefert.
-    public static synchronized StuhlRoomDatabase getDatabaseStuhl(final Context context){
+    public static StuhlRoomDatabase getDatabaseStuhl(final Context context){
        if(INSTANCE == null) {
            synchronized (StuhlRoomDatabase.class){
                if (INSTANCE == null){
                    INSTANCE = Room.databaseBuilder(context.getApplicationContext(),
                            StuhlRoomDatabase.class, "stuhl_database")
-                           //.fallbackToDestructiveMigration()
-                           .addCallback(stuhlRoomDatabaseCallback).build();
+                           .addCallback(stuhlRoomDatabaseCallback)
+                           .fallbackToDestructiveMigration()
+                           .build();
                }
            }
        }
