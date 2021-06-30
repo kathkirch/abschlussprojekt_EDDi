@@ -26,7 +26,6 @@ import com.example.abschlussprojekt_eddi.Eintrag_Stuhl;
 import com.example.abschlussprojekt_eddi.Entity_Essen;
 import com.example.abschlussprojekt_eddi.Entity_Stuhl;
 import com.example.abschlussprojekt_eddi.EssenListAdapter;
-import com.example.abschlussprojekt_eddi.EssenViewHolder;
 import com.example.abschlussprojekt_eddi.StuhlListAdapter;
 import com.example.abschlussprojekt_eddi.ViewModel_Essen;
 import com.example.abschlussprojekt_eddi.ViewModel_Stuhl;
@@ -63,7 +62,6 @@ public class Startseite_Fragment extends Fragment implements View.OnClickListene
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
     }
 
     @Override
@@ -72,11 +70,11 @@ public class Startseite_Fragment extends Fragment implements View.OnClickListene
 
         View view = inflater.inflate(layout.fragment_startseite_, container, false);
 
+        //Recyclerview für Essen und Stuhl erstellen
         RecyclerView recyclerView1 = (RecyclerView) view.findViewById(id.recycler_view_startseite_essen);
         RecyclerView recyclerView2 = (RecyclerView) view.findViewById(id.recycler_view_startseite_stuhl);
 
         //Recycler View für Essen
-        //final EssenListAdapter adapter = new EssenListAdapter(new EssenListAdapter.EssenDiff());
         EssenListAdapter adapter = new EssenListAdapter();
         recyclerView1.setHasFixedSize(true);
         recyclerView1.setAdapter(adapter);
@@ -86,11 +84,11 @@ public class Startseite_Fragment extends Fragment implements View.OnClickListene
         viewModel_essen = new ViewModelProvider(getActivity()).get(ViewModel_Essen.class);
         viewModel_essen.getAllEssen().observe(getViewLifecycleOwner(), new Observer<List<Entity_Essen>>() {
             @Override
+            //um den Adapter zu aktualisieren
             public void onChanged(List<Entity_Essen> entity_essens) {
                 adapter.setEssen(entity_essens);
             }
         });
-
 
         //macht den RecyclerView wischbar (für Essen-Löschung)
         new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0,
@@ -114,7 +112,6 @@ public class Startseite_Fragment extends Fragment implements View.OnClickListene
         }).attachToRecyclerView(recyclerView1);
 
         //RecyclerView für Stuhl
-        //final StuhlListAdapter stuhlAdapter = new StuhlListAdapter(new StuhlListAdapter.StuhlDiff());
         StuhlListAdapter stuhlAdapter = new StuhlListAdapter();
         recyclerView2.setHasFixedSize(true);
         recyclerView2.setAdapter(stuhlAdapter);
@@ -128,12 +125,6 @@ public class Startseite_Fragment extends Fragment implements View.OnClickListene
                 stuhlAdapter.setStuhl(entity_stuhl);
             }
         });
-        /*
-        viewModel_stuhl.getAllStuhl().observe(getViewLifecycleOwner(), entity_stuhls -> {
-            stuhlAdapter.submitList(entity_stuhls);
-        });
-
-         */
 
         //macht den RecyclerView wischbar (für Stuhl-Löschung)
         new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0,
@@ -149,13 +140,12 @@ public class Startseite_Fragment extends Fragment implements View.OnClickListene
                 //Eintrag wird nicht gelöscht???
                 try {
                     viewModel_stuhl.delete(stuhlAdapter.getStuhlAt(viewHolder.getAdapterPosition()));
-                    Toast.makeText(getActivity(), "Essen Eintrag gelöscht", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(), "Stuhl Eintrag gelöscht", Toast.LENGTH_SHORT).show();
                 }catch (IndexOutOfBoundsException e){
                     e.printStackTrace();
                 }
             }
         }).attachToRecyclerView(recyclerView2);
-
 
         Button btStuhl = view.findViewById(id.stuhl_button);
         Button btEssen = view.findViewById(id.essen_button);
@@ -173,7 +163,6 @@ public class Startseite_Fragment extends Fragment implements View.OnClickListene
         bV4.setOnClickListener(this::stimmung);
         bV5.setOnClickListener(this::stimmung);
 
-
         btStuhl.setOnClickListener(this::onClick);
         btEssen.setOnClickListener(this::onClick);
         btEinstellungen.setOnClickListener(this::onClick);
@@ -183,7 +172,6 @@ public class Startseite_Fragment extends Fragment implements View.OnClickListene
 
         return view;
     }
-
 
     // entgültige Ansicht noch anpassen, schaut noch komisch aus
     public void stimmung(View view) {
@@ -206,7 +194,6 @@ public class Startseite_Fragment extends Fragment implements View.OnClickListene
                 break;
         }
     }
-
 
     //@SuppressLint("NonConstantResourceId")
     public void onClick(View view){

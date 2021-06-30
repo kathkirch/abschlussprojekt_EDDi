@@ -1,6 +1,7 @@
 package com.example.abschlussprojekt_eddi;
 
 
+import android.annotation.SuppressLint;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,17 +21,10 @@ public class StuhlListAdapter extends RecyclerView.Adapter<StuhlListAdapter.Stuh
 
     private List<Entity_Stuhl> stuhlList = new ArrayList<>();
 
-    /*
-    public StuhlListAdapter(@NonNull DiffUtil.ItemCallback<Entity_Stuhl> diffCallback) {
-        super(diffCallback);
-    }
-     */
-
     @NonNull
     @Override
     public StuhlViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        System.out.println("StuhlViewHolder create parent");
-        View view = LayoutInflater.from(parent.getContext())
+       View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.note_stuhl_tag, parent, false);
         return new StuhlViewHolder(view);
     }
@@ -46,6 +40,8 @@ public class StuhlListAdapter extends RecyclerView.Adapter<StuhlListAdapter.Stuh
         holder.bind(datum, uhrzeit, bristol, farbe, schmerz);
     }
 
+    //gibt an, wieviele Einträge angezeigt werden sollen
+    //es sollen so viele Einträge angezeigt werden, wie in der stuhlList vorhanden sind
     @Override
     public int getItemCount() {
         return stuhlList.size();
@@ -53,28 +49,13 @@ public class StuhlListAdapter extends RecyclerView.Adapter<StuhlListAdapter.Stuh
 
     public void setStuhl(List<Entity_Stuhl> stuhlList){
         this.stuhlList = stuhlList;
-        notifyDataSetChanged();
+        notifyDataSetChanged(); //wird später geändert!
     }
 
     //um die Position fürs Löschen zu bekommen
     public Entity_Stuhl getStuhlAt(int position){
         return stuhlList.get(position);
     }
-/*
-    public static class StuhlDiff extends DiffUtil.ItemCallback<Entity_Stuhl> {
-
-        @Override
-        public boolean areItemsTheSame(@NonNull Entity_Stuhl oldItem, @NonNull Entity_Stuhl newItem) {
-            return false;
-        }
-
-        @Override
-        public boolean areContentsTheSame(@NonNull Entity_Stuhl oldItem, @NonNull Entity_Stuhl newItem) {
-            return false;
-        }
-    }
-
- */
 
     class StuhlViewHolder extends RecyclerView.ViewHolder{
 
@@ -93,6 +74,7 @@ public class StuhlListAdapter extends RecyclerView.Adapter<StuhlListAdapter.Stuh
             tvSchmerz = itemview.findViewById(R.id.stuhl_schmerz);
         }
 
+        @SuppressLint("SetTextI18n")
         public void bind(String datum, String uhrzeit, String bristol, String farbe, String schmerz){
             tvDatum.setText(datum);
             tvUhrzeit.setText(uhrzeit);

@@ -15,19 +15,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class EssenListAdapter extends RecyclerView.Adapter <EssenListAdapter.EssenViewHolder> {
+
     private OnItemClickListener listener;
     private List<Entity_Essen> essenList = new ArrayList<>();
-/*
-    public EssenListAdapter (@NonNull DiffUtil.ItemCallback<Entity_Essen> diffCallback) {
-        super(diffCallback);
-    }
-
- */
 
     @NonNull
     @Override
     public EssenViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        System.out.println("EssenViewHolder create");
         View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.note_essen_tag, parent, false);
         return new EssenViewHolder(view);
@@ -36,7 +30,8 @@ public class EssenListAdapter extends RecyclerView.Adapter <EssenListAdapter.Ess
     @Override
     public void onBindViewHolder(@NonNull EssenViewHolder holder, int position) {
         Entity_Essen current = essenList.get(position);
-        holder.essenEntryItemView.setText(current.getEssen());
+        holder.essen_mahlzeit.setText(current.getEssen());
+        //holder.essen_entryNumber.setText(current.getEssenID());
     }
 
     @Override
@@ -46,7 +41,7 @@ public class EssenListAdapter extends RecyclerView.Adapter <EssenListAdapter.Ess
 
     public void setEssen(List<Entity_Essen> essenList){
         this.essenList = essenList;
-        notifyDataSetChanged();
+        notifyDataSetChanged(); //wird später geändert!
     }
 
     //um die Position fürs Löschen zu bekommen
@@ -56,31 +51,15 @@ public class EssenListAdapter extends RecyclerView.Adapter <EssenListAdapter.Ess
 
     class EssenViewHolder extends RecyclerView.ViewHolder{
 
-        private final TextView essenItemView;
-        private final TextView essenEntryItemView;
+        private final TextView essen_mahlzeit;
+        private final TextView essen_entryNumber;
 
         public EssenViewHolder (View itemView){
             super(itemView);
-            essenItemView = itemView.findViewById(R.id.mahlzeit);
-            essenEntryItemView = itemView.findViewById(R.id.entry_number);
-        }
-
-    }
-/*
-    public static class EssenDiff extends DiffUtil.ItemCallback<Entity_Essen> {
-
-        @Override
-        public boolean areItemsTheSame(@NonNull Entity_Essen oldItem, @NonNull Entity_Essen newItem) {
-            return false;
-        }
-
-        @Override
-        public boolean areContentsTheSame(@NonNull Entity_Essen oldItem, @NonNull Entity_Essen newItem) {
-            return false;
+            essen_mahlzeit = itemView.findViewById(R.id.mahlzeit);
+            essen_entryNumber = itemView.findViewById(R.id.entry_number);
         }
     }
-
- */
 
     //Interface wird später in der MainActivity implementiert
     public interface OnItemClickListener{

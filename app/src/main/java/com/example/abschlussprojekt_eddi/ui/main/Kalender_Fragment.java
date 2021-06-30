@@ -57,11 +57,10 @@ public class Kalender_Fragment extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_kalender_, container, false);
 
-        //RecyclerView für Essen
+        //RecyclerView für Essen und Stuhl erstellen
         RecyclerView recyclerView1 = (RecyclerView) view.findViewById(R.id.recycler_view_kalender_essen);
         RecyclerView recyclerView2 = (RecyclerView) view.findViewById(R.id.recycler_view_kalender_stuhl);
 
-        //final EssenListAdapter adapter = new EssenListAdapter(new EssenListAdapter.EssenDiff());
         EssenListAdapter adapter = new EssenListAdapter();
         recyclerView1.setHasFixedSize(true);
         recyclerView1.setAdapter(adapter);
@@ -71,6 +70,7 @@ public class Kalender_Fragment extends Fragment {
         viewModel_essen = new ViewModelProvider(this).get(ViewModel_Essen.class);
         viewModel_essen.getAllEssen().observe(getViewLifecycleOwner(), new Observer<List<Entity_Essen>>() {
             @Override
+            //um den Adapter zu aktualisieren
             public void onChanged(List<Entity_Essen> entity_essens) {
                 adapter.setEssen(entity_essens);
             }
@@ -98,13 +98,11 @@ public class Kalender_Fragment extends Fragment {
         }).attachToRecyclerView(recyclerView1);
 
         //RecyclerView für Stuhl
-        //final StuhlListAdapter stuhlAdapter = new StuhlListAdapter(new StuhlListAdapter.StuhlDiff());
         StuhlListAdapter stuhlAdapter = new StuhlListAdapter();
         recyclerView2.setHasFixedSize(true);
         recyclerView2.setAdapter(stuhlAdapter);
         recyclerView2.setLayoutManager(new LinearLayoutManager(getContext()));
 
-        // funktioniert noch nicht
         viewModel_stuhl = new ViewModelProvider(this).get(ViewModel_Stuhl.class);
         viewModel_stuhl.getAllStuhl().observe(getViewLifecycleOwner(), new Observer<List<Entity_Stuhl>>() {
             @Override
@@ -123,7 +121,6 @@ public class Kalender_Fragment extends Fragment {
 
             @Override
             public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
-                //Eintrag wird nicht gelöscht???
                 try {
                     viewModel_stuhl.delete(stuhlAdapter.getStuhlAt(viewHolder.getAdapterPosition()));
                     Toast.makeText(getActivity(), "Stuhl Eintrag gelöscht", Toast.LENGTH_SHORT).show();
