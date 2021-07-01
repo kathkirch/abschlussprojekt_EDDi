@@ -27,8 +27,9 @@ public class EssenListAdapter extends RecyclerView.Adapter <EssenListAdapter.Ess
     @Override
     public void onBindViewHolder(@NonNull EssenViewHolder holder, int position) {
         Entity_Essen current = essenList.get(position);
-        holder.essen_mahlzeit.setText(current.getEssen());
-        //holder.essen_entryNumber.setText(current.getEssenID());
+        String essen = current.getEssen();
+        String datum = (current.getTag() + "." + current.getMonat() + "." + current.getJahr());
+        holder.bind(essen, datum);
     }
 
     @Override
@@ -49,12 +50,17 @@ public class EssenListAdapter extends RecyclerView.Adapter <EssenListAdapter.Ess
     class EssenViewHolder extends RecyclerView.ViewHolder{
 
         private final TextView essen_mahlzeit;
-        private final TextView essen_entryNumber;
+        private final TextView essen_datum;
 
         public EssenViewHolder (View itemView){
             super(itemView);
             essen_mahlzeit = itemView.findViewById(R.id.mahlzeit);
-            essen_entryNumber = itemView.findViewById(R.id.entry_number);
+            essen_datum = itemView.findViewById(R.id.textView_essen_datum);
+        }
+
+        public void bind (String essen, String datum) {
+            essen_mahlzeit.setText(essen);
+            essen_datum.setText(datum);
         }
     }
 

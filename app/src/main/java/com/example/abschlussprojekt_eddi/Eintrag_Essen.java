@@ -1,6 +1,7 @@
 package com.example.abschlussprojekt_eddi;
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
@@ -10,13 +11,22 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import java.time.LocalDate;
+import java.util.Calendar;
+
 public class Eintrag_Essen extends AppCompatActivity {
 
     EditText etEssen;
     Button btSpeicher;
+    EditText editText_currentDate;
+    EditText editText_currentTime;
 
     public static final String EXTRA_ESSEN =
             "com.example.abschlussprojekt_eddi.EXTRA_ESSEN";
+    public static final String EXTRA_DATUM =
+            "com.example.abschlussprojekt_eddi.EXTRA_DATUM";
+    public static final String EXTRA_UHRZEIT =
+            "com.example.abschlussprojekt_eddi.EXTRA_UHRZEIT";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,6 +35,26 @@ public class Eintrag_Essen extends AppCompatActivity {
 
         etEssen = findViewById(R.id.editText_eintrag_essen);
         btSpeicher = findViewById(R.id.button_essen_speichern);
+
+        //Momentanes Datum anzeigen (Werte als int gespeichert)
+        Calendar calendar = Calendar.getInstance();
+        int currentDay = calendar.get(Calendar.DAY_OF_MONTH);
+        int currentMonth;
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){ //für LocalDate braucht es min API 26
+            currentMonth = LocalDate.now().getMonthValue();
+        }else {
+            currentMonth = Calendar.MONTH + 1;
+        }
+        int currentYear = calendar.get(Calendar.YEAR);
+        editText_currentDate = findViewById(R.id.editText_currentDate);
+        editText_currentDate.setText(currentDay + "." + currentMonth + "." + currentYear);
+
+        //Momentane Zeit anzeigen (Werte als int gespeichert)
+        //brauche wir sekunden? Userbility?
+        int currentHour = calendar.get(Calendar.HOUR_OF_DAY);
+        int currentMinute = calendar.get(Calendar.MINUTE);
+        editText_currentTime = findViewById(R.id.editText_currentTime);
+        editText_currentTime.setText(currentHour + ":" + currentMinute);
 
         btSpeicher.setOnClickListener(new View.OnClickListener() {
 
@@ -36,7 +66,11 @@ public class Eintrag_Essen extends AppCompatActivity {
                     Toast.makeText(Eintrag_Essen.this, "Bitte Essen eintragen.", Toast.LENGTH_SHORT).show();
                 } else {
                     String essen = etEssen.getText().toString();
+                    String datum = editText_currentDate.getText().toString();
+                    String uhrzeit = editText_currentTime.getText().toString();
                     replyIntent.putExtra(EXTRA_ESSEN, essen);
+                    replyIntent.putExtra(EXTRA_DATUM, datum);
+                    replyIntent.putExtra(EXTRA_UHRZEIT, uhrzeit);
                     setResult(RESULT_OK, replyIntent);
                 }
                 finish();

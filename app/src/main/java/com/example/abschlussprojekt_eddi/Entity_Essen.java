@@ -22,15 +22,13 @@ public class Entity_Essen {
 
     private String essen;
 
-    public Entity_Essen(@NonNull String essen){
+    public Entity_Essen(@NonNull String essen, int jahr, int monat, int tag, int stunde, int minute){
         this.essen = essen;
-        /*
         this.jahr = jahr;
         this.monat = monat;
         this.tag = tag;
         this.stunde = stunde;
         this.minute = minute;
-         */
     }
 
     public int getEssenID() {
