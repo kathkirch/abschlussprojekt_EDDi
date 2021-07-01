@@ -7,6 +7,7 @@
     tools:context=".Eintrag_Essen"
     android:orientation="vertical">
 
+
     <TextView
         android:id="@+id/textView_eintrag_essen"
         android:layout_width="match_parent"

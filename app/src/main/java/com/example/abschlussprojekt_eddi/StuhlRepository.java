@@ -5,31 +5,29 @@ import android.os.AsyncTask;
 
 import androidx.lifecycle.LiveData;
 
-import java.text.SimpleDateFormat;
 import java.util.List;
-import java.util.concurrent.ExecutionException;
 
-public class LogbuchRepository {
+public class StuhlRepository {
     private DAO_Stuhl dao_stuhl;
     private LiveData<List<Entity_Stuhl>> allStuhl;
-    private Entity_Stuhl stuhl;
 
-    public LogbuchRepository(Application application){
-        LogbuchDatabase database = LogbuchDatabase.getInstance(application);
-        //Methode in LogbuchDatabase erstellt
-        dao_stuhl = database.dao_stuhl();
-        allStuhl = dao_stuhl.getAll();
+    public StuhlRepository(Application application){
+        StuhlRoomDatabase srdb = StuhlRoomDatabase.getDatabaseStuhl(application);
+        dao_stuhl = srdb.dao_stuhl();
+        allStuhl = dao_stuhl.getStuhlOrderbyTime();
+    }
+
+    public LiveData<List<Entity_Stuhl>> getAllStuhl(){
+        return allStuhl;
     }
 
     //das ViewModel muss später nurmehr diese Methoden aufrufen
     //das Repository kümmert sich darum, woher die Daten kommen
 
-    public void insertAll(Entity_Stuhl...stuhl){
-        new InsertStuhlAsyncTask(dao_stuhl).execute(stuhl);
-    }
-
     public void insertStuhl(Entity_Stuhl stuhl){
-        new InsertStuhlAsyncTask(dao_stuhl).execute(stuhl);
+        StuhlRoomDatabase.databaseWriteExecuter.execute(() -> {
+            dao_stuhl.insertStuhl(stuhl);
+        });
     }
 
     public void update(Entity_Stuhl stuhl){
@@ -40,13 +38,15 @@ public class LogbuchRepository {
         new DeleteStuhlAsyncTask(dao_stuhl).execute(stuhl);
     }
 
-    public LiveData<List<Entity_Stuhl>> getAll(){
+    public LiveData<List<Entity_Stuhl>> getStuhlByDate (int jahr, int monat, int tag){
+        allStuhl = dao_stuhl.getStuhlByDate(jahr, monat, tag);
         return allStuhl;
     }
 
+    /*
     public LiveData<List<Entity_Stuhl>> getStuhlByDate(int jahr, int monat, int tag){
-        LiveData<List<Entity_Stuhl>> stuhlByDate = allStuhl; //macht diese Zweisung Sinn? Eher nicht...aber sonst gäbe es probleme mit dem return wert
-        GetStuhlByDateAsyncTask task = new GetStuhlByDateAsyncTask(jahr, monat, tag);
+        LiveData<List<Entity_Stuhl>> stuhlByDate = null; //macht diese Zweisung Sinn? Eher nicht...aber sonst gäbe es probleme mit dem return wert
+        GetStuhlByDateAsyncTask task = new GetStuhlByDateAsyncTask(dao_stuhl);
         task.execute(jahr, monat, tag);
         try{
             stuhlByDate = task.get();
@@ -56,8 +56,12 @@ public class LogbuchRepository {
         return stuhlByDate;
     }
 
+     */
+
+
+    /*
     public Entity_Stuhl getStuhlByID(Integer id){
-        Entity_Stuhl stuhlByID = stuhl; //macht diese Zweisung Sinn? Eher nicht...aber sonst gäbe es probleme mit dem return wert
+        Entity_Stuhl stuhlByID = null;
         GetStuhlByIdAsyncTask task = new GetStuhlByIdAsyncTask(dao_stuhl);
         task.execute(id);
         try{
@@ -68,10 +72,12 @@ public class LogbuchRepository {
         return stuhlByID;
     }
 
+     */
 
     //Query-Logik wird in eine Async-Task Subklasse ausgelagert
     //AsyncTask <input für execute(), Fortschritt, Output von get()
-    private static class InsertStuhlAsyncTask extends AsyncTask<Entity_Stuhl, Void, Void>{
+    /*
+    private static class InsertStuhlAsyncTask extends AsyncTask<Entity_Stuhl, Void, Void> {
 
         private DAO_Stuhl dao_stuhl;
 
@@ -84,7 +90,7 @@ public class LogbuchRepository {
             dao_stuhl.insertStuhl(stuhl[0]);
             return null;
         }
-    }
+    }*/
 
     private static class UpdateStuhlAsyncTask extends AsyncTask<Entity_Stuhl, Void, Void>{
 
@@ -116,28 +122,31 @@ public class LogbuchRepository {
         }
     }
 
+
+    /*
     //Input sollten drei Integer sein (jahr, monat, tag)
     //wie kann man drei Inputs angeben?
     private static class GetStuhlByDateAsyncTask extends AsyncTask<Integer, Void, LiveData<List<Entity_Stuhl>>>{
 
         private DAO_Stuhl dao_stuhl;
 
-        /*
-        private GetStuhlByDateAsyncTask(DAO_Stuhl dao_stuhl){
-            this.dao_stuhl = dao_stuhl;
-        }
-         */
-
         int jahr;
         int monat;
         int tag;
 
+        private GetStuhlByDateAsyncTask(DAO_Stuhl dao_stuhl){
+            this.dao_stuhl = dao_stuhl;
+        }
+
+        /*
         private GetStuhlByDateAsyncTask(int jahr, int monat, int tag){
             this.jahr = jahr;
             this.monat = monat;
             this.tag = tag;
         }
+         */
 
+    /*
         @Override
         protected LiveData<List<Entity_Stuhl>> doInBackground(Integer...params) {
             dao_stuhl.getStuhlByDate(jahr, monat, tag);
@@ -145,7 +154,11 @@ public class LogbuchRepository {
         }
     }
 
-    private static class GetStuhlByIdAsyncTask extends AsyncTask<Integer, Void, Entity_Stuhl>{
+     */
+
+
+
+    private static class GetStuhlByIdAsyncTask extends AsyncTask<Integer, Void, Entity_Stuhl> {
 
         private DAO_Stuhl dao_stuhl;
 
@@ -159,5 +172,4 @@ public class LogbuchRepository {
             return null;
         }
     }
-
 }

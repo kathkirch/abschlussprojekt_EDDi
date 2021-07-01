@@ -6,46 +6,46 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 
-import java.text.SimpleDateFormat;
 import java.util.List;
 
 public class ViewModel_Stuhl extends AndroidViewModel {
 
-    private LogbuchRepository repository;
+    private StuhlRepository stuhlRepository;
     private LiveData<List<Entity_Stuhl>> allStuhl;
 
     public ViewModel_Stuhl(@NonNull Application application) {
         super(application);
-        allStuhl = repository.getAll();
+        stuhlRepository = new StuhlRepository(application);
+        allStuhl = stuhlRepository.getAllStuhl();
     }
 
-    public void insertAll(Entity_Stuhl stuhl){
-        repository.insertAll(stuhl);
-    }
-
-    public void insertStuhl(Entity_Stuhl stuhl){
-        repository.insertStuhl(stuhl);
-    }
-
-    public void update (Entity_Stuhl stuhl){
-        repository.update(stuhl);
-    }
-
-    public void delete (Entity_Stuhl stuhl){
-        repository.delete(stuhl);
-    }
-
-    public LiveData<List<Entity_Stuhl>> getAll(){
+    public LiveData<List<Entity_Stuhl>> getAllStuhl(){
         return allStuhl;
     }
 
+    public void insertStuhl(Entity_Stuhl stuhl){
+        stuhlRepository.insertStuhl(stuhl);
+    }
+
+
+    public void update (Entity_Stuhl stuhl){
+        stuhlRepository.update(stuhl);
+    }
+
+    public void delete (Entity_Stuhl stuhl){
+        stuhlRepository.delete(stuhl);
+    }
+
+
     public LiveData<List<Entity_Stuhl>> getStuhlByDate(int jahr, int monat, int tag){
-        return repository.getStuhlByDate(jahr, monat, tag);
+        stuhlRepository = new StuhlRepository(getApplication());
+        LiveData<List<Entity_Stuhl>> stuhlByDate = stuhlRepository.getStuhlByDate(jahr, monat, tag);
+        return stuhlByDate;
     }
 
+    /*
     public Entity_Stuhl getStuhlById(int id){
-        return repository.getStuhlByID(id);
+        return stuhlRepository.getStuhlByID(id);
     }
-
-
+     */
 }

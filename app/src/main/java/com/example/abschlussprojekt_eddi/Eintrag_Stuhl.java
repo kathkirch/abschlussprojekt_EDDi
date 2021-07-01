@@ -1,33 +1,14 @@
 package com.example.abschlussprojekt_eddi;
 
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.camera.core.Camera;
-import androidx.camera.core.CameraProvider;
-import androidx.camera.core.CameraSelector;
-import androidx.camera.core.CameraX;
-import androidx.camera.core.Preview;
-import androidx.camera.lifecycle.ProcessCameraProvider;
-import androidx.camera.view.PreviewView;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
-import androidx.lifecycle.LifecycleOwner;
-
 import android.Manifest;
-import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.Matrix;
 import android.graphics.drawable.BitmapDrawable;
-import android.media.MediaScannerConnection;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -43,26 +24,22 @@ import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-import com.example.abschlussprojekt_eddi.ui.main.Startseite_Fragment;
+import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SwitchCompat;
+import androidx.camera.lifecycle.ProcessCameraProvider;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
+
 import com.google.common.util.concurrent.ListenableFuture;
 
-import org.jetbrains.annotations.NotNull;
-
-import java.io.ByteArrayOutputStream;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-import java.io.IOException;
 import java.io.OutputStream;
-import java.io.StringBufferInputStream;
-import java.security.Timestamp;
-import java.sql.SQLOutput;
-import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
 import java.util.Objects;
 import java.util.concurrent.ExecutionException;
 
@@ -75,12 +52,39 @@ public class Eintrag_Stuhl extends AppCompatActivity {
     ImageView imageView_stuhl;
     EditText editText_currentDate;
     EditText editText_currentTime;
-    Button button_speichern;
-    FileOutputStream outputStream;
+    Button spuelen_Button;
+    SwitchCompat switch_blut;
+    SwitchCompat switch_schmerz;
+    SwitchCompat switch_unverdauteNahrung;
+    EditText edit_Notizen;
+
+    private ViewModel_Stuhl viewModel_stuhl;
+
+    public static final String EXTRA_DATUM =
+            "com.example.abschlussprojekt_eddi.EXTRA_DATUM";
+    public static final String EXTRA_UHRZEIT =
+            "com.example.abschlussprojekt_eddi.EXTRA_UHRZEIT";
+    public static final String EXTRA_BRISTOL =
+            "com.example.abschlussprojekt_eddi.EXTRA_BRISTOL";
+    public static final String EXTRA_BLUT =
+            "com.example.abschlussprojekt_eddi.EXTRA_BLUT";
+    public static final String EXTRA_SCHMERZ =
+            "com.example.abschlussprojekt_eddi.EXTRA_SCHMERZ";
+    public static final String EXTRA_FARBE =
+            "com.example.abschlussprojekt_eddi.EXTRA_FARBE";
+    public static final String EXTRA_UNVERDAUTENAHRUNG =
+            "com.example.abschlussprojekt_eddi.EXTRA_UNVERDAUTENAHRUNG";
+    public static final String EXTRA_SCHLEIM =
+            "com.example.abschlussprojekt_eddi.EXTRA_SCHLEIM";
+    public static final String EXTRA_MENGE =
+            "com.example.abschlussprojekt_eddi.EXTRA_MENGE";
+    public static final String EXTRA_NOTIZ =
+            "com.example.abschlussprojekt_eddi.EXTRA_NOTIZ";
+
 
     final static int PERMISSION_CODE = 1;
-    final static int REQUEST_CODE = 2;
     final static int GALLERY_REQUEST_CODE = 3;
+    final static int REQUEST_CODE = 2;
 
     Spinner spinner_bristol;
     ArrayList<BristolItem> arrayList_bristol;
@@ -91,7 +95,7 @@ public class Eintrag_Stuhl extends AppCompatActivity {
     ArrayAdapter <String> aA_farbe;
 
     Spinner spinner_schleim;
-    String [] array_schleim = new String [] {"wenig", "mittel", "viel", "nur Schleim"};
+    String [] array_schleim = new String [] {"kein", "wenig", "mittel", "viel", "nur Schleim"};
     ArrayAdapter <String> aA_schleim;
 
     Spinner spinner_menge;
@@ -106,7 +110,12 @@ public class Eintrag_Stuhl extends AppCompatActivity {
         //Momentanes Datum anzeigen (Werte als int gespeichert)
         Calendar calendar = Calendar.getInstance();
         int currentDay = calendar.get(Calendar.DAY_OF_MONTH);
-        int currentMonth = calendar.get(Calendar.MONTH);
+        int currentMonth;
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){ //für LocalDate braucht es min API 26
+            currentMonth = LocalDate.now().getMonthValue();
+        }else {
+            currentMonth = Calendar.MONTH + 1;
+        }
         int currentYear = calendar.get(Calendar.YEAR);
         editText_currentDate = findViewById(R.id.editText_currentDate);
         editText_currentDate.setText(currentDay + "." + currentMonth + "." + currentYear);
@@ -143,6 +152,7 @@ public class Eintrag_Stuhl extends AppCompatActivity {
 
         //Kamera
         imageButton_camera = findViewById(R.id.imageButton_kamera);
+
         imageView_stuhl = findViewById(R.id.imageView_stuhl);
         //wenn Button gedrückt wird, wird überprüft, ob die Camera Permission gegeben ist
         //wenn keine Permission gegeben ist, wird eine Angefragt
@@ -166,24 +176,31 @@ public class Eintrag_Stuhl extends AppCompatActivity {
             }
         });
 
-        //Button Spuelen/Speichern
-        button_speichern = findViewById(R.id.button_stuhlgang_speichern);
-        button_speichern.setOnClickListener(new View.OnClickListener() {
+        //switch instanzieren:
+        switch_blut = findViewById(R.id.switch_blut);
+        switch_schmerz = findViewById(R.id.switch_schmerzen);
+        switch_unverdauteNahrung = findViewById(R.id.switch_unverdaute_nahrung);
+
+        //editText notizen:
+        edit_Notizen = findViewById(R.id.editText_notizen);
+
+        //spuelen Button:
+        spuelen_Button = findViewById(R.id.button_stuhlgang_speichern);
+        spuelen_Button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 //Permission wird angefragt
-                if(ContextCompat.checkSelfPermission(
+               if (ContextCompat.checkSelfPermission(
                         Eintrag_Stuhl.this,
                         Manifest.permission.READ_EXTERNAL_STORAGE)
-                        == PackageManager.PERMISSION_GRANTED){
-                    if(ContextCompat.checkSelfPermission(
+                        == PackageManager.PERMISSION_GRANTED) {
+                    if (ContextCompat.checkSelfPermission(
                             Eintrag_Stuhl.this,
                             Manifest.permission.WRITE_EXTERNAL_STORAGE)
-                            == PackageManager.PERMISSION_GRANTED){
+                            == PackageManager.PERMISSION_GRANTED) {
                         savePicture(); //diese Methode speichert das Bild in der Gallerie
                     }
-                }
-                else {
+                } else {
                     ActivityCompat.requestPermissions(
                             Eintrag_Stuhl.this,
                             new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
@@ -193,39 +210,54 @@ public class Eintrag_Stuhl extends AppCompatActivity {
                             new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
                             GALLERY_REQUEST_CODE);
                 }
-                Toast.makeText(Eintrag_Stuhl.this, "Eintrag gespeichert", Toast.LENGTH_SHORT).show();
-
-                /*
-                intentStartseite = new Intent(context, Startseite_Fragment.class);
-                startActivity(intentStartseite); //Startseite ist ein Fragment und keine Activity!
-
-
-                //um ein Fragment aufzurufen
-                //Problem: unser Fragment hat kein FrameLayout, kann die container ID nicht finden
-                getSupportFragmentManager()
-                        .beginTransaction()
-                        .replace(R.id.fragment_statistik, new Startseite_Fragment())
-                        .commit();
-
-
-                //Auf Folie 13 bei "Fragments"
-                FragmentManager fm = getSupportFragmentManager();
-                FragmentTransaction ft = fm.beginTransaction();
-                ft.add(R.id.view_pager,
-                        Startseite_Fragment.class,
-                        null);
-                ft.commit();
-                */
+                //Stuhl speichern methode
+                stuhlSpeichern();
             }
         });
     }
+
+     public void stuhlSpeichern () {
+
+        Intent stuhl_data = new Intent();
+
+        String datum = editText_currentDate.getText().toString();
+        String uhrzeit = editText_currentTime.getText().toString();
+        String bristol = String.valueOf(spinner_bristol.getSelectedItemPosition()+1); //plus eins weil erstes Symbol hat Position 0
+        boolean blut = switch_blut.isChecked();
+        boolean schmerz = switch_schmerz.isChecked();
+        String farbe = spinner_farbe.getSelectedItem().toString();
+        boolean unverdauteNahrung = switch_unverdauteNahrung.isChecked();
+
+        String schleim = spinner_schleim.getSelectedItem().toString();
+        String menge = spinner_menge.getSelectedItem().toString();
+        String notizen = edit_Notizen.getText().toString();
+
+         if (datum == null || uhrzeit == null){
+             setResult(RESULT_CANCELED, stuhl_data);
+         } else {
+             stuhl_data.putExtra(EXTRA_DATUM, datum);
+             stuhl_data.putExtra(EXTRA_UHRZEIT, uhrzeit);
+             stuhl_data.putExtra(EXTRA_BRISTOL, bristol);
+             stuhl_data.putExtra(EXTRA_BLUT, blut);
+             stuhl_data.putExtra(EXTRA_SCHMERZ, schmerz);
+             stuhl_data.putExtra(EXTRA_FARBE, farbe);
+             stuhl_data.putExtra(EXTRA_UNVERDAUTENAHRUNG, unverdauteNahrung);
+             stuhl_data.putExtra(EXTRA_SCHLEIM, schleim);
+             stuhl_data.putExtra(EXTRA_MENGE, menge);
+             stuhl_data.putExtra(EXTRA_NOTIZ, notizen);
+             setResult(RESULT_OK, stuhl_data);
+         }
+         finish();
+    }
+
 
     //Methode wird automatisch aufgerufen von startActivityForResult()
     //Bild wird gemacht und in ImageView gespeichert und angezeigt
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if(resultCode == Activity.RESULT_OK && requestCode == REQUEST_CODE){
+
+        if(resultCode == RESULT_OK && requestCode == REQUEST_CODE){
             startCamera();
             //get Capture Image
             Bitmap captureImage = (Bitmap) data.getExtras().get("data");
@@ -260,87 +292,35 @@ public class Eintrag_Stuhl extends AppCompatActivity {
         arrayList_bristol.add(new BristolItem("flüssig, ohne feste Bestandteile", R.drawable.type07));
     }
 
-/*
     private void savePicture(){
         //BitmapDrawable mit dem ImageView des Bildes wird erstellt
         BitmapDrawable bitmapDrawable = (BitmapDrawable) imageView_stuhl.getDrawable();
         //BitmapDrawable wird in Bitmap gespeichert
-        Bitmap bitmap = bitmapDrawable.getBitmap();
+        if(bitmapDrawable != null){
+            Bitmap bitmap = bitmapDrawable.getBitmap();
+            Log.d("Dimensions", bitmap.getWidth() + " " + bitmap.getHeight());
+            //OutputStream
+            OutputStream outputStream;
+            try {
+                if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q){
+                    ContentResolver contentResolver = getContentResolver();
+                    ContentValues contentValues = new ContentValues();
+                    contentValues.put(MediaStore.MediaColumns.DISPLAY_NAME, "EDDi_"+System.currentTimeMillis()+".jpg");
+                    contentValues.put(MediaStore.MediaColumns.MIME_TYPE, "image/jpeg");
+                    contentValues.put(MediaStore.MediaColumns.RELATIVE_PATH, Environment.DIRECTORY_PICTURES + File.separator + "EDDi");
+                    Uri imageUri = contentResolver.insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, contentValues);
+                    outputStream = (FileOutputStream) contentResolver.openOutputStream(Objects.requireNonNull(imageUri));
 
-       FileOutputStream outputStream;
-        String filepath = Environment.getExternalStorageDirectory().toString();
-        File dir = new File(filepath + "/EDDi");
-        if(!dir.exists()){
-            //Directory wird erstellt
-            boolean mkdir = dir.mkdirs();
-            if(!mkdir){
-                System.out.println("dir.mkdirs failed");
+                    Toast.makeText(this, "Bild gespeichert", Toast.LENGTH_SHORT).show();
+                    bitmap.compress(Bitmap.CompressFormat.JPEG, 100, outputStream);
+                    Objects.requireNonNull(outputStream);
+                }else {
+                    savePictureLowerVersionCodeQ();
+                }
+            }catch (Exception e){
+                e.printStackTrace();
+                Toast.makeText(this, "Bild konnte nicht gespeichert werden", Toast.LENGTH_SHORT).show();
             }
-        }
-        //String filename = String.format("%d.jpg", System.currentTimeMillis());
-        String filename = "eddi01";
-        File outFile = new File(dir, filename);
-        System.out.println("File outFile");
-        try {
-            boolean createNewFile = outFile.createNewFile(); //No such file or directory! Kann File nicht erzeugen?!
-            System.out.println("outfile.createNewFile");
-            if(!createNewFile){
-                System.out.println("createNewFile failed");
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        try {
-            scanFile(this, outFile, "image/jpeg");
-            System.out.println("scanFile");
-            outputStream = new FileOutputStream(outFile); //FileNotFoundException!!!
-            System.out.println("outputStream");
-            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, outputStream);
-            System.out.println("bitmap.compress");
-            Toast.makeText(this, "Bild gespeichert", Toast.LENGTH_SHORT).show();
-            outputStream.flush();
-            outputStream.close();
-        }catch (FileNotFoundException e){
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public void scanFile(Context c, File f, String mimeType){
-        MediaScannerConnection
-                .scanFile(c, new String[]{f.getAbsolutePath()},
-                        new String[]{mimeType}, null);
-    }
- */
-
-    private void savePicture(){
-        //BitmapDrawable mit dem ImageView des Bildes wird erstellt
-        BitmapDrawable bitmapDrawable = (BitmapDrawable) imageView_stuhl.getDrawable();
-        //BitmapDrawable wird in Bitmap gespeichert
-        Bitmap bitmap = bitmapDrawable.getBitmap();
-        Log.d("Dimensions", bitmap.getWidth() + " " + bitmap.getHeight());
-        //OutputStream
-        OutputStream outputStream;
-        try {
-            if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q){
-                ContentResolver contentResolver = getContentResolver();
-                ContentValues contentValues = new ContentValues();
-                contentValues.put(MediaStore.MediaColumns.DISPLAY_NAME, "EDDi_"+System.currentTimeMillis()+".jpg");
-                contentValues.put(MediaStore.MediaColumns.MIME_TYPE, "image/jpeg");
-                contentValues.put(MediaStore.MediaColumns.RELATIVE_PATH, Environment.DIRECTORY_PICTURES + File.separator + "EDDi");
-                Uri imageUri = contentResolver.insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, contentValues);
-                outputStream = (FileOutputStream) contentResolver.openOutputStream(Objects.requireNonNull(imageUri));
-
-                Toast.makeText(this, "Bild gespeichert", Toast.LENGTH_SHORT).show();
-                bitmap.compress(Bitmap.CompressFormat.JPEG, 100, outputStream);
-                Objects.requireNonNull(outputStream);
-            }else {
-                savePictureLowerVersionCodeQ();
-            }
-        }catch (Exception e){
-            e.printStackTrace();
-            Toast.makeText(this, "Bild konnte nicht gespeichert werden", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -356,7 +336,6 @@ public class Eintrag_Stuhl extends AppCompatActivity {
         String imageFileName = System.currentTimeMillis() + ".jpg";
         MediaStore.Images.Media.insertImage(getContentResolver(), bitmap, imageFileName, String.valueOf(1));
     }
-
 }
 
 
