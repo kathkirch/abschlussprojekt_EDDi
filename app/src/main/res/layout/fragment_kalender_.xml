@@ -54,35 +54,20 @@
         android:layout_below="@id/linearlay1"
         android:orientation="horizontal">
 
-        <ScrollView
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1">
-
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/recycler_view"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:id="@+id/recycler_view_kalender_stuhl"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
                 tools:listitem="@layout/note_stuhl_tag" />
 
-        </ScrollView>
-
-        <ScrollView
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1">
-
             <androidx.recyclerview.widget.RecyclerView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:id="@+id/recycler_view_kalender_essen"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
                 tools:listitem="@layout/note_essen_tag"/>
 
-        </ScrollView>
-
     </LinearLayout>
-
-
-
-
 
 </RelativeLayout>

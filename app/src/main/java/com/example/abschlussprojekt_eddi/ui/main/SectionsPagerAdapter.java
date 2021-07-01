@@ -29,15 +29,16 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
     public Fragment getItem(int position) {
         switch (position){
             case 0:
-                return Startseite_Fragment.newInstance("String1", "String2");
+                return new Startseite_Fragment();
             case 1:
-                return Kalender_Fragment.newInstance("String1", "String2");
+                return new Kalender_Fragment();
             case 2:
-                return Statistik_Fragment.newInstance("String1", "String2");
+                return new Statistik_Fragment();
             default:
                 return null;
         }
     }
+
 
     @Nullable
     @Override
@@ -57,7 +58,6 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
 
     @Override
     public int getCount() {
-        // Show 2 total pages.
         return TAB_TITLES.length;
     }
 }

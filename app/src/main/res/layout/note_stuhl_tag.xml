@@ -5,49 +5,66 @@
     android:layout_height="wrap_content"
     android:layout_marginEnd="8dp"
     android:layout_marginStart="8dp"
-    android:layout_marginTop="8dp">
+    android:layout_marginTop="8dp"    >
 
     <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:padding="8dp">
+        android:padding="5dp">
+
+        <ImageView
+            android:id="@+id/bristol_symbol"
+            android:layout_width="40dp"
+            android:layout_height="25dp"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:text="@string/bristolimg" />
 
         <TextView
-            android:id="@+id/bristol_symbol"
+            android:id="@+id/textview_datum"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:textAppearance="@style/TextAppearance.AppCompat.Large"
-            android:text="@string/bristolimg"
-            />
+            android:layout_alignParentStart="true"
+            android:maxLines="1"
+            android:text="@string/_01_01_2001"
+            android:textSize="12sp"
+            android:textColor="@color/black">
+        </TextView>
+
 
         <TextView
             android:id="@+id/textview_uhrzeit"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_toEndOf="@id/textview_datum"
+            android:layout_marginStart="2dp"
+            android:maxLines="1"
             android:text="@string/hh_mm"
-            android:layout_toStartOf="@id/bristol_symbol"
-            android:layout_alignParentStart="true"
-            android:textAppearance="@style/TextAppearance.AppCompat.Large"
-            android:ellipsize="end"
-            android:maxLines="1">
+            android:textSize="12sp"
+            android:textColor="@color/black">
         </TextView>
 
         <TextView
             android:id="@+id/stuhl_schmerz"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/textview_uhrzeit"
-            android:layout_toEndOf="@id/stuhl_farbe"
-            android:text="@string/schmerzen"/>
+            android:layout_below="@id/stuhl_farbe"
+            android:layout_alignStart="@id/stuhl_farbe"
+            android:layout_marginTop="3dp"
+            android:text="@string/schmerzen"
+            android:textSize="12sp"
+            android:textColor="@color/black"/>
 
         <TextView
             android:id="@+id/stuhl_farbe"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/textview_uhrzeit"
+            android:layout_marginTop="3dp"
             android:text="@string/farbe"
+            android:textSize="12sp"
             android:textColor="@color/black"/>
     </RelativeLayout>
+
 
 </androidx.cardview.widget.CardView>
