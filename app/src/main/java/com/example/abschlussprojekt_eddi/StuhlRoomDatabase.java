@@ -14,7 +14,6 @@ import java.util.concurrent.Executors;
 public abstract class StuhlRoomDatabase extends RoomDatabase {
 
     public abstract DAO_Stuhl dao_stuhl();
-
     private static volatile StuhlRoomDatabase INSTANCE;
     private static final int NUMBER_OF_THREADS = 4;
     static final ExecutorService databaseWriteExecuter =
