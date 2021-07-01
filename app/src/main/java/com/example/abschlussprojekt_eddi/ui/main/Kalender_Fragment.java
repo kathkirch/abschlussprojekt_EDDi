@@ -20,6 +20,7 @@ import com.applandeo.materialcalendarview.CalendarView;
 import com.applandeo.materialcalendarview.EventDay;
 import com.applandeo.materialcalendarview.listeners.OnDayClickListener;
 import com.example.abschlussprojekt_eddi.Entity_Essen;
+import com.example.abschlussprojekt_eddi.Entity_Stuhl;
 import com.example.abschlussprojekt_eddi.EssenListAdapter;
 import com.example.abschlussprojekt_eddi.R;
 import com.example.abschlussprojekt_eddi.StuhlListAdapter;
@@ -60,6 +61,7 @@ public class Kalender_Fragment extends Fragment {
         RecyclerView recyclerView1 = (RecyclerView) view.findViewById(R.id.recycler_view_kalender_essen);
         RecyclerView recyclerView2 = (RecyclerView) view.findViewById(R.id.recycler_view_kalender_stuhl);
 
+        //RecyclerView für Essen
         EssenListAdapter adapter = new EssenListAdapter();
         recyclerView1.setHasFixedSize(true);
         recyclerView1.setAdapter(adapter);
@@ -86,7 +88,6 @@ public class Kalender_Fragment extends Fragment {
 
             @Override
             public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
-                //Eintrag wird nicht gelöscht???
                 try {
                     viewModel_essen.deleteEssen(adapter.getEssenAt(viewHolder.getAdapterPosition()));
                     Toast.makeText(getActivity(), "Essen Eintrag gelöscht", Toast.LENGTH_SHORT).show();
@@ -102,7 +103,14 @@ public class Kalender_Fragment extends Fragment {
         recyclerView2.setAdapter(stuhlAdapter);
         recyclerView2.setLayoutManager(new LinearLayoutManager(getContext()));
 
+        //ViewModel für Stuhl
         viewModel_stuhl = new ViewModelProvider(this).get(ViewModel_Stuhl.class);
+        viewModel_stuhl.getAllStuhl().observe(getViewLifecycleOwner(), new Observer<List<Entity_Stuhl>>() {
+            @Override
+            public void onChanged(List<Entity_Stuhl> entity_stuhl) {
+                stuhlAdapter.setStuhl(entity_stuhl);
+            }
+        });
 
         CalendarView calendarView = view.findViewById(R.id.calendarView);
         calendarView.setOnDayClickListener(new OnDayClickListener() {
