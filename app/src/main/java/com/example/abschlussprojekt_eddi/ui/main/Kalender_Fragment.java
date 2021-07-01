@@ -36,7 +36,6 @@ public class Kalender_Fragment extends Fragment {
     int curYear;
     int curMonth;
 
-
     public Kalender_Fragment() {
         // Required empty public constructor
     }
@@ -80,6 +79,7 @@ public class Kalender_Fragment extends Fragment {
         curYear = Integer.parseInt("20" + dateValues[0]);
         curMonth = Integer.parseInt(dateValues[1]);
         curDay = Integer.parseInt(dateValues[2]);
+
         viewModel_stuhl.getStuhlByDate(curYear,curMonth, curDay).observe(getViewLifecycleOwner(), entity_stuhls -> {
             stuhlAdapter.setStuhl(entity_stuhls);
         });
