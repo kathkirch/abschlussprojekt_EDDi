@@ -22,7 +22,7 @@
             android:text="@string/bristolimg" />
 
         <TextView
-            android:id="@+id/textview_datum"
+            android:id="@+id/textview_datum_noteStuhl"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
@@ -37,7 +37,7 @@
             android:id="@+id/textview_uhrzeit"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_toEndOf="@id/textview_datum"
+            android:layout_toEndOf="@id/textview_datum_noteStuhl"
             android:layout_marginStart="2dp"
             android:maxLines="1"
             android:text="@string/hh_mm"

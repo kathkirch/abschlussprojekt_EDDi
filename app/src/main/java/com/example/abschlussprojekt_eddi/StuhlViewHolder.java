@@ -18,12 +18,13 @@ public class StuhlViewHolder extends RecyclerView.ViewHolder {
 
     private StuhlViewHolder (View itemview){
         super(itemview);
-        tvDatum = itemview.findViewById(R.id.textview_datum);
+        tvDatum = itemview.findViewById(R.id.textview_datum_noteStuhl);
         tvUhrzeit = itemview.findViewById(R.id.textview_uhrzeit);
         ivBristol = itemview.findViewById(R.id.bristol_symbol);
         tvFarbe = itemview.findViewById(R.id.stuhl_farbe);
         tvSchmerz = itemview.findViewById(R.id.stuhl_schmerz);
     }
+
 
     public void bind(String datum, String uhrzeit, String bristol, String farbe, String schmerz){
         tvDatum.setText(datum);
@@ -34,11 +35,13 @@ public class StuhlViewHolder extends RecyclerView.ViewHolder {
         tvSchmerz.setText(tvSchmerz.getText().toString() + schmerz);
     }
 
+
     static StuhlViewHolder create(ViewGroup parent) {
         View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.note_stuhl_tag, parent, false);
         return new StuhlViewHolder(view);
     }
+
 
     public void getBirstolSymbol(String bristolString){
         switch (bristolString) {
