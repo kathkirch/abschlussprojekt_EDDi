@@ -32,17 +32,11 @@ public class MainActivity extends AppCompatActivity {
         tabs.setupWithViewPager(viewPager);
 
         viewModel_stuhl = new ViewModelProvider(this).get(ViewModel_Stuhl.class);
-
         viewModel_essen = new ViewModelProvider(this).get(ViewModel_Essen.class);
-
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-
-        System.out.println("r u doing this?");
-
         if ((resultCode == Eintrag_Stuhl.RESULT_OK) && requestCode == Startseite_Fragment.NEW_STUHL_ACTIVITY_REQUEST_CODE) {
 
             // Uhrzeit in Stunde und Minute trennen
@@ -97,7 +91,6 @@ public class MainActivity extends AppCompatActivity {
             Toast.makeText(this, "Speichern ergab Probleme", Toast.LENGTH_SHORT).show();
         }
     }
-
 }
 
 

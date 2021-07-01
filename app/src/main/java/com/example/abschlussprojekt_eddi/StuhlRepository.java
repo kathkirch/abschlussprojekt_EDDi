@@ -21,9 +21,9 @@ public class StuhlRepository {
         return allStuhl;
     }
 
+
     //das ViewModel muss später nurmehr diese Methoden aufrufen
     //das Repository kümmert sich darum, woher die Daten kommen
-
     public void insertStuhl(Entity_Stuhl stuhl){
         StuhlRoomDatabase.databaseWriteExecuter.execute(() -> {
             dao_stuhl.insertStuhl(stuhl);

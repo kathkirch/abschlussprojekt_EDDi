@@ -9,8 +9,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.DiffUtil;
-import androidx.recyclerview.widget.ListAdapter;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
@@ -67,7 +65,7 @@ public class StuhlListAdapter extends RecyclerView.Adapter<StuhlListAdapter.Stuh
 
         private StuhlViewHolder (View itemview){
             super(itemview);
-            tvDatum = itemview.findViewById(R.id.textview_datum);
+            tvDatum = itemview.findViewById(R.id.textview_datum_noteStuhl);
             tvUhrzeit = itemview.findViewById(R.id.textview_uhrzeit);
             ivBristol = itemview.findViewById(R.id.bristol_symbol);
             tvFarbe = itemview.findViewById(R.id.stuhl_farbe);
