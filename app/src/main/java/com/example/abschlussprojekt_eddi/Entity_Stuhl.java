@@ -31,6 +31,7 @@ public class Entity_Stuhl {
 
     private String farbe;
 
+    @ColumnInfo (name = "Unverdaute Nahrung")
     private boolean unverdauteNahrung;
 
     private String schleim;
@@ -62,7 +63,6 @@ public class Entity_Stuhl {
     }
 
     //Getter:
-
     public int getId() {
         return id;
     }
@@ -125,7 +125,6 @@ public class Entity_Stuhl {
 
     //Setter:
 
-    //weil die ID nicht im Konstruktor vorkommt, braucht es einen setter dafür
     public void setId(int id) {
         this.id = id;
     }
