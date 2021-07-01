@@ -63,27 +63,29 @@ public class MainActivity extends AppCompatActivity {
             String notiz = data.getStringExtra(Eintrag_Stuhl.EXTRA_NOTIZ);
 
             // woher FotoReferenz?
-            Entity_Stuhl entity_stuhl = new Entity_Stuhl();
-            entity_stuhl.setJahr(jahr);
-            entity_stuhl.setMonat(monat);
-            entity_stuhl.setTag(tag);
-            entity_stuhl.setStunde(stunde);
-            entity_stuhl.setMinute(minute);
-            entity_stuhl.setBristol(bristol);
-            entity_stuhl.setSchmerzen(schmerz);
-            entity_stuhl.setBlut(blut);
-            entity_stuhl.setFarbe(farbe);
-            entity_stuhl.setUnverdauteNahrung(unverdauteNahrung);
-            entity_stuhl.setSchleim(schleim);
-            entity_stuhl.setMenge(menge);
-            entity_stuhl.setNotizen(notiz);
+            Entity_Stuhl entity_stuhl = new Entity_Stuhl(jahr, monat, tag, stunde, minute, bristol,
+                    blut, schmerz, farbe, unverdauteNahrung, schleim, menge, notiz, "1");
 
             viewModel_stuhl.insertStuhl(entity_stuhl);
             Toast.makeText(this, "Stuhleintrag gespeichert", Toast.LENGTH_SHORT).show();
 
         }else if (resultCode == Eintrag_Essen.RESULT_OK && requestCode == Startseite_Fragment.NEW_ESSEN_ACTIVITY_REQUEST_CODE) {
             String essenNeu = data.getStringExtra(Eintrag_Essen.EXTRA_ESSEN);
-            Entity_Essen essen = new Entity_Essen(essenNeu);
+
+            // Uhrzeit in Stunde und Minute trennen
+            String uhrzeit = data.getStringExtra(Eintrag_Essen.EXTRA_UHRZEIT);
+            String[] timeValues = uhrzeit.split(":", 2);
+            int stunde = Integer.parseInt(timeValues[0]);
+            int minute = Integer.parseInt(timeValues[1]);
+
+            // Datum welches als ganzer String gespeichert ist wieder in einzelne Int zerteilen
+            String datum = data.getStringExtra(Eintrag_Essen.EXTRA_DATUM);
+            String[] dateValues = datum.split("\\.", 3);
+            int tag = Integer.parseInt(dateValues[0]);
+            int monat = Integer.parseInt(dateValues[1]);
+            int jahr = Integer.parseInt(dateValues[2]);
+
+            Entity_Essen essen = new Entity_Essen(essenNeu, jahr, monat, tag, stunde, minute);
             viewModel_essen.insertEssen(essen);
             Toast.makeText(this, "Essen gespeichert", Toast.LENGTH_SHORT).show();
         } else {

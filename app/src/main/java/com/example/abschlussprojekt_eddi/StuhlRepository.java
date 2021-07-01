@@ -44,22 +44,6 @@ public class StuhlRepository {
     }
 
     /*
-    public LiveData<List<Entity_Stuhl>> getStuhlByDate(int jahr, int monat, int tag){
-        LiveData<List<Entity_Stuhl>> stuhlByDate = null; //macht diese Zweisung Sinn? Eher nicht...aber sonst gäbe es probleme mit dem return wert
-        GetStuhlByDateAsyncTask task = new GetStuhlByDateAsyncTask(dao_stuhl);
-        task.execute(jahr, monat, tag);
-        try{
-            stuhlByDate = task.get();
-        } catch (ExecutionException | InterruptedException e){
-            e.printStackTrace();
-        }
-        return stuhlByDate;
-    }
-
-     */
-
-
-    /*
     public Entity_Stuhl getStuhlByID(Integer id){
         Entity_Stuhl stuhlByID = null;
         GetStuhlByIdAsyncTask task = new GetStuhlByIdAsyncTask(dao_stuhl);
@@ -121,42 +105,6 @@ public class StuhlRepository {
             return null;
         }
     }
-
-
-    /*
-    //Input sollten drei Integer sein (jahr, monat, tag)
-    //wie kann man drei Inputs angeben?
-    private static class GetStuhlByDateAsyncTask extends AsyncTask<Integer, Void, LiveData<List<Entity_Stuhl>>>{
-
-        private DAO_Stuhl dao_stuhl;
-
-        int jahr;
-        int monat;
-        int tag;
-
-        private GetStuhlByDateAsyncTask(DAO_Stuhl dao_stuhl){
-            this.dao_stuhl = dao_stuhl;
-        }
-
-        /*
-        private GetStuhlByDateAsyncTask(int jahr, int monat, int tag){
-            this.jahr = jahr;
-            this.monat = monat;
-            this.tag = tag;
-        }
-         */
-
-    /*
-        @Override
-        protected LiveData<List<Entity_Stuhl>> doInBackground(Integer...params) {
-            dao_stuhl.getStuhlByDate(jahr, monat, tag);
-            return null;
-        }
-    }
-
-     */
-
-
 
     private static class GetStuhlByIdAsyncTask extends AsyncTask<Integer, Void, Entity_Stuhl> {
 

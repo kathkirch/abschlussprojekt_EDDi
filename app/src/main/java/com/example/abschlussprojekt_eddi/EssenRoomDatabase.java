@@ -43,7 +43,7 @@ public abstract class EssenRoomDatabase extends RoomDatabase {
             super.onCreate(db);
             databaseWriteExecuter.execute(() -> {
                 DAO_Essen daoEssen = INSTANCE.dao_essen();
-                Entity_Essen essen = new Entity_Essen("Nudelsuppe");
+                Entity_Essen essen = new Entity_Essen("Nudelsuppe", 2021, 6, 8, 14, 20);
                 daoEssen.insertEssen(essen);
             });
         }
