@@ -13,7 +13,6 @@ import java.util.List;
 
 public class EssenListAdapter extends RecyclerView.Adapter<EssenListAdapter.EssenViewHolder> {
 
-
     private List<Entity_Essen> essenList = new ArrayList<>();
     private OnItemClickListener listener; //für den setOnItemClickListener
 
@@ -57,13 +56,8 @@ public class EssenListAdapter extends RecyclerView.Adapter<EssenListAdapter.Esse
             super(itemView);
             essen_mahlzeit = itemView.findViewById(R.id.mahlzeit);
             essen_datum = itemView.findViewById(R.id.textView_essen_datum);
-        }
 
-        public void bind (String essen, String datum) {
-            essen_mahlzeit.setText(essen);
-            essen_datum.setText(datum);
-            essen_entryNumber = itemView.findViewById(R.id.entry_number);
-
+            //damit man den Eintrag anklicken kann
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -74,6 +68,12 @@ public class EssenListAdapter extends RecyclerView.Adapter<EssenListAdapter.Esse
                 }
             });
         }
+
+        public void bind (String essen, String datum) {
+            essen_mahlzeit.setText(essen);
+            essen_datum.setText(datum);
+        }
+
     }
 
     //Interface wird später in der MainActivity implementiert

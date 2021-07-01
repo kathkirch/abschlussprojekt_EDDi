@@ -54,7 +54,7 @@ public class Startseite_Fragment extends Fragment implements View.OnClickListene
 
     public static final int NEW_STUHL_ACTIVITY_REQUEST_CODE = 1;
     public static final int NEW_ESSEN_ACTIVITY_REQUEST_CODE = 2;
-    public static final int NEW_ESSEN_EDIT_ACTIVITY_REQUEST_CODE = 3;
+    public static final int NEW_ESSEN_EDIT_ACTIVITY_REQUEST_CODE = 33;
 
     public Startseite_Fragment() {
         // Required empty public constructor
@@ -114,10 +114,12 @@ public class Startseite_Fragment extends Fragment implements View.OnClickListene
         adapter.setOnItemClickListener(new EssenListAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(Entity_Essen essen) {
-                Intent intent = new Intent(getActivity(), Eintrag_Essen.class);
+                Intent intent = new Intent(getContext(), Eintrag_Essen.class);
                 intent.putExtra(Eintrag_Essen.EXTRA_ESSEN_ID, essen.getEssenID());
                 intent.putExtra(Eintrag_Essen.EXTRA_ESSEN, essen.getEssen());
-                startActivityForResult(intent, NEW_ESSEN_EDIT_ACTIVITY_REQUEST_CODE);
+                intent.putExtra(Eintrag_Essen.EXTRA_UHRZEIT, essen.getStunde()); //muss noch geändert werden!!
+                intent.putExtra(Eintrag_Essen.EXTRA_DATUM, essen.getJahr()); //muss noch geändert werden!!
+                getActivity().startActivityForResult(intent, NEW_ESSEN_EDIT_ACTIVITY_REQUEST_CODE); //startet Methode in der MainActivity
             }
         });
 

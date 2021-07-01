@@ -89,18 +89,31 @@ public class MainActivity extends AppCompatActivity {
             Entity_Essen essen = new Entity_Essen(essenNeu, jahr, monat, tag, stunde, minute);
             viewModel_essen.insertEssen(essen);
             Toast.makeText(this, "Essen gespeichert", Toast.LENGTH_SHORT).show();
+
             //beim Aktualisieren springt er nicht in diese Schleife???
         }else if (resultCode == Eintrag_Essen.RESULT_OK &&
                 requestCode == Startseite_Fragment.NEW_ESSEN_EDIT_ACTIVITY_REQUEST_CODE){
             int id = data.getIntExtra(Eintrag_Essen.EXTRA_ESSEN_ID, -1);
-
             if (id == -1){
                 Toast.makeText(this, "Eintrag kann nicht aktualisiert werden", Toast.LENGTH_SHORT).show();
                 return;
             }
-
             String essenNeu = data.getStringExtra(Eintrag_Essen.EXTRA_ESSEN);
-            Entity_Essen essen = new Entity_Essen(essenNeu);
+
+            // Uhrzeit in Stunde und Minute trennen
+            String uhrzeit = data.getStringExtra(Eintrag_Essen.EXTRA_UHRZEIT);
+            String[] timeValues = uhrzeit.split(":", 2);
+            int stunde = Integer.parseInt(timeValues[0]);
+            int minute = Integer.parseInt(timeValues[1]);
+
+            // Datum welches als ganzer String gespeichert ist wieder in einzelne Int zerteilen
+            String datum = data.getStringExtra(Eintrag_Essen.EXTRA_DATUM);
+            String[] dateValues = datum.split("\\.", 3);
+            int tag = Integer.parseInt(dateValues[0]);
+            int monat = Integer.parseInt(dateValues[1]);
+            int jahr = Integer.parseInt(dateValues[2]);
+
+            Entity_Essen essen = new Entity_Essen(essenNeu, jahr, monat, tag, stunde, minute);
             essen.setEssenID(id);
             viewModel_essen.updateEssen(essen);
             Toast.makeText(this, "Eintrag aktualisiert", Toast.LENGTH_SHORT).show();

@@ -1,6 +1,7 @@
 package com.example.abschlussprojekt_eddi;
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
@@ -61,10 +62,11 @@ public class Eintrag_Essen extends AppCompatActivity {
         //wenn der Eintrag bereits eine ID hat, wird er aktualisiert und daher wird der gespeicherte Text übergeben
         if(intent.hasExtra(EXTRA_ESSEN_ID)){
             etEssen.setText(intent.getStringExtra(EXTRA_ESSEN));
+            editText_currentDate.getText();
+            editText_currentTime.getText();
         }
 
         btSpeicher.setOnClickListener(new View.OnClickListener() {
-
             @Override
             public void onClick(View v) {
                 Intent replyIntent = new Intent();
@@ -75,14 +77,15 @@ public class Eintrag_Essen extends AppCompatActivity {
                     String essen = etEssen.getText().toString();
                     String datum = editText_currentDate.getText().toString();
                     String uhrzeit = editText_currentTime.getText().toString();
-                    replyIntent.putExtra(EXTRA_ESSEN, essen);
 
                     int id = getIntent().getIntExtra(EXTRA_ESSEN_ID, -1);
                     if(id != -1){
                         replyIntent.putExtra(EXTRA_ESSEN_ID, id);
                     }
+                    replyIntent.putExtra(EXTRA_ESSEN, essen);
                     replyIntent.putExtra(EXTRA_DATUM, datum);
                     replyIntent.putExtra(EXTRA_UHRZEIT, uhrzeit);
+
                     setResult(RESULT_OK, replyIntent);
                 }
                 finish();
