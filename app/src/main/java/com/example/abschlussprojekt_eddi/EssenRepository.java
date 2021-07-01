@@ -31,7 +31,10 @@ public class EssenRepository {
     }
 
     public void update(Entity_Essen essen){
-        new UpdateEssenAsyncTask(m_dao_essen).execute(essen);
+        EssenRoomDatabase.databaseWriteExecuter.execute(() -> {
+            m_dao_essen.deleteEssen(essen);
+        });
+        //new UpdateEssenAsyncTask(m_dao_essen).execute(essen);
     }
 
     public void delete (Entity_Essen essen){

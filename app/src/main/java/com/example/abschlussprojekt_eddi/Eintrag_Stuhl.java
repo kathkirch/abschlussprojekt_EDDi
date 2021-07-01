@@ -36,6 +36,7 @@ import com.google.common.util.concurrent.ListenableFuture;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.OutputStream;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Objects;
@@ -80,9 +81,6 @@ public class Eintrag_Stuhl extends AppCompatActivity {
             "com.example.abschlussprojekt_eddi.EXTRA_NOTIZ";
 
 
-
-    FileOutputStream outputStream;
-
     final static int PERMISSION_CODE = 1;
     final static int GALLERY_REQUEST_CODE = 3;
     final static int REQUEST_CODE = 2;
@@ -111,7 +109,12 @@ public class Eintrag_Stuhl extends AppCompatActivity {
         //Momentanes Datum anzeigen (Werte als int gespeichert)
         Calendar calendar = Calendar.getInstance();
         int currentDay = calendar.get(Calendar.DAY_OF_MONTH);
-        int currentMonth = calendar.get(Calendar.MONTH);
+        int currentMonth;
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){ //für LocalDate braucht es min API 26
+            currentMonth = LocalDate.now().getMonthValue();
+        }else {
+            currentMonth = Calendar.MONTH + 1;
+        }
         int currentYear = calendar.get(Calendar.YEAR);
         editText_currentDate = findViewById(R.id.editText_currentDate);
         editText_currentDate.setText(currentDay + "." + currentMonth + "." + currentYear);

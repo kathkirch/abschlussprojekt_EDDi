@@ -1,28 +1,35 @@
 package com.example.abschlussprojekt_eddi;
 
 
+import android.annotation.SuppressLint;
+import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.DiffUtil;
-import androidx.recyclerview.widget.ListAdapter;
+import androidx.recyclerview.widget.RecyclerView;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
-public class StuhlListAdapter extends ListAdapter <Entity_Stuhl, StuhlViewHolder> {
+public class StuhlListAdapter extends RecyclerView.Adapter<StuhlListAdapter.StuhlViewHolder> {
 
-    public StuhlListAdapter(@NonNull DiffUtil.ItemCallback<Entity_Stuhl> diffCallback) {
-        super(diffCallback);
-    }
+    private List<Entity_Stuhl> stuhlList = new ArrayList<>();
 
     @NonNull
     @Override
     public StuhlViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return StuhlViewHolder.create(parent);
+       View view = LayoutInflater.from(parent.getContext())
+                .inflate(R.layout.note_stuhl_tag, parent, false);
+        return new StuhlViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull StuhlViewHolder holder, int position) {
-        Entity_Stuhl current = getItem(position);
+        Entity_Stuhl current = stuhlList.get(position);
         String datum = (current.getTag() + "." + current.getMonat() + "." + current.getJahr());
         String uhrzeit = (current.getStunde() +":"+ current.getMinute());
         String bristol = current.getBristol();
@@ -31,16 +38,75 @@ public class StuhlListAdapter extends ListAdapter <Entity_Stuhl, StuhlViewHolder
         holder.bind(datum, uhrzeit, bristol, farbe, schmerz);
     }
 
-    public static class StuhlDiff extends DiffUtil.ItemCallback<Entity_Stuhl> {
+    //gibt an, wieviele Einträge angezeigt werden sollen
+    //es sollen so viele Einträge angezeigt werden, wie in der stuhlList vorhanden sind
+    @Override
+    public int getItemCount() {
+        return stuhlList.size();
+    }
 
-        @Override
-        public boolean areItemsTheSame(@NonNull Entity_Stuhl oldItem, @NonNull Entity_Stuhl newItem) {
-            return false;
+    public void setStuhl(List<Entity_Stuhl> stuhlList){
+        this.stuhlList = stuhlList;
+        notifyDataSetChanged(); //wird später geändert!
+    }
+
+    //um die Position fürs Löschen zu bekommen
+    public Entity_Stuhl getStuhlAt(int position){
+        return stuhlList.get(position);
+    }
+
+    class StuhlViewHolder extends RecyclerView.ViewHolder{
+
+        private final TextView tvUhrzeit;
+        private final ImageView ivBristol;
+        private final TextView tvFarbe;
+        private final TextView tvSchmerz;
+        private final TextView tvDatum;
+
+        private StuhlViewHolder (View itemview){
+            super(itemview);
+            tvDatum = itemview.findViewById(R.id.textview_datum_noteStuhl);
+            tvUhrzeit = itemview.findViewById(R.id.textview_uhrzeit);
+            ivBristol = itemview.findViewById(R.id.bristol_symbol);
+            tvFarbe = itemview.findViewById(R.id.stuhl_farbe);
+            tvSchmerz = itemview.findViewById(R.id.stuhl_schmerz);
         }
 
-        @Override
-        public boolean areContentsTheSame(@NonNull Entity_Stuhl oldItem, @NonNull Entity_Stuhl newItem) {
-            return false;
+        @SuppressLint("SetTextI18n")
+        public void bind(String datum, String uhrzeit, String bristol, String farbe, String schmerz){
+            tvDatum.setText(datum);
+            tvUhrzeit.setText(uhrzeit);
+            getBristolSymbol(bristol);
+            tvFarbe.setText(tvFarbe.getText().toString() + farbe);
+            tvSchmerz.setText(tvSchmerz.getText().toString() + schmerz);
+        }
+
+        public void getBristolSymbol(String bristolString){
+            switch (bristolString) {
+                case "1":
+                    ivBristol.setImageResource(R.drawable.type01);
+                    break;
+                case "2":
+                    ivBristol.setImageResource(R.drawable.type02);
+                    break;
+                case "3":
+                    ivBristol.setImageResource(R.drawable.type03);
+                    break;
+                case "4":
+                    ivBristol.setImageResource(R.drawable.type04);
+                    break;
+                case "5":
+                    ivBristol.setImageResource(R.drawable.type05);
+                    break;
+                case "6":
+                    ivBristol.setImageResource(R.drawable.type06);
+                    break;
+                case "7":
+                    ivBristol.setImageResource(R.drawable.type07);
+                    break;
+                default :
+                    ivBristol.setImageResource(R.drawable.not_selected);
+            }
         }
     }
 }

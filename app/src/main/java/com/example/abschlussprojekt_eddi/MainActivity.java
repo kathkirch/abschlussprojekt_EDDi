@@ -39,6 +39,9 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        System.out.println("r u doing this?");
 
         if ((resultCode == Eintrag_Stuhl.RESULT_OK) && requestCode == Startseite_Fragment.NEW_STUHL_ACTIVITY_REQUEST_CODE) {
 
