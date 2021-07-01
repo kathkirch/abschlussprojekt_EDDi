@@ -63,8 +63,20 @@ public class MainActivity extends AppCompatActivity {
             String notiz = data.getStringExtra(Eintrag_Stuhl.EXTRA_NOTIZ);
 
             // woher FotoReferenz?
-            Entity_Stuhl entity_stuhl = new Entity_Stuhl(jahr, monat, tag, stunde, minute, bristol,
-                    blut, schmerz, farbe, unverdauteNahrung, schleim, menge, notiz, "1");
+            Entity_Stuhl entity_stuhl = new Entity_Stuhl();
+            entity_stuhl.setJahr(jahr);
+            entity_stuhl.setMonat(monat);
+            entity_stuhl.setTag(tag);
+            entity_stuhl.setStunde(stunde);
+            entity_stuhl.setMinute(minute);
+            entity_stuhl.setBristol(bristol);
+            entity_stuhl.setSchmerzen(schmerz);
+            entity_stuhl.setBlut(blut);
+            entity_stuhl.setFarbe(farbe);
+            entity_stuhl.setUnverdauteNahrung(unverdauteNahrung);
+            entity_stuhl.setSchleim(schleim);
+            entity_stuhl.setMenge(menge);
+            entity_stuhl.setNotizen(notiz);
 
             viewModel_stuhl.insertStuhl(entity_stuhl);
             Toast.makeText(this, "Stuhleintrag gespeichert", Toast.LENGTH_SHORT).show();

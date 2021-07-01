@@ -31,6 +31,7 @@ public class Entity_Stuhl {
 
     private String farbe;
 
+    @ColumnInfo (name = "Unverdaute Nahrung")
     private boolean unverdauteNahrung;
 
     private String schleim;
@@ -42,27 +43,9 @@ public class Entity_Stuhl {
     @ColumnInfo (name = "Foto-Referenz")
     private String fotoReferenz;
 
-    //Konstruktor
-    public Entity_Stuhl(int jahr, int monat, int tag, int stunde, int minute, String bristol, boolean schmerzen, boolean blut,
-                        String farbe, boolean unverdauteNahrung, String schleim, String menge, String notizen, String fotoReferenz) {
-        this.jahr = jahr;
-        this.monat = monat;
-        this.tag = tag;
-        this.stunde = stunde;
-        this.minute = minute;
-        this.bristol = bristol;
-        this.schmerzen = schmerzen;
-        this.blut = blut;
-        this.farbe = farbe;
-        this.unverdauteNahrung = unverdauteNahrung;
-        this.schleim = schleim;
-        this.menge = menge;
-        this.notizen = notizen;
-        this.fotoReferenz = fotoReferenz;
-    }
+    //Konstruktor ist leer, weil es dafür die Setter gibt
 
     //Getter:
-
     public int getId() {
         return id;
     }
@@ -125,7 +108,6 @@ public class Entity_Stuhl {
 
     //Setter:
 
-    //weil die ID nicht im Konstruktor vorkommt, braucht es einen setter dafür
     public void setId(int id) {
         this.id = id;
     }
