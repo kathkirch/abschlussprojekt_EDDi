@@ -81,15 +81,32 @@ public class MainActivity extends AppCompatActivity {
             viewModel_stuhl.insertStuhl(entity_stuhl);
             Toast.makeText(this, "Stuhleintrag gespeichert", Toast.LENGTH_SHORT).show();
 
-        }else if (resultCode == Eintrag_Essen.RESULT_OK && requestCode == Startseite_Fragment.NEW_ESSEN_ACTIVITY_REQUEST_CODE) {
+        }else if (resultCode == Eintrag_Essen.RESULT_OK &&
+                requestCode == Startseite_Fragment.NEW_ESSEN_ACTIVITY_REQUEST_CODE) {
             String essenNeu = data.getStringExtra(Eintrag_Essen.EXTRA_ESSEN);
             Entity_Essen essen = new Entity_Essen(essenNeu);
             viewModel_essen.insertEssen(essen);
             Toast.makeText(this, "Essen gespeichert", Toast.LENGTH_SHORT).show();
-        } else {
+            //beim Aktualisieren springt er nicht in diese Schleife???
+        }else if (resultCode == Eintrag_Essen.RESULT_OK &&
+                requestCode == Startseite_Fragment.NEW_ESSEN_EDIT_ACTIVITY_REQUEST_CODE){
+            int id = data.getIntExtra(Eintrag_Essen.EXTRA_ESSEN_ID, -1);
+
+            if (id == -1){
+                Toast.makeText(this, "Eintrag kann nicht aktualisiert werden", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            String essenNeu = data.getStringExtra(Eintrag_Essen.EXTRA_ESSEN);
+            Entity_Essen essen = new Entity_Essen(essenNeu);
+            essen.setEssenID(id);
+            viewModel_essen.updateEssen(essen);
+            Toast.makeText(this, "Eintrag aktualisiert", Toast.LENGTH_SHORT).show();
+        }else {
             super.onActivityResult(requestCode, resultCode, data);
             Toast.makeText(this, "Speichern ergab Probleme", Toast.LENGTH_SHORT).show();
         }
+
     }
 }
 

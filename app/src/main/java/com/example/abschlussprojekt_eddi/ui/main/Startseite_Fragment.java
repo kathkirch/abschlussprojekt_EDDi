@@ -54,6 +54,7 @@ public class Startseite_Fragment extends Fragment implements View.OnClickListene
 
     public static final int NEW_STUHL_ACTIVITY_REQUEST_CODE = 1;
     public static final int NEW_ESSEN_ACTIVITY_REQUEST_CODE = 2;
+    public static final int NEW_ESSEN_EDIT_ACTIVITY_REQUEST_CODE = 3;
 
     public Startseite_Fragment() {
         // Required empty public constructor
@@ -98,7 +99,6 @@ public class Startseite_Fragment extends Fragment implements View.OnClickListene
             public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
                 return false;
             }
-
             @Override
             public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
                 try {
@@ -109,6 +109,17 @@ public class Startseite_Fragment extends Fragment implements View.OnClickListene
                 }
             }
         }).attachToRecyclerView(recyclerView1);
+
+        //um auf den Essen-Eintrag zu klicken und ihn zu ändern
+        adapter.setOnItemClickListener(new EssenListAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(Entity_Essen essen) {
+                Intent intent = new Intent(getActivity(), Eintrag_Essen.class);
+                intent.putExtra(Eintrag_Essen.EXTRA_ESSEN_ID, essen.getEssenID());
+                intent.putExtra(Eintrag_Essen.EXTRA_ESSEN, essen.getEssen());
+                startActivityForResult(intent, NEW_ESSEN_EDIT_ACTIVITY_REQUEST_CODE);
+            }
+        });
 
         //RecyclerView für Stuhl
         StuhlListAdapter stuhlAdapter = new StuhlListAdapter();
@@ -133,10 +144,8 @@ public class Startseite_Fragment extends Fragment implements View.OnClickListene
             public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
                 return false;
             }
-
             @Override
             public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
-                //Eintrag wird nicht gelöscht???
                 try {
                     viewModel_stuhl.delete(stuhlAdapter.getStuhlAt(viewHolder.getAdapterPosition()));
                     Toast.makeText(getActivity(), "Stuhl Eintrag gelöscht", Toast.LENGTH_SHORT).show();

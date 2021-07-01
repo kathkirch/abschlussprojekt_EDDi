@@ -17,6 +17,8 @@ public class Eintrag_Essen extends AppCompatActivity {
 
     public static final String EXTRA_ESSEN =
             "com.example.abschlussprojekt_eddi.EXTRA_ESSEN";
+    public static final String EXTRA_ESSEN_ID =
+            "com.example.abschlussprojekt_eddi.EXTRA_ESSEN_ID";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,6 +27,12 @@ public class Eintrag_Essen extends AppCompatActivity {
 
         etEssen = findViewById(R.id.editText_eintrag_essen);
         btSpeicher = findViewById(R.id.button_essen_speichern);
+
+        Intent intent = getIntent();
+        //wenn der Eintrag bereits eine ID hat, wird er aktualisiert und daher wird der gespeicherte Text übergeben
+        if(intent.hasExtra(EXTRA_ESSEN_ID)){
+            etEssen.setText(intent.getStringExtra(EXTRA_ESSEN));
+        }
 
         btSpeicher.setOnClickListener(new View.OnClickListener() {
 
@@ -37,6 +45,11 @@ public class Eintrag_Essen extends AppCompatActivity {
                 } else {
                     String essen = etEssen.getText().toString();
                     replyIntent.putExtra(EXTRA_ESSEN, essen);
+
+                    int id = getIntent().getIntExtra(EXTRA_ESSEN_ID, -1);
+                    if(id != -1){
+                        replyIntent.putExtra(EXTRA_ESSEN_ID, id);
+                    }
                     setResult(RESULT_OK, replyIntent);
                 }
                 finish();

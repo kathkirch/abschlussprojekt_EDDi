@@ -11,10 +11,10 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 import java.util.List;
 
-public class EssenListAdapter extends RecyclerView.Adapter <EssenListAdapter.EssenViewHolder> {
+public class EssenListAdapter extends RecyclerView.Adapter<EssenListAdapter.EssenViewHolder> {
 
-    private OnItemClickListener listener;
     private List<Entity_Essen> essenList = new ArrayList<>();
+    private OnItemClickListener listener; //für den setOnItemClickListener
 
     @NonNull
     @Override
@@ -36,35 +36,45 @@ public class EssenListAdapter extends RecyclerView.Adapter <EssenListAdapter.Ess
         return essenList.size();
     }
 
-    public void setEssen(List<Entity_Essen> essenList){
+    public void setEssen(List<Entity_Essen> essenList) {
         this.essenList = essenList;
         notifyDataSetChanged(); //wird später geändert!
     }
 
     //um die Position fürs Löschen zu bekommen
-    public Entity_Essen getEssenAt(int position){
+    public Entity_Essen getEssenAt(int position) {
         return essenList.get(position);
     }
 
-    class EssenViewHolder extends RecyclerView.ViewHolder{
+    class EssenViewHolder extends RecyclerView.ViewHolder {
 
         private final TextView essen_mahlzeit;
         private final TextView essen_entryNumber;
 
-        public EssenViewHolder (View itemView){
+        public EssenViewHolder(View itemView) {
             super(itemView);
             essen_mahlzeit = itemView.findViewById(R.id.mahlzeit);
             essen_entryNumber = itemView.findViewById(R.id.entry_number);
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    int position = getAdapterPosition();
+                    if (listener != null && position != RecyclerView.NO_POSITION) {
+                        listener.onItemClick(essenList.get(position));
+                    }
+                }
+            });
         }
     }
 
     //Interface wird später in der MainActivity implementiert
-    public interface OnItemClickListener{
-        void onItemClick(Entity_Stuhl stuhl);
+    public interface OnItemClickListener {
+        void onItemClick(Entity_Essen essen);
     }
 
-    //um die Methode onItemClick aufzurufen
-    public void setOnItemClickListener(OnItemClickListener listener){
+    //eigener ClickListener erstellt um die Methode onItemClick aufzurufen
+    public void setOnItemClickListener(OnItemClickListener listener) {
         this.listener = listener;
     }
 
