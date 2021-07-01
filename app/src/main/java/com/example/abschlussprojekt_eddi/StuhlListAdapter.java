@@ -110,7 +110,6 @@ public class StuhlListAdapter extends RecyclerView.Adapter<StuhlListAdapter.Stuh
                     ivBristol.setImageResource(R.drawable.not_selected);
             }
         }
-
     }
 }
 
