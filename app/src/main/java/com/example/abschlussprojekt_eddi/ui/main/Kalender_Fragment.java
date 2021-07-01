@@ -20,7 +20,6 @@ import com.applandeo.materialcalendarview.CalendarView;
 import com.applandeo.materialcalendarview.EventDay;
 import com.applandeo.materialcalendarview.listeners.OnDayClickListener;
 import com.example.abschlussprojekt_eddi.Entity_Essen;
-import com.example.abschlussprojekt_eddi.Entity_Stuhl;
 import com.example.abschlussprojekt_eddi.EssenListAdapter;
 import com.example.abschlussprojekt_eddi.R;
 import com.example.abschlussprojekt_eddi.StuhlListAdapter;
@@ -104,10 +103,23 @@ public class Kalender_Fragment extends Fragment {
         recyclerView2.setLayoutManager(new LinearLayoutManager(getContext()));
 
         viewModel_stuhl = new ViewModelProvider(this).get(ViewModel_Stuhl.class);
-        viewModel_stuhl.getAllStuhl().observe(getViewLifecycleOwner(), new Observer<List<Entity_Stuhl>>() {
+
+        CalendarView calendarView = view.findViewById(R.id.calendarView);
+        calendarView.setOnDayClickListener(new OnDayClickListener() {
             @Override
-            public void onChanged(List<Entity_Stuhl> entity_stuhl) {
-                stuhlAdapter.setStuhl(entity_stuhl);
+            public void onDayClick(EventDay eventDay) {
+                Calendar clickedDayCalendar = eventDay.getCalendar();
+                SimpleDateFormat sdf = new SimpleDateFormat("yy-MM-dd");
+                String curDate = sdf.format(clickedDayCalendar.getTime());
+                String [] dateValues = curDate.split("-", 3);
+                curYear = Integer.parseInt("20" + dateValues[0]);
+                curMonth = Integer.parseInt(dateValues[1]);
+                curDay = Integer.parseInt(dateValues[2]);
+                System.out.println(curYear + " Y" + curMonth + " M" + curDay + " D");
+
+                viewModel_stuhl.getStuhlByDate(curYear,curMonth, curDay).observe(getViewLifecycleOwner(), entity_stuhls -> {
+                    stuhlAdapter.setStuhl(entity_stuhls);
+                });
             }
         });
 
@@ -130,32 +142,6 @@ public class Kalender_Fragment extends Fragment {
             }
         }).attachToRecyclerView(recyclerView2);
 
-        /*
-        CalendarView calendarView = view.findViewById(R.id.calendarView);
-
-        calendarView.setOnDayClickListener(new OnDayClickListener() {
-            @Override
-            public void onDayClick(EventDay eventDay) {
-                Calendar clickedDayCalendar = eventDay.getCalendar();
-                SimpleDateFormat sdf = new SimpleDateFormat("yy-MM-dd");
-                String curDate = sdf.format(clickedDayCalendar.getTime());
-                String [] dateValues = curDate.split("-", 3);
-                curYear = Integer.parseInt("20" + dateValues[0]);
-                curMonth = Integer.parseInt(dateValues[1]);
-                curDay = Integer.parseInt(dateValues[2]);
-                System.out.println(curYear + " Y" + curMonth + " M" + curDay + " D");
-
-
-                viewModel_stuhl.getStuhlByDate(curYear,curMonth, curDay).observe(getViewLifecycleOwner(), entity_stuhls -> {
-                    stuhlAdapter.submitList(entity_stuhls);
-                });
-
-            }
-        });
-
-         */
-
         return view;
     }
-
 }
