@@ -41,6 +41,11 @@ public class EssenRepository {
         new DeleteStuhlAsyncTask(m_dao_essen).execute(essen);
     }
 
+    public LiveData<List<Entity_Essen>> getEssenByDate (int jahr, int monat, int tag){
+        allEssen = m_dao_essen.getEssenByDate(jahr, monat, tag);
+        return allEssen;
+    }
+
     //Query-Logik wird in eine Async-Task Subklasse ausgelagert
     //AsyncTask <input für execute(), Fortschritt, Output von get()
     /*

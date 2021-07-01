@@ -7,7 +7,6 @@
     tools:context=".Eintrag_Essen"
     android:orientation="vertical">
 
-
     <TextView
         android:id="@+id/textView_eintrag_essen"
         android:layout_width="match_parent"
@@ -21,13 +20,40 @@
         android:textAlignment="center"
         android:background="@drawable/title_style"/>
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <EditText
+            android:id="@+id/editText_currentDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="50dp"
+            android:layout_marginVertical="10dp"
+            android:hint="dd.mm.yyyy"
+            android:textSize="18sp" />
+
+        <EditText
+            android:id="@+id/editText_currentTime"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="20dp"
+            android:layout_marginVertical="10dp"
+            android:hint="hh:mm"
+            android:textSize="18sp" />
+    </LinearLayout>
+
+
+
+
     <TextView
         android:id="@+id/textView_was_hast_du_gegessen"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/was_hast_du_heute_gegessen"
         android:textSize="18sp"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="35dp"
         android:layout_marginHorizontal="20dp"/>
 
     <EditText

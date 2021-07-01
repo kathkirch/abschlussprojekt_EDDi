@@ -43,7 +43,24 @@ public class Entity_Stuhl {
     @ColumnInfo (name = "Foto-Referenz")
     private String fotoReferenz;
 
-    //Konstruktor ist leer, weil es dafür die Setter gibt
+    //Konstruktor
+    public Entity_Stuhl(int jahr, int monat, int tag, int stunde, int minute, String bristol, boolean schmerzen, boolean blut,
+                        String farbe, boolean unverdauteNahrung, String schleim, String menge, String notizen, String fotoReferenz) {
+        this.jahr = jahr;
+        this.monat = monat;
+        this.tag = tag;
+        this.stunde = stunde;
+        this.minute = minute;
+        this.bristol = bristol;
+        this.schmerzen = schmerzen;
+        this.blut = blut;
+        this.farbe = farbe;
+        this.unverdauteNahrung = unverdauteNahrung;
+        this.schleim = schleim;
+        this.menge = menge;
+        this.notizen = notizen;
+        this.fotoReferenz = fotoReferenz;
+    }
 
     //Getter:
     public int getId() {
