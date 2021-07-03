@@ -67,6 +67,7 @@ public class Eintrag_Essen extends AppCompatActivity {
             editText_currentTime.getText();
         }
 
+
         btSpeicher.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
