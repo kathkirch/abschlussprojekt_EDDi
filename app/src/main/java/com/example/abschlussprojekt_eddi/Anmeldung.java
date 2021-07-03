@@ -12,9 +12,6 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.applandeo.materialcalendarview.exceptions.ErrorsMessages;
-
-
 public class Anmeldung extends AppCompatActivity {
 
     Button bSpeichern;

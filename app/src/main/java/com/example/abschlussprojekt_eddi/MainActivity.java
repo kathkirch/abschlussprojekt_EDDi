@@ -9,15 +9,28 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.viewpager.widget.ViewPager;
 
+import com.applandeo.materialcalendarview.CalendarView;
+import com.applandeo.materialcalendarview.EventDay;
 import com.example.abschlussprojekt_eddi.ui.main.SectionsPagerAdapter;
 import com.example.abschlussprojekt_eddi.ui.main.Startseite_Fragment;
 import com.google.android.material.tabs.TabLayout;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class MainActivity extends AppCompatActivity {
 
     private ViewModel_Essen viewModel_essen;
     private ViewModel_Stuhl viewModel_stuhl;
+
+    public static final String RESULT = "result";
+    public static final String EVENT = "event";
+
+    private CalendarView calendarView_main;
+    public List<EventDay> stuhlEvents = new ArrayList<>();
+
+    BenutzerdatenSpeicher bdsp;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,6 +47,7 @@ public class MainActivity extends AppCompatActivity {
         viewModel_stuhl = new ViewModelProvider(this).get(ViewModel_Stuhl.class);
         viewModel_essen = new ViewModelProvider(this).get(ViewModel_Essen.class);
     }
+
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
@@ -67,6 +81,18 @@ public class MainActivity extends AppCompatActivity {
                     blut, schmerz, farbe, unverdauteNahrung, schleim, menge, notiz, "1");
 
             viewModel_stuhl.insertStuhl(entity_stuhl);
+
+            /*
+            calendarView_main = (CalendarView) findViewById(R.id.calendarView);
+            StuhlEvent myStuhlEvent = data.getParcelableExtra(RESULT);
+            calendarView_main.setDate(myStuhlEvent.getCalendar());
+            stuhlEvents.add(myStuhlEvent);
+            calendarView_main.setEvents(stuhlEvents);
+
+
+             */
+
+
             Toast.makeText(this, "Stuhleintrag gespeichert", Toast.LENGTH_SHORT).show();
 
         }else if (resultCode == Eintrag_Essen.RESULT_OK && requestCode == Startseite_Fragment.NEW_ESSEN_ACTIVITY_REQUEST_CODE) {
@@ -88,6 +114,7 @@ public class MainActivity extends AppCompatActivity {
             Entity_Essen essen = new Entity_Essen(essenNeu, jahr, monat, tag, stunde, minute);
             viewModel_essen.insertEssen(essen);
             Toast.makeText(this, "Essen gespeichert", Toast.LENGTH_SHORT).show();
+
         } else {
             super.onActivityResult(requestCode, resultCode, data);
             Toast.makeText(this, "Speichern ergab Probleme", Toast.LENGTH_SHORT).show();

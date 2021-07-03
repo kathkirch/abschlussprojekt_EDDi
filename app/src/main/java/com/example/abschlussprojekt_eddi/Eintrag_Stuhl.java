@@ -3,7 +3,6 @@ package com.example.abschlussprojekt_eddi;
 import android.Manifest;
 import android.content.ContentResolver;
 import android.content.ContentValues;
-import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
@@ -45,8 +44,6 @@ import java.util.concurrent.ExecutionException;
 public class Eintrag_Stuhl extends AppCompatActivity {
 
     Intent intent;
-    Intent intentStartseite;
-    Context context = this;
     ImageButton imageButton_camera;
     ImageView imageView_stuhl;
     EditText editText_currentDate;
@@ -56,8 +53,6 @@ public class Eintrag_Stuhl extends AppCompatActivity {
     SwitchCompat switch_schmerz;
     SwitchCompat switch_unverdauteNahrung;
     EditText edit_Notizen;
-
-    private ViewModel_Stuhl viewModel_stuhl;
 
     public static final String EXTRA_DATUM =
             "com.example.abschlussprojekt_eddi.EXTRA_DATUM";
@@ -183,6 +178,8 @@ public class Eintrag_Stuhl extends AppCompatActivity {
         //editText notizen:
         edit_Notizen = findViewById(R.id.editText_notizen);
 
+
+
         //spuelen Button:
         spuelen_Button = findViewById(R.id.button_stuhlgang_speichern);
         spuelen_Button.setOnClickListener(new View.OnClickListener() {
@@ -244,6 +241,7 @@ public class Eintrag_Stuhl extends AppCompatActivity {
              stuhl_data.putExtra(EXTRA_SCHLEIM, schleim);
              stuhl_data.putExtra(EXTRA_MENGE, menge);
              stuhl_data.putExtra(EXTRA_NOTIZ, notizen);
+
              setResult(RESULT_OK, stuhl_data);
          }
          finish();

@@ -18,8 +18,6 @@ import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.abschlussprojekt_eddi.Benutzer;
-import com.example.abschlussprojekt_eddi.BenutzerdatenSpeicher;
 import com.example.abschlussprojekt_eddi.Einstellungen;
 import com.example.abschlussprojekt_eddi.Eintrag_Essen;
 import com.example.abschlussprojekt_eddi.Eintrag_Stuhl;
@@ -49,8 +47,7 @@ public class Startseite_Fragment extends Fragment implements View.OnClickListene
     ImageButton bV3;
     ImageButton bV4;
     ImageButton bV5;
-    Benutzer ben;
-    BenutzerdatenSpeicher bdsp;
+
 
     public static final int NEW_STUHL_ACTIVITY_REQUEST_CODE = 1;
     public static final int NEW_ESSEN_ACTIVITY_REQUEST_CODE = 2;
@@ -166,8 +163,7 @@ public class Startseite_Fragment extends Fragment implements View.OnClickListene
         btEssen.setOnClickListener(this::onClick);
         btEinstellungen.setOnClickListener(this::onClick);
 
-        bdsp = new BenutzerdatenSpeicher(getContext());
-        ben = bdsp.getLoggedInUser();
+
 
         return view;
     }
