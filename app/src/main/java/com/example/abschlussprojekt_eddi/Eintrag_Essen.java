@@ -27,6 +27,8 @@ public class Eintrag_Essen extends AppCompatActivity {
             "com.example.abschlussprojekt_eddi.EXTRA_DATUM";
     public static final String EXTRA_UHRZEIT =
             "com.example.abschlussprojekt_eddi.EXTRA_UHRZEIT";
+    public static final String EXTRA_ESSEN_ID =
+            "com.example.abschlussprojekt_eddi.EXTRA_ESSEN_ID";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,8 +58,17 @@ public class Eintrag_Essen extends AppCompatActivity {
         editText_currentTime = findViewById(R.id.editText_currentTime);
         editText_currentTime.setText(currentHour + ":" + currentMinute);
 
-        btSpeicher.setOnClickListener(new View.OnClickListener() {
+        Intent intent = getIntent();
+        //wenn der Eintrag bereits eine ID hat, wird er aktualisiert
+        //und daher wird der gespeicherte Text übergeben
+        if(intent.hasExtra(EXTRA_ESSEN_ID)){
+            etEssen.setText(intent.getStringExtra(EXTRA_ESSEN));
+            editText_currentDate.getText(); //gibt akutelles Datum aus
+            editText_currentTime.getText();
+        }
 
+
+        btSpeicher.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent replyIntent = new Intent();
@@ -68,9 +79,15 @@ public class Eintrag_Essen extends AppCompatActivity {
                     String essen = etEssen.getText().toString();
                     String datum = editText_currentDate.getText().toString();
                     String uhrzeit = editText_currentTime.getText().toString();
+
+                    int id = getIntent().getIntExtra(EXTRA_ESSEN_ID, -1);
+                    if(id != -1){
+                        replyIntent.putExtra(EXTRA_ESSEN_ID, id);
+                    }
                     replyIntent.putExtra(EXTRA_ESSEN, essen);
                     replyIntent.putExtra(EXTRA_DATUM, datum);
                     replyIntent.putExtra(EXTRA_UHRZEIT, uhrzeit);
+
                     setResult(RESULT_OK, replyIntent);
                 }
                 finish();

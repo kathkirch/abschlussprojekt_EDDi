@@ -18,11 +18,12 @@ import java.util.List;
 public class StuhlListAdapter extends RecyclerView.Adapter<StuhlListAdapter.StuhlViewHolder> {
 
     private List<Entity_Stuhl> stuhlList = new ArrayList<>();
+    private StuhlListAdapter.OnItemClickListener listener; //für den setOnItemClickListener
 
     @NonNull
     @Override
     public StuhlViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-       View view = LayoutInflater.from(parent.getContext())
+        View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.note_stuhl_tag, parent, false);
         return new StuhlViewHolder(view);
     }
@@ -31,7 +32,7 @@ public class StuhlListAdapter extends RecyclerView.Adapter<StuhlListAdapter.Stuh
     public void onBindViewHolder(@NonNull StuhlViewHolder holder, int position) {
         Entity_Stuhl current = stuhlList.get(position);
         String datum = (current.getTag() + "." + current.getMonat() + "." + current.getJahr());
-        String uhrzeit = (current.getStunde() +":"+ current.getMinute());
+        String uhrzeit = (current.getStunde() + ":" + current.getMinute());
         String bristol = current.getBristol();
         String farbe = current.getFarbe();
         String schmerz = String.valueOf(current.getSchmerzen());
@@ -45,17 +46,17 @@ public class StuhlListAdapter extends RecyclerView.Adapter<StuhlListAdapter.Stuh
         return stuhlList.size();
     }
 
-    public void setStuhl(List<Entity_Stuhl> stuhlList){
+    public void setStuhl(List<Entity_Stuhl> stuhlList) {
         this.stuhlList = stuhlList;
         notifyDataSetChanged(); //wird später geändert!
     }
 
     //um die Position fürs Löschen zu bekommen
-    public Entity_Stuhl getStuhlAt(int position){
+    public Entity_Stuhl getStuhlAt(int position) {
         return stuhlList.get(position);
     }
 
-    class StuhlViewHolder extends RecyclerView.ViewHolder{
+    class StuhlViewHolder extends RecyclerView.ViewHolder {
 
         private final TextView tvUhrzeit;
         private final ImageView ivBristol;
@@ -63,17 +64,28 @@ public class StuhlListAdapter extends RecyclerView.Adapter<StuhlListAdapter.Stuh
         private final TextView tvSchmerz;
         private final TextView tvDatum;
 
-        private StuhlViewHolder (View itemview){
+        private StuhlViewHolder(View itemview) {
             super(itemview);
             tvDatum = itemview.findViewById(R.id.textview_datum_noteStuhl);
             tvUhrzeit = itemview.findViewById(R.id.textview_uhrzeit);
             ivBristol = itemview.findViewById(R.id.bristol_symbol);
             tvFarbe = itemview.findViewById(R.id.stuhl_farbe);
             tvSchmerz = itemview.findViewById(R.id.stuhl_schmerz);
+
+            //damit man den Eintrag anklicken kann
+            itemview.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    int position = getAdapterPosition();
+                    if (listener != null && position != RecyclerView.NO_POSITION) {
+                        listener.onItemClick(stuhlList.get(position));
+                    }
+                }
+            });
         }
 
         @SuppressLint("SetTextI18n")
-        public void bind(String datum, String uhrzeit, String bristol, String farbe, String schmerz){
+        public void bind(String datum, String uhrzeit, String bristol, String farbe, String schmerz) {
             tvDatum.setText(datum);
             tvUhrzeit.setText(uhrzeit);
             getBristolSymbol(bristol);
@@ -81,7 +93,7 @@ public class StuhlListAdapter extends RecyclerView.Adapter<StuhlListAdapter.Stuh
             tvSchmerz.setText(tvSchmerz.getText().toString() + schmerz);
         }
 
-        public void getBristolSymbol(String bristolString){
+        public void getBristolSymbol(String bristolString) {
             switch (bristolString) {
                 case "1":
                     ivBristol.setImageResource(R.drawable.type01);
@@ -104,11 +116,22 @@ public class StuhlListAdapter extends RecyclerView.Adapter<StuhlListAdapter.Stuh
                 case "7":
                     ivBristol.setImageResource(R.drawable.type07);
                     break;
-                default :
+                default:
                     ivBristol.setImageResource(R.drawable.not_selected);
             }
         }
     }
+
+    //um später auf den Eintrag im Logbuch klicken zu können
+    public interface OnItemClickListener {
+        void onItemClick(Entity_Stuhl stuhl);
+    }
+
+    //eigener ClickListener erstellt, um die Methode onItemClick aufzurufen
+    public void setOnItemClickListener(StuhlListAdapter.OnItemClickListener listener) {
+        this.listener = listener;
+    }
+
 }
 
 
