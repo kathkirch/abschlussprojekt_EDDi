@@ -81,7 +81,7 @@ public class EssenListAdapter extends RecyclerView.Adapter<EssenListAdapter.Esse
         void onItemClick(Entity_Essen essen);
     }
 
-    //eigener ClickListener erstellt um die Methode onItemClick aufzurufen
+    //eigener ClickListener erstellt, um die Methode onItemClick aufzurufen
     public void setOnItemClickListener(OnItemClickListener listener) {
         this.listener = listener;
     }

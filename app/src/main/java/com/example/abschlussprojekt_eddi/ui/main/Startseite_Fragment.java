@@ -53,8 +53,9 @@ public class Startseite_Fragment extends Fragment implements View.OnClickListene
     BenutzerdatenSpeicher bdsp;
 
     public static final int NEW_STUHL_ACTIVITY_REQUEST_CODE = 1;
+    public static final int NEW_STUHL_EDIT_REQUEST_CODE = 11;
     public static final int NEW_ESSEN_ACTIVITY_REQUEST_CODE = 2;
-    public static final int NEW_ESSEN_EDIT_ACTIVITY_REQUEST_CODE = 33;
+    public static final int NEW_ESSEN_EDIT_REQUEST_CODE = 22;
 
     public Startseite_Fragment() {
         // Required empty public constructor
@@ -111,6 +112,7 @@ public class Startseite_Fragment extends Fragment implements View.OnClickListene
         }).attachToRecyclerView(recyclerView1);
 
         //um auf den Essen-Eintrag zu klicken und ihn zu ändern
+        //Daten aus dem Eintrag werden übergeben
         adapter.setOnItemClickListener(new EssenListAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(Entity_Essen essen) {
@@ -119,7 +121,7 @@ public class Startseite_Fragment extends Fragment implements View.OnClickListene
                 intent.putExtra(Eintrag_Essen.EXTRA_ESSEN, essen.getEssen());
                 intent.putExtra(Eintrag_Essen.EXTRA_UHRZEIT, essen.getStunde()); //muss noch geändert werden!!
                 intent.putExtra(Eintrag_Essen.EXTRA_DATUM, essen.getJahr()); //muss noch geändert werden!!
-                getActivity().startActivityForResult(intent, NEW_ESSEN_EDIT_ACTIVITY_REQUEST_CODE); //startet Methode in der MainActivity
+                getActivity().startActivityForResult(intent, NEW_ESSEN_EDIT_REQUEST_CODE); //startet Methode in der MainActivity
             }
         });
 
@@ -156,6 +158,26 @@ public class Startseite_Fragment extends Fragment implements View.OnClickListene
                 }
             }
         }).attachToRecyclerView(recyclerView2);
+
+        //Daten aus dem Eintrag werden übergeben
+        stuhlAdapter.setOnItemClickListener(new StuhlListAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(Entity_Stuhl stuhl) {
+                Intent intent = new Intent(getContext(), Eintrag_Stuhl.class);
+                intent.putExtra(Eintrag_Stuhl.EXTRA_ID, stuhl.getId());
+                intent.putExtra(Eintrag_Stuhl.EXTRA_DATUM, stuhl.getMonat()); //muss noch geändert werden
+                intent.putExtra(Eintrag_Stuhl.EXTRA_UHRZEIT, stuhl.getMinute()); //muss noch geändert werden
+                intent.putExtra(Eintrag_Stuhl.EXTRA_BRISTOL, stuhl.getBristol());
+                intent.putExtra(Eintrag_Stuhl.EXTRA_BLUT, stuhl.getBlut());
+                intent.putExtra(Eintrag_Stuhl.EXTRA_SCHMERZ, stuhl.getSchmerzen());
+                intent.putExtra(Eintrag_Stuhl.EXTRA_FARBE, stuhl.getFarbe());
+                intent.putExtra(Eintrag_Stuhl.EXTRA_UNVERDAUTENAHRUNG, stuhl.getUnverdauteNahrung());
+                intent.putExtra(Eintrag_Stuhl.EXTRA_SCHLEIM, stuhl.getSchleim());
+                intent.putExtra(Eintrag_Stuhl.EXTRA_MENGE, stuhl.getMenge());
+                intent.putExtra(Eintrag_Stuhl.EXTRA_NOTIZ, stuhl.getNotizen());
+                getActivity().startActivityForResult(intent, NEW_STUHL_EDIT_REQUEST_CODE); //startet Methode in der MainActivity
+            }
+        });
 
         Button btStuhl = view.findViewById(id.stuhl_button);
         Button btEssen = view.findViewById(id.essen_button);

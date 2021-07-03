@@ -8,6 +8,7 @@ import androidx.lifecycle.LiveData;
 import java.util.List;
 
 public class StuhlRepository {
+
     private DAO_Stuhl dao_stuhl;
     private LiveData<List<Entity_Stuhl>> allStuhl;
 
@@ -31,11 +32,17 @@ public class StuhlRepository {
     }
 
     public void update(Entity_Stuhl stuhl){
-        new UpdateStuhlAsyncTask(dao_stuhl).execute(stuhl);
+        StuhlRoomDatabase.databaseWriteExecuter.execute(() -> {
+            dao_stuhl.update(stuhl);
+        });
+        //new UpdateStuhlAsyncTask(dao_stuhl).execute(stuhl);
     }
 
     public void delete(Entity_Stuhl stuhl){
-        new DeleteStuhlAsyncTask(dao_stuhl).execute(stuhl);
+        StuhlRoomDatabase.databaseWriteExecuter.execute(() -> {
+            dao_stuhl.delete(stuhl);
+        });
+        // new DeleteStuhlAsyncTask(dao_stuhl).execute(stuhl);
     }
 
     public LiveData<List<Entity_Stuhl>> getStuhlByDate (int jahr, int monat, int tag){
@@ -74,7 +81,7 @@ public class StuhlRepository {
             dao_stuhl.insertStuhl(stuhl[0]);
             return null;
         }
-    }*/
+    }
 
     private static class UpdateStuhlAsyncTask extends AsyncTask<Entity_Stuhl, Void, Void>{
 
@@ -120,4 +127,6 @@ public class StuhlRepository {
             return null;
         }
     }
+
+     */
 }

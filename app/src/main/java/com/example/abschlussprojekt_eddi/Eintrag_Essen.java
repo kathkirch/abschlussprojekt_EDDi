@@ -59,10 +59,11 @@ public class Eintrag_Essen extends AppCompatActivity {
         editText_currentTime.setText(currentHour + ":" + currentMinute);
 
         Intent intent = getIntent();
-        //wenn der Eintrag bereits eine ID hat, wird er aktualisiert und daher wird der gespeicherte Text übergeben
+        //wenn der Eintrag bereits eine ID hat, wird er aktualisiert
+        //und daher wird der gespeicherte Text übergeben
         if(intent.hasExtra(EXTRA_ESSEN_ID)){
             etEssen.setText(intent.getStringExtra(EXTRA_ESSEN));
-            editText_currentDate.getText();
+            editText_currentDate.getText(); //gibt akutelles Datum aus
             editText_currentTime.getText();
         }
 
