@@ -3,6 +3,7 @@ package com.example.abschlussprojekt_eddi;
 import android.Manifest;
 import android.content.ContentResolver;
 import android.content.ContentValues;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
@@ -43,7 +44,7 @@ import java.util.concurrent.ExecutionException;
 
 public class Eintrag_Stuhl extends AppCompatActivity {
 
-    Intent intent;
+    Context context = this;
     ImageButton imageButton_camera;
     ImageView imageView_stuhl;
     EditText editText_currentDate;
@@ -54,6 +55,10 @@ public class Eintrag_Stuhl extends AppCompatActivity {
     SwitchCompat switch_unverdauteNahrung;
     EditText edit_Notizen;
 
+    private ViewModel_Stuhl viewModel_stuhl;
+
+    public static final String EXTRA_ID =
+            "com.example.abschlussprojekt_eddi.EXTRA_ID";
     public static final String EXTRA_DATUM =
             "com.example.abschlussprojekt_eddi.EXTRA_DATUM";
     public static final String EXTRA_UHRZEIT =
@@ -124,8 +129,6 @@ public class Eintrag_Stuhl extends AppCompatActivity {
         //Bristol Spinner ArrayList befüllen
         initListBristol();
 
-        intent = getIntent();
-
         spinner_bristol = findViewById(R.id.spinner_bristol);
         aA_bristol = new SpinnerAdapterBristol(this, arrayList_bristol);
         //eigenes Layout erstellt für die Darstellung der Bristol-Skala + Text
@@ -143,6 +146,29 @@ public class Eintrag_Stuhl extends AppCompatActivity {
         spinner_menge = findViewById(R.id.spinner_menge);
         aA_menge = new ArrayAdapter<String>(this, R.layout.support_simple_spinner_dropdown_item, array_menge);
         spinner_menge.setAdapter(aA_menge);
+
+        Intent intent = getIntent();
+        //wenn der Eintrag bereits eine ID hat, wird er aktualisiert
+        //und daher wird der gespeicherte Text übergeben
+        if(intent.hasExtra(EXTRA_ID)){
+            System.out.println("intent.hasExtra" + EXTRA_ID);
+            /*
+            editText_currentDate.setText(intent.getStringExtra(EXTRA_DATUM)); //gibt nichts aus
+            editText_currentTime.setText(intent.getStringExtra(EXTRA_UHRZEIT));
+            //wie übergibt man einen spinner??
+            spinner_bristol.getSelectedItem();
+            // NullPointerException: wie übergibt man eine Switch??
+            switch_blut.setText(intent.getStringExtra(EXTRA_BLUT));
+            switch_schmerz.setText(intent.getStringExtra(EXTRA_SCHMERZ));
+            spinner_farbe.getSelectedItem();
+            switch_unverdauteNahrung.setText(intent.getStringExtra(EXTRA_UNVERDAUTENAHRUNG));
+            spinner_schleim.getSelectedItem();
+            spinner_menge.getSelectedItem();
+             */
+            if (edit_Notizen != null){
+                edit_Notizen.setText(intent.getStringExtra(EXTRA_NOTIZ));
+            }
+        }
 
         //Kamera
         imageButton_camera = findViewById(R.id.imageButton_kamera);
@@ -177,8 +203,6 @@ public class Eintrag_Stuhl extends AppCompatActivity {
 
         //editText notizen:
         edit_Notizen = findViewById(R.id.editText_notizen);
-
-
 
         //spuelen Button:
         spuelen_Button = findViewById(R.id.button_stuhlgang_speichern);
@@ -242,6 +266,10 @@ public class Eintrag_Stuhl extends AppCompatActivity {
              stuhl_data.putExtra(EXTRA_MENGE, menge);
              stuhl_data.putExtra(EXTRA_NOTIZ, notizen);
 
+             int id = getIntent().getIntExtra(EXTRA_ID, -1);
+             if(id != -1){
+                 stuhl_data.putExtra(EXTRA_ID, id);
+             }
              setResult(RESULT_OK, stuhl_data);
          }
          finish();

@@ -48,10 +48,10 @@ public class MainActivity extends AppCompatActivity {
         viewModel_essen = new ViewModelProvider(this).get(ViewModel_Essen.class);
     }
 
-
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        if ((resultCode == Eintrag_Stuhl.RESULT_OK) && requestCode == Startseite_Fragment.NEW_STUHL_ACTIVITY_REQUEST_CODE) {
+        if ((resultCode == Eintrag_Stuhl.RESULT_OK) &&
+                requestCode == Startseite_Fragment.NEW_STUHL_ACTIVITY_REQUEST_CODE) {
 
             // Uhrzeit in Stunde und Minute trennen
             String uhrzeit = data.getStringExtra(Eintrag_Stuhl.EXTRA_UHRZEIT);
@@ -81,21 +81,10 @@ public class MainActivity extends AppCompatActivity {
                     blut, schmerz, farbe, unverdauteNahrung, schleim, menge, notiz, "1");
 
             viewModel_stuhl.insertStuhl(entity_stuhl);
-
-            /*
-            calendarView_main = (CalendarView) findViewById(R.id.calendarView);
-            StuhlEvent myStuhlEvent = data.getParcelableExtra(RESULT);
-            calendarView_main.setDate(myStuhlEvent.getCalendar());
-            stuhlEvents.add(myStuhlEvent);
-            calendarView_main.setEvents(stuhlEvents);
-
-
-             */
-
-
             Toast.makeText(this, "Stuhleintrag gespeichert", Toast.LENGTH_SHORT).show();
 
-        }else if (resultCode == Eintrag_Essen.RESULT_OK && requestCode == Startseite_Fragment.NEW_ESSEN_ACTIVITY_REQUEST_CODE) {
+        }else if (resultCode == Eintrag_Essen.RESULT_OK &&
+                requestCode == Startseite_Fragment.NEW_ESSEN_ACTIVITY_REQUEST_CODE) {
             String essenNeu = data.getStringExtra(Eintrag_Essen.EXTRA_ESSEN);
 
             // Uhrzeit in Stunde und Minute trennen
@@ -115,7 +104,75 @@ public class MainActivity extends AppCompatActivity {
             viewModel_essen.insertEssen(essen);
             Toast.makeText(this, "Essen gespeichert", Toast.LENGTH_SHORT).show();
 
-        } else {
+            //beim Aktualisieren springt er nicht in diese Schleife???
+        }else if (resultCode == Eintrag_Essen.RESULT_OK &&
+                requestCode == Startseite_Fragment.NEW_ESSEN_EDIT_REQUEST_CODE){
+            int id = data.getIntExtra(Eintrag_Essen.EXTRA_ESSEN_ID, -1);
+            if (id == -1){
+                Toast.makeText(this, "Eintrag kann nicht aktualisiert werden", Toast.LENGTH_SHORT).show();
+                return;
+            }
+            String essenNeu = data.getStringExtra(Eintrag_Essen.EXTRA_ESSEN);
+
+            // Uhrzeit in Stunde und Minute trennen
+            String uhrzeit = data.getStringExtra(Eintrag_Essen.EXTRA_UHRZEIT);
+            String[] timeValues = uhrzeit.split(":", 2);
+            int stunde = Integer.parseInt(timeValues[0]);
+            int minute = Integer.parseInt(timeValues[1]);
+
+            // Datum welches als ganzer String gespeichert ist wieder in einzelne Int zerteilen
+            String datum = data.getStringExtra(Eintrag_Essen.EXTRA_DATUM);
+            String[] dateValues = datum.split("\\.", 3);
+            int tag = Integer.parseInt(dateValues[0]);
+            int monat = Integer.parseInt(dateValues[1]);
+            int jahr = Integer.parseInt(dateValues[2]);
+
+            Entity_Essen essen = new Entity_Essen(essenNeu, jahr, monat, tag, stunde, minute);
+            essen.setEssenID(id);
+            viewModel_essen.updateEssen(essen);
+            Toast.makeText(this, "Essenseintrag aktualisiert", Toast.LENGTH_SHORT).show();
+
+        }else if (resultCode == Eintrag_Stuhl.RESULT_OK &&
+                requestCode == Startseite_Fragment.NEW_STUHL_EDIT_REQUEST_CODE){
+
+            System.out.println("NEW STUHL EDIT REQUEST CODE");
+
+            int id = data.getIntExtra(Eintrag_Stuhl.EXTRA_ID, -1);
+            if (id == -1){
+                Toast.makeText(this, "Eintrag kann nicht aktualisiert werden", Toast.LENGTH_SHORT).show();
+                return;
+            }
+            // Uhrzeit in Stunde und Minute trennen
+            String uhrzeit = data.getStringExtra(Eintrag_Stuhl.EXTRA_UHRZEIT);
+            String[] timeValues = uhrzeit.split(":", 2);
+            int stunde = Integer.parseInt(timeValues[0]);
+            int minute = Integer.parseInt(timeValues[1]);
+
+            // Datum welches als ganzer String gespeichert ist wieder in einzelne Int zerteilen
+            String datum = data.getStringExtra(Eintrag_Stuhl.EXTRA_DATUM);
+            String[] dateValues = datum.split("\\.", 3);
+            int tag = Integer.parseInt(dateValues[0]);
+            int monat = Integer.parseInt(dateValues[1]);
+            int jahr = Integer.parseInt(dateValues[2]);
+
+            String bristol = data.getStringExtra(Eintrag_Stuhl.EXTRA_BRISTOL);
+            boolean blut = data.getExtras().getBoolean(Eintrag_Stuhl.EXTRA_BLUT);
+            boolean schmerz = data.getExtras().getBoolean(Eintrag_Stuhl.EXTRA_SCHMERZ);
+            String farbe = data.getStringExtra(Eintrag_Stuhl.EXTRA_FARBE);
+            boolean unverdauteNahrung = data.getExtras().getBoolean
+                    (Eintrag_Stuhl.EXTRA_UNVERDAUTENAHRUNG);
+            String schleim = data.getStringExtra(Eintrag_Stuhl.EXTRA_SCHLEIM);
+            String menge = data.getStringExtra(Eintrag_Stuhl.EXTRA_MENGE);
+            String notiz = data.getStringExtra(Eintrag_Stuhl.EXTRA_NOTIZ);
+
+            //woher FotoReferenz?
+            Entity_Stuhl entity_stuhl = new Entity_Stuhl(jahr, monat, tag, stunde, minute, bristol,
+                    blut, schmerz, farbe, unverdauteNahrung, schleim, menge, notiz, "1");
+            entity_stuhl.setId(id);
+            viewModel_stuhl.update(entity_stuhl);
+            Toast.makeText(this, "Stuhleintrag aktualisiert", Toast.LENGTH_SHORT).show();
+
+        }else {
             super.onActivityResult(requestCode, resultCode, data);
             Toast.makeText(this, "Speichern ergab Probleme", Toast.LENGTH_SHORT).show();
         }

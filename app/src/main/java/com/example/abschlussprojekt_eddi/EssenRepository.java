@@ -32,13 +32,16 @@ public class EssenRepository {
 
     public void update(Entity_Essen essen){
         EssenRoomDatabase.databaseWriteExecuter.execute(() -> {
-            m_dao_essen.deleteEssen(essen);
+            m_dao_essen.updateEssen(essen);
         });
         //new UpdateEssenAsyncTask(m_dao_essen).execute(essen);
     }
 
     public void delete (Entity_Essen essen){
-        new DeleteStuhlAsyncTask(m_dao_essen).execute(essen);
+        EssenRoomDatabase.databaseWriteExecuter.execute(() -> {
+            m_dao_essen.deleteEssen(essen);
+        });
+        //new DeleteStuhlAsyncTask(m_dao_essen).execute(essen);
     }
 
     public LiveData<List<Entity_Essen>> getEssenByDate (int jahr, int monat, int tag){
@@ -63,7 +66,7 @@ public class EssenRepository {
             return null;
         }
     }
-    */
+
 
     private static class UpdateEssenAsyncTask extends AsyncTask<Entity_Essen, Void, Void>{
 
@@ -94,4 +97,6 @@ public class EssenRepository {
             return null;
         }
     }
+
+     */
 }
