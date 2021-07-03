@@ -230,7 +230,6 @@ public class Eintrag_Stuhl extends AppCompatActivity {
                             new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
                             GALLERY_REQUEST_CODE);
                 }
-
                 //Stuhl speichern methode
                 stuhlSpeichern();
             }

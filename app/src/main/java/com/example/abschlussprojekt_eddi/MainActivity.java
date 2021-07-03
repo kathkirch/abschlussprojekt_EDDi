@@ -9,15 +9,28 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.viewpager.widget.ViewPager;
 
+import com.applandeo.materialcalendarview.CalendarView;
+import com.applandeo.materialcalendarview.EventDay;
 import com.example.abschlussprojekt_eddi.ui.main.SectionsPagerAdapter;
 import com.example.abschlussprojekt_eddi.ui.main.Startseite_Fragment;
 import com.google.android.material.tabs.TabLayout;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class MainActivity extends AppCompatActivity {
 
     private ViewModel_Essen viewModel_essen;
     private ViewModel_Stuhl viewModel_stuhl;
+
+    public static final String RESULT = "result";
+    public static final String EVENT = "event";
+
+    private CalendarView calendarView_main;
+    public List<EventDay> stuhlEvents = new ArrayList<>();
+
+    BenutzerdatenSpeicher bdsp;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -163,7 +176,6 @@ public class MainActivity extends AppCompatActivity {
             super.onActivityResult(requestCode, resultCode, data);
             Toast.makeText(this, "Speichern ergab Probleme", Toast.LENGTH_SHORT).show();
         }
-
     }
 }
 
