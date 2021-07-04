@@ -9,7 +9,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-
 import androidx.appcompat.app.AppCompatActivity;
 
 public class Anmeldung extends AppCompatActivity {
@@ -27,8 +26,6 @@ public class Anmeldung extends AppCompatActivity {
     BenutzerdatenSpeicher bdSp;
     Benutzer benutzer;
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,7 +42,6 @@ public class Anmeldung extends AppCompatActivity {
         bSpeichern =  findViewById(R.id.speichernButton);
 
         bdSp = new BenutzerdatenSpeicher(this);
-
     }
 
     public void registrieren (View view) {
@@ -144,6 +140,5 @@ public class Anmeldung extends AppCompatActivity {
         } catch (NullPointerException ex){
             Log.d("ERROR", "Fehler bei Dateneingabe");
         }
-
     }
 }
