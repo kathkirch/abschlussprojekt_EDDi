@@ -34,7 +34,6 @@ import java.util.List;
 
 public class Kalender_Fragment extends Fragment {
 
-
     public ViewModel_Stuhl viewModel_stuhl;
     public ViewModel_Essen viewModel_essen;
     int curDay;
@@ -42,8 +41,6 @@ public class Kalender_Fragment extends Fragment {
     int curMonth;
 
     private CalendarView calendarView;
-
-
 
     public Kalender_Fragment() {
         // Required empty public constructor
@@ -85,7 +82,7 @@ public class Kalender_Fragment extends Fragment {
         getStuhlEintraege();
 
         // um den aktuellen Tag zu bekommen und dessen Einträge anzuzugeigen
-        Calendar today = calendarView.getFirstSelectedDate();
+        Calendar today = Calendar.getInstance();
         SimpleDateFormat sdf = new SimpleDateFormat("yy-MM-dd");
         String curDate = sdf.format(today.getTime());
         String [] dateValues = curDate.split("-", 3);
@@ -106,6 +103,7 @@ public class Kalender_Fragment extends Fragment {
             @Override
             public void onDayClick(EventDay eventDay) {
                 Calendar clickedDayCalendar = eventDay.getCalendar();
+
                 SimpleDateFormat sdf = new SimpleDateFormat("yy-MM-dd");
                 String curDate = sdf.format(clickedDayCalendar.getTime());
                 String [] dateValues = curDate.split("-", 3);
@@ -174,12 +172,10 @@ public class Kalender_Fragment extends Fragment {
                 List<EventDay> stuhlEvents = new ArrayList<>();
 
                 for (Entity_Stuhl entity_stuhl : entity_stuhls){
-
                     String jahr = String.valueOf(entity_stuhl.getJahr());
                     String monat = String.valueOf(entity_stuhl.getMonat());
                     String tag = String.valueOf(entity_stuhl.getTag());
                     SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-
                     try {
                         date = sdf.parse(tag+"/"+monat+"/"+jahr);
                     }catch (ParseException e) {
@@ -187,7 +183,6 @@ public class Kalender_Fragment extends Fragment {
                     }
                     Calendar calendar = Calendar.getInstance();
                     calendar.setTime(date);
-
                     EventDay stuhlEvent = new EventDay(calendar, R.drawable.icon_stuhl_eintrag);
                     stuhlEvents.add(stuhlEvent);
                 }

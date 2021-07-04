@@ -9,14 +9,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.viewpager.widget.ViewPager;
 
-import com.applandeo.materialcalendarview.CalendarView;
-import com.applandeo.materialcalendarview.EventDay;
 import com.example.abschlussprojekt_eddi.ui.main.SectionsPagerAdapter;
 import com.example.abschlussprojekt_eddi.ui.main.Startseite_Fragment;
 import com.google.android.material.tabs.TabLayout;
-
-import java.util.ArrayList;
-import java.util.List;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -24,11 +19,6 @@ public class MainActivity extends AppCompatActivity {
     private ViewModel_Essen viewModel_essen;
     private ViewModel_Stuhl viewModel_stuhl;
 
-    public static final String RESULT = "result";
-    public static final String EVENT = "event";
-
-    private CalendarView calendarView_main;
-    public List<EventDay> stuhlEvents = new ArrayList<>();
 
     BenutzerdatenSpeicher bdsp;
 
@@ -78,7 +68,7 @@ public class MainActivity extends AppCompatActivity {
 
             // woher FotoReferenz?
             Entity_Stuhl entity_stuhl = new Entity_Stuhl(jahr, monat, tag, stunde, minute, bristol,
-                    blut, schmerz, farbe, unverdauteNahrung, schleim, menge, notiz, "1");
+                    blut, schmerz, farbe, unverdauteNahrung, schleim, menge, notiz);
 
             viewModel_stuhl.insertStuhl(entity_stuhl);
             Toast.makeText(this, "Stuhleintrag gespeichert", Toast.LENGTH_SHORT).show();
@@ -165,9 +155,8 @@ public class MainActivity extends AppCompatActivity {
             String menge = data.getStringExtra(Eintrag_Stuhl.EXTRA_MENGE);
             String notiz = data.getStringExtra(Eintrag_Stuhl.EXTRA_NOTIZ);
 
-            //woher FotoReferenz?
             Entity_Stuhl entity_stuhl = new Entity_Stuhl(jahr, monat, tag, stunde, minute, bristol,
-                    blut, schmerz, farbe, unverdauteNahrung, schleim, menge, notiz, "1");
+                    blut, schmerz, farbe, unverdauteNahrung, schleim, menge, notiz);
             entity_stuhl.setId(id);
             viewModel_stuhl.update(entity_stuhl);
             Toast.makeText(this, "Stuhleintrag aktualisiert", Toast.LENGTH_SHORT).show();

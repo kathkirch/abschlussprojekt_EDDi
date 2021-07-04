@@ -34,8 +34,8 @@ public class StuhlListAdapter extends RecyclerView.Adapter<StuhlListAdapter.Stuh
         String datum = (current.getTag() + "." + current.getMonat() + "." + current.getJahr());
         String uhrzeit = (current.getStunde() + ":" + current.getMinute());
         String bristol = current.getBristol();
-        String farbe = current.getFarbe();
-        String schmerz = String.valueOf(current.getSchmerzen());
+        String farbe = (current.getFarbe());
+        String schmerz = (String.valueOf(current.getSchmerzen()));
         holder.bind(datum, uhrzeit, bristol, farbe, schmerz);
     }
 
@@ -89,8 +89,10 @@ public class StuhlListAdapter extends RecyclerView.Adapter<StuhlListAdapter.Stuh
             tvDatum.setText(datum);
             tvUhrzeit.setText(uhrzeit);
             getBristolSymbol(bristol);
-            tvFarbe.setText(tvFarbe.getText().toString() + farbe);
-            tvSchmerz.setText(tvSchmerz.getText().toString() + schmerz);
+            String farbString = ("Farbe: " + farbe);
+            tvFarbe.setText(farbString);
+            String schmerzString = ("Schmerzen: " + schmerz);
+            tvSchmerz.setText(schmerzString);
         }
 
         public void getBristolSymbol(String bristolString) {

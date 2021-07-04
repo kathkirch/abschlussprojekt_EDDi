@@ -40,12 +40,10 @@ public class Entity_Stuhl {
 
     private String notizen;
 
-    @ColumnInfo (name = "Foto-Referenz")
-    private String fotoReferenz;
 
     //Konstruktor
     public Entity_Stuhl(int jahr, int monat, int tag, int stunde, int minute, String bristol, boolean schmerzen, boolean blut,
-                        String farbe, boolean unverdauteNahrung, String schleim, String menge, String notizen, String fotoReferenz) {
+                        String farbe, boolean unverdauteNahrung, String schleim, String menge, String notizen) {
         this.jahr = jahr;
         this.monat = monat;
         this.tag = tag;
@@ -59,7 +57,6 @@ public class Entity_Stuhl {
         this.schleim = schleim;
         this.menge = menge;
         this.notizen = notizen;
-        this.fotoReferenz = fotoReferenz;
     }
 
     //Getter:
@@ -117,10 +114,6 @@ public class Entity_Stuhl {
 
     public String getNotizen() {
         return notizen;
-    }
-
-    public String getFotoReferenz() {
-        return fotoReferenz;
     }
 
     //Setter:
@@ -181,7 +174,4 @@ public class Entity_Stuhl {
         this.notizen = notizen;
     }
 
-    public void setFotoReferenz(String fotoReferenz) {
-        this.fotoReferenz = fotoReferenz;
-    }
 }
