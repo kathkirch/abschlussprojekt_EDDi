@@ -1,7 +1,5 @@
 package com.example.abschlussprojekt_eddi;
 
-import java.util.Date;
-
 public class Benutzer {
 
     private String nachname;

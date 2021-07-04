@@ -46,7 +46,6 @@
             android:text="@string/stuhl"
             android:textSize="18sp"
             android:textColor="@color/white"
-            android:onClick="enterEintragStuhl"
              />
 
         <Space
@@ -63,7 +62,6 @@
             android:text="@string/essen"
             android:textColor="@color/white"
             android:textSize="18sp"
-            android:onClick="enterEintragEssen"
              />
 
         <Space
@@ -79,7 +77,6 @@
         android:layout_height="3dp"
         android:layout_below="@id/linear1"
         android:background="@color/divider_color"/>
-
 
     <TextView
         android:id="@+id/textViewFrage"
@@ -190,8 +187,7 @@
             android:layout_width="3dp"
             android:layout_height="match_parent"
             android:layout_gravity="center"
-            android:layout_weight="0"
-            android:background="@color/divider_color"/>
+            android:layout_weight="0"/>
 
         <TextView
             android:id="@+id/textViewEssen"

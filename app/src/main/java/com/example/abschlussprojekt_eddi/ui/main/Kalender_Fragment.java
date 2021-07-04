@@ -1,7 +1,6 @@
 package com.example.abschlussprojekt_eddi.ui.main;
 
 import android.annotation.SuppressLint;
-import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,6 +9,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -18,23 +18,29 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.applandeo.materialcalendarview.CalendarView;
 import com.applandeo.materialcalendarview.EventDay;
 import com.applandeo.materialcalendarview.listeners.OnDayClickListener;
+import com.example.abschlussprojekt_eddi.Entity_Stuhl;
 import com.example.abschlussprojekt_eddi.EssenListAdapter;
 import com.example.abschlussprojekt_eddi.R;
 import com.example.abschlussprojekt_eddi.StuhlListAdapter;
 import com.example.abschlussprojekt_eddi.ViewModel_Essen;
 import com.example.abschlussprojekt_eddi.ViewModel_Stuhl;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
+import java.util.List;
 
 public class Kalender_Fragment extends Fragment {
 
-    Context context = getActivity();
     public ViewModel_Stuhl viewModel_stuhl;
     public ViewModel_Essen viewModel_essen;
     int curDay;
     int curYear;
     int curMonth;
+
+    private CalendarView calendarView;
 
     public Kalender_Fragment() {
         // Required empty public constructor
@@ -70,9 +76,13 @@ public class Kalender_Fragment extends Fragment {
         viewModel_stuhl = new ViewModelProvider(this).get(ViewModel_Stuhl.class);
         viewModel_essen = new ViewModelProvider(this).get(ViewModel_Essen.class);
 
+        calendarView = view.findViewById(R.id.calendarView);
+
+        // Methode für die Punkte bei den Kalendereinträgen wird aufgerufen
+        getStuhlEintraege();
+
         // um den aktuellen Tag zu bekommen und dessen Einträge anzuzugeigen
-        CalendarView calendarView = view.findViewById(R.id.calendarView);
-        Calendar today = calendarView.getCurrentPageDate();
+        Calendar today = Calendar.getInstance();
         SimpleDateFormat sdf = new SimpleDateFormat("yy-MM-dd");
         String curDate = sdf.format(today.getTime());
         String [] dateValues = curDate.split("-", 3);
@@ -93,6 +103,7 @@ public class Kalender_Fragment extends Fragment {
             @Override
             public void onDayClick(EventDay eventDay) {
                 Calendar clickedDayCalendar = eventDay.getCalendar();
+
                 SimpleDateFormat sdf = new SimpleDateFormat("yy-MM-dd");
                 String curDate = sdf.format(clickedDayCalendar.getTime());
                 String [] dateValues = curDate.split("-", 3);
@@ -108,6 +119,7 @@ public class Kalender_Fragment extends Fragment {
                 });
             }
         });
+
 
         //macht den RecyclerView wischbar (für Essen-Löschung)
         new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0,
@@ -150,5 +162,32 @@ public class Kalender_Fragment extends Fragment {
         }).attachToRecyclerView(recyclerView2);
 
         return view;
+    }
+
+    public void getStuhlEintraege () {
+        viewModel_stuhl.getAllStuhl().observe(getViewLifecycleOwner(), new Observer<List<Entity_Stuhl>>() {
+            @Override
+            public void onChanged(List<Entity_Stuhl> entity_stuhls) {
+                Date date = null;
+                List<EventDay> stuhlEvents = new ArrayList<>();
+
+                for (Entity_Stuhl entity_stuhl : entity_stuhls){
+                    String jahr = String.valueOf(entity_stuhl.getJahr());
+                    String monat = String.valueOf(entity_stuhl.getMonat());
+                    String tag = String.valueOf(entity_stuhl.getTag());
+                    SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+                    try {
+                        date = sdf.parse(tag+"/"+monat+"/"+jahr);
+                    }catch (ParseException e) {
+                        e.printStackTrace();
+                    }
+                    Calendar calendar = Calendar.getInstance();
+                    calendar.setTime(date);
+                    EventDay stuhlEvent = new EventDay(calendar, R.drawable.icon_stuhl_eintrag);
+                    stuhlEvents.add(stuhlEvent);
+                }
+                calendarView.setEvents(stuhlEvents);
+            }
+        });
     }
 }

@@ -14,7 +14,6 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-
         <Space
             android:id="@+id/space"
             android:layout_width="match_parent"
@@ -24,9 +23,9 @@
             android:id="@+id/calendarView"
             android:layout_width="match_parent"
             android:layout_height="333dp"
-            app:datePicker="true"
             app:headerColor="@color/calender_header"
-            app:selectionColor="@color/calender_select"
+            app:selectionDisabled="false"
+            app:selectionLabelColor="@color/calender_select"
             />
 
         <Space

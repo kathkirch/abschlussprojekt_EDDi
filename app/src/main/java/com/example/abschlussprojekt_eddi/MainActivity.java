@@ -19,6 +19,9 @@ public class MainActivity extends AppCompatActivity {
     private ViewModel_Essen viewModel_essen;
     private ViewModel_Stuhl viewModel_stuhl;
 
+
+    BenutzerdatenSpeicher bdsp;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -65,7 +68,7 @@ public class MainActivity extends AppCompatActivity {
 
             // woher FotoReferenz?
             Entity_Stuhl entity_stuhl = new Entity_Stuhl(jahr, monat, tag, stunde, minute, bristol,
-                    blut, schmerz, farbe, unverdauteNahrung, schleim, menge, notiz, "1");
+                    blut, schmerz, farbe, unverdauteNahrung, schleim, menge, notiz);
 
             viewModel_stuhl.insertStuhl(entity_stuhl);
             Toast.makeText(this, "Stuhleintrag gespeichert", Toast.LENGTH_SHORT).show();
@@ -152,9 +155,8 @@ public class MainActivity extends AppCompatActivity {
             String menge = data.getStringExtra(Eintrag_Stuhl.EXTRA_MENGE);
             String notiz = data.getStringExtra(Eintrag_Stuhl.EXTRA_NOTIZ);
 
-            //woher FotoReferenz?
             Entity_Stuhl entity_stuhl = new Entity_Stuhl(jahr, monat, tag, stunde, minute, bristol,
-                    blut, schmerz, farbe, unverdauteNahrung, schleim, menge, notiz, "1");
+                    blut, schmerz, farbe, unverdauteNahrung, schleim, menge, notiz);
             entity_stuhl.setId(id);
             viewModel_stuhl.update(entity_stuhl);
             Toast.makeText(this, "Stuhleintrag aktualisiert", Toast.LENGTH_SHORT).show();
@@ -163,7 +165,6 @@ public class MainActivity extends AppCompatActivity {
             super.onActivityResult(requestCode, resultCode, data);
             Toast.makeText(this, "Speichern ergab Probleme", Toast.LENGTH_SHORT).show();
         }
-
     }
 }
 
