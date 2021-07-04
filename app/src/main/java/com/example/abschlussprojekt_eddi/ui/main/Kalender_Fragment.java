@@ -46,9 +46,7 @@ public class Kalender_Fragment extends Fragment {
 
     private CalendarView calendarView;
 
-    public static final int NEW_STUHL_ACTIVITY_REQUEST_CODE = 1;
     public static final int NEW_STUHL_EDIT_REQUEST_CODE = 11;
-    public static final int NEW_ESSEN_ACTIVITY_REQUEST_CODE = 2;
     public static final int NEW_ESSEN_EDIT_REQUEST_CODE = 22;
 
     public Kalender_Fragment() {
@@ -100,10 +98,10 @@ public class Kalender_Fragment extends Fragment {
         curDay = Integer.parseInt(dateValues[2]);
 
         viewModel_stuhl.getStuhlByDate(curYear,curMonth, curDay).observe(getViewLifecycleOwner(), entity_stuhls -> {
-            stuhlAdapter.setStuhl(entity_stuhls);
+            stuhlAdapter.submitList(entity_stuhls);
         });
         viewModel_essen.getEssenByDate(curYear, curMonth, curDay).observe(getViewLifecycleOwner(), entity_essens -> {
-            adapter.setEssen(entity_essens);
+            adapter.submitList(entity_essens);
         });
 
 
@@ -121,10 +119,10 @@ public class Kalender_Fragment extends Fragment {
                 curDay = Integer.parseInt(dateValues[2]);
 
                 viewModel_stuhl.getStuhlByDate(curYear,curMonth, curDay).observe(getViewLifecycleOwner(), entity_stuhls -> {
-                    stuhlAdapter.setStuhl(entity_stuhls);
+                    stuhlAdapter.submitList(entity_stuhls);
                 });
                 viewModel_essen.getEssenByDate(curYear, curMonth, curDay).observe(getViewLifecycleOwner(), entity_essens -> {
-                    adapter.setEssen(entity_essens);
+                    adapter.submitList(entity_essens);
                 });
             }
         });
