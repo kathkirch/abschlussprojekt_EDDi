@@ -152,19 +152,23 @@ public class Eintrag_Stuhl extends AppCompatActivity {
         //und daher wird der gespeicherte Text übergeben
         if(intent.hasExtra(EXTRA_ID)){
             System.out.println("intent.hasExtra" + EXTRA_ID);
-            /*
+
             editText_currentDate.setText(intent.getStringExtra(EXTRA_DATUM)); //gibt nichts aus
             editText_currentTime.setText(intent.getStringExtra(EXTRA_UHRZEIT));
             //wie übergibt man einen spinner??
             spinner_bristol.getSelectedItem();
             // NullPointerException: wie übergibt man eine Switch??
-            switch_blut.setText(intent.getStringExtra(EXTRA_BLUT));
+            switch_blut.setChecked(intent.getExtras().getBoolean(EXTRA_BLUT));
+            switch_blut.setChecked(intent.getBooleanExtra(EXTRA_BLUT, false));
+            /*
             switch_schmerz.setText(intent.getStringExtra(EXTRA_SCHMERZ));
             spinner_farbe.getSelectedItem();
             switch_unverdauteNahrung.setText(intent.getStringExtra(EXTRA_UNVERDAUTENAHRUNG));
             spinner_schleim.getSelectedItem();
             spinner_menge.getSelectedItem();
+
              */
+
             if (edit_Notizen != null){
                 edit_Notizen.setText(intent.getStringExtra(EXTRA_NOTIZ));
             }

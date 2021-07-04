@@ -85,7 +85,7 @@ public class Kalender_Fragment extends Fragment {
         getStuhlEintraege();
 
         // um den aktuellen Tag zu bekommen und dessen Einträge anzuzugeigen
-        Calendar today = calendarView.getFirstSelectedDate();
+        Calendar today = calendarView.getCurrentPageDate();
         SimpleDateFormat sdf = new SimpleDateFormat("yy-MM-dd");
         String curDate = sdf.format(today.getTime());
         String [] dateValues = curDate.split("-", 3);

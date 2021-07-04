@@ -197,7 +197,6 @@ public class Startseite_Fragment extends Fragment implements View.OnClickListene
         btEinstellungen.setOnClickListener(this::onClick);
 
 
-
         return view;
     }
 
