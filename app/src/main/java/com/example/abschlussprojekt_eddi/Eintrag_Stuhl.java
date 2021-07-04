@@ -164,7 +164,9 @@ public class Eintrag_Stuhl extends AppCompatActivity {
             switch_unverdauteNahrung.setText(intent.getStringExtra(EXTRA_UNVERDAUTENAHRUNG));
             spinner_schleim.getSelectedItem();
             spinner_menge.getSelectedItem();
+
              */
+
             if (edit_Notizen != null){
                 edit_Notizen.setText(intent.getStringExtra(EXTRA_NOTIZ));
             }
@@ -230,7 +232,6 @@ public class Eintrag_Stuhl extends AppCompatActivity {
                             new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
                             GALLERY_REQUEST_CODE);
                 }
-
                 //Stuhl speichern methode
                 stuhlSpeichern();
             }
