@@ -23,27 +23,27 @@ public class Entity_Stuhl {
 
     private int minute;
 
-    private String bristol;
+    private int bristol;
 
     private boolean schmerzen;
 
     private boolean blut;
 
-    private String farbe;
+    private int farbe;
 
     @ColumnInfo (name = "Unverdaute Nahrung")
     private boolean unverdauteNahrung;
 
-    private String schleim;
+    private int schleim;
 
-    private String menge;
+    private int menge;
 
     private String notizen;
 
 
     //Konstruktor
-    public Entity_Stuhl(int jahr, int monat, int tag, int stunde, int minute, String bristol, boolean schmerzen, boolean blut,
-                        String farbe, boolean unverdauteNahrung, String schleim, String menge, String notizen) {
+    public Entity_Stuhl(int jahr, int monat, int tag, int stunde, int minute, int bristol, boolean schmerzen, boolean blut,
+                        int farbe, boolean unverdauteNahrung, int schleim, int menge, String notizen) {
         this.jahr = jahr;
         this.monat = monat;
         this.tag = tag;
@@ -84,7 +84,7 @@ public class Entity_Stuhl {
         return minute;
     }
 
-    public String getBristol() {
+    public int getBristol() {
         return bristol;
     }
 
@@ -96,7 +96,7 @@ public class Entity_Stuhl {
         return blut;
     }
 
-    public String getFarbe() {
+    public int getFarbe() {
         return farbe;
     }
 
@@ -104,11 +104,11 @@ public class Entity_Stuhl {
         return unverdauteNahrung;
     }
 
-    public String getSchleim() {
+    public int getSchleim() {
         return schleim;
     }
 
-    public String getMenge() {
+    public int getMenge() {
         return menge;
     }
 
@@ -142,7 +142,7 @@ public class Entity_Stuhl {
         this.minute = minute;
     }
 
-    public void setBristol(String bristol) {
+    public void setBristol(int bristol) {
         this.bristol = bristol;
     }
 
@@ -154,7 +154,7 @@ public class Entity_Stuhl {
         this.blut = blut;
     }
 
-    public void setFarbe(String farbe) {
+    public void setFarbe(int farbe) {
         this.farbe = farbe;
     }
 
@@ -162,11 +162,11 @@ public class Entity_Stuhl {
         this.unverdauteNahrung = unverdauteNahrung;
     }
 
-    public void setSchleim(String schleim) {
+    public void setSchleim(int schleim) {
         this.schleim = schleim;
     }
 
-    public void setMenge(String menge) {
+    public void setMenge(int menge) {
         this.menge = menge;
     }
 

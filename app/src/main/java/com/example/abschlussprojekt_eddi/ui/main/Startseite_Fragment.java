@@ -160,7 +160,7 @@ public class Startseite_Fragment extends Fragment implements View.OnClickListene
             }
         }).attachToRecyclerView(recyclerView2);
 
-        //Daten aus dem Eintrag werden übergeben
+        //Daten aus dem Stuhl Eintrag werden übergeben
         stuhlAdapter.setOnItemClickListener(new StuhlListAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(Entity_Stuhl stuhl) {

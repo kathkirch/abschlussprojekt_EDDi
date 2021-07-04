@@ -18,7 +18,7 @@ import java.util.List;
 public class StuhlListAdapter extends RecyclerView.Adapter<StuhlListAdapter.StuhlViewHolder> {
 
     private List<Entity_Stuhl> stuhlList = new ArrayList<>();
-    private StuhlListAdapter.OnItemClickListener listener; //für den setOnItemClickListener
+    private OnItemClickListener listener; //für den setOnItemClickListener
 
     @NonNull
     @Override
@@ -33,8 +33,8 @@ public class StuhlListAdapter extends RecyclerView.Adapter<StuhlListAdapter.Stuh
         Entity_Stuhl current = stuhlList.get(position);
         String datum = (current.getTag() + "." + current.getMonat() + "." + current.getJahr());
         String uhrzeit = (current.getStunde() + ":" + current.getMinute());
-        String bristol = current.getBristol();
-        String farbe = (current.getFarbe());
+        int bristol = current.getBristol();
+        int farbe = (current.getFarbe());
         String schmerz = (String.valueOf(current.getSchmerzen()));
         holder.bind(datum, uhrzeit, bristol, farbe, schmerz);
     }
@@ -85,37 +85,37 @@ public class StuhlListAdapter extends RecyclerView.Adapter<StuhlListAdapter.Stuh
         }
 
         @SuppressLint("SetTextI18n")
-        public void bind(String datum, String uhrzeit, String bristol, String farbe, String schmerz) {
+        public void bind(String datum, String uhrzeit, int bristol, int farbe, String schmerz) {
             tvDatum.setText(datum);
             tvUhrzeit.setText(uhrzeit);
             getBristolSymbol(bristol);
-            String farbString = ("Farbe: " + farbe);
+            String farbString = ("Farbe: " + farbe); //wie bekommt man den Text und nicht die Zahl??
             tvFarbe.setText(farbString);
             String schmerzString = ("Schmerzen: " + schmerz);
             tvSchmerz.setText(schmerzString);
         }
 
-        public void getBristolSymbol(String bristolString) {
+        public void getBristolSymbol(int bristolString) {
             switch (bristolString) {
-                case "1":
+                case 0:
                     ivBristol.setImageResource(R.drawable.type01);
                     break;
-                case "2":
+                case 1:
                     ivBristol.setImageResource(R.drawable.type02);
                     break;
-                case "3":
+                case 2:
                     ivBristol.setImageResource(R.drawable.type03);
                     break;
-                case "4":
+                case 3:
                     ivBristol.setImageResource(R.drawable.type04);
                     break;
-                case "5":
+                case 4:
                     ivBristol.setImageResource(R.drawable.type05);
                     break;
-                case "6":
+                case 5:
                     ivBristol.setImageResource(R.drawable.type06);
                     break;
-                case "7":
+                case 6:
                     ivBristol.setImageResource(R.drawable.type07);
                     break;
                 default:
@@ -130,7 +130,7 @@ public class StuhlListAdapter extends RecyclerView.Adapter<StuhlListAdapter.Stuh
     }
 
     //eigener ClickListener erstellt, um die Methode onItemClick aufzurufen
-    public void setOnItemClickListener(StuhlListAdapter.OnItemClickListener listener) {
+    public void setOnItemClickListener(OnItemClickListener listener) {
         this.listener = listener;
     }
 
