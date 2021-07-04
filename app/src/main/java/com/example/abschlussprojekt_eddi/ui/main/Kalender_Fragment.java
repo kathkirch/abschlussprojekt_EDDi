@@ -1,6 +1,7 @@
 package com.example.abschlussprojekt_eddi.ui.main;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,6 +19,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.applandeo.materialcalendarview.CalendarView;
 import com.applandeo.materialcalendarview.EventDay;
 import com.applandeo.materialcalendarview.listeners.OnDayClickListener;
+import com.example.abschlussprojekt_eddi.Eintrag_Essen;
+import com.example.abschlussprojekt_eddi.Eintrag_Stuhl;
+import com.example.abschlussprojekt_eddi.Entity_Essen;
 import com.example.abschlussprojekt_eddi.Entity_Stuhl;
 import com.example.abschlussprojekt_eddi.EssenListAdapter;
 import com.example.abschlussprojekt_eddi.R;
@@ -34,7 +38,6 @@ import java.util.List;
 
 public class Kalender_Fragment extends Fragment {
 
-
     public ViewModel_Stuhl viewModel_stuhl;
     public ViewModel_Essen viewModel_essen;
     int curDay;
@@ -43,7 +46,10 @@ public class Kalender_Fragment extends Fragment {
 
     private CalendarView calendarView;
 
-
+    public static final int NEW_STUHL_ACTIVITY_REQUEST_CODE = 1;
+    public static final int NEW_STUHL_EDIT_REQUEST_CODE = 11;
+    public static final int NEW_ESSEN_ACTIVITY_REQUEST_CODE = 2;
+    public static final int NEW_ESSEN_EDIT_REQUEST_CODE = 22;
 
     public Kalender_Fragment() {
         // Required empty public constructor
@@ -106,6 +112,7 @@ public class Kalender_Fragment extends Fragment {
             @Override
             public void onDayClick(EventDay eventDay) {
                 Calendar clickedDayCalendar = eventDay.getCalendar();
+
                 SimpleDateFormat sdf = new SimpleDateFormat("yy-MM-dd");
                 String curDate = sdf.format(clickedDayCalendar.getTime());
                 String [] dateValues = curDate.split("-", 3);
@@ -144,6 +151,23 @@ public class Kalender_Fragment extends Fragment {
             }
         }).attachToRecyclerView(recyclerView1);
 
+        //um auf den Essen-Eintrag zu klicken und ihn zu ändern
+        //Daten aus dem Eintrag werden übergeben
+        adapter.setOnItemClickListener(new EssenListAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(Entity_Essen essen) {
+                Intent intent = new Intent(getContext(), Eintrag_Essen.class);
+                intent.putExtra(Eintrag_Essen.EXTRA_ESSEN_ID, essen.getEssenID());
+                intent.putExtra(Eintrag_Essen.EXTRA_ESSEN, essen.getEssen());
+                intent.putExtra(Eintrag_Essen.EXTRA_UHRZEIT, essen.getStunde()); //muss noch geändert werden!!
+                intent.putExtra(Eintrag_Essen.EXTRA_DATUM, essen.getJahr()); //muss noch geändert werden!!
+                getActivity().startActivityForResult(intent, NEW_ESSEN_EDIT_REQUEST_CODE); //startet Methode in der MainActivity
+            }
+        });
+
+
+
+
         new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0,
                 //Löschen bei Rechts-Wischen
                 ItemTouchHelper.RIGHT){
@@ -163,6 +187,26 @@ public class Kalender_Fragment extends Fragment {
             }
         }).attachToRecyclerView(recyclerView2);
 
+        //Daten aus dem Stuhl Eintrag werden übergeben
+        stuhlAdapter.setOnItemClickListener(new StuhlListAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(Entity_Stuhl stuhl) {
+                Intent intent = new Intent(getContext(), Eintrag_Stuhl.class);
+                intent.putExtra(Eintrag_Stuhl.EXTRA_ID, stuhl.getId());
+                intent.putExtra(Eintrag_Stuhl.EXTRA_DATUM, stuhl.getMonat()); //muss noch geändert werden
+                intent.putExtra(Eintrag_Stuhl.EXTRA_UHRZEIT, stuhl.getMinute()); //muss noch geändert werden
+                intent.putExtra(Eintrag_Stuhl.EXTRA_BRISTOL, stuhl.getBristol());
+                intent.putExtra(Eintrag_Stuhl.EXTRA_BLUT, stuhl.getBlut());
+                intent.putExtra(Eintrag_Stuhl.EXTRA_SCHMERZ, stuhl.getSchmerzen());
+                intent.putExtra(Eintrag_Stuhl.EXTRA_FARBE, stuhl.getFarbe());
+                intent.putExtra(Eintrag_Stuhl.EXTRA_UNVERDAUTENAHRUNG, stuhl.getUnverdauteNahrung());
+                intent.putExtra(Eintrag_Stuhl.EXTRA_SCHLEIM, stuhl.getSchleim());
+                intent.putExtra(Eintrag_Stuhl.EXTRA_MENGE, stuhl.getMenge());
+                intent.putExtra(Eintrag_Stuhl.EXTRA_NOTIZ, stuhl.getNotizen());
+                getActivity().startActivityForResult(intent, NEW_STUHL_EDIT_REQUEST_CODE); //startet Methode in der MainActivity
+            }
+        });
+
         return view;
     }
 
@@ -174,12 +218,10 @@ public class Kalender_Fragment extends Fragment {
                 List<EventDay> stuhlEvents = new ArrayList<>();
 
                 for (Entity_Stuhl entity_stuhl : entity_stuhls){
-
                     String jahr = String.valueOf(entity_stuhl.getJahr());
                     String monat = String.valueOf(entity_stuhl.getMonat());
                     String tag = String.valueOf(entity_stuhl.getTag());
                     SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-
                     try {
                         date = sdf.parse(tag+"/"+monat+"/"+jahr);
                     }catch (ParseException e) {
@@ -187,7 +229,6 @@ public class Kalender_Fragment extends Fragment {
                     }
                     Calendar calendar = Calendar.getInstance();
                     calendar.setTime(date);
-
                     EventDay stuhlEvent = new EventDay(calendar, R.drawable.icon_stuhl_eintrag);
                     stuhlEvents.add(stuhlEvent);
                 }

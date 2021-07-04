@@ -89,8 +89,10 @@ public class Eintrag_Essen extends AppCompatActivity {
                     replyIntent.putExtra(EXTRA_UHRZEIT, uhrzeit);
 
                     setResult(RESULT_OK, replyIntent);
+
                 }
                 finish();
+
             }
         });
     }
