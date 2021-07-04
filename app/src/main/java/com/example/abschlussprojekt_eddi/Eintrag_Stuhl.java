@@ -148,33 +148,6 @@ public class Eintrag_Stuhl extends AppCompatActivity {
         aA_menge = new ArrayAdapter<String>(this, R.layout.support_simple_spinner_dropdown_item, array_menge);
         spinner_menge.setAdapter(aA_menge);
 
-        Intent intent = getIntent();
-        //wenn der Eintrag bereits eine ID hat, wird er aktualisiert
-        //und daher wird der gespeicherte Text übergeben
-        if(intent.hasExtra(EXTRA_ID)){
-            System.out.println("intent.hasExtra" + EXTRA_ID);
-
-            editText_currentDate.setText(intent.getStringExtra(EXTRA_DATUM)); //gibt nichts aus
-            editText_currentTime.setText(intent.getStringExtra(EXTRA_UHRZEIT));
-            //wie übergibt man einen spinner??
-            spinner_bristol.getSelectedItem();
-            // NullPointerException: wie übergibt man eine Switch??
-            switch_blut.setChecked(intent.getExtras().getBoolean(EXTRA_BLUT));
-            switch_blut.setChecked(intent.getBooleanExtra(EXTRA_BLUT, false));
-            /*
-            switch_schmerz.setText(intent.getStringExtra(EXTRA_SCHMERZ));
-            spinner_farbe.getSelectedItem();
-            switch_unverdauteNahrung.setText(intent.getStringExtra(EXTRA_UNVERDAUTENAHRUNG));
-            spinner_schleim.getSelectedItem();
-            spinner_menge.getSelectedItem();
-
-             */
-
-            if (edit_Notizen != null){
-                edit_Notizen.setText(intent.getStringExtra(EXTRA_NOTIZ));
-            }
-        }
-
         //Kamera
         imageButton_camera = findViewById(R.id.imageButton_kamera);
 
