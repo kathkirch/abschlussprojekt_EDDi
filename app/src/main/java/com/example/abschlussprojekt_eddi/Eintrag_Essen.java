@@ -63,7 +63,7 @@ public class Eintrag_Essen extends AppCompatActivity {
         //und daher wird der gespeicherte Text übergeben
         if(intent.hasExtra(EXTRA_ESSEN_ID)){
             etEssen.setText(intent.getStringExtra(EXTRA_ESSEN));
-            editText_currentDate.setText(intent.getStringExtra(EXTRA_DATUM)); //gibt akutelles Datum aus
+            editText_currentDate.getText(); //gibt akutelles Datum aus
             editText_currentTime.getText();
         }
 

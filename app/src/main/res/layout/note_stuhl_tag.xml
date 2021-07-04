@@ -28,7 +28,9 @@
             android:maxLines="1"
             android:text="@string/_01_01_2001"
             android:textSize="12sp"
+            android:textStyle="bold"
             android:textColor="@color/black">
+
         </TextView>
 
 
@@ -41,6 +43,7 @@
             android:maxLines="1"
             android:text="@string/hh_mm"
             android:textSize="12sp"
+            android:textStyle="bold"
             android:textColor="@color/black">
         </TextView>
 
@@ -51,6 +54,7 @@
             android:layout_below="@id/stuhl_farbe"
             android:layout_alignStart="@id/stuhl_farbe"
             android:layout_marginTop="3dp"
+            android:maxLines="1"
             android:text="@string/schmerzen"
             android:textSize="12sp"
             android:textColor="@color/black"/>
@@ -61,6 +65,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/textview_uhrzeit"
             android:layout_marginTop="3dp"
+            android:maxLines="1"
             android:text="@string/farbe"
             android:textSize="12sp"
             android:textColor="@color/black"/>

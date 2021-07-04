@@ -18,6 +18,7 @@ import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.abschlussprojekt_eddi.BenutzerdatenSpeicher;
 import com.example.abschlussprojekt_eddi.Einstellungen;
 import com.example.abschlussprojekt_eddi.Eintrag_Essen;
 import com.example.abschlussprojekt_eddi.Eintrag_Stuhl;
@@ -53,6 +54,8 @@ public class Startseite_Fragment extends Fragment implements View.OnClickListene
     public static final int NEW_STUHL_EDIT_REQUEST_CODE = 11;
     public static final int NEW_ESSEN_ACTIVITY_REQUEST_CODE = 2;
     public static final int NEW_ESSEN_EDIT_REQUEST_CODE = 22;
+
+    BenutzerdatenSpeicher bdsp;
 
     public Startseite_Fragment() {
         // Required empty public constructor
@@ -156,7 +159,7 @@ public class Startseite_Fragment extends Fragment implements View.OnClickListene
             }
         }).attachToRecyclerView(recyclerView2);
 
-        //Daten aus dem Eintrag werden übergeben
+        //Daten aus dem Stuhl Eintrag werden übergeben
         stuhlAdapter.setOnItemClickListener(new StuhlListAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(Entity_Stuhl stuhl) {
@@ -176,6 +179,8 @@ public class Startseite_Fragment extends Fragment implements View.OnClickListene
             }
         });
 
+        bdsp = new BenutzerdatenSpeicher(getContext());
+
         Button btStuhl = view.findViewById(id.stuhl_button);
         Button btEssen = view.findViewById(id.essen_button);
         Button btEinstellungen = view.findViewById(id.einstellungenButton);
@@ -186,41 +191,46 @@ public class Startseite_Fragment extends Fragment implements View.OnClickListene
         bV4 = view.findViewById(id.VAS_3);
         bV5 = view.findViewById(id.VAS_4);
 
+        /*
         bV1.setOnClickListener(this::stimmung);
         bV2.setOnClickListener(this::stimmung);
         bV3.setOnClickListener(this::stimmung);
         bV4.setOnClickListener(this::stimmung);
         bV5.setOnClickListener(this::stimmung);
+         */
 
         btStuhl.setOnClickListener(this::onClick);
         btEssen.setOnClickListener(this::onClick);
         btEinstellungen.setOnClickListener(this::onClick);
 
 
+
         return view;
     }
 
+    /*
     // entgültige Ansicht noch anpassen, schaut noch komisch aus
     public void stimmung(View view) {
         Log.d("INFO", "Can you do this?");
         switch (view.getId()) {
             case id.VAS_0:
-                //stimmung wo abspeichern?
+                bdsp.stimmungSpeichern("1");
                 break;
             case id.VAS_1:
-                //stimmung wo abspeichern?
+                bdsp.stimmungSpeichern("2");
                 break;
             case id.VAS_2:
-                //stimmung wo abspeichern?
+                bdsp.stimmungSpeichern("3");
                 break;
             case id.VAS_3:
-                //stimmung wo abspeichern?
+                bdsp.stimmungSpeichern("4");
                 break;
             case id.VAS_4:
                 //stimmung wo abspeichern?
                 break;
         }
     }
+     */
 
     //@SuppressLint("NonConstantResourceId")
     public void onClick(View view){
