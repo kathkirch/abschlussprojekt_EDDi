@@ -29,7 +29,6 @@
             android:layout_height="wrap_content"
             android:background="@drawable/einstellungen_icon"
             android:gravity="start"
-            android:onClick="enterEinstellungen"
              />
 
         <Space
