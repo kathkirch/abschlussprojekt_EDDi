@@ -43,6 +43,12 @@ public class ViewModel_Stuhl extends AndroidViewModel {
         return stuhlByDate;
     }
 
+    public LiveData<List<Entity_Stuhl>> countStuhlByDay (){
+        stuhlRepository = new StuhlRepository(getApplication());
+        LiveData<List<Entity_Stuhl>> stuhlListe = stuhlRepository.countStuhlByDay();
+        return stuhlListe;
+    }
+
     /*
     public Entity_Stuhl getStuhlById(int id){
         return stuhlRepository.getStuhlByID(id);

@@ -1,16 +1,17 @@
 package com.example.abschlussprojekt_eddi;
 
 import android.app.Application;
-import android.os.AsyncTask;
 
 import androidx.lifecycle.LiveData;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class StuhlRepository {
 
     private DAO_Stuhl dao_stuhl;
     private LiveData<List<Entity_Stuhl>> allStuhl;
+    private List<String> stuhlListe = new ArrayList<>();
 
     public StuhlRepository(Application application){
         StuhlRoomDatabase srdb = StuhlRoomDatabase.getDatabaseStuhl(application);
@@ -35,20 +36,25 @@ public class StuhlRepository {
         StuhlRoomDatabase.databaseWriteExecuter.execute(() -> {
             dao_stuhl.update(stuhl);
         });
-        //new UpdateStuhlAsyncTask(dao_stuhl).execute(stuhl);
     }
 
     public void delete(Entity_Stuhl stuhl){
         StuhlRoomDatabase.databaseWriteExecuter.execute(() -> {
             dao_stuhl.delete(stuhl);
         });
-        // new DeleteStuhlAsyncTask(dao_stuhl).execute(stuhl);
     }
 
     public LiveData<List<Entity_Stuhl>> getStuhlByDate (int jahr, int monat, int tag){
         allStuhl = dao_stuhl.getStuhlByDate(jahr, monat, tag);
         return allStuhl;
     }
+
+    public LiveData<List<Entity_Stuhl>> countStuhlByDay (){
+        allStuhl = dao_stuhl.countStuhlByDay();
+        return allStuhl;
+    }
+
+
 
     /*
     public Entity_Stuhl getStuhlByID(Integer id){

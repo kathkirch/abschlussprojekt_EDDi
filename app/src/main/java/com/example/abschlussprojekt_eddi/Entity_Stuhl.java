@@ -31,7 +31,7 @@ public class Entity_Stuhl {
 
     private String farbe;
 
-    @ColumnInfo (name = "Unverdaute Nahrung")
+    @ColumnInfo (name = "Unverdaute_Nahrung")
     private boolean unverdauteNahrung;
 
     private String schleim;

@@ -9,10 +9,10 @@
     tools:context=".ui.main.Statistik_Fragment"
     android:id="@+id/fragment_statistik">
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recycler_view_startseite_essen_test"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:listitem="@layout/note_essen_tag"/>
-
+    <com.jjoe64.graphview.GraphView
+        android:id = "@+id/graph"
+        android:layout_marginTop="40dp"
+        android:padding="30dp"
+        android:layout_width = "match_parent"
+        android:layout_height = "match_parent" />
 </FrameLayout>
