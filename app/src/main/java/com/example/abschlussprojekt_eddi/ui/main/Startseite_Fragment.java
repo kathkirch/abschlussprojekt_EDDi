@@ -65,7 +65,6 @@ public class Startseite_Fragment extends Fragment implements View.OnClickListene
         super.onCreate(savedInstanceState);
     }
 
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -205,10 +204,7 @@ public class Startseite_Fragment extends Fragment implements View.OnClickListene
         btEssen.setOnClickListener(this::onClick);
         btEinstellungen.setOnClickListener(this::onClick);
 
-
-
-        return view;
-    }
+        return view;    }
 
     public void stimmung(View view) {
         switch (view.getId()) {

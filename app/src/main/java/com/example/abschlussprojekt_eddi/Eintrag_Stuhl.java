@@ -80,7 +80,6 @@ public class Eintrag_Stuhl extends AppCompatActivity {
     public static final String EXTRA_NOTIZ =
             "com.example.abschlussprojekt_eddi.EXTRA_NOTIZ";
 
-
     final static int PERMISSION_CODE = 1;
     final static int GALLERY_REQUEST_CODE = 3;
     final static int REQUEST_CODE = 2;
@@ -146,8 +145,6 @@ public class Eintrag_Stuhl extends AppCompatActivity {
         spinner_menge = findViewById(R.id.spinner_menge);
         aA_menge = new ArrayAdapter<String>(this, R.layout.support_simple_spinner_dropdown_item, array_menge);
         spinner_menge.setAdapter(aA_menge);
-
-
 
         //Kamera
         imageButton_camera = findViewById(R.id.imageButton_kamera);
@@ -218,27 +215,13 @@ public class Eintrag_Stuhl extends AppCompatActivity {
         //wenn der Eintrag bereits eine ID hat, wird er aktualisiert
         //und daher wird der gespeicherte Text übergeben
         if(intent.hasExtra(EXTRA_ID)){
-            System.out.println("intent.hasExtra" + EXTRA_ID);
-
-            editText_currentDate.getText(); //gibt nichts aus
+            editText_currentDate.getText(); //gibt aktuelles Datum aus
             editText_currentTime.getText(); //gibt aktuelles Datum aus
             spinner_bristol.setSelection(intent.getIntExtra(EXTRA_BRISTOL, 2));
-            //wie übergibt man eine Switch??
-            //switch_blut.setText(intent.getStringExtra(EXTRA_BLUT));
-
+            switch_blut.setChecked(intent.getBooleanExtra(EXTRA_BLUT, false));
             switch_schmerz.setChecked(intent.getBooleanExtra(EXTRA_SCHMERZ, false));
-            /*
-            boolean isChecked = intent.getBooleanExtra(EXTRA_SCHMERZ, false);
-            if (intent.getBooleanExtra(EXTRA_SCHMERZ, false)){
-                switch_schmerz.setChecked(true);
-            }else{
-                switch_schmerz.setChecked(false);
-            }
-             */
-
-            //switch_schmerz.setChecked(EXTRA_SCHMERZ);
             spinner_farbe.setSelection(intent.getIntExtra(EXTRA_FARBE, 1));
-            //switch_unverdauteNahrung.setText(intent.getStringExtra(EXTRA_UNVERDAUTENAHRUNG));
+            switch_unverdauteNahrung.setChecked(intent.getBooleanExtra(EXTRA_UNVERDAUTENAHRUNG,false));
             spinner_schleim.setSelection(intent.getIntExtra(EXTRA_SCHLEIM, 1));
             spinner_menge.setSelection(intent.getIntExtra(EXTRA_MENGE, 1));
             if (edit_Notizen != null){
@@ -256,27 +239,6 @@ public class Eintrag_Stuhl extends AppCompatActivity {
         int bristol = spinner_bristol.getSelectedItemPosition(); //plus eins weil erstes Symbol hat Position 0
         boolean blut = switch_blut.isChecked();
         boolean schmerz = switch_schmerz.isChecked();
-
-        /*
-        switch_schmerz.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if(isChecked){
-                    switch_schmerz.setChecked(true);
-                }else {
-                    switch_schmerz.setChecked(false);
-                }
-            }
-        });
-        boolean schmerz = switch_schmerz.isChecked();
-        boolean schmerz = true;
-         if (switch_schmerz.isChecked()){
-             schmerz = true;
-         }else{
-             schmerz = false;
-         }
-         */
-
         int farbe = spinner_farbe.getSelectedItemPosition();
         boolean unverdauteNahrung = switch_unverdauteNahrung.isChecked();
         int schleim = spinner_schleim.getSelectedItemPosition();

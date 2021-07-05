@@ -25,9 +25,9 @@ public class Entity_Stuhl {
 
     private int bristol;
 
-    private boolean schmerzen;
-
     private boolean blut;
+
+    private boolean schmerzen;
 
     private int farbe;
 
@@ -42,7 +42,7 @@ public class Entity_Stuhl {
 
 
     //Konstruktor
-    public Entity_Stuhl(int jahr, int monat, int tag, int stunde, int minute, int bristol, boolean schmerzen, boolean blut,
+    public Entity_Stuhl(int jahr, int monat, int tag, int stunde, int minute, int bristol, boolean blut, boolean schmerzen,
                         int farbe, boolean unverdauteNahrung, int schleim, int menge, String notizen) {
         this.jahr = jahr;
         this.monat = monat;
@@ -50,8 +50,8 @@ public class Entity_Stuhl {
         this.stunde = stunde;
         this.minute = minute;
         this.bristol = bristol;
-        this.schmerzen = schmerzen;
         this.blut = blut;
+        this.schmerzen = schmerzen;
         this.farbe = farbe;
         this.unverdauteNahrung = unverdauteNahrung;
         this.schleim = schleim;
@@ -88,12 +88,12 @@ public class Entity_Stuhl {
         return bristol;
     }
 
-    public boolean getSchmerzen() {
-        return schmerzen;
-    }
-
     public boolean getBlut() {
         return blut;
+    }
+
+    public boolean getSchmerzen() {
+        return schmerzen;
     }
 
     public int getFarbe() {
@@ -146,12 +146,12 @@ public class Entity_Stuhl {
         this.bristol = bristol;
     }
 
-    public void setSchmerzen(boolean schmerzen) {
-        this.schmerzen = schmerzen;
-    }
-
     public void setBlut(boolean blut) {
         this.blut = blut;
+    }
+
+    public void setSchmerzen(boolean schmerzen) {
+        this.schmerzen = schmerzen;
     }
 
     public void setFarbe(int farbe) {
