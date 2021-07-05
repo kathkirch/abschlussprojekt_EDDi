@@ -7,7 +7,7 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
-    <color name="light_purple_grey">#9999cc</color>
+
     <color name="ivory">#FFFFF0</color>
     <color name="light_yellow">#FFFFE0</color>
     <color name="yellow">#FFFF00</color>
@@ -160,8 +160,8 @@
     <color name="divider_color">#079ea3</color>
     <color name="title_background">#6fced2</color>
     <color name="calender_header">#00CED1</color>
-
     <color name="calender_select">#5F9EA0</color>
+    <color name="stimmung_selected">#AFEEEE</color>
 
 
 </resources>
