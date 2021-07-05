@@ -30,6 +30,17 @@ public class Eintrag_Essen extends AppCompatActivity {
     public static final String EXTRA_ESSEN_ID =
             "com.example.abschlussprojekt_eddi.EXTRA_ESSEN_ID";
 
+    public static final String EXTRA_JAHR =
+            "com.example.abschlussprojekt_eddi.EXTRA_JAHR";
+    public static final String EXTRA_MONAT =
+            "com.example.abschlussprojekt_eddi.EXTRA_MONAT";
+    public static final String EXTRA_TAG =
+            "com.example.abschlussprojekt_eddi.EXTRA_TAG";
+    public static final String EXTRA_STUNDE =
+            "com.example.abschlussprojekt_eddi.EXTRA_STUNDE";
+    public static final String EXTRA_MINUTE =
+            "com.example.abschlussprojekt_eddi.EXTRA_MINUTE";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -63,8 +74,13 @@ public class Eintrag_Essen extends AppCompatActivity {
         //und daher wird der gespeicherte Text übergeben
         if(intent.hasExtra(EXTRA_ESSEN_ID)){
             etEssen.setText(intent.getStringExtra(EXTRA_ESSEN)); //funktioniert
-            editText_currentDate.getText(); //gibt nichts aus. Warum??
-            editText_currentTime.getText(); //gibt akutelles Datum aus
+            int jahr = intent.getIntExtra(EXTRA_JAHR, 2000);
+            int monat = intent.getIntExtra(EXTRA_MONAT, 01);
+            int tag = intent.getIntExtra(EXTRA_TAG, 01);
+            editText_currentDate.setText(tag + "." + monat + "." + jahr);
+            int stunde = intent.getIntExtra(EXTRA_STUNDE, 12);
+            int minute = intent.getIntExtra(EXTRA_MINUTE, 20);
+            editText_currentTime.setText(stunde + ":" + minute); //wird im Eintrag angezeigt
         }
 
 

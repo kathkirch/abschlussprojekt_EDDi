@@ -157,8 +157,11 @@ public class Kalender_Fragment extends Fragment {
                 Intent intent = new Intent(getContext(), Eintrag_Essen.class);
                 intent.putExtra(Eintrag_Essen.EXTRA_ESSEN_ID, essen.getEssenID());
                 intent.putExtra(Eintrag_Essen.EXTRA_ESSEN, essen.getEssen());
-                intent.putExtra(Eintrag_Essen.EXTRA_UHRZEIT, essen.getStunde()); //muss noch geändert werden!!
-                intent.putExtra(Eintrag_Essen.EXTRA_DATUM, essen.getJahr()); //muss noch geändert werden!!
+                intent.putExtra(Eintrag_Essen.EXTRA_STUNDE, essen.getStunde());
+                intent.putExtra(Eintrag_Essen.EXTRA_MINUTE, essen.getMinute());
+                intent.putExtra(Eintrag_Essen.EXTRA_JAHR, essen.getJahr());
+                intent.putExtra(Eintrag_Essen.EXTRA_MONAT, essen.getMonat());
+                intent.putExtra(Eintrag_Essen.EXTRA_TAG, essen.getTag());
                 getActivity().startActivityForResult(intent, NEW_ESSEN_EDIT_REQUEST_CODE); //startet Methode in der MainActivity
             }
         });
@@ -190,8 +193,11 @@ public class Kalender_Fragment extends Fragment {
             public void onItemClick(Entity_Stuhl stuhl) {
                 Intent intent = new Intent(getContext(), Eintrag_Stuhl.class);
                 intent.putExtra(Eintrag_Stuhl.EXTRA_ID, stuhl.getId());
-                intent.putExtra(Eintrag_Stuhl.EXTRA_DATUM, stuhl.getMonat()); //muss noch geändert werden
-                intent.putExtra(Eintrag_Stuhl.EXTRA_UHRZEIT, stuhl.getMinute()); //muss noch geändert werden
+                intent.putExtra(Eintrag_Essen.EXTRA_STUNDE, stuhl.getStunde());
+                intent.putExtra(Eintrag_Essen.EXTRA_MINUTE, stuhl.getMinute());
+                intent.putExtra(Eintrag_Essen.EXTRA_JAHR, stuhl.getJahr());
+                intent.putExtra(Eintrag_Essen.EXTRA_MONAT, stuhl.getMonat());
+                intent.putExtra(Eintrag_Essen.EXTRA_TAG, stuhl.getTag());
                 intent.putExtra(Eintrag_Stuhl.EXTRA_BRISTOL, stuhl.getBristol());
                 intent.putExtra(Eintrag_Stuhl.EXTRA_BLUT, stuhl.getBlut());
                 intent.putExtra(Eintrag_Stuhl.EXTRA_SCHMERZ, stuhl.getSchmerzen());
