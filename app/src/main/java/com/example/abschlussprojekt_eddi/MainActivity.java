@@ -56,14 +56,13 @@ public class MainActivity extends AppCompatActivity {
             int monat = Integer.parseInt(dateValues[1]);
             int jahr = Integer.parseInt(dateValues[2]);
 
-            String bristol = data.getStringExtra(Eintrag_Stuhl.EXTRA_BRISTOL);
+            int bristol = data.getIntExtra(Eintrag_Stuhl.EXTRA_BRISTOL, 1);
             boolean blut = data.getExtras().getBoolean(Eintrag_Stuhl.EXTRA_BLUT);
-            boolean schmerz = data.getExtras().getBoolean(Eintrag_Stuhl.EXTRA_SCHMERZ);
-            String farbe = data.getStringExtra(Eintrag_Stuhl.EXTRA_FARBE);
-            boolean unverdauteNahrung = data.getExtras().getBoolean
-                    (Eintrag_Stuhl.EXTRA_UNVERDAUTENAHRUNG);
-            String schleim = data.getStringExtra(Eintrag_Stuhl.EXTRA_SCHLEIM);
-            String menge = data.getStringExtra(Eintrag_Stuhl.EXTRA_MENGE);
+            boolean schmerz = data.getBooleanExtra(Eintrag_Stuhl.EXTRA_SCHMERZ, false);
+            int farbe = data.getIntExtra(Eintrag_Stuhl.EXTRA_FARBE, 1);
+            boolean unverdauteNahrung = data.getExtras().getBoolean(Eintrag_Stuhl.EXTRA_UNVERDAUTENAHRUNG);
+            int schleim = data.getIntExtra(Eintrag_Stuhl.EXTRA_SCHLEIM, 1);
+            int menge = data.getIntExtra(Eintrag_Stuhl.EXTRA_MENGE, 1);
             String notiz = data.getStringExtra(Eintrag_Stuhl.EXTRA_NOTIZ);
 
             // woher FotoReferenz?
@@ -145,14 +144,14 @@ public class MainActivity extends AppCompatActivity {
             int monat = Integer.parseInt(dateValues[1]);
             int jahr = Integer.parseInt(dateValues[2]);
 
-            String bristol = data.getStringExtra(Eintrag_Stuhl.EXTRA_BRISTOL);
+            int bristol = data.getIntExtra(Eintrag_Stuhl.EXTRA_BRISTOL, 1);
             boolean blut = data.getExtras().getBoolean(Eintrag_Stuhl.EXTRA_BLUT);
-            boolean schmerz = data.getExtras().getBoolean(Eintrag_Stuhl.EXTRA_SCHMERZ);
-            String farbe = data.getStringExtra(Eintrag_Stuhl.EXTRA_FARBE);
+            boolean schmerz = data.getBooleanExtra(Eintrag_Stuhl.EXTRA_SCHMERZ, false);
+            int farbe = data.getIntExtra(Eintrag_Stuhl.EXTRA_FARBE, 1);
             boolean unverdauteNahrung = data.getExtras().getBoolean
                     (Eintrag_Stuhl.EXTRA_UNVERDAUTENAHRUNG);
-            String schleim = data.getStringExtra(Eintrag_Stuhl.EXTRA_SCHLEIM);
-            String menge = data.getStringExtra(Eintrag_Stuhl.EXTRA_MENGE);
+            int schleim = data.getIntExtra(Eintrag_Stuhl.EXTRA_SCHLEIM, 1);
+            int menge = data.getIntExtra(Eintrag_Stuhl.EXTRA_MENGE, 1);
             String notiz = data.getStringExtra(Eintrag_Stuhl.EXTRA_NOTIZ);
 
             Entity_Stuhl entity_stuhl = new Entity_Stuhl(jahr, monat, tag, stunde, minute, bristol,

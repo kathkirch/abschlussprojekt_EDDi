@@ -147,28 +147,7 @@ public class Eintrag_Stuhl extends AppCompatActivity {
         aA_menge = new ArrayAdapter<String>(this, R.layout.support_simple_spinner_dropdown_item, array_menge);
         spinner_menge.setAdapter(aA_menge);
 
-        Intent intent = getIntent();
-        //wenn der Eintrag bereits eine ID hat, wird er aktualisiert
-        //und daher wird der gespeicherte Text übergeben
-        if(intent.hasExtra(EXTRA_ID)){
-            System.out.println("intent.hasExtra" + EXTRA_ID);
-            /*
-            editText_currentDate.setText(intent.getStringExtra(EXTRA_DATUM)); //gibt nichts aus
-            editText_currentTime.setText(intent.getStringExtra(EXTRA_UHRZEIT));
-            //wie übergibt man einen spinner??
-            spinner_bristol.getSelectedItem();
-            // NullPointerException: wie übergibt man eine Switch??
-            switch_blut.setText(intent.getStringExtra(EXTRA_BLUT));
-            switch_schmerz.setText(intent.getStringExtra(EXTRA_SCHMERZ));
-            spinner_farbe.getSelectedItem();
-            switch_unverdauteNahrung.setText(intent.getStringExtra(EXTRA_UNVERDAUTENAHRUNG));
-            spinner_schleim.getSelectedItem();
-            spinner_menge.getSelectedItem();
-             */
-            if (edit_Notizen != null){
-                edit_Notizen.setText(intent.getStringExtra(EXTRA_NOTIZ));
-            }
-        }
+
 
         //Kamera
         imageButton_camera = findViewById(R.id.imageButton_kamera);
@@ -234,6 +213,38 @@ public class Eintrag_Stuhl extends AppCompatActivity {
                 stuhlSpeichern();
             }
         });
+
+        Intent intent = getIntent();
+        //wenn der Eintrag bereits eine ID hat, wird er aktualisiert
+        //und daher wird der gespeicherte Text übergeben
+        if(intent.hasExtra(EXTRA_ID)){
+            System.out.println("intent.hasExtra" + EXTRA_ID);
+
+            editText_currentDate.getText(); //gibt nichts aus
+            editText_currentTime.getText(); //gibt aktuelles Datum aus
+            spinner_bristol.setSelection(intent.getIntExtra(EXTRA_BRISTOL, 2));
+            //wie übergibt man eine Switch??
+            //switch_blut.setText(intent.getStringExtra(EXTRA_BLUT));
+
+            switch_schmerz.setChecked(intent.getBooleanExtra(EXTRA_SCHMERZ, false));
+            /*
+            boolean isChecked = intent.getBooleanExtra(EXTRA_SCHMERZ, false);
+            if (intent.getBooleanExtra(EXTRA_SCHMERZ, false)){
+                switch_schmerz.setChecked(true);
+            }else{
+                switch_schmerz.setChecked(false);
+            }
+             */
+
+            //switch_schmerz.setChecked(EXTRA_SCHMERZ);
+            spinner_farbe.setSelection(intent.getIntExtra(EXTRA_FARBE, 1));
+            //switch_unverdauteNahrung.setText(intent.getStringExtra(EXTRA_UNVERDAUTENAHRUNG));
+            spinner_schleim.setSelection(intent.getIntExtra(EXTRA_SCHLEIM, 1));
+            spinner_menge.setSelection(intent.getIntExtra(EXTRA_MENGE, 1));
+            if (edit_Notizen != null){
+                edit_Notizen.setText(intent.getStringExtra(EXTRA_NOTIZ)); //funktioniert
+            }
+        }
     }
 
      public void stuhlSpeichern () {
@@ -242,18 +253,40 @@ public class Eintrag_Stuhl extends AppCompatActivity {
 
         String datum = editText_currentDate.getText().toString();
         String uhrzeit = editText_currentTime.getText().toString();
-        String bristol = String.valueOf(spinner_bristol.getSelectedItemPosition()+1); //plus eins weil erstes Symbol hat Position 0
+        int bristol = spinner_bristol.getSelectedItemPosition(); //plus eins weil erstes Symbol hat Position 0
         boolean blut = switch_blut.isChecked();
         boolean schmerz = switch_schmerz.isChecked();
-        String farbe = spinner_farbe.getSelectedItem().toString();
-        boolean unverdauteNahrung = switch_unverdauteNahrung.isChecked();
 
-        String schleim = spinner_schleim.getSelectedItem().toString();
-        String menge = spinner_menge.getSelectedItem().toString();
+        /*
+        switch_schmerz.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(isChecked){
+                    switch_schmerz.setChecked(true);
+                }else {
+                    switch_schmerz.setChecked(false);
+                }
+            }
+        });
+        boolean schmerz = switch_schmerz.isChecked();
+        boolean schmerz = true;
+         if (switch_schmerz.isChecked()){
+             schmerz = true;
+         }else{
+             schmerz = false;
+         }
+         */
+
+        int farbe = spinner_farbe.getSelectedItemPosition();
+        boolean unverdauteNahrung = switch_unverdauteNahrung.isChecked();
+        int schleim = spinner_schleim.getSelectedItemPosition();
+        int menge = spinner_menge.getSelectedItemPosition();
         String notizen = edit_Notizen.getText().toString();
+
 
          if (datum == null || uhrzeit == null){
              setResult(RESULT_CANCELED, stuhl_data);
+             Toast.makeText(context, "Datum|Uhrzeit eintragen!", Toast.LENGTH_SHORT).show();
          } else {
              stuhl_data.putExtra(EXTRA_DATUM, datum);
              stuhl_data.putExtra(EXTRA_UHRZEIT, uhrzeit);
@@ -267,7 +300,7 @@ public class Eintrag_Stuhl extends AppCompatActivity {
              stuhl_data.putExtra(EXTRA_NOTIZ, notizen);
 
              int id = getIntent().getIntExtra(EXTRA_ID, -1);
-             if(id != -1){
+             if (id != -1) {
                  stuhl_data.putExtra(EXTRA_ID, id);
              }
              setResult(RESULT_OK, stuhl_data);

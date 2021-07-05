@@ -98,7 +98,7 @@ public class Startseite_Fragment extends Fragment implements View.OnClickListene
             @Override
             //um den Adapter zu aktualisieren
             public void onChanged(List<Entity_Essen> entity_essens) {
-                adapter.setEssen(entity_essens);
+                adapter.submitList(entity_essens);
                 //entity_essens.clear();
             }
         });
@@ -147,7 +147,7 @@ public class Startseite_Fragment extends Fragment implements View.OnClickListene
         viewModel_stuhl.getAllStuhl().observe(getViewLifecycleOwner(), new Observer<List<Entity_Stuhl>>() {
             @Override
             public void onChanged(List<Entity_Stuhl> entity_stuhl) {
-                stuhlAdapter.setStuhl(entity_stuhl);
+                stuhlAdapter.submitList(entity_stuhl);
                 //entity_stuhl.clear();
             }
         });
@@ -171,7 +171,7 @@ public class Startseite_Fragment extends Fragment implements View.OnClickListene
             }
         }).attachToRecyclerView(recyclerView2);
 
-        //Daten aus dem Eintrag werden übergeben
+        //Daten aus dem Stuhl Eintrag werden übergeben
         stuhlAdapter.setOnItemClickListener(new StuhlListAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(Entity_Stuhl stuhl) {
@@ -255,7 +255,6 @@ public class Startseite_Fragment extends Fragment implements View.OnClickListene
                 break;
         }
     }
-
 
     //@SuppressLint("NonConstantResourceId")
     public void onClick(View view){

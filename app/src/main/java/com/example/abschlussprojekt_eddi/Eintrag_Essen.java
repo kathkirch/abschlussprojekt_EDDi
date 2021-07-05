@@ -62,9 +62,9 @@ public class Eintrag_Essen extends AppCompatActivity {
         //wenn der Eintrag bereits eine ID hat, wird er aktualisiert
         //und daher wird der gespeicherte Text übergeben
         if(intent.hasExtra(EXTRA_ESSEN_ID)){
-            etEssen.setText(intent.getStringExtra(EXTRA_ESSEN));
-            editText_currentDate.getText(); //gibt akutelles Datum aus
-            editText_currentTime.getText();
+            etEssen.setText(intent.getStringExtra(EXTRA_ESSEN)); //funktioniert
+            editText_currentDate.getText(); //gibt nichts aus. Warum??
+            editText_currentTime.getText(); //gibt akutelles Datum aus
         }
 
 
@@ -89,8 +89,10 @@ public class Eintrag_Essen extends AppCompatActivity {
                     replyIntent.putExtra(EXTRA_UHRZEIT, uhrzeit);
 
                     setResult(RESULT_OK, replyIntent);
+
                 }
                 finish();
+
             }
         });
     }

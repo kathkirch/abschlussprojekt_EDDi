@@ -6,15 +6,41 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.DiffUtil;
+import androidx.recyclerview.widget.ListAdapter;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class EssenListAdapter extends RecyclerView.Adapter<EssenListAdapter.EssenViewHolder> {
+public class EssenListAdapter extends ListAdapter<Entity_Essen, EssenListAdapter.EssenViewHolder> {
 
-    private List<Entity_Essen> essenList = new ArrayList<>();
     private OnItemClickListener listener; //für den setOnItemClickListener
+
+    //damit nicht alle Einträge jedes mal aktualisiert werden, sondern nur derjenige, der sich geändert hat
+    //bessere Performance bei vielen Einträgen
+    public EssenListAdapter() {
+        super(DIFF_CALLBACK);
+    }
+
+    private static final DiffUtil.ItemCallback<Entity_Essen> DIFF_CALLBACK = new DiffUtil.ItemCallback<Entity_Essen>() {
+        //wenn die ID gleich ist, egal welche Werte geändert wurden
+        @Override
+        public boolean areItemsTheSame(@NonNull Entity_Essen oldItem, @NonNull Entity_Essen newItem) {
+            return oldItem.getEssenID() == newItem.getEssenID();
+        }
+
+        //wenn sich am Eintrag nichts geändert hat (keine Werte wurden verändert)
+        @Override
+        public boolean areContentsTheSame(@NonNull Entity_Essen oldItem, @NonNull Entity_Essen newItem) {
+            return oldItem.getEssen().equals(newItem.getEssen()) &&
+                    oldItem.getJahr() == (newItem.getJahr()) &&
+                    oldItem.getMonat() == (newItem.getMonat()) &&
+                    oldItem.getTag() == (newItem.getTag()) &&
+                    oldItem.getStunde() == (newItem.getStunde()) &&
+                    oldItem.getMinute() == (newItem.getMinute());
+        }
+    };
 
     @NonNull
     @Override
@@ -26,25 +52,16 @@ public class EssenListAdapter extends RecyclerView.Adapter<EssenListAdapter.Esse
 
     @Override
     public void onBindViewHolder(@NonNull EssenViewHolder holder, int position) {
-        Entity_Essen current = essenList.get(position);
+        Entity_Essen current = getItem(position);
         String essen = current.getEssen();
         String datum = (current.getTag() + "." + current.getMonat() + "." + current.getJahr());
         holder.bind(essen, datum);
     }
 
-    @Override
-    public int getItemCount() {
-        return essenList.size();
-    }
-
-    public void setEssen(List<Entity_Essen> essenList) {
-        this.essenList = essenList;
-        notifyDataSetChanged(); //wird später geändert!
-    }
 
     //um die Position fürs Löschen zu bekommen
     public Entity_Essen getEssenAt(int position) {
-        return essenList.get(position);
+        return getItem(position);
     }
 
     class EssenViewHolder extends RecyclerView.ViewHolder {
@@ -63,7 +80,7 @@ public class EssenListAdapter extends RecyclerView.Adapter<EssenListAdapter.Esse
                 public void onClick(View v) {
                     int position = getAdapterPosition();
                     if (listener != null && position != RecyclerView.NO_POSITION) {
-                        listener.onItemClick(essenList.get(position));
+                        listener.onItemClick(getItem(position));
                     }
                 }
             });
