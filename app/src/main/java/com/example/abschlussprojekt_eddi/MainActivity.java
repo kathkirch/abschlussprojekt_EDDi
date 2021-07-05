@@ -19,9 +19,6 @@ public class MainActivity extends AppCompatActivity {
     private ViewModel_Essen viewModel_essen;
     private ViewModel_Stuhl viewModel_stuhl;
 
-
-    BenutzerdatenSpeicher bdsp;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -57,10 +54,10 @@ public class MainActivity extends AppCompatActivity {
             int jahr = Integer.parseInt(dateValues[2]);
 
             int bristol = data.getIntExtra(Eintrag_Stuhl.EXTRA_BRISTOL, 1);
-            boolean blut = data.getExtras().getBoolean(Eintrag_Stuhl.EXTRA_BLUT);
+            boolean blut = data.getBooleanExtra(Eintrag_Stuhl.EXTRA_BLUT, false);
             boolean schmerz = data.getBooleanExtra(Eintrag_Stuhl.EXTRA_SCHMERZ, false);
             int farbe = data.getIntExtra(Eintrag_Stuhl.EXTRA_FARBE, 1);
-            boolean unverdauteNahrung = data.getExtras().getBoolean(Eintrag_Stuhl.EXTRA_UNVERDAUTENAHRUNG);
+            boolean unverdauteNahrung = data.getBooleanExtra(Eintrag_Stuhl.EXTRA_UNVERDAUTENAHRUNG, false);
             int schleim = data.getIntExtra(Eintrag_Stuhl.EXTRA_SCHLEIM, 1);
             int menge = data.getIntExtra(Eintrag_Stuhl.EXTRA_MENGE, 1);
             String notiz = data.getStringExtra(Eintrag_Stuhl.EXTRA_NOTIZ);
@@ -145,11 +142,10 @@ public class MainActivity extends AppCompatActivity {
             int jahr = Integer.parseInt(dateValues[2]);
 
             int bristol = data.getIntExtra(Eintrag_Stuhl.EXTRA_BRISTOL, 1);
-            boolean blut = data.getExtras().getBoolean(Eintrag_Stuhl.EXTRA_BLUT);
+            boolean blut = data.getBooleanExtra(Eintrag_Stuhl.EXTRA_BLUT, false);
             boolean schmerz = data.getBooleanExtra(Eintrag_Stuhl.EXTRA_SCHMERZ, false);
             int farbe = data.getIntExtra(Eintrag_Stuhl.EXTRA_FARBE, 1);
-            boolean unverdauteNahrung = data.getExtras().getBoolean
-                    (Eintrag_Stuhl.EXTRA_UNVERDAUTENAHRUNG);
+            boolean unverdauteNahrung = data.getBooleanExtra(Eintrag_Stuhl.EXTRA_UNVERDAUTENAHRUNG, false);
             int schleim = data.getIntExtra(Eintrag_Stuhl.EXTRA_SCHLEIM, 1);
             int menge = data.getIntExtra(Eintrag_Stuhl.EXTRA_MENGE, 1);
             String notiz = data.getStringExtra(Eintrag_Stuhl.EXTRA_NOTIZ);
