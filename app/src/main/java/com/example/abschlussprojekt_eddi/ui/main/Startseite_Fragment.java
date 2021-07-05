@@ -256,7 +256,6 @@ public class Startseite_Fragment extends Fragment implements View.OnClickListene
         }
     }
 
-
     //@SuppressLint("NonConstantResourceId")
     public void onClick(View view){
         switch (view.getId()){
