@@ -22,7 +22,7 @@ public interface DAO_Stuhl {
     @Delete
     void delete(Entity_Stuhl stuhl);
 
-    @Query("SELECT * FROM stuhl ORDER BY jahr, monat, tag DESC")
+    @Query("SELECT * FROM stuhl ORDER BY jahr DESC, monat DESC, tag DESC")
     LiveData<List<Entity_Stuhl>> getStuhlOrderbyTime();
 
     //um die Stuhl-Einträge im Logbuch für den jeweiligen Tag anzuzeigen
