@@ -6,6 +6,7 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 
+import java.sql.Date;
 import java.util.List;
 
 public class ViewModel_Stuhl extends AndroidViewModel {
@@ -43,15 +44,10 @@ public class ViewModel_Stuhl extends AndroidViewModel {
         return stuhlByDate;
     }
 
-    public LiveData<List<Entity_Stuhl>> countStuhlByDay (){
+    public LiveData<List<Entity_Stuhl>> getStuhlLastMonth (int vormonat){
         stuhlRepository = new StuhlRepository(getApplication());
-        LiveData<List<Entity_Stuhl>> stuhlListe = stuhlRepository.countStuhlByDay();
-        return stuhlListe;
+        LiveData<List<Entity_Stuhl>> stuhlLastMonth = stuhlRepository.getStuhlLastMonth(vormonat);
+        return stuhlLastMonth;
     }
 
-    /*
-    public Entity_Stuhl getStuhlById(int id){
-        return stuhlRepository.getStuhlByID(id);
-    }
-     */
 }

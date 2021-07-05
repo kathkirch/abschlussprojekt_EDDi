@@ -34,11 +34,10 @@ public interface DAO_Stuhl {
     public Entity_Stuhl getStuhlByID(int eintragID);
 
 
-    @Query("SELECT jahr || '-' ||  monat || '-' ||  tag as DateAdded, " +
-            "count(id) as AnzahlProTag, " +
-            "id, jahr, monat, tag, stunde, minute, bristol, schmerzen, blut, farbe, unverdaute_Nahrung, schleim, menge, notizen " +
-            "FROM stuhl  " +
-            "WHERE date(DateAdded) < DATE('now', '-30 days')"+
-            "GROUP BY DateAdded")
-    LiveData<List<Entity_Stuhl>> countStuhlByDay();
+    @Query ("SELECT id, jahr, monat, tag, stunde, minute, bristol, schmerzen, blut, farbe, " +
+            "Unverdaute_Nahrung, schleim, menge, notizen "+
+            "from stuhl " +
+            "WHERE monat in (:vorMonat)")
+    LiveData<List<Entity_Stuhl>> getStuhlLastMonth(int vorMonat);
 }
+
