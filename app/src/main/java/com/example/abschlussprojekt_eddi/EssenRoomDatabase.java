@@ -49,20 +49,4 @@ public abstract class EssenRoomDatabase extends RoomDatabase {
         }
     };
 
-    /*
-
-    private static class PopulateDbAsyncTask extends AsyncTask<Void, Void, Void> {
-        private DAO_Essen dao_essen;
-
-        private PopulateDbAsyncTask(EssenRoomDatabase db) {
-            dao_essen = db.dao_essen();
-        }
-
-        @Override
-        protected Void doInBackground(Void... voids) {
-            return null;
-        }
-    }
-
-     */
 }
