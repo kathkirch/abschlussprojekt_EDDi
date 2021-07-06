@@ -13,9 +13,6 @@ import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.ListAdapter;
 import androidx.recyclerview.widget.RecyclerView;
 
-import java.util.ArrayList;
-import java.util.List;
-
 
 public class StuhlListAdapter extends ListAdapter<Entity_Stuhl, StuhlListAdapter.StuhlViewHolder> {
 
@@ -110,7 +107,7 @@ public class StuhlListAdapter extends ListAdapter<Entity_Stuhl, StuhlListAdapter
             tvDatum.setText(datum);
             tvUhrzeit.setText(uhrzeit);
             getBristolSymbol(bristol);
-            String farbString = ("Farbe: " + farbe); //wie bekommt man den Text und nicht die Zahl??
+            String farbString = ("Farbe: " + getFarbText(farbe));
             tvFarbe.setText(farbString);
             String schmerzString = ("Schmerzen: " + schmerz);
             tvSchmerz.setText(schmerzString);
@@ -142,6 +139,31 @@ public class StuhlListAdapter extends ListAdapter<Entity_Stuhl, StuhlListAdapter
                 default:
                     ivBristol.setImageResource(R.drawable.not_selected);
             }
+        }
+
+        public String getFarbText (int farbInt){
+            String farbe = "farbe";
+            switch (farbInt){
+                case 0 :
+                    farbe = "braun";
+                    return farbe;
+                case 1 :
+                    farbe = "grün";
+                    return farbe;
+                case 2 :
+                    farbe = "grau-lehmfarben";
+                    return farbe;
+                case 3 :
+                    farbe = "gelb";
+                    return farbe;
+                case 4 :
+                    farbe = "rot";
+                    return farbe;
+                case 5 :
+                    farbe = "schwarz";
+                    return farbe;
+            }
+            return farbe;
         }
     }
 
