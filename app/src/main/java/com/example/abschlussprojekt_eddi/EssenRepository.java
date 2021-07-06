@@ -1,7 +1,6 @@
 package com.example.abschlussprojekt_eddi;
 
 import android.app.Application;
-import android.os.AsyncTask;
 
 import androidx.lifecycle.LiveData;
 
@@ -11,6 +10,7 @@ public class EssenRepository {
 
     private DAO_Essen m_dao_essen;
     private LiveData<List<Entity_Essen>> allEssen;
+    private int anzahl;
 
     EssenRepository (Application application) {
         EssenRoomDatabase erdb = EssenRoomDatabase.getDatabase(application);
@@ -48,6 +48,7 @@ public class EssenRepository {
         allEssen = m_dao_essen.getEssenByDate(jahr, monat, tag);
         return allEssen;
     }
+
 
     //Query-Logik wird in eine Async-Task Subklasse ausgelagert
     //AsyncTask <input für execute(), Fortschritt, Output von get()

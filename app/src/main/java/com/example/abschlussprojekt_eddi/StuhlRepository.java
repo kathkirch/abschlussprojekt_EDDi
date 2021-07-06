@@ -10,6 +10,7 @@ public class StuhlRepository {
 
     private DAO_Stuhl dao_stuhl;
     private LiveData<List<Entity_Stuhl>> allStuhl;
+    private LiveData<List<AnzahlByDay>> anzahl;
 
     public StuhlRepository(Application application){
         StuhlRoomDatabase srdb = StuhlRoomDatabase.getDatabaseStuhl(application);
@@ -50,6 +51,11 @@ public class StuhlRepository {
     public LiveData<List<Entity_Stuhl>> getStuhlLastMonth (int vormonat){
         allStuhl = dao_stuhl.getStuhlLastMonth(vormonat);
         return allStuhl;
+    }
+
+    public LiveData<List<AnzahlByDay>> getAnzahlByDay(int vormonat){
+        anzahl = dao_stuhl.getAnzahlByDay(vormonat);
+        return anzahl;
     }
 
 }

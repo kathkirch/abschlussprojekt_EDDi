@@ -13,18 +13,15 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.example.abschlussprojekt_eddi.Entity_Stuhl;
+import com.example.abschlussprojekt_eddi.AnzahlByDay;
 import com.example.abschlussprojekt_eddi.R;
 import com.example.abschlussprojekt_eddi.ViewModel_Stuhl;
 import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.series.DataPoint;
 import com.jjoe64.graphview.series.LineGraphSeries;
 
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 
 /*
@@ -56,38 +53,49 @@ public class Statistik_Fragment extends Fragment {
                              Bundle savedInstanceState) {
 
         View view =  inflater.inflate(R.layout.fragment_statistik_, container, false);
-
         textViewStatistik = view.findViewById(R.id.textView_statistik);
-
         graphView = view.findViewById(R.id.graph);
         setMonthTitle(getVormonat());
-
-
         graphView.setVisibility(View.VISIBLE);
-
-        List<Entity_Stuhl> stuhlEintraege = new ArrayList<>();
-
         viewModel_stuhl = new ViewModelProvider(this).get(ViewModel_Stuhl.class);
-        viewModel_stuhl.getStuhlLastMonth(getVormonat()).observe(getViewLifecycleOwner(), new Observer<List<Entity_Stuhl>>() {
-            @Override
-            public void onChanged(List<Entity_Stuhl> entity_stuhls) {
-                System.out.println(entity_stuhls.size());
-                for (Entity_Stuhl entity_stuhl :  entity_stuhls){
-                    stuhlEintraege.add(entity_stuhl);
-
-                }
-                System.out.println(stuhlEintraege.size());
-            }
-        });
 
         try{
-            LineGraphSeries <DataPoint> series = new LineGraphSeries<>
-                    (new DataPoint[] {
-                            new DataPoint (0, 1),
+            viewModel_stuhl.getAnzahlByDay(getVormonat()).observe(getViewLifecycleOwner(), new Observer<List<AnzahlByDay>>() {
+                @Override
+                public void onChanged(List<AnzahlByDay> anzahlByDays) {
 
-                    });
+                    LineGraphSeries<DataPoint> series = new LineGraphSeries<>();
+                    int dayIs = 0;
+                    for (AnzahlByDay abd : anzahlByDays) {
+                        String date = abd.dateAdded;
+                        String [] dateValues = date.split("\\.", 3);
+                        int day = Integer.parseInt(dateValues[2]);
+                        int diff = day - dayIs;
+                        int dayInsert;
+                        if(diff > 1){
+                            for(int i = 0; i < diff; i++){
+                                dayInsert = dayIs + 1 + i;
+                                DataPoint newdataPoint = new DataPoint(dayInsert, 0);
+                                series.appendData(newdataPoint,true, 35);
+                            }
+                        }
+                        DataPoint newdataPoint = new DataPoint(day, abd.anzahl);
+                        series.appendData(newdataPoint,true, 35);
+                        dayIs = day;
+                    }
 
-        } catch (IllegalArgumentException e){
+                    graphView.addSeries(series);
+                    graphView.getViewport().setYAxisBoundsManual(true);
+                    graphView.getGridLabelRenderer().setNumVerticalLabels(15);
+                    graphView.getViewport().setXAxisBoundsManual(true);
+                    graphView.getViewport().setMinX(0);
+                    graphView.getViewport().setMinY(0);
+                    graphView.getViewport().setScalable(true);
+                    graphView.getViewport().setScrollable(true);
+                    series.setThickness(7);
+                }
+            });
+        }catch (IllegalArgumentException e){
             System.out.println(e);
         }
 
@@ -148,22 +156,6 @@ public class Statistik_Fragment extends Fragment {
             case 12:
                 textViewStatistik.setText("Ihre Stuhl-Statistik vom Dezember");
                 break;
-
         }
-    }
-
-    // evtl in Entity_Stuhl? wird auch in Kalender_Fragment gebraucht
-    public Date getDatefromEntity (Entity_Stuhl entity_stuhl){
-        Date date = null;
-        String jahr = String.valueOf(entity_stuhl.getJahr());
-        String monat = String.valueOf(entity_stuhl.getMonat());
-        String tag = String.valueOf(entity_stuhl.getTag());
-        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-        try {
-            date = sdf.parse(tag+"/"+monat+"/"+jahr);
-        }catch (ParseException e) {
-            e.printStackTrace();
-        }
-        return date;
     }
 }

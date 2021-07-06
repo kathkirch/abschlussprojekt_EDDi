@@ -68,7 +68,7 @@ public class MainActivity extends AppCompatActivity {
 
             // woher FotoReferenz?
             Entity_Stuhl entity_stuhl = new Entity_Stuhl(jahr, monat, tag, stunde, minute, bristol,
-                    blut, schmerz, farbe, unverdauteNahrung, schleim, menge, notiz);
+                     schmerz, blut, farbe, unverdauteNahrung, schleim, menge, notiz);
 
             viewModel_stuhl.insertStuhl(entity_stuhl);
             Toast.makeText(this, "Stuhleintrag gespeichert", Toast.LENGTH_SHORT).show();

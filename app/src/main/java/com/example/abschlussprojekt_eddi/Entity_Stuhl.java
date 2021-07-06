@@ -5,10 +5,6 @@ import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-
 @Entity(tableName = "stuhl")
 public class Entity_Stuhl {
 
@@ -178,20 +174,6 @@ public class Entity_Stuhl {
 
     public void setNotizen(String notizen) {
         this.notizen = notizen;
-    }
-
-    public Date getDatefromEntity (Entity_Stuhl entity_stuhl){
-        Date date = null;
-        String jahr = String.valueOf(entity_stuhl.getJahr());
-        String monat = String.valueOf(entity_stuhl.getMonat());
-        String tag = String.valueOf(entity_stuhl.getTag());
-        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-        try {
-            date = sdf.parse(tag+"/"+monat+"/"+jahr);
-        }catch (ParseException e) {
-            e.printStackTrace();
-        }
-        return date;
     }
 
 }
