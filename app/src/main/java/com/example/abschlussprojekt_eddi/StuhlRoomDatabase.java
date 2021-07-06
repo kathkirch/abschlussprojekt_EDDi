@@ -43,16 +43,15 @@ public abstract class StuhlRoomDatabase extends RoomDatabase {
             databaseWriteExecuter.execute(() -> {
                 DAO_Stuhl daoStuhl = INSTANCE.dao_stuhl();
                 Entity_Stuhl stuhl = new Entity_Stuhl(2021, 6, 8, 14, 20,
-                        "2", false, false, "dunkelbraun", false, "kein", "normal",
-                        "keine Notizen");
+                        2, false, false, 2, false, 1,
+                        1,"keine Notizen");
                 daoStuhl.insertStuhl(stuhl);
                 Entity_Stuhl stuhl2 = new Entity_Stuhl(2021, 6, 24, 14, 21,
-                        "5", false, false, "grün",
-                        false, "kein", "normal",
+                        5, false, false, 4,
+                        false, 2, 2,
                         "testeintrag");
                 daoStuhl.insertStuhl(stuhl2);
             });
         }
     };
-
 }

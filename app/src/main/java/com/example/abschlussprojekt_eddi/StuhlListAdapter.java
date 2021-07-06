@@ -9,16 +9,48 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.DiffUtil;
+import androidx.recyclerview.widget.ListAdapter;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 import java.util.List;
 
 
-public class StuhlListAdapter extends RecyclerView.Adapter<StuhlListAdapter.StuhlViewHolder> {
+public class StuhlListAdapter extends ListAdapter<Entity_Stuhl, StuhlListAdapter.StuhlViewHolder> {
 
-    private List<Entity_Stuhl> stuhlList = new ArrayList<>();
-    private StuhlListAdapter.OnItemClickListener listener; //für den setOnItemClickListener
+    private OnItemClickListener listener; //für den setOnItemClickListener
+
+    //damit nicht alle Einträge jedes mal aktualisiert werden, sondern nur derjenige, der sich geändert hat
+    //List Comparison wird in einem background thread durchgeführt, ListAdapter kümmert sich um den Abgleich im Hintergrund
+    //bessere Performance bei vielen Einträgen
+    public StuhlListAdapter() {
+        super(DIFF_CALLBACK);
+    }
+
+    private static final DiffUtil.ItemCallback<Entity_Stuhl> DIFF_CALLBACK = new DiffUtil.ItemCallback<Entity_Stuhl>() {
+        //wenn die ID gleich ist, egal welche Werte geändert wurden
+        @Override
+        public boolean areItemsTheSame(@NonNull Entity_Stuhl oldItem, @NonNull Entity_Stuhl newItem) {
+            return oldItem.getId() == newItem.getId();
+        }
+        //wenn sich am Eintrag nichts geändert hat (keine Werte wurden verändert)
+        @Override
+        public boolean areContentsTheSame(@NonNull Entity_Stuhl oldItem, @NonNull Entity_Stuhl newItem) {
+            return oldItem.getJahr() == (newItem.getJahr()) &&
+                    oldItem.getMonat() == (newItem.getMonat()) &&
+                    oldItem.getTag() == (newItem.getTag()) &&
+                    oldItem.getStunde() == (newItem.getStunde()) &&
+                    oldItem.getMinute() == (newItem.getMinute()) &&
+                    oldItem.getBristol() == (newItem.getBristol()) &&
+                    oldItem.getSchmerzen() == (newItem.getSchmerzen()) &&
+                    oldItem.getFarbe() == (newItem.getFarbe()) &&
+                    oldItem.getUnverdauteNahrung() == (newItem.getUnverdauteNahrung()) &&
+                    oldItem.getSchleim() == (newItem.getSchleim()) &&
+                    oldItem.getMenge() == (newItem.getMenge()) &&
+                    oldItem.getNotizen().equals(newItem.getNotizen());
+        }
+    };
 
     @NonNull
     @Override
@@ -30,30 +62,19 @@ public class StuhlListAdapter extends RecyclerView.Adapter<StuhlListAdapter.Stuh
 
     @Override
     public void onBindViewHolder(@NonNull StuhlViewHolder holder, int position) {
-        Entity_Stuhl current = stuhlList.get(position);
+        Entity_Stuhl current = getItem(position);
         String datum = (current.getTag() + "." + current.getMonat() + "." + current.getJahr());
         String uhrzeit = (current.getStunde() + ":" + current.getMinute());
-        String bristol = current.getBristol();
-        String farbe = (current.getFarbe());
+        int bristol = current.getBristol();
+        int farbe = (current.getFarbe());
         String schmerz = (String.valueOf(current.getSchmerzen()));
         holder.bind(datum, uhrzeit, bristol, farbe, schmerz);
     }
 
-    //gibt an, wieviele Einträge angezeigt werden sollen
-    //es sollen so viele Einträge angezeigt werden, wie in der stuhlList vorhanden sind
-    @Override
-    public int getItemCount() {
-        return stuhlList.size();
-    }
-
-    public void setStuhl(List<Entity_Stuhl> stuhlList) {
-        this.stuhlList = stuhlList;
-        notifyDataSetChanged(); //wird später geändert!
-    }
 
     //um die Position fürs Löschen zu bekommen
     public Entity_Stuhl getStuhlAt(int position) {
-        return stuhlList.get(position);
+        return getItem(position);
     }
 
     class StuhlViewHolder extends RecyclerView.ViewHolder {
@@ -78,44 +99,44 @@ public class StuhlListAdapter extends RecyclerView.Adapter<StuhlListAdapter.Stuh
                 public void onClick(View v) {
                     int position = getAdapterPosition();
                     if (listener != null && position != RecyclerView.NO_POSITION) {
-                        listener.onItemClick(stuhlList.get(position));
+                        listener.onItemClick(getItem(position));
                     }
                 }
             });
         }
 
         @SuppressLint("SetTextI18n")
-        public void bind(String datum, String uhrzeit, String bristol, String farbe, String schmerz) {
+        public void bind(String datum, String uhrzeit, int bristol, int farbe, String schmerz) {
             tvDatum.setText(datum);
             tvUhrzeit.setText(uhrzeit);
             getBristolSymbol(bristol);
-            String farbString = ("Farbe: " + farbe);
+            String farbString = ("Farbe: " + farbe); //wie bekommt man den Text und nicht die Zahl??
             tvFarbe.setText(farbString);
             String schmerzString = ("Schmerzen: " + schmerz);
             tvSchmerz.setText(schmerzString);
         }
 
-        public void getBristolSymbol(String bristolString) {
+        public void getBristolSymbol(int bristolString) {
             switch (bristolString) {
-                case "1":
+                case 0:
                     ivBristol.setImageResource(R.drawable.type01);
                     break;
-                case "2":
+                case 1:
                     ivBristol.setImageResource(R.drawable.type02);
                     break;
-                case "3":
+                case 2:
                     ivBristol.setImageResource(R.drawable.type03);
                     break;
-                case "4":
+                case 3:
                     ivBristol.setImageResource(R.drawable.type04);
                     break;
-                case "5":
+                case 4:
                     ivBristol.setImageResource(R.drawable.type05);
                     break;
-                case "6":
+                case 5:
                     ivBristol.setImageResource(R.drawable.type06);
                     break;
-                case "7":
+                case 6:
                     ivBristol.setImageResource(R.drawable.type07);
                     break;
                 default:
@@ -130,7 +151,7 @@ public class StuhlListAdapter extends RecyclerView.Adapter<StuhlListAdapter.Stuh
     }
 
     //eigener ClickListener erstellt, um die Methode onItemClick aufzurufen
-    public void setOnItemClickListener(StuhlListAdapter.OnItemClickListener listener) {
+    public void setOnItemClickListener(OnItemClickListener listener) {
         this.listener = listener;
     }
 
