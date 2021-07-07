@@ -162,6 +162,7 @@
     <color name="calender_header">#00CED1</color>
     <color name="calender_select">#5F9EA0</color>
     <color name="stimmung_selected">#AFEEEE</color>
+    <color name="graph_line">#40E0D0</color>
 
 
 </resources>

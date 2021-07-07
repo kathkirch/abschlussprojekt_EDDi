@@ -12,7 +12,6 @@ import java.util.List;
 @Dao
 public interface DAO_Stuhl {
 
-
     @Insert
     void insertStuhl(Entity_Stuhl stuhl);
 
@@ -35,4 +34,13 @@ public interface DAO_Stuhl {
     public Entity_Stuhl getStuhlByID(int eintragID);
 
 
+    @Query ("SELECT * from stuhl WHERE monat in (:vorMonat)")
+    LiveData<List<Entity_Stuhl>> getStuhlLastMonth(int vorMonat);
+
+    @Query("SELECT * from AnzahlByDay WHERE monat in (:vormonat)")
+    LiveData<List<AnzahlByDay>> getAnzahlByDay(int vormonat);
+
+
+
 }
+

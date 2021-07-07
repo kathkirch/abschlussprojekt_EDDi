@@ -31,7 +31,7 @@ public class Entity_Stuhl {
 
     private int farbe;
 
-    @ColumnInfo (name = "Unverdaute Nahrung")
+    @ColumnInfo (name = "Unverdaute_Nahrung")
     private boolean unverdauteNahrung;
 
     private int schleim;
@@ -39,6 +39,8 @@ public class Entity_Stuhl {
     private int menge;
 
     private String notizen;
+
+
 
 
     //Konstruktor

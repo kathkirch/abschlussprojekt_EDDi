@@ -99,4 +99,6 @@
     <string name="bristolimg">bristolImg</string>
     <string name="hh_mm">HH:MM</string>
     <string name="_01_01_2001">01.01.2001</string>
+    <string name="legende">Legende</string>
+    <string name="achsenbeschreibung">x-Achse = Tage\ny-Achse = Anzahl der Stuhleinträge</string>
 </resources>
