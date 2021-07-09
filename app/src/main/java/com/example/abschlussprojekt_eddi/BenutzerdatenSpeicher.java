@@ -16,7 +16,6 @@ public class BenutzerdatenSpeicher {
     public static final String STIMMUNG = "Stimmung";
     SharedPreferences userLocalDatabase;
 
-
     public BenutzerdatenSpeicher(Context context) {
         userLocalDatabase = context.getSharedPreferences(SP_NAME, Context.MODE_PRIVATE);
     }

@@ -24,7 +24,6 @@ public class Anmeldung extends AppCompatActivity {
     protected EditText pin2;
     protected String checkedPin;
     BenutzerdatenSpeicher bdSp;
-    Benutzer benutzer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,7 +51,6 @@ public class Anmeldung extends AppCompatActivity {
             startActivity(mainIntent);
         }
     }
-
 
     public boolean checkDataEntered(){
         boolean dataValid = true;

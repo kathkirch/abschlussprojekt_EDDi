@@ -37,7 +37,6 @@ public class Login extends AppCompatActivity {
     EditText etPin;
     BenutzerdatenSpeicher bdSp;
     Benutzer ben;
-    int count = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

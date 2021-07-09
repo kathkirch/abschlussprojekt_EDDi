@@ -104,6 +104,6 @@ dependencies {
     annotationProcessor "androidx.room:room-compiler:$room_version"
 
     //Libary for graphview
-    implementation 'com.jjoe64:graphview:4.2.2'
+    implementation "com.jjoe64:graphview:4.2.2"
 
 }
