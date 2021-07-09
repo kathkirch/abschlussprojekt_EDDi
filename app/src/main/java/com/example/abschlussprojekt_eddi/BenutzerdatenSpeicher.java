@@ -16,7 +16,6 @@ public class BenutzerdatenSpeicher {
     public static final String STIMMUNG = "Stimmung";
     SharedPreferences userLocalDatabase;
 
-
     public BenutzerdatenSpeicher(Context context) {
         userLocalDatabase = context.getSharedPreferences(SP_NAME, Context.MODE_PRIVATE);
     }
@@ -67,7 +66,6 @@ public class BenutzerdatenSpeicher {
         spEditor.apply();
     }
 
-
     public void stimmungSpeichern(String stimmungVAS){
         SharedPreferences.Editor spEditor = userLocalDatabase.edit();
         spEditor.putString(STIMMUNG, stimmungVAS);
@@ -78,5 +76,4 @@ public class BenutzerdatenSpeicher {
         String stimmung = userLocalDatabase.getString(STIMMUNG, "");
         return stimmung;
     }
-
 }

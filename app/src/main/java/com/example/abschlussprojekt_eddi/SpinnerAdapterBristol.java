@@ -1,9 +1,6 @@
 package com.example.abschlussprojekt_eddi;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
-import android.content.res.Resources;
-import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,15 +10,10 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.core.content.ContextCompat;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.List;
 
 public class SpinnerAdapterBristol extends ArrayAdapter<BristolItem> {
-
-    Context context;
 
     public SpinnerAdapterBristol(Context context, ArrayList<BristolItem> types){
         super(context, 0, types);
@@ -58,7 +50,4 @@ public class SpinnerAdapterBristol extends ArrayAdapter<BristolItem> {
 
         return convertView;
     }
-
-
-
 }

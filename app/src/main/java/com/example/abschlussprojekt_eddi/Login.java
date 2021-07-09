@@ -37,7 +37,6 @@ public class Login extends AppCompatActivity {
     EditText etPin;
     BenutzerdatenSpeicher bdSp;
     Benutzer ben;
-    int count = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,7 +48,7 @@ public class Login extends AppCompatActivity {
         bdSp = new BenutzerdatenSpeicher(this);
 
         BiometricManager biometricManager = BiometricManager.from(context);
-        switch(biometricManager.canAuthenticate(BiometricManager.Authenticators.BIOMETRIC_STRONG)) { //BIOMETRIC_STRONG; BIOMETRIC_WEAK; DEVICE_CREDENTIAL achtung auf API
+        switch(biometricManager.canAuthenticate(BiometricManager.Authenticators.BIOMETRIC_STRONG)) {
             case BiometricManager.BIOMETRIC_SUCCESS: //Biometrischer Sensor kann verwendet werden
                 Log.i("BiometricManager","Fingerprint kann verwendet werden");
                 break;
@@ -96,7 +95,6 @@ public class Login extends AppCompatActivity {
                 .build();
 
         //Fingerprint Authentifizierung beim Klicken auf den Button
-        //soll später automatisch aufscheinen
         button_fingerprint = findViewById(R.id.button_login_fingerprint);
         button_fingerprint.setOnClickListener(new View.OnClickListener() {
             @Override

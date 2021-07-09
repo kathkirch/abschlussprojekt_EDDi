@@ -127,7 +127,6 @@ public class Kalender_Fragment extends Fragment {
             }
         });
 
-
         //macht den RecyclerView wischbar (für Essen-Löschung)
         new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0,
                 //Löschen bei Rechts-Wischen
@@ -164,7 +163,6 @@ public class Kalender_Fragment extends Fragment {
                 getActivity().startActivityForResult(intent, NEW_ESSEN_EDIT_REQUEST_CODE); //startet Methode in der MainActivity
             }
         });
-
 
         new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0,
                 //Löschen bei Rechts-Wischen
@@ -207,7 +205,6 @@ public class Kalender_Fragment extends Fragment {
                 getActivity().startActivityForResult(intent, NEW_STUHL_EDIT_REQUEST_CODE); //startet Methode in der MainActivity
             }
         });
-
         return view;
     }
 

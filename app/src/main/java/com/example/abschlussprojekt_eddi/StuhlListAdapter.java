@@ -68,7 +68,6 @@ public class StuhlListAdapter extends ListAdapter<Entity_Stuhl, StuhlListAdapter
         holder.bind(datum, uhrzeit, bristol, farbe, schmerz);
     }
 
-
     //um die Position fürs Löschen zu bekommen
     public Entity_Stuhl getStuhlAt(int position) {
         return getItem(position);

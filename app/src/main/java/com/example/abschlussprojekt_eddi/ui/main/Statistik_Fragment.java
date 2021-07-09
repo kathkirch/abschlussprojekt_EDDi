@@ -38,13 +38,11 @@ public class Statistik_Fragment extends Fragment {
     private TextView textViewStatistik;
 
     public Statistik_Fragment() {
-
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
     }
 
     @RequiresApi(api = Build.VERSION_CODES.O)
@@ -118,7 +116,6 @@ public class Statistik_Fragment extends Fragment {
         }
         return vormonat;
     }
-
 
     //um immer den passenden Vormonat im Titel anzeigen zu können
     @SuppressLint("SetTextI18n")
