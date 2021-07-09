@@ -135,7 +135,6 @@ public class Login extends AppCompatActivity {
                                     startActivity(intent_registrieren);
                                 }
                             })
-                            // A null listener allows the button to dismiss the dialog and take no further action.
                             .setNegativeButton(android.R.string.no, null)
                             .setIcon(android.R.drawable.ic_dialog_alert)
                             .show();
@@ -151,7 +150,7 @@ public class Login extends AppCompatActivity {
 
     // holt sich Pin aus shared preferences und vergleicht die Eingabe damit,
     // wenn Pin und/oder Nutzername falsch eingegeben wird, kann der Nutzer neues Profil anlegen -
-    // Datenbank wird aber aus Sicherheitsgründen gelöscht
+    // Datenbankreinträge werden aber aus Sicherheitsgründen gelöscht
     public boolean verifyLogin (EditText name, EditText pin) {
         boolean login = false;
         ben = bdSp.getLoggedInUser();

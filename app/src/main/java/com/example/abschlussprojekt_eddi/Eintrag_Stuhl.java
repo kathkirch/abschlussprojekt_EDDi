@@ -55,8 +55,6 @@ public class Eintrag_Stuhl extends AppCompatActivity {
     SwitchCompat switch_unverdauteNahrung;
     EditText edit_Notizen;
 
-    private ViewModel_Stuhl viewModel_stuhl;
-
     public static final String EXTRA_ID =
             "com.example.abschlussprojekt_eddi.EXTRA_ID";
     public static final String EXTRA_DATUM =
@@ -246,6 +244,8 @@ public class Eintrag_Stuhl extends AppCompatActivity {
         }
     }
 
+    // Daten aus dem im Eintrag Stuhl eingegeben Fenster werden in einem Intent gespeichert
+    // und danach in der onActivityResult in der MainActivity nochmal abgerufen
      public void stuhlSpeichern () {
 
         Intent stuhl_data = new Intent();

@@ -48,11 +48,6 @@ public class StuhlRepository {
         return allStuhl;
     }
 
-    public LiveData<List<Entity_Stuhl>> getStuhlLastMonth (int vormonat){
-        allStuhl = dao_stuhl.getStuhlLastMonth(vormonat);
-        return allStuhl;
-    }
-
     public LiveData<List<AnzahlByDay>> getAnzahlByDay(int vormonat){
         anzahl = dao_stuhl.getAnzahlByDay(vormonat);
         return anzahl;

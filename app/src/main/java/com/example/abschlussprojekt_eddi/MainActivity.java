@@ -62,7 +62,6 @@ public class MainActivity extends AppCompatActivity {
             int menge = data.getIntExtra(Eintrag_Stuhl.EXTRA_MENGE, 1);
             String notiz = data.getStringExtra(Eintrag_Stuhl.EXTRA_NOTIZ);
 
-            // woher FotoReferenz?
             Entity_Stuhl entity_stuhl = new Entity_Stuhl(jahr, monat, tag, stunde, minute, bristol,
                      schmerz, blut, farbe, unverdauteNahrung, schleim, menge, notiz);
 
@@ -90,7 +89,6 @@ public class MainActivity extends AppCompatActivity {
             viewModel_essen.insertEssen(essen);
             Toast.makeText(this, "Essen gespeichert", Toast.LENGTH_SHORT).show();
 
-            //beim Aktualisieren springt er nicht in diese Schleife???
         }else if (resultCode == Eintrag_Essen.RESULT_OK &&
                 requestCode == Startseite_Fragment.NEW_ESSEN_EDIT_REQUEST_CODE){
             int id = data.getIntExtra(Eintrag_Essen.EXTRA_ESSEN_ID, -1);

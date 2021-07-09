@@ -28,15 +28,12 @@ public interface DAO_Stuhl {
     //LiveData wird automatisch Änderungen übernehmen, ohne dass man extra aktualisieren muss
     //verwenden wir LiveData???
     @Query("SELECT * FROM stuhl WHERE (jahr IN (:eintragJahr) AND monat IN (:eintragMonat) AND tag IN(:eintragTag) )ORDER BY stunde, minute DESC")
-    public LiveData<List<Entity_Stuhl>>getStuhlByDate(int eintragJahr, int eintragMonat, int eintragTag);
+    LiveData<List<Entity_Stuhl>>getStuhlByDate(int eintragJahr, int eintragMonat, int eintragTag);
 
     @Query("SELECT * FROM stuhl WHERE id in (:eintragID)")
-    public Entity_Stuhl getStuhlByID(int eintragID);
+    Entity_Stuhl getStuhlByID(int eintragID);
 
-
-    @Query ("SELECT * from stuhl WHERE monat in (:vorMonat)")
-    LiveData<List<Entity_Stuhl>> getStuhlLastMonth(int vorMonat);
-
+    //fragt ein View ab, ist in der Klasse "AnzahlByDay" definiert
     @Query("SELECT * from AnzahlByDay WHERE monat in (:vormonat)")
     LiveData<List<AnzahlByDay>> getAnzahlByDay(int vormonat);
 

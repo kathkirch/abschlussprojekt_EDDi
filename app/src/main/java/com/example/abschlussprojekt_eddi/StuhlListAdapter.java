@@ -102,6 +102,7 @@ public class StuhlListAdapter extends ListAdapter<Entity_Stuhl, StuhlListAdapter
             });
         }
 
+        // um die Werte in einem RecyclerView zu speichern, bzw anzeigen zu können
         @SuppressLint("SetTextI18n")
         public void bind(String datum, String uhrzeit, int bristol, int farbe, String schmerz) {
             tvDatum.setText(datum);
@@ -113,6 +114,7 @@ public class StuhlListAdapter extends ListAdapter<Entity_Stuhl, StuhlListAdapter
             tvSchmerz.setText(schmerzString);
         }
 
+        // um das richtige Bristolsymbol zu erhalten
         public void getBristolSymbol(int bristolString) {
             switch (bristolString) {
                 case 0:
@@ -141,6 +143,7 @@ public class StuhlListAdapter extends ListAdapter<Entity_Stuhl, StuhlListAdapter
             }
         }
 
+        // um den Eintrag der Farbe als Text anstatt einer Zahl zu erhalten
         public String getFarbText (int farbInt){
             String farbe = "farbe";
             switch (farbInt){

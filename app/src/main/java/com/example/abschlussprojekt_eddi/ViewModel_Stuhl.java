@@ -27,7 +27,6 @@ public class ViewModel_Stuhl extends AndroidViewModel {
         stuhlRepository.insertStuhl(stuhl);
     }
 
-
     public void update (Entity_Stuhl stuhl){
         stuhlRepository.update(stuhl);
     }
@@ -36,17 +35,10 @@ public class ViewModel_Stuhl extends AndroidViewModel {
         stuhlRepository.delete(stuhl);
     }
 
-
     public LiveData<List<Entity_Stuhl>> getStuhlByDate(int jahr, int monat, int tag){
         stuhlRepository = new StuhlRepository(getApplication());
         LiveData<List<Entity_Stuhl>> stuhlByDate = stuhlRepository.getStuhlByDate(jahr, monat, tag);
         return stuhlByDate;
-    }
-
-    public LiveData<List<Entity_Stuhl>> getStuhlLastMonth (int vormonat){
-        stuhlRepository = new StuhlRepository(getApplication());
-        LiveData<List<Entity_Stuhl>> stuhlLastMonth = stuhlRepository.getStuhlLastMonth(vormonat);
-        return stuhlLastMonth;
     }
 
     public LiveData<List<AnzahlByDay>> getAnzahlByDay (int vormonat){

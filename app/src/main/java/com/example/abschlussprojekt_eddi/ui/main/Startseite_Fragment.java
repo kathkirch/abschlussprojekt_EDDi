@@ -212,6 +212,9 @@ public class Startseite_Fragment extends Fragment implements View.OnClickListene
 
         return view;    }
 
+    // um die derzeitige Stimmung auswählen und markieren zu können
+    //Wenn ein Smiley angeklickt wird, wird die neue Stimmung mit der stimmungSpeichern Methode gespeichert
+    //Der Hintergrund für die anderen Smiley wird auf transparent gesetzt.
     public void stimmung(View view) {
         switch (view.getId()) {
             case id.VAS_0:

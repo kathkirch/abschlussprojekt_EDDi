@@ -139,7 +139,6 @@ public class Kalender_Fragment extends Fragment {
 
             @Override
             public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
-                //Eintrag wird nicht gelöscht???
                 try {
                     viewModel_essen.deleteEssen(adapter.getEssenAt(viewHolder.getAdapterPosition()));
                     Toast.makeText(getActivity(), "Essen Eintrag gelöscht", Toast.LENGTH_SHORT).show();
@@ -165,8 +164,6 @@ public class Kalender_Fragment extends Fragment {
                 getActivity().startActivityForResult(intent, NEW_ESSEN_EDIT_REQUEST_CODE); //startet Methode in der MainActivity
             }
         });
-
-
 
 
         new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0,
