@@ -58,7 +58,6 @@ public class EssenListAdapter extends ListAdapter<Entity_Essen, EssenListAdapter
         holder.bind(essen, datum);
     }
 
-
     //um die Position fürs Löschen zu bekommen
     public Entity_Essen getEssenAt(int position) {
         return getItem(position);

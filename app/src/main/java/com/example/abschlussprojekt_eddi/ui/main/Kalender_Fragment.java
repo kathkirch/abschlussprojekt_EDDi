@@ -89,7 +89,7 @@ public class Kalender_Fragment extends Fragment {
         getStuhlEintraege();
 
         // um den aktuellen Tag zu bekommen und dessen Einträge anzuzugeigen
-        Calendar today = Calendar.getInstance();
+        Calendar today = calendarView.getCurrentPageDate();
         SimpleDateFormat sdf = new SimpleDateFormat("yy-MM-dd");
         String curDate = sdf.format(today.getTime());
         String [] dateValues = curDate.split("-", 3);
@@ -126,7 +126,6 @@ public class Kalender_Fragment extends Fragment {
                 });
             }
         });
-
 
         //macht den RecyclerView wischbar (für Essen-Löschung)
         new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0,
@@ -165,7 +164,6 @@ public class Kalender_Fragment extends Fragment {
             }
         });
 
-
         new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0,
                 //Löschen bei Rechts-Wischen
                 ItemTouchHelper.RIGHT){
@@ -173,6 +171,7 @@ public class Kalender_Fragment extends Fragment {
             public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
                 return false;
             }
+
             @Override
             public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
                 try {
@@ -206,7 +205,6 @@ public class Kalender_Fragment extends Fragment {
                 getActivity().startActivityForResult(intent, NEW_STUHL_EDIT_REQUEST_CODE); //startet Methode in der MainActivity
             }
         });
-
         return view;
     }
 

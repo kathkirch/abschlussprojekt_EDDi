@@ -38,7 +38,6 @@ public class Einstellungen extends AppCompatActivity {
         etpinAlt = findViewById(R.id.editText_einstellungen_pw_ausgewaehlt);
         etpinNeu = findViewById(R.id.editText_einstellungen_pw_ausgewaehlt2);
 
-
         Log.d("INFO", etpinAlt.getText().toString());
 
         //Zugriff auf shared preferences
@@ -95,7 +94,7 @@ public class Einstellungen extends AppCompatActivity {
         }
     }
 
-    //vergleicht den 'pinAlt' im EditText mit dem Pin in den shared Preferences
+    // vergleicht den 'pinAlt' im EditText mit dem Pin in den shared Preferences
     // gibt true zurück wenn beide übereinstimmen
     public boolean benutzerPruefen (EditText pinAlt){
         boolean pinStimmt = false;

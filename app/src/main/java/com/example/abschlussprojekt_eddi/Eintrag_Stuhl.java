@@ -128,7 +128,6 @@ public class Eintrag_Stuhl extends AppCompatActivity {
         editText_currentDate.setText(currentDay + "." + currentMonth + "." + currentYear);
 
         //Momentane Zeit anzeigen (Werte als int gespeichert)
-        //brauche wir sekunden? Userbility?
         int currentHour = calendar.get(Calendar.HOUR_OF_DAY);
         int currentMinute = calendar.get(Calendar.MINUTE);
         editText_currentTime = findViewById(R.id.editText_currentTime);
@@ -160,7 +159,7 @@ public class Eintrag_Stuhl extends AppCompatActivity {
 
         imageView_stuhl = findViewById(R.id.imageView_stuhl);
         //wenn Button gedrückt wird, wird überprüft, ob die Camera Permission gegeben ist
-        //wenn keine Permission gegeben ist, wird eine Angefragt
+        //wenn keine Permission gegeben ist, wird eine angefragt
         //danch wird die Methode startActivityForResult aufgerufen und es kann ein Foto gemacht und gespeichert werden
         imageButton_camera.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -222,7 +221,7 @@ public class Eintrag_Stuhl extends AppCompatActivity {
 
         Intent intent = getIntent();
         //wenn der Eintrag bereits eine ID hat, wird er aktualisiert
-        //und daher wird der gespeicherte Text übergeben
+        //und dann wird der gespeicherte Text übergeben
         if(intent.hasExtra(EXTRA_ID)){
             int jahr = intent.getIntExtra(EXTRA_JAHR, 2000);
             int monat = intent.getIntExtra(EXTRA_MONAT, 01);
@@ -261,7 +260,6 @@ public class Eintrag_Stuhl extends AppCompatActivity {
         int menge = spinner_menge.getSelectedItemPosition();
         String notizen = edit_Notizen.getText().toString();
 
-
          if (datum == null || uhrzeit == null){
              setResult(RESULT_CANCELED, stuhl_data);
              Toast.makeText(context, "Datum|Uhrzeit eintragen!", Toast.LENGTH_SHORT).show();
@@ -278,14 +276,13 @@ public class Eintrag_Stuhl extends AppCompatActivity {
              stuhl_data.putExtra(EXTRA_NOTIZ, notizen);
 
              int id = getIntent().getIntExtra(EXTRA_ID, -1);
-             if (id != -1) {
+             if(id != -1){
                  stuhl_data.putExtra(EXTRA_ID, id);
              }
              setResult(RESULT_OK, stuhl_data);
          }
          finish();
     }
-
 
     //Methode wird automatisch aufgerufen von startActivityForResult()
     //Bild wird gemacht und in ImageView gespeichert und angezeigt

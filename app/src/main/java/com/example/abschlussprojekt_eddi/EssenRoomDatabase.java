@@ -20,8 +20,7 @@ public abstract class EssenRoomDatabase extends RoomDatabase {
     static final ExecutorService databaseWriteExecuter =
             Executors.newFixedThreadPool(NUMBER_OF_THREADS);
 
-    // gibt dann eine Instanz von DAO_Essen zurück, wenn schon eine besteht wird diese
-    // zurückgeliefert.
+    // gibt dann eine Instanz von DAO_Essen zurück, wenn schon eine besteht wird diese zurückgeliefert
     static EssenRoomDatabase getDatabase(final Context context) {
         if(INSTANCE == null) {
             synchronized (EssenRoomDatabase.class){
