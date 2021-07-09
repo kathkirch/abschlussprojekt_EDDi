@@ -1,281 +1,271 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".Anmeldung">
 
-    <Space
-        android:id="@+id/space3"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="10dp"/>
-
-
-    <TextView
-        android:id="@+id/textAnmeldung"
-        android:layout_width="380dp"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_below="@id/space3"
-        android:background="@drawable/title_style"
-        android:gravity="center"
-        android:padding="4dp"
-        android:text="@string/profil_anlegen"
-        android:textColor="@color/white"
-        android:textSize="22sp"/>
-
-    <LinearLayout
-        android:id="@+id/lin1"
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:layout_below="@id/textAnmeldung"
-        android:orientation="horizontal">
+        android:orientation="vertical">
 
         <TextView
-            android:id="@+id/textVorname"
-            android:layout_width="170dp"
-            android:layout_height="match_parent"
+            android:id="@+id/textAnmeldung"
+            android:layout_width="380dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:background="@drawable/title_style"
             android:gravity="center"
-            android:textSize="20sp"
-            android:text="@string/vorname_anmeldung" />
+            android:padding="4dp"
+            android:text="@string/profil_anlegen"
+            android:textColor="@color/white"
+            android:textSize="22sp"/>
 
-        <EditText
-            android:id="@+id/editVorname"
+        <LinearLayout
+            android:id="@+id/lin1"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:hint="@string/maxima"
-            android:inputType="text"
-            android:importantForAutofill="no" />
-    </LinearLayout>
+            android:layout_height="60dp"
+            android:orientation="horizontal" >
 
-    <LinearLayout
-        android:id="@+id/lin2"
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:layout_below="@id/lin1"
-        android:orientation="horizontal">
+            <TextView
+                android:id="@+id/textVorname"
+                android:layout_width="170dp"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:textSize="20sp"
+                android:text="@string/vorname_anmeldung" />
 
-        <TextView
-            android:id="@+id/textNachname"
-            android:layout_width="170dp"
-            android:layout_height="match_parent"
-            android:gravity="center"
-            android:textSize="20sp"
-            android:text="@string/nachname">
-        </TextView>
+            <EditText
+                android:id="@+id/editVorname"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:hint="@string/maxima"
+                android:inputType="text"
+                android:importantForAutofill="no" />
 
-        <EditText
-            android:id="@+id/editNachname"
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/lin2"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:hint="@string/musterfrau"
-            android:importantForAutofill="no"
-            android:inputType="text">
-        </EditText>
+            android:layout_height="60dp"
+            android:orientation="horizontal">
 
-    </LinearLayout>
+            <TextView
+                android:id="@+id/textNachname"
+                android:layout_width="170dp"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:textSize="20sp"
+                android:text="@string/nachname">
+            </TextView>
 
-    <LinearLayout
-        android:id="@+id/lin3"
-        android:layout_below="@id/lin2"
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:orientation="horizontal">
+            <EditText
+                android:id="@+id/editNachname"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:hint="@string/musterfrau"
+                android:importantForAutofill="no"
+                android:inputType="text">
+            </EditText>
 
-        <TextView
-            android:id="@+id/textGeburtstag"
-            android:layout_width="170dp"
-            android:layout_height="match_parent"
-            android:gravity="center"
-            android:textSize="20sp"
-            android:text="@string/geburtsdatum">
-        </TextView>
+        </LinearLayout>
 
-        <EditText
-            android:id="@+id/editGeburtsdatum"
+        <LinearLayout
+            android:id="@+id/lin3"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:ems="10"
-            android:inputType="date"
-            android:hint="@string/_01_01_2000"
-            android:importantForAutofill="no" />
+            android:layout_height="60dp"
+            android:orientation="horizontal">
 
-    </LinearLayout>
+            <TextView
+                android:id="@+id/textGeburtstag"
+                android:layout_width="170dp"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:textSize="20sp"
+                android:text="@string/geburtsdatum">
+            </TextView>
 
-    <LinearLayout
-        android:id="@+id/lin4"
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:orientation="horizontal"
-        android:layout_below="@id/lin3">
+            <EditText
+                android:id="@+id/editGeburtsdatum"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:ems="10"
+                android:inputType="date"
+                android:hint="@string/_01_01_2000"
+                android:importantForAutofill="no" />
 
-        <TextView
-            android:id="@+id/textGroesse"
-            android:layout_width="170dp"
-            android:layout_height="match_parent"
-            android:gravity="center"
-            android:textSize="20sp"
-            android:text="@string/groesse_cm">
-        </TextView>
+        </LinearLayout>
 
-        <EditText
-            android:id="@+id/editGroesse"
+        <LinearLayout
+            android:id="@+id/lin4"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:ems="10"
-            android:inputType="numberSigned"
-            android:hint="@string/hint_165"
-            android:importantForAutofill="no" />
-    </LinearLayout>
+            android:layout_height="60dp"
+            android:orientation="horizontal">
 
-    <LinearLayout
-        android:id="@+id/lin5"
-        android:layout_below="@id/lin4"
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:orientation="horizontal">
+            <TextView
+                android:id="@+id/textGroesse"
+                android:layout_width="170dp"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:textSize="20sp"
+                android:text="@string/groesse_cm">
+            </TextView>
 
-        <TextView
-            android:id="@+id/textGewicht"
-            android:layout_width="170dp"
-            android:layout_height="match_parent"
-            android:gravity="center"
-            android:textSize="20sp"
-            android:text="@string/gewicht_kg">
-        </TextView>
+            <EditText
+                android:id="@+id/editGroesse"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:ems="10"
+                android:inputType="numberSigned"
+                android:hint="@string/hint_165"
+                android:importantForAutofill="no" />
+        </LinearLayout>
 
-        <EditText
-            android:id="@+id/editGewicht"
+        <LinearLayout
+            android:id="@+id/lin5"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:ems="10"
-            android:inputType="numberDecimal"
-            android:hint="@string/hint_60_5"
-            android:importantForAutofill="no" />
+            android:layout_height="60dp"
+            android:orientation="horizontal">
 
-    </LinearLayout>
+            <TextView
+                android:id="@+id/textGewicht"
+                android:layout_width="170dp"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:textSize="20sp"
+                android:text="@string/gewicht_kg">
+            </TextView>
 
-    <Space
-        android:id="@+id/space2"
-        android:layout_width="match_parent"
-        android:layout_height="30dp"
-        android:layout_below="@id/lin5"/>
+            <EditText
+                android:id="@+id/editGewicht"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:ems="10"
+                android:inputType="numberDecimal"
+                android:hint="@string/hint_60_5"
+                android:importantForAutofill="no" />
 
-    <TextView
-        android:id="@+id/textNutzerdaten"
-        android:layout_width="380dp"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/space2"
-        android:layout_centerHorizontal="true"
-        android:background="@drawable/title_style"
-        android:gravity="center"
-        android:padding="4dp"
-        android:text="@string/nutzerprofil"
-        android:textColor="@color/white"
-        android:textSize="20sp" />
+        </LinearLayout>
 
-    <LinearLayout
-        android:id="@+id/lin6"
-        android:layout_below="@id/textNutzerdaten"
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:orientation="horizontal">
-
-        <TextView
-            android:id="@+id/textBenutzer"
-            android:layout_width="170dp"
-            android:layout_height="match_parent"
-            android:gravity="center"
-            android:textSize="20sp"
-            android:text="@string/nutzername"
-            app:drawableStartCompat="@drawable/user_icon">
-        </TextView>
-
-        <EditText
-            android:id="@+id/editBenutzername"
+        <Space
+            android:id="@+id/space2"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:inputType="text"
-            android:hint="@string/benutzername"
-            android:importantForAutofill="no">
-        </EditText>
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/lin7"
-        android:layout_below="@id/lin6"
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:orientation="horizontal">
+            android:layout_height="30dp" />
 
         <TextView
-            android:id="@+id/textPasswort"
-            android:layout_width="170dp"
-            android:layout_height="match_parent"
+            android:id="@+id/textNutzerdaten"
+            android:layout_width="380dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:background="@drawable/title_style"
             android:gravity="center"
-            android:textSize="20sp"
-            android:text="@string/pin_4_stellig"
-            app:drawableStartCompat="@drawable/lock_icon">
-        </TextView>
+            android:padding="4dp"
+            android:text="@string/nutzerprofil"
+            android:textColor="@color/white"
+            android:textSize="20sp" />
 
-        <EditText
-            android:id="@+id/editTextNumberPassword1"
+        <LinearLayout
+            android:id="@+id/lin6"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:ems="10"
-            android:inputType="numberPassword"
-            android:hint="@string/pin_hint"
-            android:importantForAutofill="no" />
-    </LinearLayout>
+            android:layout_height="60dp"
+            android:orientation="horizontal">
 
-    <LinearLayout
-        android:id="@+id/lin8"
-        android:layout_below="@id/lin7"
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:orientation="horizontal">
+            <TextView
+                android:id="@+id/textBenutzer"
+                android:layout_width="170dp"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:textSize="20sp"
+                android:text="@string/nutzername"
+                app:drawableStartCompat="@drawable/user_icon">
+            </TextView>
 
-        <TextView
-            android:id="@+id/textPasswort2"
-            android:layout_width="170dp"
-            android:layout_height="match_parent"
-            android:gravity="center"
-            android:textSize="20sp"
-            android:text="@string/pin_wiederholen"
-            app:drawableStartCompat="@drawable/lock_icon">
-        </TextView>
+            <EditText
+                android:id="@+id/editBenutzername"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:inputType="text"
+                android:hint="@string/benutzername"
+                android:importantForAutofill="no">
+            </EditText>
 
-        <EditText
-            android:id="@+id/editTextNumberPassword2"
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/lin7"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/textPasswort"
+                android:layout_width="170dp"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:textSize="20sp"
+                android:text="@string/pin_4_stellig"
+                app:drawableStartCompat="@drawable/lock_icon">
+            </TextView>
+
+            <EditText
+                android:id="@+id/editTextNumberPassword1"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:ems="10"
+                android:inputType="numberPassword"
+                android:hint="@string/pin_hint"
+                android:importantForAutofill="no" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/lin8"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/textPasswort2"
+                android:layout_width="170dp"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:textSize="20sp"
+                android:text="@string/pin_wiederholen"
+                app:drawableStartCompat="@drawable/lock_icon">
+            </TextView>
+
+            <EditText
+                android:id="@+id/editTextNumberPassword2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="@string/pin_hint"
+                android:importantForAutofill="no"
+                android:inputType="numberPassword" />
+        </LinearLayout>
+
+        <Space
+            android:id="@+id/space1"
+            android:layout_width="match_parent"
+            android:layout_height="30dp" />
+
+        <Button
+            android:id="@+id/speichernButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:hint="@string/pin_hint"
-            android:importantForAutofill="no"
-            android:inputType="numberPassword" />
+            android:background="@drawable/button_style"
+            android:layout_gravity="center"
+            android:padding="4dp"
+            android:text="@string/speichern"
+            android:textColor="@color/white"
+            android:textSize="18sp"
+            android:onClick="registrieren">
+        </Button>
 
     </LinearLayout>
 
-    <Space
-        android:id="@+id/space1"
-        android:layout_width="match_parent"
-        android:layout_height="30dp"
-        android:layout_below="@id/lin8"/>
+</ScrollView>
 
-
-    <Button
-        android:id="@+id/speichernButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@drawable/button_style"
-        android:layout_below="@id/space1"
-        android:layout_centerHorizontal="true"
-        android:padding="4dp"
-        android:text="@string/speichern"
-        android:textColor="@color/white"
-        android:textSize="18sp"
-        android:onClick="registrieren">
-    </Button>
-
-</RelativeLayout>

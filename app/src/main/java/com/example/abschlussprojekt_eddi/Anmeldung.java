@@ -9,11 +9,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-
 import androidx.appcompat.app.AppCompatActivity;
-
-import com.applandeo.materialcalendarview.exceptions.ErrorsMessages;
-
 
 public class Anmeldung extends AppCompatActivity {
 
@@ -29,8 +25,6 @@ public class Anmeldung extends AppCompatActivity {
     protected String checkedPin;
     BenutzerdatenSpeicher bdSp;
     Benutzer benutzer;
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,7 +42,6 @@ public class Anmeldung extends AppCompatActivity {
         bSpeichern =  findViewById(R.id.speichernButton);
 
         bdSp = new BenutzerdatenSpeicher(this);
-
     }
 
     public void registrieren (View view) {
@@ -59,7 +52,6 @@ public class Anmeldung extends AppCompatActivity {
             startActivity(mainIntent);
         }
     }
-
 
     public boolean checkDataEntered(){
         boolean dataValid = true;
@@ -147,6 +139,5 @@ public class Anmeldung extends AppCompatActivity {
         } catch (NullPointerException ex){
             Log.d("ERROR", "Fehler bei Dateneingabe");
         }
-
     }
 }

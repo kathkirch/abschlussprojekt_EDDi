@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -8,46 +8,65 @@
     android:orientation="vertical"
     >
 
-    <!-- TODO: Update blank fragment layout -->
-
-    <Space
-        android:id="@+id/space"
-        android:layout_width="match_parent"
-        android:layout_height="15dp"/>
-
-    <com.applandeo.materialcalendarview.CalendarView
-        android:id="@+id/calendarView"
-        android:layout_width="match_parent"
-        android:layout_height="333dp"
-        app:datePicker="true"
-        app:headerColor="@color/calender_header"
-        app:selectionColor="@color/calender_select"
-        />
-
-    <Space
-        android:id="@+id/space01"
-        android:layout_width="match_parent"
-        android:layout_height="15dp"/>
-
-    <TextView
+    <LinearLayout
+        android:id="@+id/linearlay1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/eintraege_des_tages"
-        android:gravity="center"
-        android:textColor="@color/white"
-        android:background="@drawable/title_style"
-        android:textSize="20sp"
-        android:padding="4dp">
-    </TextView>
+        android:orientation="vertical">
 
+        <Space
+            android:id="@+id/space"
+            android:layout_width="match_parent"
+            android:layout_height="15dp"/>
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="347dp"
-        android:text="@string/eintraege_vom_tag"
-        android:gravity="start"
-        android:keyboardNavigationCluster="true">
-    </TextView>
+        <com.applandeo.materialcalendarview.CalendarView
+            android:id="@+id/calendarView"
+            android:layout_width="match_parent"
+            android:layout_height="333dp"
+            app:headerColor="@color/calender_header"
+            app:selectionDisabled="false"
+            app:selectionLabelColor="@color/calender_select"
+            />
 
+        <Space
+            android:id="@+id/space01"
+            android:layout_width="match_parent"
+            android:layout_height="15dp"/>
 
-</LinearLayout>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/eintraege_des_tages"
+            android:gravity="center"
+            android:textColor="@color/white"
+            android:background="@drawable/title_style"
+            android:textSize="20sp"
+            android:padding="4dp">
+        </TextView>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linearlay2"
+        android:layout_width="fill_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/linearlay1"
+        android:orientation="horizontal">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recycler_view_kalender_stuhl"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                tools:listitem="@layout/note_stuhl_tag" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recycler_view_kalender_essen"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                tools:listitem="@layout/note_essen_tag"/>
+
+    </LinearLayout>
+
+</RelativeLayout>

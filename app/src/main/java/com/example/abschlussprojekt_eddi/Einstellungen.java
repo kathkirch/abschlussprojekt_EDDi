@@ -1,16 +1,13 @@
 package com.example.abschlussprojekt_eddi;
 
-import androidx.appcompat.app.AppCompatActivity;
-
-import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 public class Einstellungen extends AppCompatActivity {
 
@@ -41,9 +38,8 @@ public class Einstellungen extends AppCompatActivity {
         etpinAlt = findViewById(R.id.editText_einstellungen_pw_ausgewaehlt);
         etpinNeu = findViewById(R.id.editText_einstellungen_pw_ausgewaehlt2);
 
-        //etpinAlt.setText(etpinAlt.getText());
+
         Log.d("INFO", etpinAlt.getText().toString());
-        //etpinNeu.setText(etpinNeu.getText());
 
         //Zugriff auf shared preferences
         bdSp = new BenutzerdatenSpeicher(this);
@@ -64,18 +60,13 @@ public class Einstellungen extends AppCompatActivity {
         }
     }
 
-    // authentifiziert den eingeloggeden Benutzer
-    // returnt true or false wenn Benutzer erfoglreich eingelogged ist
+    // authentifiziert den eingeloggeten Benutzer
+    // returnt true or false wenn Benutzer erfoglreich eingeloggt ist
     private boolean authenticate(){
         return bdSp.getUserLoggedIn();
     }
 
-
     // Benutzerdaten überschreiben
-    // Besseres Exception Handling einbauen - NullPointer usw
-    // Toast ändern? --> wenn Pin versucht wurde zu verändern steht zwar PIN konnte nicht verändert werden
-    // aber dann "Daten aktualisiert"
-    // Frage? eigene Methode Pin aktualisieren?
     public void benutzerDatenAendern (View view) {
         try {
             ben.setVorname(etvorname.getText().toString());
@@ -93,7 +84,6 @@ public class Einstellungen extends AppCompatActivity {
                     Toast t = Toast.makeText(this, "keine Übereinstimmung bei PIN!", Toast.LENGTH_LONG);
                     t.show();
             }
-
             bdSp.storeUserData(ben);
             Toast toast = Toast.makeText(this, "Daten aktualisiert", Toast.LENGTH_SHORT);
             toast.show();
