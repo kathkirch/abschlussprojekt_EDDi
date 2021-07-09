@@ -2,7 +2,6 @@ package com.example.abschlussprojekt_eddi.ui.main;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,6 +24,7 @@ import com.example.abschlussprojekt_eddi.Eintrag_Stuhl;
 import com.example.abschlussprojekt_eddi.Entity_Essen;
 import com.example.abschlussprojekt_eddi.Entity_Stuhl;
 import com.example.abschlussprojekt_eddi.EssenListAdapter;
+import com.example.abschlussprojekt_eddi.R;
 import com.example.abschlussprojekt_eddi.StuhlListAdapter;
 import com.example.abschlussprojekt_eddi.ViewModel_Essen;
 import com.example.abschlussprojekt_eddi.ViewModel_Stuhl;
@@ -49,7 +49,6 @@ public class Startseite_Fragment extends Fragment implements View.OnClickListene
     ImageButton bV4;
     ImageButton bV5;
 
-
     public static final int NEW_STUHL_ACTIVITY_REQUEST_CODE = 1;
     public static final int NEW_STUHL_EDIT_REQUEST_CODE = 11;
     public static final int NEW_ESSEN_ACTIVITY_REQUEST_CODE = 2;
@@ -72,6 +71,16 @@ public class Startseite_Fragment extends Fragment implements View.OnClickListene
 
         View view = inflater.inflate(layout.fragment_startseite_, container, false);
 
+        bV1 = view.findViewById(id.VAS_0);
+        bV2 = view.findViewById(id.VAS_1);
+        bV3 = view.findViewById(id.VAS_2);
+        bV4 = view.findViewById(id.VAS_3);
+        bV5 = view.findViewById(id.VAS_4);
+
+        bdsp = new BenutzerdatenSpeicher(getContext());
+
+        setStimmungBackground();
+
         //Recyclerview für Essen und Stuhl erstellen
         RecyclerView recyclerView1 = (RecyclerView) view.findViewById(id.recycler_view_startseite_essen);
         RecyclerView recyclerView2 = (RecyclerView) view.findViewById(id.recycler_view_startseite_stuhl);
@@ -88,7 +97,8 @@ public class Startseite_Fragment extends Fragment implements View.OnClickListene
             @Override
             //um den Adapter zu aktualisieren
             public void onChanged(List<Entity_Essen> entity_essens) {
-                adapter.setEssen(entity_essens);
+                adapter.submitList(entity_essens);
+                //entity_essens.clear();
             }
         });
 
@@ -119,8 +129,11 @@ public class Startseite_Fragment extends Fragment implements View.OnClickListene
                 Intent intent = new Intent(getContext(), Eintrag_Essen.class);
                 intent.putExtra(Eintrag_Essen.EXTRA_ESSEN_ID, essen.getEssenID());
                 intent.putExtra(Eintrag_Essen.EXTRA_ESSEN, essen.getEssen());
-                intent.putExtra(Eintrag_Essen.EXTRA_UHRZEIT, essen.getStunde()); //muss noch geändert werden!!
-                intent.putExtra(Eintrag_Essen.EXTRA_DATUM, essen.getJahr()); //muss noch geändert werden!!
+                intent.putExtra(Eintrag_Essen.EXTRA_STUNDE, essen.getStunde());
+                intent.putExtra(Eintrag_Essen.EXTRA_MINUTE, essen.getMinute());
+                intent.putExtra(Eintrag_Essen.EXTRA_JAHR, essen.getJahr());
+                intent.putExtra(Eintrag_Essen.EXTRA_MONAT, essen.getMonat());
+                intent.putExtra(Eintrag_Essen.EXTRA_TAG, essen.getTag());
                 getActivity().startActivityForResult(intent, NEW_ESSEN_EDIT_REQUEST_CODE); //startet Methode in der MainActivity
             }
         });
@@ -136,7 +149,8 @@ public class Startseite_Fragment extends Fragment implements View.OnClickListene
         viewModel_stuhl.getAllStuhl().observe(getViewLifecycleOwner(), new Observer<List<Entity_Stuhl>>() {
             @Override
             public void onChanged(List<Entity_Stuhl> entity_stuhl) {
-                stuhlAdapter.setStuhl(entity_stuhl);
+                stuhlAdapter.submitList(entity_stuhl);
+                //entity_stuhl.clear();
             }
         });
 
@@ -165,8 +179,11 @@ public class Startseite_Fragment extends Fragment implements View.OnClickListene
             public void onItemClick(Entity_Stuhl stuhl) {
                 Intent intent = new Intent(getContext(), Eintrag_Stuhl.class);
                 intent.putExtra(Eintrag_Stuhl.EXTRA_ID, stuhl.getId());
-                intent.putExtra(Eintrag_Stuhl.EXTRA_DATUM, stuhl.getMonat()); //muss noch geändert werden
-                intent.putExtra(Eintrag_Stuhl.EXTRA_UHRZEIT, stuhl.getMinute()); //muss noch geändert werden
+                intent.putExtra(Eintrag_Essen.EXTRA_STUNDE, stuhl.getStunde());
+                intent.putExtra(Eintrag_Essen.EXTRA_MINUTE, stuhl.getMinute());
+                intent.putExtra(Eintrag_Essen.EXTRA_JAHR, stuhl.getJahr());
+                intent.putExtra(Eintrag_Essen.EXTRA_MONAT, stuhl.getMonat());
+                intent.putExtra(Eintrag_Essen.EXTRA_TAG, stuhl.getTag());
                 intent.putExtra(Eintrag_Stuhl.EXTRA_BRISTOL, stuhl.getBristol());
                 intent.putExtra(Eintrag_Stuhl.EXTRA_BLUT, stuhl.getBlut());
                 intent.putExtra(Eintrag_Stuhl.EXTRA_SCHMERZ, stuhl.getSchmerzen());
@@ -179,58 +196,70 @@ public class Startseite_Fragment extends Fragment implements View.OnClickListene
             }
         });
 
-        bdsp = new BenutzerdatenSpeicher(getContext());
-
         Button btStuhl = view.findViewById(id.stuhl_button);
         Button btEssen = view.findViewById(id.essen_button);
         Button btEinstellungen = view.findViewById(id.einstellungenButton);
 
-        bV1 = view.findViewById(id.VAS_0);
-        bV2 = view.findViewById(id.VAS_1);
-        bV3 = view.findViewById(id.VAS_2);
-        bV4 = view.findViewById(id.VAS_3);
-        bV5 = view.findViewById(id.VAS_4);
-
-        /*
         bV1.setOnClickListener(this::stimmung);
         bV2.setOnClickListener(this::stimmung);
         bV3.setOnClickListener(this::stimmung);
         bV4.setOnClickListener(this::stimmung);
         bV5.setOnClickListener(this::stimmung);
-         */
 
         btStuhl.setOnClickListener(this::onClick);
         btEssen.setOnClickListener(this::onClick);
         btEinstellungen.setOnClickListener(this::onClick);
 
+        return view;    }
 
-
-        return view;
-    }
-
-    /*
-    // entgültige Ansicht noch anpassen, schaut noch komisch aus
+    // um die derzeitige Stimmung auswählen und markieren zu können
+    //Wenn ein Smiley angeklickt wird, wird die neue Stimmung mit der stimmungSpeichern Methode gespeichert
+    //Der Hintergrund für die anderen Smiley wird auf transparent gesetzt.
     public void stimmung(View view) {
-        Log.d("INFO", "Can you do this?");
         switch (view.getId()) {
             case id.VAS_0:
-                bdsp.stimmungSpeichern("1");
+                bdsp.stimmungSpeichern("ausgezeichnet");
+                bV1.setBackgroundResource(R.drawable.frame_selected);
+                bV2.setBackgroundResource(R.drawable.background_transparent);
+                bV3.setBackgroundResource(R.drawable.background_transparent);
+                bV4.setBackgroundResource(R.drawable.background_transparent);
+                bV5.setBackgroundResource(R.drawable.background_transparent);
                 break;
             case id.VAS_1:
-                bdsp.stimmungSpeichern("2");
+                bdsp.stimmungSpeichern("gut");
+                bV2.setBackgroundResource(R.drawable.frame_selected);
+                bV1.setBackgroundResource(R.drawable.background_transparent);
+                bV3.setBackgroundResource(R.drawable.background_transparent);
+                bV4.setBackgroundResource(R.drawable.background_transparent);
+                bV5.setBackgroundResource(R.drawable.background_transparent);
+
                 break;
             case id.VAS_2:
-                bdsp.stimmungSpeichern("3");
+                bdsp.stimmungSpeichern("neutral");
+                bV3.setBackgroundResource(R.drawable.frame_selected);
+                bV1.setBackgroundResource(R.drawable.background_transparent);
+                bV2.setBackgroundResource(R.drawable.background_transparent);
+                bV4.setBackgroundResource(R.drawable.background_transparent);
+                bV5.setBackgroundResource(R.drawable.background_transparent);
                 break;
             case id.VAS_3:
-                bdsp.stimmungSpeichern("4");
+                bdsp.stimmungSpeichern("schlecht");
+                bV4.setBackgroundResource(R.drawable.frame_selected);
+                bV5.setBackgroundResource(R.drawable.background_transparent);
+                bV1.setBackgroundResource(R.drawable.background_transparent);
+                bV2.setBackgroundResource(R.drawable.background_transparent);
+                bV3.setBackgroundResource(R.drawable.background_transparent);
                 break;
             case id.VAS_4:
-                //stimmung wo abspeichern?
+                bdsp.stimmungSpeichern("sehr schlecht");
+                bV5.setBackgroundResource(R.drawable.frame_selected);
+                bV1.setBackgroundResource(R.drawable.background_transparent);
+                bV2.setBackgroundResource(R.drawable.background_transparent);
+                bV3.setBackgroundResource(R.drawable.background_transparent);
+                bV4.setBackgroundResource(R.drawable.background_transparent);
                 break;
         }
     }
-     */
 
     //@SuppressLint("NonConstantResourceId")
     public void onClick(View view){
@@ -246,6 +275,27 @@ public class Startseite_Fragment extends Fragment implements View.OnClickListene
             case id.einstellungenButton:
                 intentEinstellungen = new Intent(getActivity(), Einstellungen.class);
                 startActivity(intentEinstellungen);
+                break;
+        }
+    }
+
+    public void setStimmungBackground(){
+        String currentStimmung = bdsp.getStimmung();
+        switch (currentStimmung){
+            case "sehr schlecht" :
+                bV5.setBackgroundColor(R.drawable.frame_selected);
+                break;
+            case "schlecht" :
+                bV4.setBackgroundResource(R.drawable.frame_selected);
+                break;
+            case "neutral" :
+                bV3.setBackgroundResource(R.drawable.frame_selected);
+                break;
+            case "gut" :
+                bV2.setBackgroundResource(R.drawable.frame_selected);
+                break;
+            case "ausgezeichnet" :
+                bV1.setBackgroundResource(R.drawable.frame_selected);
                 break;
         }
     }

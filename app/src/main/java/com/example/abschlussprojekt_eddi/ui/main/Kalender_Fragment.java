@@ -46,9 +46,7 @@ public class Kalender_Fragment extends Fragment {
 
     private CalendarView calendarView;
 
-    public static final int NEW_STUHL_ACTIVITY_REQUEST_CODE = 1;
     public static final int NEW_STUHL_EDIT_REQUEST_CODE = 11;
-    public static final int NEW_ESSEN_ACTIVITY_REQUEST_CODE = 2;
     public static final int NEW_ESSEN_EDIT_REQUEST_CODE = 22;
 
     public Kalender_Fragment() {
@@ -100,10 +98,10 @@ public class Kalender_Fragment extends Fragment {
         curDay = Integer.parseInt(dateValues[2]);
 
         viewModel_stuhl.getStuhlByDate(curYear,curMonth, curDay).observe(getViewLifecycleOwner(), entity_stuhls -> {
-            stuhlAdapter.setStuhl(entity_stuhls);
+            stuhlAdapter.submitList(entity_stuhls);
         });
         viewModel_essen.getEssenByDate(curYear, curMonth, curDay).observe(getViewLifecycleOwner(), entity_essens -> {
-            adapter.setEssen(entity_essens);
+            adapter.submitList(entity_essens);
         });
 
 
@@ -121,10 +119,10 @@ public class Kalender_Fragment extends Fragment {
                 curDay = Integer.parseInt(dateValues[2]);
 
                 viewModel_stuhl.getStuhlByDate(curYear,curMonth, curDay).observe(getViewLifecycleOwner(), entity_stuhls -> {
-                    stuhlAdapter.setStuhl(entity_stuhls);
+                    stuhlAdapter.submitList(entity_stuhls);
                 });
                 viewModel_essen.getEssenByDate(curYear, curMonth, curDay).observe(getViewLifecycleOwner(), entity_essens -> {
-                    adapter.setEssen(entity_essens);
+                    adapter.submitList(entity_essens);
                 });
             }
         });
@@ -141,7 +139,6 @@ public class Kalender_Fragment extends Fragment {
 
             @Override
             public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
-                //Eintrag wird nicht gelöscht???
                 try {
                     viewModel_essen.deleteEssen(adapter.getEssenAt(viewHolder.getAdapterPosition()));
                     Toast.makeText(getActivity(), "Essen Eintrag gelöscht", Toast.LENGTH_SHORT).show();
@@ -159,13 +156,14 @@ public class Kalender_Fragment extends Fragment {
                 Intent intent = new Intent(getContext(), Eintrag_Essen.class);
                 intent.putExtra(Eintrag_Essen.EXTRA_ESSEN_ID, essen.getEssenID());
                 intent.putExtra(Eintrag_Essen.EXTRA_ESSEN, essen.getEssen());
-                intent.putExtra(Eintrag_Essen.EXTRA_UHRZEIT, essen.getStunde()); //muss noch geändert werden!!
-                intent.putExtra(Eintrag_Essen.EXTRA_DATUM, essen.getJahr()); //muss noch geändert werden!!
+                intent.putExtra(Eintrag_Essen.EXTRA_STUNDE, essen.getStunde());
+                intent.putExtra(Eintrag_Essen.EXTRA_MINUTE, essen.getMinute());
+                intent.putExtra(Eintrag_Essen.EXTRA_JAHR, essen.getJahr());
+                intent.putExtra(Eintrag_Essen.EXTRA_MONAT, essen.getMonat());
+                intent.putExtra(Eintrag_Essen.EXTRA_TAG, essen.getTag());
                 getActivity().startActivityForResult(intent, NEW_ESSEN_EDIT_REQUEST_CODE); //startet Methode in der MainActivity
             }
         });
-
-
 
 
         new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0,
@@ -193,8 +191,11 @@ public class Kalender_Fragment extends Fragment {
             public void onItemClick(Entity_Stuhl stuhl) {
                 Intent intent = new Intent(getContext(), Eintrag_Stuhl.class);
                 intent.putExtra(Eintrag_Stuhl.EXTRA_ID, stuhl.getId());
-                intent.putExtra(Eintrag_Stuhl.EXTRA_DATUM, stuhl.getMonat()); //muss noch geändert werden
-                intent.putExtra(Eintrag_Stuhl.EXTRA_UHRZEIT, stuhl.getMinute()); //muss noch geändert werden
+                intent.putExtra(Eintrag_Essen.EXTRA_STUNDE, stuhl.getStunde());
+                intent.putExtra(Eintrag_Essen.EXTRA_MINUTE, stuhl.getMinute());
+                intent.putExtra(Eintrag_Essen.EXTRA_JAHR, stuhl.getJahr());
+                intent.putExtra(Eintrag_Essen.EXTRA_MONAT, stuhl.getMonat());
+                intent.putExtra(Eintrag_Essen.EXTRA_TAG, stuhl.getTag());
                 intent.putExtra(Eintrag_Stuhl.EXTRA_BRISTOL, stuhl.getBristol());
                 intent.putExtra(Eintrag_Stuhl.EXTRA_BLUT, stuhl.getBlut());
                 intent.putExtra(Eintrag_Stuhl.EXTRA_SCHMERZ, stuhl.getSchmerzen());

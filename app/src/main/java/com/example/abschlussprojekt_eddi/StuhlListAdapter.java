@@ -9,16 +9,45 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.DiffUtil;
+import androidx.recyclerview.widget.ListAdapter;
 import androidx.recyclerview.widget.RecyclerView;
 
-import java.util.ArrayList;
-import java.util.List;
 
+public class StuhlListAdapter extends ListAdapter<Entity_Stuhl, StuhlListAdapter.StuhlViewHolder> {
 
-public class StuhlListAdapter extends RecyclerView.Adapter<StuhlListAdapter.StuhlViewHolder> {
-
-    private List<Entity_Stuhl> stuhlList = new ArrayList<>();
     private OnItemClickListener listener; //für den setOnItemClickListener
+
+    //damit nicht alle Einträge jedes mal aktualisiert werden, sondern nur derjenige, der sich geändert hat
+    //List Comparison wird in einem background thread durchgeführt, ListAdapter kümmert sich um den Abgleich im Hintergrund
+    //bessere Performance bei vielen Einträgen
+    public StuhlListAdapter() {
+        super(DIFF_CALLBACK);
+    }
+
+    private static final DiffUtil.ItemCallback<Entity_Stuhl> DIFF_CALLBACK = new DiffUtil.ItemCallback<Entity_Stuhl>() {
+        //wenn die ID gleich ist, egal welche Werte geändert wurden
+        @Override
+        public boolean areItemsTheSame(@NonNull Entity_Stuhl oldItem, @NonNull Entity_Stuhl newItem) {
+            return oldItem.getId() == newItem.getId();
+        }
+        //wenn sich am Eintrag nichts geändert hat (keine Werte wurden verändert)
+        @Override
+        public boolean areContentsTheSame(@NonNull Entity_Stuhl oldItem, @NonNull Entity_Stuhl newItem) {
+            return oldItem.getJahr() == (newItem.getJahr()) &&
+                    oldItem.getMonat() == (newItem.getMonat()) &&
+                    oldItem.getTag() == (newItem.getTag()) &&
+                    oldItem.getStunde() == (newItem.getStunde()) &&
+                    oldItem.getMinute() == (newItem.getMinute()) &&
+                    oldItem.getBristol() == (newItem.getBristol()) &&
+                    oldItem.getSchmerzen() == (newItem.getSchmerzen()) &&
+                    oldItem.getFarbe() == (newItem.getFarbe()) &&
+                    oldItem.getUnverdauteNahrung() == (newItem.getUnverdauteNahrung()) &&
+                    oldItem.getSchleim() == (newItem.getSchleim()) &&
+                    oldItem.getMenge() == (newItem.getMenge()) &&
+                    oldItem.getNotizen().equals(newItem.getNotizen());
+        }
+    };
 
     @NonNull
     @Override
@@ -30,7 +59,7 @@ public class StuhlListAdapter extends RecyclerView.Adapter<StuhlListAdapter.Stuh
 
     @Override
     public void onBindViewHolder(@NonNull StuhlViewHolder holder, int position) {
-        Entity_Stuhl current = stuhlList.get(position);
+        Entity_Stuhl current = getItem(position);
         String datum = (current.getTag() + "." + current.getMonat() + "." + current.getJahr());
         String uhrzeit = (current.getStunde() + ":" + current.getMinute());
         int bristol = current.getBristol();
@@ -39,21 +68,10 @@ public class StuhlListAdapter extends RecyclerView.Adapter<StuhlListAdapter.Stuh
         holder.bind(datum, uhrzeit, bristol, farbe, schmerz);
     }
 
-    //gibt an, wieviele Einträge angezeigt werden sollen
-    //es sollen so viele Einträge angezeigt werden, wie in der stuhlList vorhanden sind
-    @Override
-    public int getItemCount() {
-        return stuhlList.size();
-    }
-
-    public void setStuhl(List<Entity_Stuhl> stuhlList) {
-        this.stuhlList = stuhlList;
-        notifyDataSetChanged(); //wird später geändert!
-    }
 
     //um die Position fürs Löschen zu bekommen
     public Entity_Stuhl getStuhlAt(int position) {
-        return stuhlList.get(position);
+        return getItem(position);
     }
 
     class StuhlViewHolder extends RecyclerView.ViewHolder {
@@ -78,23 +96,25 @@ public class StuhlListAdapter extends RecyclerView.Adapter<StuhlListAdapter.Stuh
                 public void onClick(View v) {
                     int position = getAdapterPosition();
                     if (listener != null && position != RecyclerView.NO_POSITION) {
-                        listener.onItemClick(stuhlList.get(position));
+                        listener.onItemClick(getItem(position));
                     }
                 }
             });
         }
 
+        // um die Werte in einem RecyclerView zu speichern, bzw anzeigen zu können
         @SuppressLint("SetTextI18n")
         public void bind(String datum, String uhrzeit, int bristol, int farbe, String schmerz) {
             tvDatum.setText(datum);
             tvUhrzeit.setText(uhrzeit);
             getBristolSymbol(bristol);
-            String farbString = ("Farbe: " + farbe); //wie bekommt man den Text und nicht die Zahl??
+            String farbString = ("Farbe: " + getFarbText(farbe));
             tvFarbe.setText(farbString);
             String schmerzString = ("Schmerzen: " + schmerz);
             tvSchmerz.setText(schmerzString);
         }
 
+        // um das richtige Bristolsymbol zu erhalten
         public void getBristolSymbol(int bristolString) {
             switch (bristolString) {
                 case 0:
@@ -121,6 +141,32 @@ public class StuhlListAdapter extends RecyclerView.Adapter<StuhlListAdapter.Stuh
                 default:
                     ivBristol.setImageResource(R.drawable.not_selected);
             }
+        }
+
+        // um den Eintrag der Farbe als Text anstatt einer Zahl zu erhalten
+        public String getFarbText (int farbInt){
+            String farbe = "farbe";
+            switch (farbInt){
+                case 0 :
+                    farbe = "braun";
+                    return farbe;
+                case 1 :
+                    farbe = "grün";
+                    return farbe;
+                case 2 :
+                    farbe = "grau-lehmfarben";
+                    return farbe;
+                case 3 :
+                    farbe = "gelb";
+                    return farbe;
+                case 4 :
+                    farbe = "rot";
+                    return farbe;
+                case 5 :
+                    farbe = "schwarz";
+                    return farbe;
+            }
+            return farbe;
         }
     }
 

@@ -19,9 +19,6 @@ public class MainActivity extends AppCompatActivity {
     private ViewModel_Essen viewModel_essen;
     private ViewModel_Stuhl viewModel_stuhl;
 
-
-    BenutzerdatenSpeicher bdsp;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -57,17 +54,16 @@ public class MainActivity extends AppCompatActivity {
             int jahr = Integer.parseInt(dateValues[2]);
 
             int bristol = data.getIntExtra(Eintrag_Stuhl.EXTRA_BRISTOL, 1);
-            boolean blut = data.getExtras().getBoolean(Eintrag_Stuhl.EXTRA_BLUT);
+            boolean blut = data.getBooleanExtra(Eintrag_Stuhl.EXTRA_BLUT, false);
             boolean schmerz = data.getBooleanExtra(Eintrag_Stuhl.EXTRA_SCHMERZ, false);
             int farbe = data.getIntExtra(Eintrag_Stuhl.EXTRA_FARBE, 1);
-            boolean unverdauteNahrung = data.getExtras().getBoolean(Eintrag_Stuhl.EXTRA_UNVERDAUTENAHRUNG);
+            boolean unverdauteNahrung = data.getBooleanExtra(Eintrag_Stuhl.EXTRA_UNVERDAUTENAHRUNG, false);
             int schleim = data.getIntExtra(Eintrag_Stuhl.EXTRA_SCHLEIM, 1);
             int menge = data.getIntExtra(Eintrag_Stuhl.EXTRA_MENGE, 1);
             String notiz = data.getStringExtra(Eintrag_Stuhl.EXTRA_NOTIZ);
 
-            // woher FotoReferenz?
             Entity_Stuhl entity_stuhl = new Entity_Stuhl(jahr, monat, tag, stunde, minute, bristol,
-                    blut, schmerz, farbe, unverdauteNahrung, schleim, menge, notiz);
+                     schmerz, blut, farbe, unverdauteNahrung, schleim, menge, notiz);
 
             viewModel_stuhl.insertStuhl(entity_stuhl);
             Toast.makeText(this, "Stuhleintrag gespeichert", Toast.LENGTH_SHORT).show();
@@ -93,7 +89,6 @@ public class MainActivity extends AppCompatActivity {
             viewModel_essen.insertEssen(essen);
             Toast.makeText(this, "Essen gespeichert", Toast.LENGTH_SHORT).show();
 
-            //beim Aktualisieren springt er nicht in diese Schleife???
         }else if (resultCode == Eintrag_Essen.RESULT_OK &&
                 requestCode == Startseite_Fragment.NEW_ESSEN_EDIT_REQUEST_CODE){
             int id = data.getIntExtra(Eintrag_Essen.EXTRA_ESSEN_ID, -1);
@@ -145,11 +140,10 @@ public class MainActivity extends AppCompatActivity {
             int jahr = Integer.parseInt(dateValues[2]);
 
             int bristol = data.getIntExtra(Eintrag_Stuhl.EXTRA_BRISTOL, 1);
-            boolean blut = data.getExtras().getBoolean(Eintrag_Stuhl.EXTRA_BLUT);
+            boolean blut = data.getBooleanExtra(Eintrag_Stuhl.EXTRA_BLUT, false);
             boolean schmerz = data.getBooleanExtra(Eintrag_Stuhl.EXTRA_SCHMERZ, false);
             int farbe = data.getIntExtra(Eintrag_Stuhl.EXTRA_FARBE, 1);
-            boolean unverdauteNahrung = data.getExtras().getBoolean
-                    (Eintrag_Stuhl.EXTRA_UNVERDAUTENAHRUNG);
+            boolean unverdauteNahrung = data.getBooleanExtra(Eintrag_Stuhl.EXTRA_UNVERDAUTENAHRUNG, false);
             int schleim = data.getIntExtra(Eintrag_Stuhl.EXTRA_SCHLEIM, 1);
             int menge = data.getIntExtra(Eintrag_Stuhl.EXTRA_MENGE, 1);
             String notiz = data.getStringExtra(Eintrag_Stuhl.EXTRA_NOTIZ);

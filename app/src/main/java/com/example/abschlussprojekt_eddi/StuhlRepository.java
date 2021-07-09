@@ -1,7 +1,6 @@
 package com.example.abschlussprojekt_eddi;
 
 import android.app.Application;
-import android.os.AsyncTask;
 
 import androidx.lifecycle.LiveData;
 
@@ -11,6 +10,7 @@ public class StuhlRepository {
 
     private DAO_Stuhl dao_stuhl;
     private LiveData<List<Entity_Stuhl>> allStuhl;
+    private LiveData<List<AnzahlByDay>> anzahl;
 
     public StuhlRepository(Application application){
         StuhlRoomDatabase srdb = StuhlRoomDatabase.getDatabaseStuhl(application);
@@ -35,14 +35,12 @@ public class StuhlRepository {
         StuhlRoomDatabase.databaseWriteExecuter.execute(() -> {
             dao_stuhl.update(stuhl);
         });
-        //new UpdateStuhlAsyncTask(dao_stuhl).execute(stuhl);
     }
 
     public void delete(Entity_Stuhl stuhl){
         StuhlRoomDatabase.databaseWriteExecuter.execute(() -> {
             dao_stuhl.delete(stuhl);
         });
-        // new DeleteStuhlAsyncTask(dao_stuhl).execute(stuhl);
     }
 
     public LiveData<List<Entity_Stuhl>> getStuhlByDate (int jahr, int monat, int tag){
@@ -50,83 +48,9 @@ public class StuhlRepository {
         return allStuhl;
     }
 
-    /*
-    public Entity_Stuhl getStuhlByID(Integer id){
-        Entity_Stuhl stuhlByID = null;
-        GetStuhlByIdAsyncTask task = new GetStuhlByIdAsyncTask(dao_stuhl);
-        task.execute(id);
-        try{
-            stuhlByID = task.get();
-        } catch (ExecutionException | InterruptedException e){
-            e.printStackTrace();
-        }
-        return stuhlByID;
+    public LiveData<List<AnzahlByDay>> getAnzahlByDay(int vormonat){
+        anzahl = dao_stuhl.getAnzahlByDay(vormonat);
+        return anzahl;
     }
 
-     */
-
-    //Query-Logik wird in eine Async-Task Subklasse ausgelagert
-    //AsyncTask <input für execute(), Fortschritt, Output von get()
-    /*
-    private static class InsertStuhlAsyncTask extends AsyncTask<Entity_Stuhl, Void, Void> {
-
-        private DAO_Stuhl dao_stuhl;
-
-        private InsertStuhlAsyncTask(DAO_Stuhl dao_stuhl){
-            this.dao_stuhl = dao_stuhl;
-        }
-
-        @Override
-        protected Void doInBackground(Entity_Stuhl... stuhl) {
-            dao_stuhl.insertStuhl(stuhl[0]);
-            return null;
-        }
-    }
-
-    private static class UpdateStuhlAsyncTask extends AsyncTask<Entity_Stuhl, Void, Void>{
-
-        private DAO_Stuhl dao_stuhl;
-
-        private UpdateStuhlAsyncTask(DAO_Stuhl dao_stuhl){
-            this.dao_stuhl = dao_stuhl;
-        }
-
-        @Override
-        protected Void doInBackground(Entity_Stuhl... stuhl) {
-            dao_stuhl.update(stuhl[0]);
-            return null;
-        }
-    }
-
-    private static class DeleteStuhlAsyncTask extends AsyncTask<Entity_Stuhl, Void, Void>{
-
-        private DAO_Stuhl dao_stuhl;
-
-        private DeleteStuhlAsyncTask(DAO_Stuhl dao_stuhl){
-            this.dao_stuhl = dao_stuhl;
-        }
-
-        @Override
-        protected Void doInBackground(Entity_Stuhl... stuhl) {
-            dao_stuhl.delete(stuhl[0]);
-            return null;
-        }
-    }
-
-    private static class GetStuhlByIdAsyncTask extends AsyncTask<Integer, Void, Entity_Stuhl> {
-
-        private DAO_Stuhl dao_stuhl;
-
-        private GetStuhlByIdAsyncTask(DAO_Stuhl dao_stuhl){
-            this.dao_stuhl = dao_stuhl;
-        }
-
-        @Override
-        protected Entity_Stuhl doInBackground(Integer... id) {
-            dao_stuhl.getStuhlByID(id[0]);
-            return null;
-        }
-    }
-
-     */
 }
