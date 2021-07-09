@@ -73,7 +73,7 @@ public class Eintrag_Essen extends AppCompatActivity {
         //wenn der Eintrag bereits eine ID hat, wird er aktualisiert
         //und daher wird der gespeicherte Text übergeben
         if(intent.hasExtra(EXTRA_ESSEN_ID)){
-            etEssen.setText(intent.getStringExtra(EXTRA_ESSEN)); //funktioniert
+            etEssen.setText(intent.getStringExtra(EXTRA_ESSEN));
             int jahr = intent.getIntExtra(EXTRA_JAHR, 2000);
             int monat = intent.getIntExtra(EXTRA_MONAT, 01);
             int tag = intent.getIntExtra(EXTRA_TAG, 01);
@@ -105,10 +105,8 @@ public class Eintrag_Essen extends AppCompatActivity {
                     replyIntent.putExtra(EXTRA_UHRZEIT, uhrzeit);
 
                     setResult(RESULT_OK, replyIntent);
-
                 }
                 finish();
-
             }
         });
     }

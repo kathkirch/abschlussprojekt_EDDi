@@ -40,9 +40,6 @@ public class Entity_Stuhl {
 
     private String notizen;
 
-
-
-
     //Konstruktor
     public Entity_Stuhl(int jahr, int monat, int tag, int stunde, int minute, int bristol, boolean blut, boolean schmerzen,
                         int farbe, boolean unverdauteNahrung, int schleim, int menge, String notizen) {

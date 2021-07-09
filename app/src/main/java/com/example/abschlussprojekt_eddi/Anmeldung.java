@@ -53,7 +53,6 @@ public class Anmeldung extends AppCompatActivity {
         }
     }
 
-
     public boolean checkDataEntered(){
         boolean dataValid = true;
         if (isEmpty(vorname)){

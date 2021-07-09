@@ -60,15 +60,13 @@ public class Einstellungen extends AppCompatActivity {
         }
     }
 
-    // authentifiziert den eingeloggeden Benutzer
-    // returnt true or false wenn Benutzer erfoglreich eingelogged ist
+    // authentifiziert den eingeloggeten Benutzer
+    // returnt true or false wenn Benutzer erfoglreich eingeloggt ist
     private boolean authenticate(){
         return bdSp.getUserLoggedIn();
     }
 
-
     // Benutzerdaten überschreiben
-    // Besseres Exception Handling einbauen - NullPointer usw
     public void benutzerDatenAendern (View view) {
         try {
             ben.setVorname(etvorname.getText().toString());
@@ -86,7 +84,6 @@ public class Einstellungen extends AppCompatActivity {
                     Toast t = Toast.makeText(this, "keine Übereinstimmung bei PIN!", Toast.LENGTH_LONG);
                     t.show();
             }
-
             bdSp.storeUserData(ben);
             Toast toast = Toast.makeText(this, "Daten aktualisiert", Toast.LENGTH_SHORT);
             toast.show();

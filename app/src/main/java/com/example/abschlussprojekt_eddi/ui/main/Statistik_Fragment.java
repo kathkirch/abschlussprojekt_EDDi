@@ -63,7 +63,8 @@ public class Statistik_Fragment extends Fragment {
             viewModel_stuhl.getAnzahlByDay(getVormonat()).observe(getViewLifecycleOwner(), new Observer<List<AnzahlByDay>>() {
                 @Override
                 public void onChanged(List<AnzahlByDay> anzahlByDays) {
-
+                    // holt sich jeden Eintrag im View getAnzahlByDay - mit der if abfrage wird benötigt
+                    // um für Tage an denen kein Eintrag vorhanden ist den Wert "0" eintragen zu können
                     LineGraphSeries<DataPoint> series = new LineGraphSeries<>();
                     int dayIs = 0;
                     for (AnzahlByDay abd : anzahlByDays) {
@@ -84,6 +85,7 @@ public class Statistik_Fragment extends Fragment {
                         dayIs = day;
                     }
 
+                    //addSeries um die DataPoint hinzuzufügen
                     graphView.addSeries(series);
                     graphView.getViewport().setYAxisBoundsManual(true);
                     graphView.getGridLabelRenderer().setNumVerticalLabels(15);
@@ -98,10 +100,10 @@ public class Statistik_Fragment extends Fragment {
         }catch (IllegalArgumentException e){
             System.out.println(e);
         }
-
         return view;
     }
 
+    //um den Vormonat zu erhalten
     public int getVormonat(){
         int vormonat;
         Calendar today = Calendar.getInstance();
@@ -117,6 +119,8 @@ public class Statistik_Fragment extends Fragment {
         return vormonat;
     }
 
+
+    //um immer den passenden Vormonat im Titel anzeigen zu können
     @SuppressLint("SetTextI18n")
     public void setMonthTitle(int monat){
         switch (monat){
